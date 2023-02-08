@@ -47,6 +47,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\framework\impl\SemiBinding.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller\GameOverCommand.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\main\controller\LoadSceneCommand.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Config\NetworkRoot.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\view\ClickDetector.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\api\ContextStartupFlags.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\view\ShipView.cs" />
@@ -55,8 +56,11 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\InjectionBindingType.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\service\FacebookService.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\api\ContextKeys.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Command\ClientConnectCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\impl\Context.cs" />
+     <Compile Include="Assets\Scripts\GameLogic.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller\startupSequence\StartGameCommand.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Config\NetworkContext.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\framework\api\IBinder.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\command\impl\Command.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\controller\StartCommand.cs" />
@@ -66,7 +70,9 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\framework\api\BindingConst.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\signal\impl\SignalException.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\impl\InjectionBinder.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Services\NetworkManager\NetworkManagerService.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\impl\DispatcherException.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\MessageExtensions.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\view\AwardViewMediator.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\reflector\api\ReflectionExceptionType.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\signal\api\SignalExceptionType.cs" />
@@ -88,6 +94,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\command\impl\CommandBinder.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\controller\CreateFriendListCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\framework\api\IInstanceProvider.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Services\NetworkManager\INetworkManagerService.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\api\IEventDispatcher.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\view\ScoreboardView.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\main\MainContext.cs" />
@@ -105,7 +112,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\ICrossContextInjectionBinder.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\ReadMe.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer\api\ISequencer.cs" />
-     <Compile Include="Assets\Main\MainContext.cs" />
+     <Compile Include="Assets\Scripts\Main\MainContext.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\impl\ContextException.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\api\EventCallbackType.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\impl\InjectorFactory.cs" />
@@ -161,6 +168,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\pool\api\PoolInflationType.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller\UpdateScoreCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\command\api\CommandKeys.cs" />
+     <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\IInjectionBinder.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\command\api\CommandExceptionType.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\SignalsContext.cs" />
@@ -183,6 +191,7 @@
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject\controller\ExampleEvent.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\command\impl\CommandBinding.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\model\IExampleModel.cs" />
+     <Compile Include="Assets\Scripts\UIManager.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\InjectionBindingScope.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\controller\CallWebServiceCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\IInjector.cs" />
@@ -195,7 +204,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\pool\api\IPoolable.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\impl\EventDispatcherException.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\SocialContext.cs" />
-     <Compile Include="Assets\Main\MainRoot.cs" />
+     <Compile Include="Assets\Scripts\Main\MainRoot.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\main\controller\StartCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\InjectionExceptionType.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\controller\RemoveContextCommand.cs" />
@@ -226,17 +235,20 @@
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\view\UserTileMediator.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject\view\ClickDetector.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\api\ICrossContextCapable.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\View\NetworkManager\NetworkManagerMediator.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\View\NetworkManager\NetworkManagerView.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scenes\signalsproject" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\context\impl" />
+     <Folder Include="Assets\Scripts\Multiplayer\View\NetworkManager" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\signal" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\materials" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\signal" />
      <None Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\ReadMe.txt" />
      <None Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\ReadMe.txt" />
-     <Folder Include="Assets\Main" />
+     <Folder Include="Assets\Scripts\Main" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\reflector\impl" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game" />
@@ -249,6 +261,7 @@
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer\impl" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\pool" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\command\api" />
+     <Folder Include="Assets\Scripts\Multiplayer" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\view" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\controller" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\implicitBind" />
@@ -270,17 +283,21 @@
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\mediation\impl" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject\model" />
+     <Folder Include="Assets\Scripts\Multiplayer\Services" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\impl" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer\api" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\api" />
      <None Include="Assets\StrangeIoC\scripts\strange\extensions\ReadMe.txt" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\view" />
      <Folder Include="Assets\StrangeIoC\examples\Assets" />
+     <Folder Include="Assets\Scripts\Multiplayer\Command" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\service" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\framework" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scenes" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\command\impl" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject" />
+     <Folder Include="Assets\Scripts\Multiplayer\Services\NetworkManager" />
+     <Folder Include="Assets\Scripts" />
      <None Include="Assets\StrangeIoC\LICENSE-2.0.txt" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\pool\impl" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\command" />
@@ -300,6 +317,7 @@
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\signalsproject\view" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\context" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher" />
+     <Folder Include="Assets\Scripts\Multiplayer\View" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\injector\impl" />
      <Folder Include="Assets\Scenes" />
@@ -309,6 +327,8 @@
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\signal\api" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\mediation\api" />
+     <Folder Include="Assets\Scripts\Multiplayer\Config" />
+     <None Include="Assets\Scripts\Multiplayer\RiptideNetworking.xml" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.15f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
      </Reference>
@@ -560,6 +580,9 @@
      </Reference>
      <Reference Include="ReportGeneratorMerged">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\PackageCache\com.unity.testtools.codecoverage@1.2.2\lib\ReportGenerator\ReportGeneratorMerged.dll</HintPath>
+     </Reference>
+     <Reference Include="RiptideNetworking">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Assets\Scripts\Multiplayer\RiptideNetworking.dll</HintPath>
      </Reference>
      <Reference Include="Newtonsoft.Json">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
