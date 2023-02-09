@@ -1,4 +1,6 @@
 using Multiplayer.Command;
+using Multiplayer.Enum;
+using Multiplayer.Processor;
 using Multiplayer.Services.NetworkManager;
 using Multiplayer.View.NetworkManager;
 using strange.extensions.context.api;
@@ -36,6 +38,10 @@ namespace Multiplayer.Config
             //The START event is fired as soon as mappings are complete.
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
             commandBinder.Bind(ContextEvent.START).To<ClientConnectCommand>();
+            commandBinder.Bind(NetworkEvent.SendMessage).To<SendMessageCommand>();
+            
+            commandBinder.Bind(ServerToClientId.response).To<HandleResponseProcessor>();
+
 
         }
     }

@@ -237,6 +237,11 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\api\ICrossContextCapable.cs" />
      <Compile Include="Assets\Scripts\Multiplayer\View\NetworkManager\NetworkManagerMediator.cs" />
      <Compile Include="Assets\Scripts\Multiplayer\View\NetworkManager\NetworkManagerView.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Enum\ClientToServerId.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Enum\ServerToClientId.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Command\SendMessageCommand.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Enum\NetworkEvent.cs" />
+     <Compile Include="Assets\Scripts\Multiplayer\Processor\HandleResponseProcessor.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher" />
@@ -284,6 +289,7 @@
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\mediation\impl" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject\model" />
      <Folder Include="Assets\Scripts\Multiplayer\Services" />
+     <Folder Include="Assets\Scripts\Multiplayer\Processor" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\impl" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer\api" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher\api" />
@@ -321,6 +327,7 @@
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\injector\impl" />
      <Folder Include="Assets\Scenes" />
+     <Folder Include="Assets\Scripts\Multiplayer\Enum" />
      <Folder Include="Assets\StrangeIoC\scripts\strange" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scenes\myfirstproject" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\impl" />

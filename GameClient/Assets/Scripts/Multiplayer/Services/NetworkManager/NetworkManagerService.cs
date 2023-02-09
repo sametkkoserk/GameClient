@@ -1,5 +1,9 @@
+using System;
+using Multiplayer.Enum;
 using RiptideNetworking;
 using RiptideNetworking.Utils;
+using strange.extensions.context.api;
+using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
 
 namespace Multiplayer.Services.NetworkManager
@@ -7,6 +11,9 @@ namespace Multiplayer.Services.NetworkManager
     public class NetworkManagerService :  INetworkManagerService
     {
         public Client Client { get; private set; }
+        
+        [Inject(ContextKeys.CONTEXT_DISPATCHER)]
+        public IEventDispatcher dispatcher{ get; set;}
 
         [SerializeField] private string ip;
         [SerializeField] private ushort port;
@@ -18,6 +25,11 @@ namespace Multiplayer.Services.NetworkManager
             
             RiptideLogger.Initialize(Debug.Log,Debug.Log,Debug.LogWarning,Debug.LogError,false);
             Client = new Client();
+            
+            Client.Connected += DidConnect;
+            Client.ConnectionFailed += FailedToConnect;
+            Client.Disconnected += DidDisconnect;
+            
             Client.Connect($"{ip}:{port}");
             
         }
@@ -30,6 +42,22 @@ namespace Multiplayer.Services.NetworkManager
             }
         }
 
+        private void DidConnect(object sender, EventArgs e)
+        {
+            Debug.Log("Connected");
+            dispatcher.Dispatch(NetworkEvent.SendMessage);
+        }
+
+        private void FailedToConnect(object sender, EventArgs e)
+        {
+            Debug.Log("Connection Failed");
+        }
+
+        private void DidDisconnect(object sender, EventArgs e)
+        {
+            Debug.Log("Disconnected");
+        }
+        
         public void OnQuit()
         {
             Client.Disconnect();
