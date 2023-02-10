@@ -996,6 +996,9 @@
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="RiptideNetworking">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\RiptideNetworking.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.Addressables">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Addressables.dll</HintPath>
      </Reference>
@@ -1070,9 +1073,6 @@
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
-     </Reference>
-     <Reference Include="RiptideNetworking">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\RiptideNetworking.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>
