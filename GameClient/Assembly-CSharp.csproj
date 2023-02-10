@@ -41,9 +41,6 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Assets\Scripts\Network\RiptideNetworking.dll" />
-  </ItemGroup>
-  <ItemGroup>
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\model\IScore.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\util\GameLoop.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\sequencer\impl\SequenceBinding.cs" />
@@ -59,6 +56,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\InjectionBindingType.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\service\FacebookService.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\api\ContextKeys.cs" />
+     <Compile Include="Assets\Scripts\Main\Command\LoadNetworkSceneCommand.cs" />
      <Compile Include="Assets\Scripts\Network\Command\ClientConnectCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\impl\Context.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller\startupSequence\StartGameCommand.cs" />
@@ -75,7 +73,6 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\impl\InjectionBinder.cs" />
      <Compile Include="Assets\Scripts\Network\Services\NetworkManager\NetworkManagerService.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\impl\DispatcherException.cs" />
-     <Compile Include="Assets\Scripts\Network\MessageExtensions.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\view\AwardViewMediator.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\reflector\api\ReflectionExceptionType.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\signal\api\SignalExceptionType.cs" />
@@ -216,6 +213,7 @@
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\injector\api\InjectionExceptionType.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\controller\RemoveContextCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\pool\api\PoolExceptionType.cs" />
+     <Compile Include="Assets\Scripts\Main\Enum\SceneKeys.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\util\IGameTimer.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller\RemoveSocialContextCommand.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\command\impl\CommandException.cs" />
@@ -243,8 +241,6 @@
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\social\view\UserTileMediator.cs" />
      <Compile Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject\view\ClickDetector.cs" />
      <Compile Include="Assets\StrangeIoC\scripts\strange\extensions\context\api\ICrossContextCapable.cs" />
-     <Compile Include="Assets\Scripts\Main\Command\LoadNetworkSceneCommand.cs" />
-     <Compile Include="Assets\Scripts\Main\Enum\SceneKeys.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\myfirstproject" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\dispatcher\eventdispatcher" />
@@ -345,7 +341,6 @@
      <Folder Include="Assets\StrangeIoC\examples\Assets\scripts\multiplecontexts\game\controller" />
      <Folder Include="Assets\StrangeIoC\scripts\strange\extensions\mediation\api" />
      <Folder Include="Assets\Scripts\Network\Config" />
-     <None Include="Assets\Scripts\Network\RiptideNetworking.xml" />
      <Folder Include="Assets\Scripts\Main\Config" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.15f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
@@ -601,9 +596,6 @@
      </Reference>
      <Reference Include="Newtonsoft.Json">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-     </Reference>
-     <Reference Include="RiptideNetworking">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Assets\Scripts\Network\RiptideNetworking.dll</HintPath>
      </Reference>
      <Reference Include="UnityEditor.iOS.Extensions.Xcode">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2021.3.15f1\Editor\Data\PlaybackEngines\iOSSupport\UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -989,6 +981,9 @@
      <Reference Include="Unity.VSCode.Editor">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.VSCode.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="UnityEditor.CacheServer">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\UnityEditor.CacheServer.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.TextMeshPro.Editor">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.TextMeshPro.Editor.dll</HintPath>
      </Reference>
@@ -1000,6 +995,9 @@
      </Reference>
      <Reference Include="Unity.VisualStudio.Editor">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Addressables">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Addressables.dll</HintPath>
      </Reference>
      <Reference Include="Unity.Timeline">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Timeline.dll</HintPath>
@@ -1018,6 +1016,9 @@
      </Reference>
      <Reference Include="Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.OpenCover.Mono.Reflection.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ResourceManager">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.Flow">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.VisualScripting.Flow.dll</HintPath>
@@ -1055,29 +1056,23 @@
      <Reference Include="Unity.Timeline.Editor">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Timeline.Editor.dll</HintPath>
      </Reference>
+     <Reference Include="Unity.ScriptableBuildPipeline">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.Addressables.Editor">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Addressables.Editor.dll</HintPath>
+     </Reference>
+     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+     </Reference>
      <Reference Include="Unity.TestTools.CodeCoverage.Editor">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.TestTools.CodeCoverage.Editor.dll</HintPath>
      </Reference>
      <Reference Include="Unity.VisualScripting.State">
      <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.VisualScripting.State.dll</HintPath>
      </Reference>
-     <Reference Include="Unity.Addressables">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Addressables.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.Addressables.Editor">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.Addressables.Editor.dll</HintPath>
-     </Reference>
-     <Reference Include="UnityEditor.CacheServer">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\UnityEditor.CacheServer.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ResourceManager">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.ResourceManager.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ScriptableBuildPipeline">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.dll</HintPath>
-     </Reference>
-     <Reference Include="Unity.ScriptableBuildPipeline.Editor">
-     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\Unity.ScriptableBuildPipeline.Editor.dll</HintPath>
+     <Reference Include="RiptideNetworking">
+     <HintPath>C:\Users\samet\Desktop\Online_Game\GameClient\GameClient\Library\ScriptAssemblies\RiptideNetworking.dll</HintPath>
      </Reference>
   </ItemGroup>
   <ItemGroup>

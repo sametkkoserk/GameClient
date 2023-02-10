@@ -1,5 +1,5 @@
 using Multiplayer.Enum;
-using RiptideNetworking;
+using Riptide;
 using strange.extensions.command.impl;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;

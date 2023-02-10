@@ -1,7 +1,7 @@
 using Main.Enum;
 using Multiplayer.Enum;
 using Multiplayer.Services.NetworkManager;
-using RiptideNetworking;
+using Riptide;
 using strange.extensions.command.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;

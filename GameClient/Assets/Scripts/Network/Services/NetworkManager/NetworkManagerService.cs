@@ -1,7 +1,7 @@
 using System;
 using Multiplayer.Enum;
-using RiptideNetworking;
-using RiptideNetworking.Utils;
+using Riptide;
+using Riptide.Utils;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
@@ -38,7 +38,7 @@ namespace Multiplayer.Services.NetworkManager
         {
             if (Client != null)
             {
-                Client.Tick();
+                Client.Update();
             }
         }
 
