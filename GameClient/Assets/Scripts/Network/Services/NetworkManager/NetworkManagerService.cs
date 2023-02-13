@@ -1,12 +1,12 @@
 using System;
-using Multiplayer.Enum;
+using Network.Enum;
 using Riptide;
 using Riptide.Utils;
 using strange.extensions.context.api;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
 
-namespace Multiplayer.Services.NetworkManager
+namespace Network.Services.NetworkManager
 {
     public class NetworkManagerService :  INetworkManagerService
     {

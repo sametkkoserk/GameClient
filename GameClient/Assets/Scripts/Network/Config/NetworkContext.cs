@@ -1,13 +1,13 @@
-using Multiplayer.Command;
-using Multiplayer.Enum;
-using Multiplayer.Processor;
-using Multiplayer.Services.NetworkManager;
-using Multiplayer.View.NetworkManager;
+using Network.Command;
+using Network.Enum;
+using Network.Processor;
+using Network.Services.NetworkManager;
+using Network.View.NetworkManager;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
 
-namespace Multiplayer.Config
+namespace Network.Config
 {
     public class NetworkContext : MVCSContext
     {

@@ -1,8 +1,7 @@
-using Multiplayer.Services.NetworkManager;
+using Network.Services.NetworkManager;
 using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.impl;
 
-namespace Multiplayer.Command
+namespace Network.Command
 {
     public class ClientConnectCommand : EventCommand
     {

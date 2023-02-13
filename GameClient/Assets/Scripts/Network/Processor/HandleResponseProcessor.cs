@@ -1,12 +1,9 @@
-using Multiplayer.Enum;
+using Network.Enum;
 using Riptide;
 using strange.extensions.command.impl;
-using strange.extensions.context.api;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.dispatcher.impl;
 using UnityEngine;
 
-namespace Multiplayer.Processor
+namespace Network.Processor
 {
     public class HandleResponseProcessor : EventCommand
     {

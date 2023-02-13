@@ -1,7 +1,7 @@
-using Multiplayer.Services.NetworkManager;
+using Network.Services.NetworkManager;
 using strange.extensions.mediation.impl;
 
-namespace Multiplayer.View.NetworkManager
+namespace Network.View.NetworkManager
 {
     public class NetworkManagerMediator : EventMediator
     {

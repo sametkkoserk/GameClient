@@ -1,6 +1,6 @@
 using Riptide;
 
-namespace Multiplayer.Services.NetworkManager
+namespace Network.Services.NetworkManager
 {
     public interface INetworkManagerService
     {

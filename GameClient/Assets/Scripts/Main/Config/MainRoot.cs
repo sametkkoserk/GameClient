@@ -1,6 +1,6 @@
 using strange.extensions.context.impl;
 
-namespace Main
+namespace Main.Config
 {
     public class MainRoot : ContextView
     {

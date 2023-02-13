@@ -1,10 +1,9 @@
-using Multiplayer;
-using Multiplayer.Command;
+using Main.Command;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
 
-namespace Main
+namespace Main.Config
 {
     public class MainContext : MVCSContext
     {

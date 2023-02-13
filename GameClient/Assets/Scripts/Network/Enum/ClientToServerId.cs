@@ -1,4 +1,4 @@
-namespace Multiplayer.Enum
+namespace Network.Enum
 {
     public enum ClientToServerId : ushort
     {

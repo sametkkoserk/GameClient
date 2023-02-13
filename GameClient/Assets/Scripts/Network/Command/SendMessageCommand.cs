@@ -1,10 +1,10 @@
-using Multiplayer.Enum;
-using Multiplayer.Services.NetworkManager;
+using Network.Enum;
+using Network.Services.NetworkManager;
 using Riptide;
 using strange.extensions.command.impl;
 using UnityEngine;
 
-namespace Multiplayer.Command
+namespace Network.Command
 {
     public class SendMessageCommand : EventCommand
     {

@@ -1,6 +1,6 @@
 using strange.extensions.mediation.impl;
 
-namespace Multiplayer.View.NetworkManager
+namespace Network.View.NetworkManager
 {
     public class NetworkManagerView : EventView
     {

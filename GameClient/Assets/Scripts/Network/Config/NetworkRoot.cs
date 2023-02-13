@@ -1,6 +1,6 @@
 using strange.extensions.context.impl;
 
-namespace Multiplayer.Config
+namespace Network.Config
 {
     public class NetworkRoot : ContextView
     {
