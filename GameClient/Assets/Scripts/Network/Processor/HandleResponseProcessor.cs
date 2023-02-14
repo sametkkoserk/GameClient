@@ -1,4 +1,5 @@
 using Network.Enum;
+using Network.Vo;
 using Riptide;
 using strange.extensions.command.impl;
 using UnityEngine;
@@ -7,10 +8,14 @@ namespace Network.Processor
 {
     public class HandleResponseProcessor : EventCommand
     {
-        [MessageHandler((ushort)ServerToClientId.response)]
-        private static void Test(Message message)
+        public override void Execute()
         {
-            Debug.Log(message.GetString());
+            MessageReceivedVo vo = (MessageReceivedVo)evt.data;
+            Message message = vo.message;
+            string testMessage = message.GetString();
+            
+            Debug.Log(testMessage);
         }
+
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using Network.Enum;
+using Network.Vo;
 using Riptide;
 using Riptide.Utils;
 using strange.extensions.context.api;
@@ -32,6 +33,9 @@ namespace Network.Services.NetworkManager
             
             Client.Connect($"{ip}:{port}");
             
+            Client.MessageReceived+= MessageHandler;
+
+            
         }
 
         public void Ticker()
@@ -40,6 +44,13 @@ namespace Network.Services.NetworkManager
             {
                 Client.Update();
             }
+        }
+        
+        public void MessageHandler(object sender, MessageReceivedEventArgs messageArgs)
+        {
+            MessageReceivedVo vo = new MessageReceivedVo();
+            vo.message = messageArgs.Message;
+            dispatcher.Dispatch((ServerToClientId)messageArgs.MessageId,vo);
         }
 
         private void DidConnect(object sender, EventArgs e)
