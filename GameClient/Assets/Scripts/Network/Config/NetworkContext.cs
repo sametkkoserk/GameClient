@@ -24,7 +24,7 @@ namespace Network.Config
             //Injection binding.
             //Map a mock model and a mock service, both as Singletons
             //injectionBinder.Bind<IExampleModel>().To<ExampleModel>().ToSingleton();
-            injectionBinder.Bind<INetworkManagerService>().To<NetworkManagerService>().ToSingleton();
+            injectionBinder.Bind<INetworkManagerService>().To<NetworkManagerService>().ToSingleton().CrossContext();
 
             //View/Mediator binding
             //This Binding instantiates a new ExampleMediator whenever as ExampleView
@@ -39,6 +39,8 @@ namespace Network.Config
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
             commandBinder.Bind(ContextEvent.START).To<ClientConnectCommand>();
             commandBinder.Bind(NetworkEvent.SendMessage).To<SendMessageCommand>();
+            commandBinder.Bind(NetworkEvent.CreateLobby).To<CreateLobbyContextCommand>();
+
             
             commandBinder.Bind(ServerToClientId.response).To<HandleResponseProcessor>();
 

@@ -16,8 +16,6 @@ namespace Network.Command
             message.AddString("no prob");
             networkManager.Client.Send(message);
             Debug.Log("Message sent");
-            
-            
         }
     }
 }

@@ -15,6 +15,8 @@ namespace Network.Processor
             string testMessage = message.GetString();
             
             Debug.Log(testMessage);
+            
+            dispatcher.Dispatch(NetworkEvent.CreateLobby);
         }
 
     }

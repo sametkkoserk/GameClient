@@ -12,12 +12,13 @@ namespace Network.Services.NetworkManager
     public class NetworkManagerService :  INetworkManagerService
     {
         public Client Client { get; private set; }
-        
+        [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
+        public IEventDispatcher crossDispatcher{ get; set;}
         [Inject(ContextKeys.CONTEXT_DISPATCHER)]
         public IEventDispatcher dispatcher{ get; set;}
 
-        [SerializeField] private string ip;
-        [SerializeField] private ushort port;
+        private string ip;
+        private ushort port;
 
         public void Connect(string _ip, ushort _port)
         {
@@ -50,7 +51,7 @@ namespace Network.Services.NetworkManager
         {
             MessageReceivedVo vo = new MessageReceivedVo();
             vo.message = messageArgs.Message;
-            dispatcher.Dispatch((ServerToClientId)messageArgs.MessageId,vo);
+            crossDispatcher.Dispatch((ServerToClientId)messageArgs.MessageId,vo);
         }
 
         private void DidConnect(object sender, EventArgs e)
