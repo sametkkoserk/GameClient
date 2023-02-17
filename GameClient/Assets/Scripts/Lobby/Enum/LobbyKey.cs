@@ -8,7 +8,7 @@ namespace Lobby.Enum
     public const string LobbyPanel = "LobbyPanel";
     public const string CreateLobbyPanel = "CreateLobbyPanel";
     public const string JoinLobbyPanel = "JoinLobbyPanel";
-
-
+    public const string LobbyManagerPanel = "LobbyManagerPanel";
+    public const string LobbyManagerPanelItem = "LobbyManagerPanelItem";
   }
 }

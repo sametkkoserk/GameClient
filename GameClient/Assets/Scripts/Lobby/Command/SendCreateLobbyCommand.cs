@@ -19,6 +19,7 @@ namespace Lobby.Command
             Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.createLobby);
             message.AddString(vo.lobbyName);
             message.AddBool(vo.isPrivate);
+            message.AddUShort((ushort)6);
             networkManager.Client.Send(message);
             Debug.Log("CreateLobby Message sent");   
         }

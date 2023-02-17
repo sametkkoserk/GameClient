@@ -14,6 +14,7 @@ namespace Lobby.View.LobbyUIManager
     {
       dispatcher.AddListener(LobbyEvent.ToCreatePanel,OnToCreate);
       dispatcher.AddListener(LobbyEvent.ToJoinPanel,OnToJoin);
+      dispatcher.AddListener(LobbyEvent.ToLobbyManagerPanel,OnToLobbyManagerPanel);
       dispatcher.AddListener(LobbyEvent.BackToLobbyPanel,OnBackToLobbyPanel);
     }
 
@@ -33,7 +34,17 @@ namespace Lobby.View.LobbyUIManager
         view.CurrentPanel=asyncop.Result;
       };    
     }
-
+    
+    private void OnToCreate()
+    {
+      DestroyCurrent();
+      var asyncop = Addressables.InstantiateAsync(LobbyKey.CreateLobbyPanel, gameObject.transform);
+      asyncop.Completed+=handle =>
+      {
+        view.CurrentPanel=asyncop.Result;
+      };
+    }
+    
     private void OnToJoin()
     {
       DestroyCurrent();
@@ -44,17 +55,17 @@ namespace Lobby.View.LobbyUIManager
       };
       
     }
-
-    private void OnToCreate()
+    
+    private void OnToLobbyManagerPanel()
     {
       DestroyCurrent();
-      var asyncop = Addressables.InstantiateAsync(LobbyKey.CreateLobbyPanel, gameObject.transform);
+      var asyncop = Addressables.InstantiateAsync(LobbyKey.LobbyManagerPanel, gameObject.transform);
       asyncop.Completed+=handle =>
       {
         view.CurrentPanel=asyncop.Result;
       };
     }
-
+    
     private void DestroyCurrent()
     {
       Destroy(view.CurrentPanel);
@@ -66,6 +77,7 @@ namespace Lobby.View.LobbyUIManager
     {
       dispatcher.RemoveListener(LobbyEvent.ToCreatePanel,OnToCreate);
       dispatcher.RemoveListener(LobbyEvent.ToJoinPanel,OnToJoin);
+      dispatcher.RemoveListener(LobbyEvent.ToLobbyManagerPanel,OnToLobbyManagerPanel);
       dispatcher.RemoveListener(LobbyEvent.BackToLobbyPanel,OnBackToLobbyPanel);
     }
   }

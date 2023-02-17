@@ -1,12 +1,23 @@
+using System.Collections.Generic;
+using Lobby.Vo;
+using UnityEngine;
+
 namespace Lobby.Model.LobbyModel
 {
     public class LobbyModel : ILobbyModel
     {
-        public ushort lobbyId { get; set; }
-        public string lobbyName { get; set; }
-        public bool isPrivate { get; set; }
-        public ushort leaderId { get; set; }
+        public LobbyVo lobbyVo{ get; set; }
+
+        public List<Color> colors { get; set; }
         
-        
+        [PostConstruct]
+        public void OnPostContruct()
+        {
+            colors = new List<Color>() { Color.black ,Color.blue,Color.green,Color.magenta,Color.red,Color.yellow};
+            
+        }
+
+
+
     }
 }

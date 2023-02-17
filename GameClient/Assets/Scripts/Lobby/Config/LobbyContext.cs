@@ -4,6 +4,7 @@ using Lobby.Model.LobbyModel;
 using Lobby.Processor;
 using Lobby.View.CreateLobbyPanel;
 using Lobby.View.JoinLobbyPanel;
+using Lobby.View.LobbyManagerPanel;
 using Lobby.View.LobbyPanel;
 using Lobby.View.LobbyUIManager;
 using Main.Command;
@@ -39,6 +40,7 @@ namespace Lobby.Config
             mediationBinder.Bind<JoinLobbyPanelView>().To<JoinLobbyPanelMediator>();
             mediationBinder.Bind<LobbyUIManagerView>().To<LobbyUIManagerMediator>();
             mediationBinder.Bind<LobbyPanelView>().To<LobbyPanelMediator>();
+            mediationBinder.Bind<LobbyManagerPanelView>().To<LobbyManagerPanelMediator>();
 
             
             //Event/Command binding
