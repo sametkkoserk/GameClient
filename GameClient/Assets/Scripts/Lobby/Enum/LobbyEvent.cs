@@ -10,6 +10,8 @@ namespace Lobby.Enum
         ToCreatePanel,
         ToJoinPanel,
         ToLobbyManagerPanel,
-        SendReady
+        SendReady,
+        
+        StartGame
     }
 }

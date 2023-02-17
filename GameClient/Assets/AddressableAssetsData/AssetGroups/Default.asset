@@ -17,12 +17,17 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: f075585d55b0b8641b3d2048a5053416
   m_SerializeEntries:
+<<<<<<< HEAD
   - m_GUID: 47003818b5946d54081cd2d4919c3ff6
     m_Address: LobbyManagerPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
   - m_GUID: 6a673d035d7d90f4aa8a22d4fa847d4a
     m_Address: LobbyManagerPanel
+=======
+  - m_GUID: a95870986aeb80e4f98bd579421de988
+    m_Address: MainMap
+>>>>>>> 64d36eb7e6bbc46ea1b6dc48fcff2e924028756b
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0

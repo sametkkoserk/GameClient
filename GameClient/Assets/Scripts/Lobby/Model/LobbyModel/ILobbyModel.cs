@@ -10,5 +10,6 @@ namespace Lobby.Model.LobbyModel
         
         List<Color> colors { get; set; }
         
+        List<Material> materials { get; set; }
     }
 }

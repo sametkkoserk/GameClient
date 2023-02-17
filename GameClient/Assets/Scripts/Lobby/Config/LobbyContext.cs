@@ -2,11 +2,14 @@ using Lobby.Command;
 using Lobby.Enum;
 using Lobby.Model.LobbyModel;
 using Lobby.Processor;
+using Lobby.View.City;
 using Lobby.View.CreateLobbyPanel;
 using Lobby.View.JoinLobbyPanel;
 using Lobby.View.LobbyManagerPanel;
 using Lobby.View.LobbyPanel;
 using Lobby.View.LobbyUIManager;
+using Lobby.View.MainMap;
+using Lobby.View.MainMapContainer;
 using Main.Command;
 using Network.Enum;
 using strange.extensions.context.api;
@@ -36,6 +39,10 @@ namespace Lobby.Config
             //Fires its Awake method. The Mediator communicates to/from the View
             //and to/from the App. This keeps dependencies between the view and the app
             //separated.
+            mediationBinder.Bind<CityView>().To<CityMediator>();
+            mediationBinder.Bind<MainMapView>().To<MainMapMediator>();
+            mediationBinder.Bind<MainMapContainerView>().To<MainMapContainerMediator>();
+            
             mediationBinder.Bind<CreateLobbyPanelView>().To<CreateLobbyPanelMediator>();
             mediationBinder.Bind<JoinLobbyPanelView>().To<JoinLobbyPanelMediator>();
             mediationBinder.Bind<LobbyUIManagerView>().To<LobbyUIManagerMediator>();
