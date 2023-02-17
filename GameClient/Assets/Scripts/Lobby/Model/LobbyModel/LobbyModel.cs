@@ -7,7 +7,6 @@ namespace Lobby.Model.LobbyModel
     public class LobbyModel : ILobbyModel
     {
         public LobbyVo lobbyVo{ get; set; }
-
         public List<Color> colors { get; set; }
         public List<Material> materials { get; set; }
 
