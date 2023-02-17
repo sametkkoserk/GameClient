@@ -3,6 +3,7 @@ using Lobby.Enum;
 using Lobby.Model.LobbyModel;
 using Lobby.View.JoinLobbyPanel;
 using Lobby.Vo;
+using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -27,6 +28,24 @@ namespace Lobby.View.LobbyManagerPanel
     {
       view.dispatcher.AddListener(LobbyManagerPanelEvent.Ready,OnReady);
       view.dispatcher.AddListener(LobbyManagerPanelEvent.Back,OnBack);
+      dispatcher.AddListener(LobbyEvent.NewPlayerToLobby,OnNewPlayer);
+
+    }
+
+    private void OnNewPlayer(IEvent payload)
+    {
+      ClientVo clientVo =(ClientVo) payload.data;
+      
+      LobbyVo lobbyVo = lobbyModel.lobbyVo;
+      view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
+      
+      var instantiateAsync = Addressables.InstantiateAsync(LobbyKey.LobbyManagerPanelItem, view.playerContainer);
+      instantiateAsync.Completed += handle =>
+      {
+        GameObject obj = instantiateAsync.Result;
+        LobbyManagerPanelItemBehaviour behaviour = obj.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
+        behaviour.Init(clientVo,lobbyModel.colors[clientVo.inLobbyId]);
+      };    
     }
 
     private void Start()
@@ -55,13 +74,15 @@ namespace Lobby.View.LobbyManagerPanel
     
     private void OnBack()
     {
-      dispatcher.Dispatch(LobbyEvent.BackToLobbyPanel);
+      dispatcher.Dispatch(LobbyEvent.OutLobby);
     }
     
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Ready,OnReady);
       view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Back,OnBack);
+      dispatcher.RemoveListener(LobbyEvent.NewPlayerToLobby,OnNewPlayer);
+
     }
   }
 }

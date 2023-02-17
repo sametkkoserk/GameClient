@@ -58,10 +58,14 @@ namespace Lobby.Config
             commandBinder.Bind(LobbyEvent.SendCreateLobby).To<SendCreateLobbyCommand>();
             commandBinder.Bind(LobbyEvent.GetLobbies).To<GetLobbiesCommand>();
             commandBinder.Bind(LobbyEvent.JoinLobby).To<JoinLobbyCommand>();
+            commandBinder.Bind(LobbyEvent.OutLobby).To<OutFromLobbyCommand>();
 
             
             commandBinder.Bind(ServerToClientId.JoinedToLobby).To<JoinedToLobbyProcessor>();
             commandBinder.Bind(ServerToClientId.SendLobbies).To<GetLobbiesProcessor>();
+            commandBinder.Bind(ServerToClientId.OutFromLobbyDone).To<OutFromLobbyDoneProcessor>();
+            commandBinder.Bind(ServerToClientId.NewPlayerToLobby).To<NewPlayerToLobbyProccessor>();
+
         }
     }
 }

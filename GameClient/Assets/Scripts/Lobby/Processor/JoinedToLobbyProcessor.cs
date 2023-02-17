@@ -26,6 +26,7 @@ namespace Lobby.Processor
       lobbyVo.leaderId = message.GetUShort();
       lobbyVo.playerCount = message.GetUShort();
       lobbyVo.maxPlayerCount = message.GetUShort();
+      lobbyModel.inLobbyId = message.GetUShort();
       lobbyVo.clients = new List<ClientVo>();
       for (int i = 0; i < lobbyVo.playerCount; i++)
       {
