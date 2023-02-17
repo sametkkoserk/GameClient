@@ -92,10 +92,11 @@ namespace strange.examples.multiplecontexts.social
 			imgUrl = url;
 			if (!String.IsNullOrEmpty(imgUrl))
 			{
-				StartCoroutine(loadUserImg());
+				//StartCoroutine(loadUserImg());
 			}
 		}
 		
+		[Obsolete("Obsolete")]
 		private IEnumerator loadUserImg()
 		{
 			WWW www = new WWW(imgUrl);

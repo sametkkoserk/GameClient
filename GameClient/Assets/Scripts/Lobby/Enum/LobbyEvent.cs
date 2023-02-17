@@ -8,6 +8,7 @@ namespace Lobby.Enum
         JoinLobby,
         BackToLobbyPanel,
         ToCreatePanel,
-        ToJoinPanel
+        ToJoinPanel,
+        StartGame
     }
 }

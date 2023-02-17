@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 namespace Lobby.Model.LobbyModel
 {
     public interface ILobbyModel
@@ -6,5 +9,6 @@ namespace Lobby.Model.LobbyModel
         string lobbyName { get; set; }
         bool isPrivate { get; set; }
         ushort leaderId { get; set; }
+        List<Material> materials { get; set; }
     }
 }

@@ -9,6 +9,6 @@ namespace Lobby.Enum
     public const string CreateLobbyPanel = "CreateLobbyPanel";
     public const string JoinLobbyPanel = "JoinLobbyPanel";
 
-
+    public const string MainMap = "MainMap";
   }
 }
