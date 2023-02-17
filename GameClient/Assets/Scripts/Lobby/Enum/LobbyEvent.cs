@@ -5,6 +5,9 @@ namespace Lobby.Enum
         SendCreateLobby,
         GetLobbies,
         listLobbies,
-        JoinLobby
+        JoinLobby,
+        BackToLobbyPanel,
+        ToCreatePanel,
+        ToJoinPanel
     }
 }

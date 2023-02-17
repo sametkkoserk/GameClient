@@ -14,5 +14,10 @@ namespace Lobby.View.CreateLobbyPanel
         {
             dispatcher.Dispatch(CreateLobbyPanelEvent.Create);
         }
+
+        public void OnBack()
+        {
+            dispatcher.Dispatch(CreateLobbyPanelEvent.Back);
+        }
     }
 }

@@ -16,15 +16,7 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: f075585d55b0b8641b3d2048a5053416
-  m_SerializeEntries:
-  - m_GUID: 92b4b5c3b9ff4b709afe9d42d72594ec
-    m_Address: LobbyScene
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-  - m_GUID: 14ea6a6903b314d48bf85713c1c65ca1
-    m_Address: JoinLobbyPanelItem
-    m_ReadOnly: 0
-    m_SerializedLabels: []
+  m_SerializeEntries: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:

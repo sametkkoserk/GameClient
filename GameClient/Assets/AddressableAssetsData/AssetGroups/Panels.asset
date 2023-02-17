@@ -10,28 +10,32 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
-  m_Name: Scenes
+  m_Name: Panels
   m_EditorClassIdentifier: 
-  m_GroupName: Scenes
+  m_GroupName: Panels
   m_Data:
     m_SerializedData: []
-  m_GUID: cd31a0375d3d9134ab5d674bf67f1d75
+  m_GUID: f9d944574515e7d41b9ad0160fea7765
   m_SerializeEntries:
-  - m_GUID: 9fc0d4010bbf28b4594072e72b8655ab
-    m_Address: MainScene
+  - m_GUID: 7fedbcd3ff8b73849a97d80f3706df29
+    m_Address: LobbyPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: c42748f02af1af740bcd24c5e05d78a8
-    m_Address: NetworkScene
+  - m_GUID: 9d681d942328ed44382a4a6fd2778513
+    m_Address: JoinLobbyPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: 92b4b5c3b9ff4b709afe9d42d72594ec
-    m_Address: LobbyScene
+  - m_GUID: a58616a7fda22f149ab836405f1e2726
+    m_Address: CreateLobbyPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 14ea6a6903b314d48bf85713c1c65ca1
+    m_Address: JoinLobbyPanelItem
     m_ReadOnly: 0
     m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:
     m_Schemas:
-    - {fileID: 11400000, guid: ca2dbd0acbac1384c86f203332be50d5, type: 2}
-    - {fileID: 11400000, guid: 6c00a5b24167c0149829df66b8252830, type: 2}
+    - {fileID: 11400000, guid: 72506b0f1982d1a4eb0323ff141f1aa0, type: 2}
+    - {fileID: 11400000, guid: d6151ecd370bbdc4eb3e6434a91ffab9, type: 2}

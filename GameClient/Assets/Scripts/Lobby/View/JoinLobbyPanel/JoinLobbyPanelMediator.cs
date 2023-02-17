@@ -7,6 +7,10 @@ using UnityEngine.AddressableAssets;
 
 namespace Lobby.View.JoinLobbyPanel
 {
+  public enum JoinLobbyPanelEvent
+  {
+    Back
+  }
   public class JoinLobbyPanelMediator : EventMediator
   {
     [Inject]
@@ -14,8 +18,10 @@ namespace Lobby.View.JoinLobbyPanel
 
     public override void OnRegister()
     {
+      view.dispatcher.AddListener(JoinLobbyPanelEvent.Back,OnBack);
       dispatcher.AddListener(LobbyEvent.listLobbies,OnLobbies);
     }
+
     private void Start()
     {
       dispatcher.Dispatch(LobbyEvent.GetLobbies);
@@ -39,9 +45,15 @@ namespace Lobby.View.JoinLobbyPanel
       }
       
     }
+    
+    private void OnBack()
+    {
+      dispatcher.Dispatch(LobbyEvent.BackToLobbyPanel);
+    }
 
     public override void OnRemove()
     {
+      view.dispatcher.RemoveListener(JoinLobbyPanelEvent.Back,OnBack);
       dispatcher.RemoveListener(LobbyEvent.listLobbies,OnLobbies);
     }
   }

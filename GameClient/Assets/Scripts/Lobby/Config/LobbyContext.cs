@@ -4,6 +4,8 @@ using Lobby.Model.LobbyModel;
 using Lobby.Processor;
 using Lobby.View.CreateLobbyPanel;
 using Lobby.View.JoinLobbyPanel;
+using Lobby.View.LobbyPanel;
+using Lobby.View.LobbyUIManager;
 using Main.Command;
 using Network.Enum;
 using strange.extensions.context.api;
@@ -35,6 +37,9 @@ namespace Lobby.Config
             //separated.
             mediationBinder.Bind<CreateLobbyPanelView>().To<CreateLobbyPanelMediator>();
             mediationBinder.Bind<JoinLobbyPanelView>().To<JoinLobbyPanelMediator>();
+            mediationBinder.Bind<LobbyUIManagerView>().To<LobbyUIManagerMediator>();
+            mediationBinder.Bind<LobbyPanelView>().To<LobbyPanelMediator>();
+
             
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();

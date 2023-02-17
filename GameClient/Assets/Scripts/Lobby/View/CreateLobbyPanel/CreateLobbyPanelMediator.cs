@@ -7,7 +7,8 @@ namespace Lobby.View.CreateLobbyPanel
 {
     public enum CreateLobbyPanelEvent
     {
-        Create
+        Create,
+        Back
     }
     public class CreateLobbyPanelMediator : EventMediator
     {
@@ -16,6 +17,7 @@ namespace Lobby.View.CreateLobbyPanel
         public override void OnRegister()
         {
             view.dispatcher.AddListener(CreateLobbyPanelEvent.Create,OnCreate);
+            view.dispatcher.AddListener(CreateLobbyPanelEvent.Back,OnBack);
         }
 
         public void OnCreate()
@@ -26,9 +28,17 @@ namespace Lobby.View.CreateLobbyPanel
             Debug.Log("Button Clicked");
             dispatcher.Dispatch(LobbyEvent.SendCreateLobby,vo);
         }
+        
+        private void OnBack()
+        {
+            dispatcher.Dispatch(LobbyEvent.BackToLobbyPanel);
+        }
+        
         public override void OnRemove()
         {
             view.dispatcher.RemoveListener(CreateLobbyPanelEvent.Create,OnCreate);
+            view.dispatcher.RemoveListener(CreateLobbyPanelEvent.Back,OnBack);
+
         }
     }
 }
