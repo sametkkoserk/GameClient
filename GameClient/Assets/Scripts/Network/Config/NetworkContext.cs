@@ -42,7 +42,7 @@ namespace Network.Config
             commandBinder.Bind(NetworkEvent.CreateLobby).To<CreateLobbyContextCommand>();
 
             
-            commandBinder.Bind(ServerToClientId.response).To<HandleResponseProcessor>();
+            commandBinder.Bind(ServerToClientId.Response).To<HandleResponseProcessor>();
 
 
         }

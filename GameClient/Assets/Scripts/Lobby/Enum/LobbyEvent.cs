@@ -2,6 +2,9 @@ namespace Lobby.Enum
 {
     public enum LobbyEvent
     {
-        SendCreateLobby
+        SendCreateLobby,
+        GetLobbies,
+        listLobbies,
+        JoinLobby
     }
 }

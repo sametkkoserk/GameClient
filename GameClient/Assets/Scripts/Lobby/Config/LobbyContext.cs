@@ -3,6 +3,7 @@ using Lobby.Enum;
 using Lobby.Model.LobbyModel;
 using Lobby.Processor;
 using Lobby.View.CreateLobbyPanel;
+using Lobby.View.JoinLobbyPanel;
 using Main.Command;
 using Network.Enum;
 using strange.extensions.context.api;
@@ -33,6 +34,7 @@ namespace Lobby.Config
             //and to/from the App. This keeps dependencies between the view and the app
             //separated.
             mediationBinder.Bind<CreateLobbyPanelView>().To<CreateLobbyPanelMediator>();
+            mediationBinder.Bind<JoinLobbyPanelView>().To<JoinLobbyPanelMediator>();
             
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
@@ -40,8 +42,12 @@ namespace Lobby.Config
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
             //commandBinder.Bind(ContextEvent.START).To<LoadNetworkSceneCommand>();
             commandBinder.Bind(LobbyEvent.SendCreateLobby).To<SendCreateLobbyCommand>();
+            commandBinder.Bind(LobbyEvent.GetLobbies).To<GetLobbiesCommand>();
+            commandBinder.Bind(LobbyEvent.JoinLobby).To<JoinLobbyCommand>();
+
             
             commandBinder.Bind(ServerToClientId.JoinedToLobby).To<JoinedToLobbyProcessor>();
+            commandBinder.Bind(ServerToClientId.SendLobbies).To<GetLobbiesProcessor>();
         }
     }
 }
