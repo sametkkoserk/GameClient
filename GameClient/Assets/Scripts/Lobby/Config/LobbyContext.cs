@@ -1,8 +1,10 @@
 using Lobby.Command;
 using Lobby.Enum;
 using Lobby.Model.LobbyModel;
+using Lobby.Processor;
 using Lobby.View.CreateLobbyPanel;
 using Main.Command;
+using Network.Enum;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
@@ -23,7 +25,7 @@ namespace Lobby.Config
         {
             //Injection binding.
             //Map a mock model and a mock service, both as Singletons
-            injectionBinder.Bind<LobbyModel>().To<ILobbyModel>().ToSingleton();
+            injectionBinder.Bind<ILobbyModel>().To<LobbyModel>().ToSingleton();
             //injectionBinder.Bind<INetworkManagerService>().To<NetworkManagerService>().ToSingleton();
             //View/Mediator binding
             //This Binding instantiates a new ExampleMediator whenever as ExampleView
@@ -38,6 +40,8 @@ namespace Lobby.Config
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
             //commandBinder.Bind(ContextEvent.START).To<LoadNetworkSceneCommand>();
             commandBinder.Bind(LobbyEvent.SendCreateLobby).To<SendCreateLobbyCommand>();
+            
+            commandBinder.Bind(ServerToClientId.JoinedToLobby).To<JoinedToLobbyProcessor>();
         }
     }
 }
