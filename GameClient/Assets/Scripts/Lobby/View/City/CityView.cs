@@ -15,6 +15,8 @@ namespace Lobby.View.City
     [HideInInspector]
     public Material material;
 
+    public MeshRenderer meshRenderer;
+
     public void OnClick()
     {
       dispatcher.Dispatch(CityEvent.OnClick);

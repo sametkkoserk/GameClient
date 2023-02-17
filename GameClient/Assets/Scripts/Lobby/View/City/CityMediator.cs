@@ -41,6 +41,8 @@ namespace Lobby.View.City
         view.material = lobbyModel.materials[i];
         return;
       }
+
+      view.meshRenderer.material = view.material;
     }
 
     public override void OnRemove()
