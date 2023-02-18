@@ -9,7 +9,7 @@ namespace Network.Command
         public INetworkManagerService networkManager{get;set;}
         public override void Execute()
         {
-            networkManager.Connect("127.0.0.1", 8084);
+            networkManager.Connect("127.0.0.1", 8083);
             
         }
     }
