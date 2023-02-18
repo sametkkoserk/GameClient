@@ -27,8 +27,8 @@ namespace Lobby.Processor
       Debug.Log("player ready responded");
       if (startGame)
       {
-        Debug.Log("ooo everybody ready");
-
+        dispatcher.Dispatch(LobbyEvent.StartGame);
+        
       }
       
 
