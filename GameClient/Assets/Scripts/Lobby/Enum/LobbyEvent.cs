@@ -6,9 +6,16 @@ namespace Lobby.Enum
         GetLobbies,
         listLobbies,
         JoinLobby,
+        NewPlayerToLobby,
         BackToLobbyPanel,
         ToCreatePanel,
         ToJoinPanel,
-        StartGame
+        ToLobbyManagerPanel,
+        PlayerReady,
+        StartGame,
+        OutLobby,
+        PlayerIsOut,
+        PlayerReadyResponse,
+        
     }
 }

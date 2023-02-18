@@ -5,6 +5,7 @@ using Lobby.Processor;
 using Lobby.View.City;
 using Lobby.View.CreateLobbyPanel;
 using Lobby.View.JoinLobbyPanel;
+using Lobby.View.LobbyManagerPanel;
 using Lobby.View.LobbyPanel;
 using Lobby.View.LobbyUIManager;
 using Lobby.View.MainMap;
@@ -46,6 +47,8 @@ namespace Lobby.Config
             mediationBinder.Bind<JoinLobbyPanelView>().To<JoinLobbyPanelMediator>();
             mediationBinder.Bind<LobbyUIManagerView>().To<LobbyUIManagerMediator>();
             mediationBinder.Bind<LobbyPanelView>().To<LobbyPanelMediator>();
+            mediationBinder.Bind<LobbyManagerPanelView>().To<LobbyManagerPanelMediator>();
+
             
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
@@ -55,10 +58,17 @@ namespace Lobby.Config
             commandBinder.Bind(LobbyEvent.SendCreateLobby).To<SendCreateLobbyCommand>();
             commandBinder.Bind(LobbyEvent.GetLobbies).To<GetLobbiesCommand>();
             commandBinder.Bind(LobbyEvent.JoinLobby).To<JoinLobbyCommand>();
+            commandBinder.Bind(LobbyEvent.OutLobby).To<OutFromLobbyCommand>();
+            commandBinder.Bind(LobbyEvent.PlayerReady).To<PlayerReadyCommand>();
 
             
             commandBinder.Bind(ServerToClientId.JoinedToLobby).To<JoinedToLobbyProcessor>();
             commandBinder.Bind(ServerToClientId.SendLobbies).To<GetLobbiesProcessor>();
+            commandBinder.Bind(ServerToClientId.OutFromLobbyDone).To<OutFromLobbyDoneProcessor>();
+            commandBinder.Bind(ServerToClientId.NewPlayerToLobby).To<NewPlayerToLobbyProccessor>();
+            commandBinder.Bind(ServerToClientId.PlayerReadyResponse).To<PlayerReadyResponseProcessor>();
+
+
         }
     }
 }

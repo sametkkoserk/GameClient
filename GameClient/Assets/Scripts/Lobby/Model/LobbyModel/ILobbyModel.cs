@@ -1,14 +1,18 @@
 using System.Collections.Generic;
+using Lobby.Vo;
 using UnityEngine;
 
 namespace Lobby.Model.LobbyModel
 {
     public interface ILobbyModel
     {
-        ushort lobbyId { get; set; }
-        string lobbyName { get; set; }
-        bool isPrivate { get; set; }
-        ushort leaderId { get; set; }
+        LobbyVo lobbyVo{ get; set; }
+        ushort inLobbyId{ get; set; }
+        
+        List<Color> colors { get; set; }
+        
         List<Material> materials { get; set; }
+        void OutFromLobby(ushort _inLobbyId);
+        void LobbyReset();
     }
 }

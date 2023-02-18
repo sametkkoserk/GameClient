@@ -38,7 +38,6 @@ namespace Lobby.View.JoinLobbyPanel
         {
           GameObject obj = asyncOperationHandle.Result;
           JoinLobbyPanelItemBehaviour behaviour = obj.GetComponent<JoinLobbyPanelItemBehaviour>();
-          Debug.Log(count+"   "+vo.lobbies.Count);
           behaviour.Init(vo.lobbies[count],() => {dispatcher.Dispatch(LobbyEvent.JoinLobby,vo.lobbies[count].lobbyId);});
 
         };

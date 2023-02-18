@@ -1,4 +1,7 @@
+using System.Collections.Generic;
+using Lobby.Enum;
 using Lobby.Model.LobbyModel;
+using Lobby.Vo;
 using Network.Vo;
 using Riptide;
 using strange.extensions.command.impl;
@@ -16,12 +19,28 @@ namespace Lobby.Processor
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       Message message = vo.message;
 
-      lobbyModel.lobbyId = message.GetUShort();
-      lobbyModel.lobbyName = message.GetString();
-      lobbyModel.isPrivate = message.GetBool();
-      lobbyModel.leaderId = message.GetUShort();
-      Debug.Log(lobbyModel.lobbyId);
-      Debug.Log(lobbyModel.lobbyName);
+      LobbyVo lobbyVo = new LobbyVo();
+      lobbyVo.lobbyId = message.GetUShort();
+      lobbyVo.lobbyName = message.GetString();
+      lobbyVo.isPrivate = message.GetBool();
+      lobbyVo.leaderId = message.GetUShort();
+      lobbyVo.playerCount = message.GetUShort();
+      lobbyVo.maxPlayerCount = message.GetUShort();
+      lobbyModel.inLobbyId = message.GetUShort();
+      lobbyVo.clients = new List<ClientVo>();
+      for (int i = 0; i < lobbyVo.playerCount; i++)
+      {
+        ClientVo clientVo = new ClientVo();
+        clientVo.id = message.GetUShort();
+        clientVo.inLobbyId = message.GetUShort();
+        //clientVo.userName = message.GetString();
+        clientVo.colorId = message.GetUShort();
+        lobbyVo.clients.Add(clientVo);
+      }
+      
+      lobbyModel.lobbyVo = lobbyVo;
+
+      dispatcher.Dispatch(LobbyEvent.ToLobbyManagerPanel);
 
     }
   }

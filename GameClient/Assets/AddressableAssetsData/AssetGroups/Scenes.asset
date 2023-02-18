@@ -17,10 +17,6 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: cd31a0375d3d9134ab5d674bf67f1d75
   m_SerializeEntries:
-  - m_GUID: 9fc0d4010bbf28b4594072e72b8655ab
-    m_Address: MainScene
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   - m_GUID: c42748f02af1af740bcd24c5e05d78a8
     m_Address: NetworkScene
     m_ReadOnly: 0

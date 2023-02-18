@@ -1,4 +1,6 @@
 
+using System.Collections.Generic;
+
 namespace Lobby.Vo
 {
     public class LobbyVo
@@ -7,5 +9,9 @@ namespace Lobby.Vo
         public string lobbyName;
         public bool isPrivate;
         public ushort leaderId;
+        public ushort maxPlayerCount;
+        public ushort playerCount;
+        public ushort readyCount;
+        public List<ClientVo> clients;
     }
 }

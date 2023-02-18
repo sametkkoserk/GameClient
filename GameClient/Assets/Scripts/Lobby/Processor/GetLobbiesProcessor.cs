@@ -25,6 +25,8 @@ namespace Lobby.Processor
         lobbyVo.lobbyId = message.GetUShort();
         lobbyVo.lobbyName = message.GetString();
         lobbyVo.isPrivate = message.GetBool();
+        lobbyVo.playerCount = message.GetUShort();
+        lobbyVo.maxPlayerCount = message.GetUShort();
         lobbyVo.leaderId = message.GetUShort();
         lobbiesVo.lobbies.Add(lobbyVo);
       }
