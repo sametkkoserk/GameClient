@@ -7,5 +7,6 @@ namespace Network.Enum
         GetLobbies=3,
         JoinLobby=4,
         OutFromLobby=5,
+        PlayerReady=6
     }
 }

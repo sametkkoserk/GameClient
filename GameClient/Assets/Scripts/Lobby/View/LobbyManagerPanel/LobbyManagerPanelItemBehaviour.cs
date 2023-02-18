@@ -11,6 +11,7 @@ namespace Lobby.View.JoinLobbyPanel
     {
         public TMP_Text userNameText;
         public Image colorImage;
+        public GameObject readyObj;
 
 
         public void Init(ClientVo clientVo,Color color)
@@ -19,6 +20,15 @@ namespace Lobby.View.JoinLobbyPanel
             colorImage.color = color;
 
         }
-        
+
+        public void PlayerReady()
+        {
+            readyObj.SetActive(true);
+        }
+
+        public void PlayerIsOut()
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

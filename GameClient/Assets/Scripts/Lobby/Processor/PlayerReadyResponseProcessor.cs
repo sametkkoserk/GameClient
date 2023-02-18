@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Lobby.Processor
 {
-  public class OutFromLobbyDoneProcessor : EventCommand
+  public class PlayerReadyResponseProcessor : EventCommand
   {
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
@@ -15,21 +15,23 @@ namespace Lobby.Processor
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       Message message = vo.message;
-      ushort inLobbyId = message.GetUShort();
-      Debug.Log("outed message received");
-      if (inLobbyId==lobbyModel.inLobbyId)
-      {
-        lobbyModel.LobbyReset();
-        dispatcher.Dispatch(LobbyEvent.BackToLobbyPanel);
 
-      }
-      else
+      ushort inLobbyId = message.GetUShort();
+      bool startGame = message.GetBool();
+      
+      lobbyModel.lobbyVo.clients[inLobbyId].ready=true;
+      lobbyModel.lobbyVo.readyCount += 1;
+      
+
+      dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse,inLobbyId);
+      Debug.Log("player ready responded");
+      if (startGame)
       {
-        lobbyModel.OutFromLobby(inLobbyId);
-        dispatcher.Dispatch(LobbyEvent.PlayerIsOut,inLobbyId);
+        Debug.Log("ooo everybody ready");
 
       }
       
+
     }
   }
 }

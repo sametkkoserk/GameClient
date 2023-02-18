@@ -1007,3 +1007,4 @@ MonoBehaviour:
   playerContainer: {fileID: 6666064095382091325}
   lobbyNameText: {fileID: 5383972951736490829}
   playerCountText: {fileID: 613175721356986716}
+  readyButton: {fileID: 6425033175605253634}

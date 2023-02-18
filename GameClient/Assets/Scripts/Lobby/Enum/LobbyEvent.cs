@@ -11,9 +11,11 @@ namespace Lobby.Enum
         ToCreatePanel,
         ToJoinPanel,
         ToLobbyManagerPanel,
-        SendReady,
+        PlayerReady,
         StartGame,
         OutLobby,
+        PlayerIsOut,
+        PlayerReadyResponse,
         
     }
 }
