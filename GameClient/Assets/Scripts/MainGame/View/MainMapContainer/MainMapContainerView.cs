@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
-namespace Lobby.View.MainMapContainer
+namespace MainGame.View.MainMapContainer
 {
   public class MainMapContainerView : EventView
   {

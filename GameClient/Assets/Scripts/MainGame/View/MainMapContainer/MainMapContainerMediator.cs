@@ -1,9 +1,10 @@
 using Lobby.Enum;
 using Lobby.Model.LobbyModel;
+using MainGame.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine.AddressableAssets;
 
-namespace Lobby.View.MainMapContainer
+namespace MainGame.View.MainMapContainer
 {
   public class MainMapContainerMediator : EventMediator
   {
@@ -15,10 +16,10 @@ namespace Lobby.View.MainMapContainer
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(LobbyEvent.StartGame, CreateMap);
+      dispatcher.AddListener(MainGameEvent.CreateMap, OnCreateMap);
     }
 
-    public void CreateMap()
+    public void OnCreateMap()
     {
       Addressables.InstantiateAsync(LobbyKey.MainMap, gameObject.transform);
 
@@ -27,7 +28,7 @@ namespace Lobby.View.MainMapContainer
 
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(LobbyEvent.StartGame, CreateMap);
+      dispatcher.RemoveListener(MainGameEvent.CreateMap, OnCreateMap);
     }
   }
 }

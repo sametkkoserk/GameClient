@@ -1,7 +1,6 @@
-using Lobby.Model.LobbyModel;
 using strange.extensions.mediation.impl;
 
-namespace Lobby.View.MainMap
+namespace MainGame.View.MainMap
 {
   public enum MainMapEvent
   {

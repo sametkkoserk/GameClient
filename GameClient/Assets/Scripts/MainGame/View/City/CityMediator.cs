@@ -2,7 +2,7 @@ using Lobby.Model.LobbyModel;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
-namespace Lobby.View.City
+namespace MainGame.View.City
 {
   public enum CityEvent
   {

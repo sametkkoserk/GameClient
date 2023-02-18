@@ -1,11 +1,9 @@
-using System;
 using Lobby.Vo;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Lobby.View.JoinLobbyPanel
+namespace Lobby.View.LobbyManagerPanel
 {
     public class LobbyManagerPanelItemBehaviour : MonoBehaviour
     {

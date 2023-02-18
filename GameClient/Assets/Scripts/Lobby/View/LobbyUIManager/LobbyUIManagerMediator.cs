@@ -16,7 +16,9 @@ namespace Lobby.View.LobbyUIManager
       dispatcher.AddListener(LobbyEvent.ToJoinPanel,OnToJoin);
       dispatcher.AddListener(LobbyEvent.ToLobbyManagerPanel,OnToLobbyManagerPanel);
       dispatcher.AddListener(LobbyEvent.BackToLobbyPanel,OnBackToLobbyPanel);
+      dispatcher.AddListener(LobbyEvent.StartGame,OnDestroyCurrent);
     }
+
 
     private void Start()
     {
@@ -26,7 +28,7 @@ namespace Lobby.View.LobbyUIManager
     {
       if (view.CurrentPanel!=null)
       {
-        DestroyCurrent();
+        OnDestroyCurrent();
       }
       var asyncop = Addressables.InstantiateAsync(LobbyKey.LobbyPanel, gameObject.transform);
       asyncop.Completed+=handle =>
@@ -37,7 +39,7 @@ namespace Lobby.View.LobbyUIManager
     
     private void OnToCreate()
     {
-      DestroyCurrent();
+      OnDestroyCurrent();
       var asyncop = Addressables.InstantiateAsync(LobbyKey.CreateLobbyPanel, gameObject.transform);
       asyncop.Completed+=handle =>
       {
@@ -47,7 +49,7 @@ namespace Lobby.View.LobbyUIManager
     
     private void OnToJoin()
     {
-      DestroyCurrent();
+      OnDestroyCurrent();
       var asyncop = Addressables.InstantiateAsync(LobbyKey.JoinLobbyPanel, gameObject.transform);
       asyncop.Completed+=handle =>
       {
@@ -58,7 +60,7 @@ namespace Lobby.View.LobbyUIManager
     
     private void OnToLobbyManagerPanel()
     {
-      DestroyCurrent();
+      OnDestroyCurrent();
       var asyncop = Addressables.InstantiateAsync(LobbyKey.LobbyManagerPanel, gameObject.transform);
       asyncop.Completed+=handle =>
       {
@@ -66,7 +68,7 @@ namespace Lobby.View.LobbyUIManager
       };
     }
     
-    private void DestroyCurrent()
+    private void OnDestroyCurrent()
     {
       Destroy(view.CurrentPanel);
       view.CurrentPanel = null;
@@ -79,6 +81,8 @@ namespace Lobby.View.LobbyUIManager
       dispatcher.RemoveListener(LobbyEvent.ToJoinPanel,OnToJoin);
       dispatcher.RemoveListener(LobbyEvent.ToLobbyManagerPanel,OnToLobbyManagerPanel);
       dispatcher.RemoveListener(LobbyEvent.BackToLobbyPanel,OnBackToLobbyPanel);
+      dispatcher.RemoveListener(LobbyEvent.StartGame,OnDestroyCurrent);
+
     }
   }
 }

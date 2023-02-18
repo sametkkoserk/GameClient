@@ -1,8 +1,6 @@
-using System.Collections.Generic;
 using strange.extensions.mediation.impl;
-using UnityEngine;
 
-namespace Lobby.View.MainMap
+namespace MainGame.View.MainMap
 {
   public class MainMapView : EventView
   {
