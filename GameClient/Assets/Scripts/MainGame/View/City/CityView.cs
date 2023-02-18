@@ -1,8 +1,7 @@
-using System.Collections.Generic;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
-namespace Lobby.View.City
+namespace MainGame.View.City
 {
   public class CityView : EventView
   {
