@@ -28,7 +28,7 @@ namespace MainGame.View.City
 
     public void Conquer(int newOwnerPlayerID)
     {
-      view.ownerPlayerID = newOwnerPlayerID;
+      view.cityVo.ownerID = newOwnerPlayerID;
       
       FillColor();
     }
@@ -37,7 +37,7 @@ namespace MainGame.View.City
     {
       for (int i = 0; i < lobbyModel.materials.Count; i++)
       {
-        if (i != view.ownerPlayerID) continue;
+        if (i != view.cityVo.ownerID) continue;
         view.material = lobbyModel.materials[i];
         return;
       }

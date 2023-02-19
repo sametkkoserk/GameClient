@@ -1,3 +1,4 @@
+using MainGame.Vo;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -6,10 +7,7 @@ namespace MainGame.View.City
   public class CityView : EventView
   {
     [HideInInspector]
-    public int soldierCount;
-
-    [HideInInspector]
-    public int ownerPlayerID; // Player ID in the room not general id.
+    public CityVo cityVo;
 
     [HideInInspector]
     public Material material;
@@ -19,6 +17,13 @@ namespace MainGame.View.City
     public void OnClick()
     {
       dispatcher.Dispatch(CityEvent.OnClick);
+    }
+
+    public void Init(CityVo _cityVo)
+    {
+      cityVo = _cityVo;
+
+      transform.position = _cityVo.position;
     }
   }
 }

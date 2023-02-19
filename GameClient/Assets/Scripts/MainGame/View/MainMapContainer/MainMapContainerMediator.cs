@@ -2,6 +2,7 @@ using Lobby.Enum;
 using Lobby.Model.LobbyModel;
 using MainGame.Enum;
 using strange.extensions.mediation.impl;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
 
 namespace MainGame.View.MainMapContainer
@@ -22,6 +23,7 @@ namespace MainGame.View.MainMapContainer
     public void OnCreateMap()
     {
       Addressables.InstantiateAsync(LobbyKey.MainMap, gameObject.transform);
+      Debug.Log("MainMapContainerRegister");
 
       lobbyModel.materials = view.playerMaterials;
     }
