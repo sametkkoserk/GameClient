@@ -23,16 +23,17 @@ namespace Lobby.Model.LobbyModel
 
         public void OutFromLobby(ushort _inLobbyId)
         {
-            lobbyVo.clients.RemoveAt(_inLobbyId);
-            lobbyVo.playerCount -= 1;
             if (lobbyVo.clients[_inLobbyId].ready)
             {
                 lobbyVo.readyCount -= 1;
             }
+            lobbyVo.playerCount -= 1;
             for (ushort i = _inLobbyId; i < lobbyVo.playerCount; i++)
             {
+                lobbyVo.clients[i] = lobbyVo.clients[(ushort)(i+1)];
                 lobbyVo.clients[i].inLobbyId = i;
             }
+            lobbyVo.clients.Remove(lobbyVo.playerCount);
 
             if (_inLobbyId<inLobbyId)
             {

@@ -27,7 +27,7 @@ namespace Lobby.Processor
       lobbyVo.playerCount = message.GetUShort();
       lobbyVo.maxPlayerCount = message.GetUShort();
       lobbyModel.inLobbyId = message.GetUShort();
-      lobbyVo.clients = new List<ClientVo>();
+      lobbyVo.clients = new Dictionary<ushort, ClientVo>();
       for (int i = 0; i < lobbyVo.playerCount; i++)
       {
         ClientVo clientVo = new ClientVo();
@@ -35,7 +35,7 @@ namespace Lobby.Processor
         clientVo.inLobbyId = message.GetUShort();
         //clientVo.userName = message.GetString();
         clientVo.colorId = message.GetUShort();
-        lobbyVo.clients.Add(clientVo);
+        lobbyVo.clients[clientVo.inLobbyId]=clientVo;
       }
       
       lobbyModel.lobbyVo = lobbyVo;

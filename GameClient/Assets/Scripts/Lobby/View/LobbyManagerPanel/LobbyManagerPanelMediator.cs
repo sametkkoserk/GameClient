@@ -42,9 +42,9 @@ namespace Lobby.View.LobbyManagerPanel
       LobbyVo lobbyVo = lobbyModel.lobbyVo;
       view.lobbyNameText.text = lobbyVo.lobbyName;
       view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
-      for (int i = 0; i < lobbyVo.playerCount; i++)
+      for (ushort i = 0; i < lobbyVo.playerCount; i++)
       {
-        int count = i;
+        ushort count = i;
         var instantiateAsync = Addressables.InstantiateAsync(LobbyKey.LobbyManagerPanelItem, view.playerContainer);
         instantiateAsync.Completed += handle =>
         {
@@ -96,6 +96,8 @@ namespace Lobby.View.LobbyManagerPanel
     }
     private void OnPlayerIsOut(IEvent payload)
     {
+      LobbyVo lobbyVo = lobbyModel.lobbyVo;
+      view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
       ushort inLobbyId = (ushort)payload.data;
       view.behaviours[inLobbyId].PlayerIsOut();
     }

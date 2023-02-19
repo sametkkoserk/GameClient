@@ -22,7 +22,7 @@ namespace Lobby.Processor
         //userName = message.GetString(),
         colorId = message.GetUShort()
       };
-      lobbyModel.lobbyVo.clients.Add(clientVo);
+      lobbyModel.lobbyVo.clients[clientVo.inLobbyId]=clientVo;
       lobbyModel.lobbyVo.playerCount += 1;
       dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby, clientVo);
     }

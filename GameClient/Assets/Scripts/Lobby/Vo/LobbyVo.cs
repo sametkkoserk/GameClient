@@ -12,6 +12,6 @@ namespace Lobby.Vo
         public ushort maxPlayerCount;
         public ushort playerCount;
         public ushort readyCount;
-        public List<ClientVo> clients;
+        public Dictionary<ushort,ClientVo> clients;
     }
 }
