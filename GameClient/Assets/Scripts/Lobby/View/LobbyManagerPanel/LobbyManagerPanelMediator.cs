@@ -100,6 +100,10 @@ namespace Lobby.View.LobbyManagerPanel
       view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
       ushort inLobbyId = (ushort)payload.data;
       view.behaviours[inLobbyId].PlayerIsOut();
+      for (ushort i = 0; i < lobbyVo.clients.Count; i++)
+      {
+        view.behaviours[i].Init(lobbyVo.clients[i],lobbyModel.colors[i]);
+      }
     }
     public override void OnRemove()
     {
