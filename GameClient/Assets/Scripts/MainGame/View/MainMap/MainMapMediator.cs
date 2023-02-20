@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using MainGame.Enum;
+using MainGame.Model;
 using MainGame.View.City;
 using MainGame.Vo;
 using strange.extensions.dispatcher.eventdispatcher.api;
@@ -19,6 +22,8 @@ namespace MainGame.View.MainMap
     [Inject]
     public MainMapView view { get; set; }
 
+    [Inject]
+    public IMainGameModel mainGameModel { get; set; }
 
     public override void OnRegister()
     {
@@ -26,23 +31,28 @@ namespace MainGame.View.MainMap
       dispatcher.AddListener(MainGameEvent.MapGenerator, OnMapGenerator);
     }
 
-    private void OnMapGenerator(IEvent payload)
+    private void Start()
     {
-      Dictionary<int, CityVo> cityVos = (Dictionary<int, CityVo>)payload.data;
+      OnMapGenerator();
+    }
 
-      for (int i = 0; i < cityVos.Count; i++)
+    private void OnMapGenerator()
+    {
+      Debug.Log("MainMapGenerator");
+
+      for (int i = 0; i < mainGameModel.cities.Count; i++)
       {
         int count = i;
-        
+
         AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(MainGameKeys.City, transform);
-        
+
         instantiateAsync.Completed += handle =>
         {
           GameObject cityObject = instantiateAsync.Result;
 
           CityView cityView = cityObject.transform.GetComponent<CityView>();
 
-          cityView.Init(cityVos[count]);
+          cityView.Init(mainGameModel.cities.ElementAt(count).Value);
         };
       }
     }

@@ -61,8 +61,6 @@ namespace Lobby.Config
             commandBinder.Bind(ServerToClientId.OutFromLobbyDone).To<OutFromLobbyDoneProcessor>();
             commandBinder.Bind(ServerToClientId.NewPlayerToLobby).To<NewPlayerToLobbyProccessor>();
             commandBinder.Bind(ServerToClientId.PlayerReadyResponse).To<PlayerReadyResponseProcessor>();
-
-
         }
     }
 }

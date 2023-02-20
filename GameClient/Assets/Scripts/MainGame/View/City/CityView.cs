@@ -6,7 +6,6 @@ namespace MainGame.View.City
 {
   public class CityView : EventView
   {
-    [HideInInspector]
     public CityVo cityVo;
 
     [HideInInspector]

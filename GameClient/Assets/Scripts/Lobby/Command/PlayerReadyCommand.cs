@@ -21,8 +21,8 @@ namespace Lobby.Command
       message.AddUShort(lobbyModel.lobbyVo.lobbyId);
       message.AddUShort(lobbyModel.inLobbyId);
       networkManager.Client.Send(message);
-      Debug.Log("player is ready sent");
-
+      
+      Debug.Log("Player is ready!");
     }
   }
 }
