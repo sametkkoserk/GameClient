@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: DebugXData
   m_EditorClassIdentifier: 
   loggerList:
-  - key: Lobby
-    active: 0
-    color: {r: 0, g: 1, b: 0.05725074, a: 1}
-  - key: Response
+  - key: 0
     active: 1
     color: {r: 1, g: 0, b: 0, a: 1}
