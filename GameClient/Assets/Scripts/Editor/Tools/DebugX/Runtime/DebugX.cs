@@ -22,6 +22,7 @@ namespace Editor.Tools.DebugX.Runtime
 
     public static void Init()
     {
+#if UNITY_EDITOR
       LogMap = new Dictionary<DebugKey, LoggerVo>();
 
       DebugX data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
@@ -32,6 +33,7 @@ namespace Editor.Tools.DebugX.Runtime
       }
 
       _inited = true;
+#endif
     }
 
     /// <summary>Logs a message.</summary>
@@ -39,6 +41,7 @@ namespace Editor.Tools.DebugX.Runtime
     /// <param name="message">The message to log.</param>
     public static void Log(DebugKey tag, string message)
     {
+#if UNITY_EDITOR
       if (!_inited) Init();
 
       if (!LogMap.ContainsKey(tag)) return;
@@ -50,6 +53,7 @@ namespace Editor.Tools.DebugX.Runtime
       string text = string.Format("<color=#{0}>" + "<b>{1}</b>" + "</color>: {2}", ColorUtility.ToHtmlStringRGBA(loggerVo.color), tag, message);
 
       Debug.Log($"[{Thread.CurrentThread.ManagedThreadId}] {text}");
+#endif
     }
 
 #if UNITY_EDITOR

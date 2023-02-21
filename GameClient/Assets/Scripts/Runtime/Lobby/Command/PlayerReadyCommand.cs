@@ -1,5 +1,6 @@
 using Riptide;
 using Runtime.Lobby.Model.LobbyModel;
+using Runtime.Lobby.Vo;
 using Runtime.Network.Enum;
 using Runtime.Network.Services.NetworkManager;
 using strange.extensions.command.impl;
@@ -18,8 +19,13 @@ namespace Runtime.Lobby.Command
     public override void Execute()
     {
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.PlayerReady);
-      message.AddUShort(lobbyModel.lobbyVo.lobbyId);
-      message.AddUShort(lobbyModel.inLobbyId);
+      PlayerReadyVo playerReadyVo = new PlayerReadyVo()
+      {
+        lobbyId = lobbyModel.lobbyVo.lobbyId,
+        inLobbyId = lobbyModel.inLobbyId
+      };
+      message=networkManager.SetData(message,playerReadyVo);
+
       networkManager.Client.Send(message);
       
       Debug.Log("Player is ready!");

@@ -1,6 +1,7 @@
 using Riptide;
 using Runtime.Lobby.Enum;
 using Runtime.Lobby.Model.LobbyModel;
+using Runtime.Network.Services.NetworkManager;
 using Runtime.Network.Vo;
 using strange.extensions.command.impl;
 using UnityEngine;
@@ -11,11 +12,13 @@ namespace Runtime.Lobby.Processor
   {
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
+    [Inject]
+    public INetworkManagerService networkManager { get; set; }
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      Message message = vo.message;
-      ushort inLobbyId = message.GetUShort();
+      string message = vo.message;
+      ushort inLobbyId = networkManager.GetData<ushort>(message);
       Debug.Log("outed message received");
       if (inLobbyId==lobbyModel.inLobbyId)
       {

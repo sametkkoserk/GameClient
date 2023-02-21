@@ -1,5 +1,6 @@
 using Riptide;
 using Runtime.Lobby.Model.LobbyModel;
+using Runtime.Lobby.Vo;
 using Runtime.Network.Enum;
 using Runtime.Network.Services.NetworkManager;
 using strange.extensions.command.impl;
@@ -17,8 +18,13 @@ namespace Runtime.Lobby.Command
     public override void Execute()
     {
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.OutFromLobby);
-      message.AddUShort(lobbyModel.lobbyVo.lobbyId);
-      message.AddUShort(lobbyModel.inLobbyId);
+      OutFromLobbyVo outFromLobbyVo = new OutFromLobbyVo()
+      {
+        lobbyId = lobbyModel.lobbyVo.lobbyId,
+        inLobbyId = lobbyModel.inLobbyId,
+      };
+      message=networkManager.SetData(message,outFromLobbyVo);
+      
       networkManager.Client.Send(message);
     }
   }

@@ -15,7 +15,7 @@ namespace Runtime.Lobby.Command
     {
       ushort lobbyId = (ushort)evt.data;
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.JoinLobby);
-      message.AddUShort(lobbyId);
+      message=networkManager.SetData(message,lobbyId);
       networkManager.Client.Send(message);
       Debug.Log("Join Lobby Sent");
     }

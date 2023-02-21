@@ -25,7 +25,9 @@ namespace Runtime.Lobby.View.CreateLobbyPanel
             LobbyVo vo = new()
             {
                 lobbyName = view.LobbyNameInputField.text,
-                isPrivate = view.isPrivate.isOn
+                isPrivate = view.isPrivate.isOn,
+                maxPlayerCount = 10
+                
             };
             dispatcher.Dispatch(LobbyEvent.SendCreateLobby,vo);
         }

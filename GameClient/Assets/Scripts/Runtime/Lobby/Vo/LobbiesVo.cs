@@ -4,6 +4,6 @@ namespace Runtime.Lobby.Vo
 {
   public class LobbiesVo
   {
-    public List<LobbyVo> lobbies;
+    public Dictionary<ushort, LobbyVo> lobbies{ get; set; }
   }
 }

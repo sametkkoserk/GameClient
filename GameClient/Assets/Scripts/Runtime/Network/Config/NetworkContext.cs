@@ -1,6 +1,4 @@
 using Runtime.Network.Command;
-using Runtime.Network.Enum;
-using Runtime.Network.Processor;
 using Runtime.Network.Services.NetworkManager;
 using Runtime.Network.View.NetworkManager;
 using strange.extensions.context.api;
@@ -37,13 +35,10 @@ namespace Runtime.Network.Config
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
             //The START event is fired as soon as mappings are complete.
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
-            commandBinder.Bind(ContextEvent.START).To<ClientConnectCommand>();
-            commandBinder.Bind(NetworkEvent.SendMessage).To<SendMessageCommand>();
-            commandBinder.Bind(NetworkEvent.CreateLobby).To<CreateLobbyContextCommand>();
-
+            commandBinder.Bind(ContextEvent.START).InSequence()
+                .To<ClientConnectCommand>()
+                .To<CreateLobbyContextCommand>();
             
-            commandBinder.Bind(ServerToClientId.Response).To<HandleResponseProcessor>();
-
 
         }
     }
