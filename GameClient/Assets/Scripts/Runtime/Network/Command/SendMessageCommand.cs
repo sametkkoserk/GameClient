@@ -14,7 +14,7 @@ namespace Runtime.Network.Command
     public override void Execute()
     {
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.test);
-      message.AddString("no prob"); //TODO: Samet bu string'e bir bak.
+      message.AddString("no prob"); //TODO: Samet: bu string'e bir bak.
       networkManager.Client.Send(message);
 
       DebugX.Log(DebugKey.Server, "Message sent");
