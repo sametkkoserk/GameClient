@@ -1,6 +1,9 @@
 using System;
 using Editor.Tools.DebugX.Runtime;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json.UnityConverters.Math;
 using Riptide;
 using Riptide.Utils;
 using Runtime.Contexts.Network.Enum;
@@ -18,6 +21,14 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
         public IEventDispatcher crossDispatcher{ get; set;}
         [Inject(ContextKeys.CONTEXT_DISPATCHER)]
         public IEventDispatcher dispatcher{ get; set;}
+
+        private JsonSerializerSettings settings = new JsonSerializerSettings {
+            Converters = new JsonConverter[] {
+                new Vector3Converter(),
+                new StringEnumConverter(),
+            },
+            ContractResolver = new DefaultContractResolver(),
+        };
 
         private string ip;
         private ushort port;
@@ -69,9 +80,9 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
         {
             if ( obj== null)
                 Debug.LogError("Set data object is null");
-            string objStr=JsonConvert.SerializeObject(obj);
-            message.AddString(objStr);
+            string objStr=JsonConvert.SerializeObject(obj,settings);
 
+            message.AddString(objStr);
             return message;
         }
         private void DidConnect(object sender, EventArgs e)
