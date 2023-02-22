@@ -1,21 +1,24 @@
 using Riptide;
-using Runtime.Contexts.Lobby.Enum;
-using Runtime.Contexts.Lobby.Model.LobbyModel;
-using Runtime.Contexts.Network.Vo;
+using Runtime.Lobby.Enum;
+using Runtime.Lobby.Model.LobbyModel;
+using Runtime.Network.Services.NetworkManager;
+using Runtime.Network.Vo;
 using strange.extensions.command.impl;
 using UnityEngine;
 
-namespace Runtime.Contexts.Lobby.Processor
+namespace Runtime.Lobby.Processor
 {
   public class OutFromLobbyDoneProcessor : EventCommand
   {
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
+    [Inject]
+    public INetworkManagerService networkManager { get; set; }
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      Message message = vo.message;
-      ushort inLobbyId = message.GetUShort();
+      string message = vo.message;
+      ushort inLobbyId = networkManager.GetData<ushort>(message);
       Debug.Log("outed message received");
       if (inLobbyId==lobbyModel.inLobbyId)
       {

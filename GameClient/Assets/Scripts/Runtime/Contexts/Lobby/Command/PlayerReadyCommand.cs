@@ -1,11 +1,12 @@
 using Riptide;
-using Runtime.Contexts.Lobby.Model.LobbyModel;
-using Runtime.Contexts.Network.Enum;
-using Runtime.Contexts.Network.Services.NetworkManager;
+using Runtime.Lobby.Model.LobbyModel;
+using Runtime.Lobby.Vo;
+using Runtime.Network.Enum;
+using Runtime.Network.Services.NetworkManager;
 using strange.extensions.command.impl;
 using UnityEngine;
 
-namespace Runtime.Contexts.Lobby.Command
+namespace Runtime.Lobby.Command
 {
   public class PlayerReadyCommand : EventCommand
   {
@@ -18,8 +19,13 @@ namespace Runtime.Contexts.Lobby.Command
     public override void Execute()
     {
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.PlayerReady);
-      message.AddUShort(lobbyModel.lobbyVo.lobbyId);
-      message.AddUShort(lobbyModel.inLobbyId);
+      PlayerReadyVo playerReadyVo = new PlayerReadyVo()
+      {
+        lobbyId = lobbyModel.lobbyVo.lobbyId,
+        inLobbyId = lobbyModel.inLobbyId
+      };
+      message=networkManager.SetData(message,playerReadyVo);
+
       networkManager.Client.Send(message);
       
       Debug.Log("Player is ready!");

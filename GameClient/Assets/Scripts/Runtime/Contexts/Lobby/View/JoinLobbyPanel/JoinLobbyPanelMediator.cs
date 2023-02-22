@@ -1,11 +1,12 @@
-using Runtime.Contexts.Lobby.Enum;
-using Runtime.Contexts.Lobby.Vo;
+using System.Collections.Generic;
+using Runtime.Lobby.Enum;
+using Runtime.Lobby.Vo;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
-namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
+namespace Runtime.Lobby.View.JoinLobbyPanel
 {
   public enum JoinLobbyPanelEvent
   {
@@ -29,16 +30,16 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     }
     private void OnLobbies(IEvent payload)
     {
-      LobbiesVo vo = (LobbiesVo)payload.data;
-      for (int i = 0; i < vo.lobbies.Count; i++)
+      Dictionary<ushort, LobbyVo> lobbies = (Dictionary<ushort, LobbyVo>)payload.data;
+      for (ushort i = 0; i < lobbies.Count; i++)
       {
-        int count = i;
+        ushort count = i;
         var asyncOperationHandle = Addressables.InstantiateAsync(LobbyKey.JoinLobbyPanelItem,view.lobbyContainer);
         asyncOperationHandle.Completed += handle =>
         {
           GameObject obj = asyncOperationHandle.Result;
           JoinLobbyPanelItemBehaviour behaviour = obj.GetComponent<JoinLobbyPanelItemBehaviour>();
-          behaviour.Init(vo.lobbies[count],() => {dispatcher.Dispatch(LobbyEvent.JoinLobby,vo.lobbies[count].lobbyId);});
+          behaviour.Init(lobbies[count],() => {dispatcher.Dispatch(LobbyEvent.JoinLobby,lobbies[count].lobbyId);});
 
         };
       }
