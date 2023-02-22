@@ -1,23 +1,24 @@
-using Riptide;
-using Runtime.Lobby.Enum;
-using Runtime.Lobby.Model.LobbyModel;
-using Runtime.Lobby.Vo;
-using Runtime.Main.Enum;
-using Runtime.Network.Services.NetworkManager;
-using Runtime.Network.Vo;
+using Runtime.Contexts.Lobby.Enum;
+using Runtime.Contexts.Lobby.Model.LobbyModel;
+using Runtime.Contexts.Lobby.Vo;
+using Runtime.Contexts.Main.Enum;
+using Runtime.Contexts.Network.Services.NetworkManager;
+using Runtime.Contexts.Network.Vo;
 using strange.extensions.command.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
-namespace Runtime.Lobby.Processor
+namespace Runtime.Contexts.Lobby.Processor
 {
   public class PlayerReadyResponseProcessor : EventCommand
   {
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
+
     [Inject]
     public INetworkManagerService networkManager { get; set; }
+
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
@@ -27,21 +28,18 @@ namespace Runtime.Lobby.Processor
       if (lobbyModel.lobbyVo.lobbyId != playerReadyResponseVo.lobbyId)
         return;
 
-      lobbyModel.lobbyVo.clients[playerReadyResponseVo.inLobbyId].ready=true;
+      lobbyModel.lobbyVo.clients[playerReadyResponseVo.inLobbyId].ready = true;
       lobbyModel.lobbyVo.readyCount += 1;
-      
 
-      dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse,playerReadyResponseVo.inLobbyId);
-      
+
+      dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse, playerReadyResponseVo.inLobbyId);
+
       Debug.Log("player ready responded");
       if (playerReadyResponseVo.startGame)
       {
         Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
         dispatcher.Dispatch(LobbyEvent.StartGame);
-        
       }
-      
-
     }
   }
 }

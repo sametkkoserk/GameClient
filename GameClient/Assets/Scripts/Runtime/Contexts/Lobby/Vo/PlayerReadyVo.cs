@@ -1,6 +1,4 @@
-using Newtonsoft.Json;
-
-namespace Runtime.Lobby.Vo
+namespace Runtime.Contexts.Lobby.Vo
 {
   public class PlayerReadyVo
   {

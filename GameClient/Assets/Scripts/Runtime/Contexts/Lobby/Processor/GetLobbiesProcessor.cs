@@ -1,18 +1,18 @@
 using System.Collections.Generic;
-using Riptide;
-using Runtime.Lobby.Enum;
-using Runtime.Lobby.Vo;
-using Runtime.Network.Services.NetworkManager;
-using Runtime.Network.Vo;
+using Runtime.Contexts.Lobby.Enum;
+using Runtime.Contexts.Lobby.Vo;
+using Runtime.Contexts.Network.Services.NetworkManager;
+using Runtime.Contexts.Network.Vo;
 using strange.extensions.command.impl;
 using UnityEngine;
 
-namespace Runtime.Lobby.Processor
+namespace Runtime.Contexts.Lobby.Processor
 {
   public class GetLobbiesProcessor : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
+
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
@@ -33,7 +33,7 @@ namespace Runtime.Lobby.Processor
       //   lobbiesVo.lobbies.Add(lobbyVo);
       // }
       Debug.Log("GetLobbies received");
-      dispatcher.Dispatch(LobbyEvent.listLobbies,lobbies);
+      dispatcher.Dispatch(LobbyEvent.listLobbies, lobbies);
     }
   }
 }

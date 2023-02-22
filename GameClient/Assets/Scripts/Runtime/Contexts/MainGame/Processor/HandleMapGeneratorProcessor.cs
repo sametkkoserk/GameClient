@@ -1,14 +1,11 @@
-using System.Collections.Generic;
-using Riptide;
-using Runtime.MainGame.Enum;
-using Runtime.MainGame.Model;
-using Runtime.MainGame.Vo;
-using Runtime.Network.Services.NetworkManager;
-using Runtime.Network.Vo;
+using Runtime.Contexts.MainGame.Enum;
+using Runtime.Contexts.MainGame.Model;
+using Runtime.Contexts.MainGame.Vo;
+using Runtime.Contexts.Network.Services.NetworkManager;
+using Runtime.Contexts.Network.Vo;
 using strange.extensions.command.impl;
-using UnityEngine;
 
-namespace Runtime.MainGame.Processor
+namespace Runtime.Contexts.MainGame.Processor
 {
     public class HandleMapGeneratorProcessor : EventCommand
     {

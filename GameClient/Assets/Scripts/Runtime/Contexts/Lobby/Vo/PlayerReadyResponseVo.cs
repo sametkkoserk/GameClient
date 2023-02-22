@@ -1,4 +1,4 @@
-namespace Runtime.Lobby.Vo
+namespace Runtime.Contexts.Lobby.Vo
 {
   public class PlayerReadyResponseVo
   {

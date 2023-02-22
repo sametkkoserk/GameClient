@@ -1,7 +1,6 @@
 using System.Collections.Generic;
-using Runtime.Lobby.Vo;
 
-namespace Runtime.MainGame.Vo
+namespace Runtime.Contexts.MainGame.Vo
 {
   public class MapGeneratorVo
   {
