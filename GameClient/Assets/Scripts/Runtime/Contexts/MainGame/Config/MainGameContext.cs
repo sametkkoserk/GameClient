@@ -6,13 +6,14 @@ using Runtime.Contexts.MainGame.View.City;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
 using Runtime.Contexts.Network.Enum;
+using Runtime.Modules.Core.GeneralConfig;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.Config
 {
-    public class MainGameContext : MVCSContext
+    public class MainGameContext : GeneralContext
     {
         public MainGameContext (MonoBehaviour view) : base(view)
         {
@@ -24,6 +25,8 @@ namespace Runtime.Contexts.MainGame.Config
         
         protected override void mapBindings()
         {
+            base.mapBindings();
+
             injectionBinder.Bind<IMainGameModel>().To<MainGameModel>().ToSingleton();
             //Injection binding.
             //Map a mock model and a mock service, both as Singletons

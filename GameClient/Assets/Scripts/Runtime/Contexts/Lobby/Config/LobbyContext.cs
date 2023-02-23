@@ -8,13 +8,14 @@ using Runtime.Contexts.Lobby.View.LobbyManagerPanel;
 using Runtime.Contexts.Lobby.View.LobbyPanel;
 using Runtime.Contexts.Lobby.View.LobbyUIManager;
 using Runtime.Contexts.Network.Enum;
+using Runtime.Modules.Core.GeneralConfig;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Config
 {
-    public class LobbyContext : MVCSContext
+    public class LobbyContext : GeneralContext
     {
         public LobbyContext (MonoBehaviour view) : base(view)
         {
@@ -26,6 +27,7 @@ namespace Runtime.Contexts.Lobby.Config
         
         protected override void mapBindings()
         {
+            base.mapBindings();
             //Injection binding.
             //Map a mock model and a mock service, both as Singletons
             injectionBinder.Bind<ILobbyModel>().To<LobbyModel>().ToSingleton().CrossContext();

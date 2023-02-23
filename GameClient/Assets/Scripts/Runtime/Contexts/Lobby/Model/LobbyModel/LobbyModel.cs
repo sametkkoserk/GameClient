@@ -12,7 +12,7 @@ namespace Runtime.Contexts.Lobby.Model.LobbyModel
         public List<Material> materials { get; set; }
 
         [PostConstruct]
-        public void OnPostContruct()
+        public void OnPostConstruct()
         {
             colors = new List<Color>() { Color.black ,Color.blue,Color.green,Color.magenta,Color.red,Color.yellow};
             // Each player will has special material. In the future we can sell materials. In the lobby, player have to choose material.

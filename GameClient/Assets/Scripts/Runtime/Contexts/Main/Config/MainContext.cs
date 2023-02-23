@@ -1,11 +1,12 @@
 using Runtime.Contexts.Main.Command;
+using Runtime.Modules.Core.GeneralConfig;
 using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.Main.Config
 {
-    public class MainContext : MVCSContext
+    public class MainContext : GeneralContext
     {
         public MainContext (MonoBehaviour view) : base(view)
         {
@@ -17,6 +18,7 @@ namespace Runtime.Contexts.Main.Config
         
         protected override void mapBindings()
         {
+            base.mapBindings();
             //Injection binding.
             //Map a mock model and a mock service, both as Singletons
             //injectionBinder.Bind<IExampleModel>().To<ExampleModel>().ToSingleton();

@@ -1,13 +1,13 @@
 using Runtime.Contexts.Network.Command;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.View.NetworkManager;
+using Runtime.Modules.Core.GeneralConfig;
 using strange.extensions.context.api;
-using strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.Network.Config
 {
-  public class NetworkContext : MVCSContext
+  public class NetworkContext : GeneralContext
   {
     public NetworkContext(MonoBehaviour view) : base(view)
     {
@@ -19,6 +19,8 @@ namespace Runtime.Contexts.Network.Config
 
     protected override void mapBindings()
     {
+      base.mapBindings();
+
       //Injection binding.
       //Map a mock model and a mock service, both as Singletons
       //injectionBinder.Bind<IExampleModel>().To<ExampleModel>().ToSingleton();

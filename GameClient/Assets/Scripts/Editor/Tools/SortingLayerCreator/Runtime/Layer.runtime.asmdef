@@ -1,0 +1,16 @@
+{
+    "name": "Layer.runtime",
+    "rootNamespace": "",
+    "references": [
+        "GUID:816240b17e4fec54a81fb6e5f19db360"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
