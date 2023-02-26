@@ -3,9 +3,9 @@ using UnityEditor;
 
 namespace Editor.Tools.SortingLayerCreator.Runtime
 {
-  public class CreateSkill : EditorWindow
+  public class CreateLayer : EditorWindow
   {
-    [MenuItem("Tools/Update Sorting Layers")]
+    [MenuItem("Tools/Sorting Layer/Update Sorting Layers")]
     private static void Init()
     {
       DeleteAllSortingLayers();
