@@ -1004,6 +1004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4256b87c90a44927bb859cbfd9512db6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lobbyManagerPanelItem: {fileID: 474903677576946194, guid: 6a673d035d7d90f4aa8a22d4fa847d4a, type: 3}
   playerContainer: {fileID: 6666064095382091325}
   lobbyNameText: {fileID: 5383972951736490829}
   playerCountText: {fileID: 613175721356986716}

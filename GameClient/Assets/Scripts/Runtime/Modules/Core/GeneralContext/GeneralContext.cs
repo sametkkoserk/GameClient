@@ -5,7 +5,7 @@ using strange.extensions.context.api;
 using strange.extensions.context.impl;
 using UnityEngine;
 
-namespace Runtime.Modules.Core.GeneralConfig
+namespace Runtime.Modules.Core.GeneralContext
 {
   public class GeneralContext : MVCSContext
   {
@@ -20,13 +20,11 @@ namespace Runtime.Modules.Core.GeneralConfig
     protected override void mapBindings()
     {
       base.mapBindings();
-      
+
       injectionBinder.Bind<IScreenManagerModel>().To<ScreenManagerModel>().ToSingleton();
 
       mediationBinder.Bind<LayerContainerView>().To<LayerContainerMediator>();
       mediationBinder.Bind<PanelContainerView>().To<PanelContainerMediator>();
-
-      // commandBinder.Bind(ContextEvent.START).To<COMMANDNAME>();
     }
   }
 }

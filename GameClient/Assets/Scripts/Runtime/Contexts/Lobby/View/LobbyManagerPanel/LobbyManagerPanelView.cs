@@ -10,10 +10,16 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
   {
     public Dictionary<ushort, LobbyManagerPanelItemBehaviour> behaviours;
 
+    public GameObject lobbyManagerPanelItem;
+    
     public Transform playerContainer;
+    
     public TMP_Text lobbyNameText;
+    
     public TMP_Text playerCountText;
+    
     public Button readyButton;
+    
     public void OnReady()
     {
       readyButton.interactable = false;

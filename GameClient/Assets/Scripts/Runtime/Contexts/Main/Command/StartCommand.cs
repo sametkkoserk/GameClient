@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Runtime.Contexts.Main.Command
 {
-    public class LoadNetworkSceneCommand : EventCommand
+    public class StartCommand : EventCommand
     {
         public override void Execute()
         {

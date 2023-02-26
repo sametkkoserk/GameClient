@@ -128,6 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba0bf930dff44c7584ea64a2fc860e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joinLobbyPanelItem: {fileID: 1076571766244284380, guid: 14ea6a6903b314d48bf85713c1c65ca1, type: 3}
   lobbyContainer: {fileID: 7919359426579881704}
 --- !u!1 &5892774143524414517
 GameObject:

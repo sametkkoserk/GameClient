@@ -1,7 +1,6 @@
 using Runtime.Contexts.Main.Command;
-using Runtime.Modules.Core.GeneralConfig;
+using Runtime.Modules.Core.GeneralContext;
 using strange.extensions.context.api;
-using strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.Main.Config
@@ -35,8 +34,7 @@ namespace Runtime.Contexts.Main.Config
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
             //The START event is fired as soon as mappings are complete.
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
-            commandBinder.Bind(ContextEvent.START).To<LoadNetworkSceneCommand>();
-
+            commandBinder.Bind(ContextEvent.START).To<StartCommand>();
         }
     }
 }

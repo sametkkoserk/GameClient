@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Vo;
+using Runtime.Modules.Core.ScreenManager.Enum;
+using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -17,6 +19,9 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
   {
     [Inject]
     public JoinLobbyPanelView view { get; set; }
+    
+    [Inject]
+    public IScreenManagerModel screenManagerModel { get; set; }
 
     public override void OnRegister()
     {
@@ -36,19 +41,15 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
       for (ushort i = 0; i < lobbies.Count; i++)
       {
         ushort count = i;
-        var asyncOperationHandle = Addressables.InstantiateAsync(LobbyKey.JoinLobbyPanelItem, view.lobbyContainer);
-        asyncOperationHandle.Completed += handle =>
-        {
-          GameObject obj = asyncOperationHandle.Result;
-          JoinLobbyPanelItemBehaviour behaviour = obj.GetComponent<JoinLobbyPanelItemBehaviour>();
-          behaviour.Init(lobbies[count], () => { dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId); });
-        };
+        GameObject joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
+        JoinLobbyPanelItemBehaviour behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
+        behaviour.Init(lobbies[count], () => { dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId); });
       }
     }
 
     private void OnBack()
     {
-      dispatcher.Dispatch(LobbyEvent.BackToLobbyPanel);
+      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyPanel);
     }
 
     public override void OnRemove()

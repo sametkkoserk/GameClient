@@ -6,9 +6,8 @@ using Runtime.Contexts.MainGame.View.City;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
 using Runtime.Contexts.Network.Enum;
-using Runtime.Modules.Core.GeneralConfig;
+using Runtime.Modules.Core.GeneralContext;
 using strange.extensions.context.api;
-using strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.Config
@@ -46,6 +45,7 @@ namespace Runtime.Contexts.MainGame.Config
             //The START event is fired as soon as mappings are complete.
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
             commandBinder.Bind(MainGameEvent.StartGame).To<CreateMapCommand>();
+            
             commandBinder.Bind(ServerToClientId.SendMap).To<HandleMapGeneratorProcessor>();
         }
     }

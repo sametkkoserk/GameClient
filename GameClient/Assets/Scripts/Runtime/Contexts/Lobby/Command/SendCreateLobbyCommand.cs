@@ -1,9 +1,9 @@
 using Editor.Tools.DebugX.Runtime;
-using Newtonsoft.Json;
 using Riptide;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Contexts.Network.Services.NetworkManager;
+using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using strange.extensions.command.impl;
 
 namespace Runtime.Contexts.Lobby.Command
@@ -12,6 +12,9 @@ namespace Runtime.Contexts.Lobby.Command
     {
         [Inject] 
         public INetworkManagerService networkManager { get; set; }
+        
+        [Inject]
+        public IScreenManagerModel screenManagerModel { get; set; }
 
         public override void Execute()
         {

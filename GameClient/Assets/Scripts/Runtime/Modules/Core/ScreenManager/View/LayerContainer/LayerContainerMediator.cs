@@ -1,5 +1,8 @@
+using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.View.PanelContainer;
+using Runtime.Modules.Core.ScreenManager.Vo;
+using strange.extensions.dispatcher.eventdispatcher.api;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -15,13 +18,17 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
 
     public override void OnRegister()
     {
+      Init();
+    }
+
+    private void Init()
+    {
+      screenManagerModel.AddLayerContainer(transform.gameObject.scene.name);
     }
 
     private void Start()
     {
       screenManagerModel.SetSortOrder();
-      
-      Debug.Log(gameObject.scene.name);
       
       for (int i = 0; i < view.layerVos.Count; i++)
       {
@@ -35,6 +42,9 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
 
         behaviour.Init(view.layerVos[i].key);
       }
+      
+      //TODO: Şafak: burada dispatch at ve ppanellerin açılmasını söyleyen yerler ona göre dinlesin. Her context için geçerli.
+      dispatcher.Dispatch(PanelEvent.PanelContainersCreated);
     }
 
     public override void OnRemove()

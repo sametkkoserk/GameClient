@@ -1,7 +1,7 @@
 using Runtime.Contexts.Network.Command;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.View.NetworkManager;
-using Runtime.Modules.Core.GeneralConfig;
+using Runtime.Modules.Core.GeneralContext;
 using strange.extensions.context.api;
 using UnityEngine;
 

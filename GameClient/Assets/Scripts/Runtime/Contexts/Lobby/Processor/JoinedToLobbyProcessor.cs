@@ -3,6 +3,8 @@ using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
+using Runtime.Modules.Core.ScreenManager.Enum;
+using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using strange.extensions.command.impl;
 using UnityEngine;
 
@@ -15,6 +17,9 @@ namespace Runtime.Contexts.Lobby.Processor
 
     [Inject]
     public INetworkManagerService networkManager { get; set; }
+    
+    [Inject]
+    public IScreenManagerModel screenManagerModel { get; set; }
     
     public override void Execute()
     {
@@ -42,8 +47,7 @@ namespace Runtime.Contexts.Lobby.Processor
       
       lobbyModel.lobbyVo = lobbyVo;
 
-      dispatcher.Dispatch(LobbyEvent.ToLobbyManagerPanel);
-
+      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyManagerPanel);
     }
   }
 }

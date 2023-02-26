@@ -4,6 +4,8 @@ using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
+using Runtime.Modules.Core.ScreenManager.Enum;
+using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using strange.extensions.command.impl;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
@@ -18,6 +20,9 @@ namespace Runtime.Contexts.Lobby.Processor
 
     [Inject]
     public INetworkManagerService networkManager { get; set; }
+    
+    [Inject]
+    public IScreenManagerModel screenManagerModel { get; set; }
 
     public override void Execute()
     {
@@ -35,11 +40,10 @@ namespace Runtime.Contexts.Lobby.Processor
       dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse, playerReadyResponseVo.inLobbyId);
 
       Debug.Log("player ready responded");
-      if (playerReadyResponseVo.startGame)
-      {
-        Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
-        dispatcher.Dispatch(LobbyEvent.StartGame);
-      }
+      
+      if (!playerReadyResponseVo.startGame) return;
+      Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
+      screenManagerModel.CloseScenePanels(SceneKey.Lobby);
     }
   }
 }

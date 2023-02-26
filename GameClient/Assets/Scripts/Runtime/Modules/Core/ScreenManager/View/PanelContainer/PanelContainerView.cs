@@ -10,7 +10,8 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     
     public LayerKey key;
     
-    //TODO: Safak: isimi keye gore ver.
+    [HideInInspector]
+    public GameObject CurrentPanel;
 
     public void Init(LayerKey _layerKey)
     {
