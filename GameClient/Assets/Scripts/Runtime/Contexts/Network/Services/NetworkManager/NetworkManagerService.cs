@@ -22,7 +22,8 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
         [Inject(ContextKeys.CONTEXT_DISPATCHER)]
         public IEventDispatcher dispatcher{ get; set;}
 
-        private JsonSerializerSettings settings = new JsonSerializerSettings {
+        private JsonSerializerSettings settings = new()
+        {
             Converters = new JsonConverter[] {
                 new Vector3Converter(),
                 new StringEnumConverter(),
@@ -71,16 +72,13 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
         public T GetData<T>(string message) where T : new()
         {
-            if ( message== null)
-                return default(T);
-
-            return JsonConvert.DeserializeObject<T>(message);
+            return message== null ? default(T) : JsonConvert.DeserializeObject<T>(message);
         }
-        public Message SetData(Message message,object obj)
+        public Message SetData(Message message, object obj)
         {
-            if ( obj== null)
+            if (obj == null)
                 Debug.LogError("Set data object is null");
-            string objStr=JsonConvert.SerializeObject(obj,settings);
+            string objStr = JsonConvert.SerializeObject(obj, settings);
 
             message.AddString(objStr);
             return message;

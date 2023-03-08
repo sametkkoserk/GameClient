@@ -5,28 +5,28 @@ using UnityEngine.UI;
 
 namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 {
-    public class LobbyManagerPanelItemBehaviour : MonoBehaviour
+  public class LobbyManagerPanelItemBehaviour : MonoBehaviour
+  {
+    public TMP_Text userNameText;
+    
+    public Image colorImage;
+    
+    public GameObject readyObj;
+
+    public void Init(ClientVo clientVo, Color color)
     {
-        public TMP_Text userNameText;
-        public Image colorImage;
-        public GameObject readyObj;
-
-
-        public void Init(ClientVo clientVo,Color color)
-        {
-            userNameText.text = clientVo.id+"  " + clientVo.inLobbyId;
-            colorImage.color = color;
-
-        }
-
-        public void PlayerReady()
-        {
-            readyObj.SetActive(true);
-        }
-
-        public void PlayerIsOut()
-        {
-            Destroy(this.gameObject);
-        }
+      userNameText.text = "ID: " + clientVo.id + " - Lobby ID: " + clientVo.inLobbyId;
+      colorImage.color = color;
     }
+
+    public void PlayerReady()
+    {
+      readyObj.SetActive(true);
+    }
+
+    public void PlayerIsOut()
+    {
+      Destroy(gameObject);
+    }
+  }
 }

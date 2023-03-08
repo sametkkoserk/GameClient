@@ -1,6 +1,7 @@
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
+using Runtime.Contexts.MainGame.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine.AddressableAssets;
 
@@ -12,7 +13,7 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
     public MainMapContainerView view { get; set; }
 
     [Inject]
-    public ILobbyModel lobbyModel { get; set; }
+    public IMainGameModel mainGameModel { get; set; }
 
     public override void OnRegister()
     {
@@ -23,7 +24,11 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
     {
       Addressables.InstantiateAsync(LobbyKey.MainMap, gameObject.transform);
 
-      lobbyModel.materials = view.playerMaterials;
+      if (mainGameModel.materials.Count == 0)
+      {
+        // Player Vo olusturulacak.
+        mainGameModel.materials = view.playerMaterials;
+      }
     }
 
     public override void OnRemove()

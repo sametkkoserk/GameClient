@@ -1,8 +1,10 @@
+using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Command;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Processor;
 using Runtime.Contexts.MainGame.View.City;
+using Runtime.Contexts.MainGame.View.MainGameManager;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
 using Runtime.Contexts.Network.Enum;
@@ -38,6 +40,7 @@ namespace Runtime.Contexts.MainGame.Config
             mediationBinder.Bind<CityView>().To<CityMediator>();
             mediationBinder.Bind<MainMapView>().To<MainMapMediator>();
             mediationBinder.Bind<MainMapContainerView>().To<MainMapContainerMediator>();
+            mediationBinder.Bind<MainGameManagerView>().To<MainGameManagerMediator>();
 
 
             //Event/Command binding
@@ -47,6 +50,7 @@ namespace Runtime.Contexts.MainGame.Config
             commandBinder.Bind(MainGameEvent.StartGame).To<CreateMapCommand>();
             
             commandBinder.Bind(ServerToClientId.SendMap).To<HandleMapGeneratorProcessor>();
+            commandBinder.Bind(ServerToClientId.SendUserLobbyID).To<SendUserLobbyIDProcessor>();
         }
     }
 }

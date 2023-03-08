@@ -1,4 +1,5 @@
 using Runtime.Contexts.Lobby.Model.LobbyModel;
+using Runtime.Contexts.MainGame.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ namespace Runtime.Contexts.MainGame.View.City
     public CityView view { get; set; }
     
     [Inject]
-    public ILobbyModel lobbyModel { get; set; }
+    public IMainGameModel mainGameModel { get; set; }
 
     public override void OnRegister()
     {
@@ -35,10 +36,10 @@ namespace Runtime.Contexts.MainGame.View.City
 
     public void FillColor()
     {
-      for (int i = 0; i < lobbyModel.materials.Count; i++)
+      for (int i = 0; i < mainGameModel.materials.Count; i++)
       {
         if (i != view.cityVo.ownerID) continue;
-        view.material = lobbyModel.materials[i];
+        view.material = mainGameModel.materials[i];
         return;
       }
 

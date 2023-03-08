@@ -8,6 +8,6 @@ namespace Runtime.Contexts.Network.Enum
     JoinLobby = 4,
     OutFromLobby = 5,
     PlayerReady = 6,
-    SendMap = 7,
+    GameStart = 7
   }
 }
