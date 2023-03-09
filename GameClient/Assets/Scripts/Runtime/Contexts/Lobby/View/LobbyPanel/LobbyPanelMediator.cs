@@ -27,14 +27,12 @@ namespace Runtime.Contexts.Lobby.View.LobbyPanel
 
     private void OnToCreate()
     {
-      // dispatcher.Dispatch(LobbyEvent.ToCreatePanel);
-      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.CreateLobbyPanel);
+      screenManagerModel.OpenPanel(LobbyKey.CreateLobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
     private void OnToJoin()
     {
-      // dispatcher.Dispatch(LobbyEvent.ToJoinPanel);
-      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.JoinLobbyPanel);
+      screenManagerModel.OpenPanel(LobbyKey.JoinLobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
     public override void OnRemove()

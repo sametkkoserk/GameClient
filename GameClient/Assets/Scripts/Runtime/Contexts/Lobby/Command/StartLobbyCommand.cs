@@ -13,7 +13,7 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyPanel);
+      screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
   }
 }

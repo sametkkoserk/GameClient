@@ -39,7 +39,7 @@ namespace Runtime.Contexts.Lobby.View.CreateLobbyPanel
 
     private void OnBack()
     {
-      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyPanel);
+      screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
     public override void OnRemove()

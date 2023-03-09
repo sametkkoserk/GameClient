@@ -3,6 +3,7 @@ using UnityEditor;
 
 namespace Editor.Tools.SortingLayerCreator.Runtime
 {
+#if UNITY_EDITOR
   public class CreateLayer : EditorWindow
   {
     [MenuItem("Tools/Sorting Layer/Update Sorting Layers")]
@@ -48,4 +49,5 @@ namespace Editor.Tools.SortingLayerCreator.Runtime
       serializedObject.ApplyModifiedProperties();
     }
   }
+#endif
 }

@@ -29,7 +29,7 @@ namespace Runtime.Contexts.Lobby.Processor
       if (inLobbyId == lobbyModel.inLobbyId)
       {
         lobbyModel.LobbyReset();
-        screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyPanel);
+        screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
       }
       else
       {

@@ -26,6 +26,7 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     public override void OnRegister()
     {
       view.dispatcher.AddListener(JoinLobbyPanelEvent.Back, OnBack);
+      
       dispatcher.AddListener(LobbyEvent.listLobbies, OnLobbies);
     }
 
@@ -49,12 +50,13 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 
     private void OnBack()
     {
-      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyPanel);
+      screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(JoinLobbyPanelEvent.Back, OnBack);
+      
       dispatcher.RemoveListener(LobbyEvent.listLobbies, OnLobbies);
     }
   }

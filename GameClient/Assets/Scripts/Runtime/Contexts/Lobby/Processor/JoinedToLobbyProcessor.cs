@@ -47,7 +47,7 @@ namespace Runtime.Contexts.Lobby.Processor
       
       lobbyModel.lobbyVo = lobbyVo;
 
-      screenManagerModel.OpenPanel(SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel, LobbyKey.LobbyManagerPanel);
+      screenManagerModel.OpenPanel(LobbyKey.LobbyManagerPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
   }
 }

@@ -4,6 +4,7 @@ namespace Runtime.Contexts.MainGame.Enum
   {
     StartGame,
     CreateMap,
-    MapGenerator
+    MapGenerator,
+    TurnTimeOver
   }
 }

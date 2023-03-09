@@ -7,6 +7,7 @@ using Runtime.Contexts.MainGame.View.City;
 using Runtime.Contexts.MainGame.View.MainGameManager;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
+using Runtime.Contexts.MainGame.View.YourTurnPanel;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.GeneralContext;
 using strange.extensions.context.api;
@@ -41,7 +42,7 @@ namespace Runtime.Contexts.MainGame.Config
             mediationBinder.Bind<MainMapView>().To<MainMapMediator>();
             mediationBinder.Bind<MainMapContainerView>().To<MainMapContainerMediator>();
             mediationBinder.Bind<MainGameManagerView>().To<MainGameManagerMediator>();
-
+            mediationBinder.Bind<YourTurnPanelView>().To<YourTurnPanelMediator>();
 
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();

@@ -10,9 +10,6 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     
     public LayerKey key;
     
-    [HideInInspector]
-    public GameObject CurrentPanel;
-
     public void Init(LayerKey _layerKey)
     {
       key = _layerKey;
