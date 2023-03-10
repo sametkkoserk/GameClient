@@ -19,7 +19,7 @@ namespace Runtime.Contexts.Lobby.Command
         public override void Execute()
         {
             LobbyVo vo = (LobbyVo)evt.data;
-            Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.createLobby);
+            Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.CreateLobby);
             message=networkManager.SetData(message,vo);
 
             // message.AddString(vo.lobbyName);

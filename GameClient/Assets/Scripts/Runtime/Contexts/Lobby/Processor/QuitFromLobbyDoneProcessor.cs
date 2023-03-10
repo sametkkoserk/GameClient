@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Processor
 {
-  public class OutFromLobbyDoneProcessor : EventCommand
+  public class QuitFromLobbyDoneProcessor : EventCommand
   {
     [Inject]
     public ILobbyModel lobbyModel { get; set; }

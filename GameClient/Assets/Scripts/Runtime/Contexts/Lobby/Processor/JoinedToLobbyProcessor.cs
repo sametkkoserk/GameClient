@@ -26,7 +26,7 @@ namespace Runtime.Contexts.Lobby.Processor
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       string message = vo.message;
       Debug.Log("joined to lobby");
-      LobbyVo lobbyVo = networkManager.GetData<LobbyVo>(message);
+      JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(message);
       // lobbyVo.lobbyId = message.GetUShort();
       // lobbyVo.lobbyName = message.GetString();
       // lobbyVo.isPrivate = message.GetBool();
@@ -45,7 +45,8 @@ namespace Runtime.Contexts.Lobby.Processor
       //   lobbyVo.clients[clientVo.inLobbyId]=clientVo;
       // }
       
-      lobbyModel.lobbyVo = lobbyVo;
+      lobbyModel.lobbyVo = joinedToLobbyVo.lobby;
+      lobbyModel.clientVo = joinedToLobbyVo.clientVo;
 
       screenManagerModel.OpenPanel(LobbyKey.LobbyManagerPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }

@@ -10,6 +10,8 @@ namespace Runtime.Contexts.Lobby.Model.LobbyModel
         
         ushort inLobbyId{ get; set; }
         
+        ClientVo clientVo { get; set; }
+        
         List<Color> colors { get; set; }
         
         void OutFromLobby(ushort _inLobbyId);

@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using Runtime.Contexts.Lobby.Vo;
 using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
@@ -17,17 +19,53 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     public TMP_Text lobbyNameText;
     
     public TMP_Text playerCountText;
+
+    public Button saveButton;
     
     public Button readyButton;
+
+    [HideInInspector]
+    public bool ready;
+
+    [FormerlySerializedAs("anyChanges")]
+    [HideInInspector]
+    public bool changedSettings;
+
+    public LobbySettingsVo lobbySettingsVo;
+
+    [Header("Game Settings")]
+    [Tooltip("Time of the turn.")]
+    public TMP_Dropdown timerDropdown;
     
+    [Tooltip("Only owner of lobby can change game settings.")]
+    public List<GameObject> adminGameObjects;
+    
+    [Tooltip("Players will see these objects.")]
+    public List<GameObject> playerGameObjects;
+
+    public TextMeshProUGUI turnTimerText;
+
     public void OnReady()
     {
-      readyButton.interactable = false;
       dispatcher.Dispatch(LobbyManagerPanelEvent.Ready);
     }
     public void OnBack()
     {
       dispatcher.Dispatch(LobbyManagerPanelEvent.Back);
     }
+
+    #region Game Settings
+
+    public void OnSave()
+    {
+      dispatcher.Dispatch(LobbyManagerPanelEvent.Save);
+    }
+
+    public void OnTimerDropdownChanged()
+    {
+      dispatcher.Dispatch(LobbyManagerPanelEvent.ChangedSettings);
+    }
+    
+    #endregion
   }
 }

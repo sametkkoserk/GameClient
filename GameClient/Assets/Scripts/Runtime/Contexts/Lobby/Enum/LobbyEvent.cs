@@ -8,6 +8,8 @@ namespace Runtime.Contexts.Lobby.Enum
         JoinLobby,
         NewPlayerToLobby,
         PlayerReady,
+        PlayerUnready,
+        GameSettingsChanged,
         OutLobby,
         PlayerIsOut,
         PlayerReadyResponse,
