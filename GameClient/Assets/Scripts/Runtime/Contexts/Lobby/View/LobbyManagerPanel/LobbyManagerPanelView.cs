@@ -31,8 +31,6 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     [HideInInspector]
     public bool changedSettings;
 
-    public LobbySettingsVo lobbySettingsVo;
-
     [Header("Game Settings")]
     [Tooltip("Time of the turn.")]
     public TMP_Dropdown timerDropdown;

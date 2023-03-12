@@ -1,4 +1,5 @@
 using System;
+using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
 using strange.extensions.mediation.impl;
 using UnityEngine;
@@ -9,6 +10,9 @@ namespace Runtime.Contexts.MainGame.View.YourTurnPanel
   {
     [Inject]
     public YourTurnPanelView view { get; set; }
+    
+    [Inject]
+    public ILobbyModel lobbyModel { get; set; }
 
     public override void OnRegister()
     {
@@ -16,6 +20,7 @@ namespace Runtime.Contexts.MainGame.View.YourTurnPanel
 
     private void Start()
     {
+      view.totalTime = lobbyModel.lobbyVo.lobbySettingsVo.turnTime;
       view.remainingTime = view.totalTime;
     }
 

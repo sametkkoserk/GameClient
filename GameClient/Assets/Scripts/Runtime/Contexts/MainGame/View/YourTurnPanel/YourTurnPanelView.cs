@@ -14,7 +14,7 @@ namespace Runtime.Contexts.MainGame.View.YourTurnPanel
     public TextMeshProUGUI timer;
 
     [HideInInspector]
-    public float totalTime = 10;
+    public float totalTime;
 
     [HideInInspector]
     public float remainingTime;

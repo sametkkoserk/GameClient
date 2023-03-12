@@ -20,7 +20,7 @@ namespace Runtime.Contexts.Lobby.Command
         {
             LobbyVo vo = (LobbyVo)evt.data;
             Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.CreateLobby);
-            message=networkManager.SetData(message,vo);
+            message = networkManager.SetData(message,vo);
 
             // message.AddString(vo.lobbyName);
             // message.AddBool(vo.isPrivate);

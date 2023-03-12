@@ -26,15 +26,23 @@ namespace Runtime.Contexts.Lobby.View.CreateLobbyPanel
       view.dispatcher.AddListener(CreateLobbyPanelEvent.Back, OnBack);
     }
 
+    ///<summary>Create a Lobby. LobbySettingsVo holds standard settings of lobbies.</summary>
     public void OnCreate()
     {
-      LobbyVo vo = new()
+      LobbySettingsVo settingsVo = new()
+      {
+        turnTime = 60
+      };
+      
+      LobbyVo lobbyVo = new()
       {
         lobbyName = view.LobbyNameInputField.text,
         isPrivate = view.isPrivate.isOn,
-        maxPlayerCount = 10
+        maxPlayerCount = 10,
+        lobbySettingsVo = settingsVo
       };
-      dispatcher.Dispatch(LobbyEvent.SendCreateLobby, vo);
+      
+      dispatcher.Dispatch(LobbyEvent.SendCreateLobby, lobbyVo);
     }
 
     private void OnBack()
