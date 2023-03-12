@@ -1,4 +1,3 @@
-using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Model;
 using strange.extensions.mediation.impl;
 using UnityEngine;

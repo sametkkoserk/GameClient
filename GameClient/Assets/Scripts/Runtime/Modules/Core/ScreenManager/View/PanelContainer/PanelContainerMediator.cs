@@ -49,7 +49,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     {
       PanelVo panelVo = (PanelVo)payload.data;
 
-      if (panelVo.layerKey != view.key)
+      if (panelVo.layerKey != view.key || panelVo.sceneKey.ToString() != gameObject.scene.name)
       {
         return;
       }
@@ -74,7 +74,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     private void OnDestroyPanelContainer(PanelVo panelVo)
     {
       DestroyAllChild();
-
+      
       CreatePanel(panelVo);
     }
 
@@ -100,7 +100,9 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
       {
         if (handle.Result == null)
           return;
-        
+
+        GameObject panel = handle.Result;
+        panel.name = vo.addressableKey;
         screenManagerModel.instantiatedPanels.Add(vo, instantiateAsync);
       };
       
@@ -163,18 +165,16 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     private void DestroyAllChild()
     {
       // Panel will have an closing animations. Destroy will change.
-
       for (int i = 0; i < transform.childCount; i++)
       {
         for (int j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
         {
           string key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
-          
-          if (transform.GetChild(i).name == key || transform.GetChild(i).name == key + "(Clone)")
-            screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(j).Key);
+
+          if (transform.GetChild(i).name != key) continue;
+          Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(j).Value);
+          screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(j).Key);
         }
-        
-        DestroyImmediate(transform.GetChild(i).gameObject);
       }
     }
 

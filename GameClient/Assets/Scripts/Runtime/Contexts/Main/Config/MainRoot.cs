@@ -8,7 +8,6 @@ namespace Runtime.Contexts.Main.Config
         {
             //Instantiate the context, passing it this instance.
             context = new MainContext(this);
-
         }
     }
 }

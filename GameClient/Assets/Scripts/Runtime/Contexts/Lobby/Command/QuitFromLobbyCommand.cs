@@ -7,7 +7,7 @@ using strange.extensions.command.impl;
 
 namespace Runtime.Contexts.Lobby.Command
 {
-  public class OutFromLobbyCommand : EventCommand
+  public class QuitFromLobbyCommand : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
@@ -17,7 +17,7 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.OutFromLobby);
+      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
       OutFromLobbyVo outFromLobbyVo = new()
       {
         lobbyId = lobbyModel.lobbyVo.lobbyId,

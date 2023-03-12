@@ -7,6 +7,9 @@ using Runtime.Contexts.Network.Vo;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using strange.extensions.command.impl;
+using strange.extensions.context.api;
+using strange.extensions.context.impl;
+using strange.extensions.dispatcher.eventdispatcher.api;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
@@ -15,6 +18,9 @@ namespace Runtime.Contexts.Lobby.Processor
 {
   public class PlayerReadyResponseProcessor : EventCommand
   {
+    [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
+    public IEventDispatcher crossDispatcher { get; set; }
+    
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
 
@@ -42,6 +48,8 @@ namespace Runtime.Contexts.Lobby.Processor
       Debug.Log("player ready responded");
       
       if (!playerReadyResponseVo.startGame) return;
+      
+      crossDispatcher.Dispatch(MainEvent.CloseMainSceneCamera);
       Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
       screenManagerModel.CloseScenePanels(SceneKey.Lobby);
     }

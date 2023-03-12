@@ -89,7 +89,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnBack()
     {
-      dispatcher.Dispatch(LobbyEvent.OutLobby);
+      dispatcher.Dispatch(LobbyEvent.QuitLobby);
     }
 
     private void OnPlayerIsOut(IEvent payload)

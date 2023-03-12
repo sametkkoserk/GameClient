@@ -11,7 +11,7 @@ namespace Runtime.Contexts.Lobby.Enum
         PlayerUnready,
         GameSettingsChanged,
         GetGameSettings,
-        OutLobby,
+        QuitLobby,
         PlayerIsOut,
         PlayerReadyResponse,
         

@@ -1,4 +1,5 @@
 using Runtime.Contexts.Main.Command;
+using Runtime.Contexts.Main.View;
 using Runtime.Modules.Core.GeneralContext;
 using strange.extensions.context.api;
 using UnityEngine;
@@ -28,7 +29,7 @@ namespace Runtime.Contexts.Main.Config
             //Fires its Awake method. The Mediator communicates to/from the View
             //and to/from the App. This keeps dependencies between the view and the app
             //separated.
-            //mediationBinder.Bind<ExampleView>().To<ExampleMediator>();
+            mediationBinder.Bind<MainSceneCameraView>().To<MainSceneCameraMediator>();
             
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();

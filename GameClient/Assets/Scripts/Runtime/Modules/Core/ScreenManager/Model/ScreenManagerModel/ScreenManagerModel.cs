@@ -64,6 +64,7 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
         layerKey = layerKey,
         panelMode = panelMode,
         panelType = panelType,
+        sceneKey = sceneKey,
         addressableKey = panelAddressableKey
       };
       
@@ -87,7 +88,7 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
 
     public void CloseSpecificLayer(SceneKey sceneKey, LayerKey layerKey)
     {
-      KeyValuePair<SceneKey, LayerKey> specificLayer = new KeyValuePair<SceneKey, LayerKey>(sceneKey, layerKey);
+      KeyValuePair<SceneKey, LayerKey> specificLayer = new(sceneKey, layerKey);
 
       dispatcher.Dispatch(PanelEvent.CloseSpecificLayerPanels, specificLayer);
     }

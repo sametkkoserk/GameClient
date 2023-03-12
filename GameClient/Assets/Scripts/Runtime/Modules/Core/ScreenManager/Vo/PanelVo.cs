@@ -10,6 +10,8 @@ namespace Runtime.Modules.Core.ScreenManager.Vo
 
     public LayerKey layerKey;
 
+    public SceneKey sceneKey;
+
     public string addressableKey;
   }
 }
