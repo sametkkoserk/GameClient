@@ -22,7 +22,7 @@ namespace Runtime.Contexts.Lobby.Command
       PlayerReadyVo playerReadyVo = new()
       {
         lobbyId = lobbyModel.lobbyVo.lobbyId,
-        inLobbyId = lobbyModel.inLobbyId
+        inLobbyId = lobbyModel.clientVo.inLobbyId
       };
       message = networkManager.SetData(message, playerReadyVo);
 

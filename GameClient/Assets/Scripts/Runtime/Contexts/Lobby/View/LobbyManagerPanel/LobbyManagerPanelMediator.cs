@@ -84,7 +84,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     {
       ushort inLobbyId = (ushort)payload.data;
       view.behaviours[inLobbyId].PlayerReady();
-      Debug.Log("We got it player is ready");
+      Debug.Log("Player is ready: " + inLobbyId);
     }
 
     private void OnBack()

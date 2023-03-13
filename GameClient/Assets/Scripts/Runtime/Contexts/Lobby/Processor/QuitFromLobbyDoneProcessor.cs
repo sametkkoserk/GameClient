@@ -26,7 +26,7 @@ namespace Runtime.Contexts.Lobby.Processor
       string message = vo.message;
       ushort inLobbyId = networkManager.GetData<ushort>(message);
       Debug.Log("outed message received");
-      if (inLobbyId == lobbyModel.inLobbyId)
+      if (inLobbyId == lobbyModel.clientVo.inLobbyId)
       {
         lobbyModel.LobbyReset();
         screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);

@@ -42,7 +42,6 @@ namespace Runtime.Contexts.Lobby.Processor
       lobbyModel.lobbyVo.clients[playerReadyResponseVo.inLobbyId].ready = true;
       lobbyModel.lobbyVo.readyCount += 1;
 
-
       dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse, playerReadyResponseVo.inLobbyId);
 
       Debug.Log("player ready responded");
@@ -50,6 +49,7 @@ namespace Runtime.Contexts.Lobby.Processor
       if (!playerReadyResponseVo.startGame) return;
       
       crossDispatcher.Dispatch(MainEvent.CloseMainSceneCamera);
+      
       Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
       screenManagerModel.CloseScenePanels(SceneKey.Lobby);
     }

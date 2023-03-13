@@ -21,7 +21,7 @@ namespace Runtime.Contexts.Lobby.Command
       OutFromLobbyVo outFromLobbyVo = new()
       {
         lobbyId = lobbyModel.lobbyVo.lobbyId,
-        inLobbyId = lobbyModel.inLobbyId,
+        inLobbyId = lobbyModel.clientVo.inLobbyId,
       };
       message = networkManager.SetData(message, outFromLobbyVo);
 
