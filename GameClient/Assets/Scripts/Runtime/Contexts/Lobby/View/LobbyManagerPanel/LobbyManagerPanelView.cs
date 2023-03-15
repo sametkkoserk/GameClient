@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Runtime.Contexts.Lobby.Vo;
 using strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;

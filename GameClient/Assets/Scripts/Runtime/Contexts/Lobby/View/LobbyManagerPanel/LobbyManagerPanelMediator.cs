@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -50,12 +52,15 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
         ushort count = i;
 
         GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
-        ClientVo clientVo = lobbyVo.clients[count];
+        ClientVo clientVo = lobbyVo.clients.ElementAt(count).Value;
         LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
         behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
 
         view.behaviours[clientVo.inLobbyId] = behaviour;
       }
+      
+      DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}, Player's Lobby ID: {lobbyModel.clientVo.inLobbyId}," +
+                                      $" Lobby ID: {lobbyVo.lobbyId}");
 
       InitLobbySettings();
     }
@@ -102,7 +107,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       view.behaviours[inLobbyId].PlayerIsOut();
       for (ushort i = 0; i < lobbyVo.clients.Count; i++)
       {
-        view.behaviours[i].Init(lobbyVo.clients[i], lobbyModel.colors[i]);
+        view.behaviours[i].Init(lobbyVo.clients.ElementAt(i).Value, lobbyModel.colors[i]);
       }
     }
 
