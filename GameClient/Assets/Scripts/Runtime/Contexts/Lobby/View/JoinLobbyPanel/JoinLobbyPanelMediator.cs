@@ -44,7 +44,10 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
         ushort count = i;
         GameObject joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
         JoinLobbyPanelItemBehaviour behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
-        behaviour.Init(lobbies[count], () => { dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId); });
+        behaviour.Init(lobbies[count], () =>
+        {
+          dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId);
+        });
       }
     }
 

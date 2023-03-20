@@ -1,3 +1,4 @@
+using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.View.LayerContainer;
 using Runtime.Modules.Core.ScreenManager.View.PanelContainer;
@@ -22,9 +23,12 @@ namespace Runtime.Modules.Core.GeneralContext
       base.mapBindings();
 
       injectionBinder.Bind<IScreenManagerModel>().To<ScreenManagerModel>().ToSingleton();
-
+      
       mediationBinder.Bind<LayerContainerView>().To<LayerContainerMediator>();
       mediationBinder.Bind<PanelContainerView>().To<PanelContainerMediator>();
+      
+      
+      injectionBinder.Bind<ILocalizationModel>().To<LocalizationModel>().ToSingleton();
     }
   }
 }
