@@ -72,20 +72,20 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
        return stringTable;
      }
     
-    public string GetText(TableKey tableKey, string translateKey)
+    public string GetText(TableKey tableKey, TranslateKey translateKey)
     {
-      StringTable stringTable = CheckKeys(tableKey, translateKey);
+      StringTable stringTable = CheckKeys(tableKey, translateKey.ToString());
 
       if (stringTable == null)
         return "";
 
-      StringTableEntry entry = stringTable.GetEntry(translateKey);
+      StringTableEntry entry = stringTable.GetEntry(translateKey.ToString());
       return entry.Value;
     }
 
-    public void GetTextArguments(TextMeshProUGUI tmp, TableKey tableKey, string translateKey, params string[] arguments)
+    public void GetTextArguments(TextMeshProUGUI tmp, TableKey tableKey, TranslateKey translateKey, params string[] arguments)
     {
-      StringTable stringTable = CheckKeys(tableKey, translateKey);
+      StringTable stringTable = CheckKeys(tableKey, translateKey.ToString());
 
       if (stringTable == null)
         return;
@@ -94,7 +94,7 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
         tmp.AddComponent<LocalizationTextBehaviour>();
       
       LocalizationTextBehaviour behaviour = tmp.GetComponent<LocalizationTextBehaviour>();
-      behaviour.OnChangeArguments(translateKey, tableKey.ToString(),arguments);
+      behaviour.OnChangeArguments(translateKey.ToString(), tableKey.ToString(),arguments);
     }
   }
 }
