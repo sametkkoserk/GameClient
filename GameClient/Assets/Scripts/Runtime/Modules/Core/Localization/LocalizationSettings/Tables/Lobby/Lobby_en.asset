@@ -35,11 +35,6 @@ MonoBehaviour:
     m_Localized: Exit Lobby
     m_Metadata:
       m_Items: []
-  - m_Id: 1853710077149184
-    m_Localized: 'Try: {0}'
-    m_Metadata:
-      m_Items:
-      - rid: 3133085166479605792
   references:
     version: 2
     RefIds:

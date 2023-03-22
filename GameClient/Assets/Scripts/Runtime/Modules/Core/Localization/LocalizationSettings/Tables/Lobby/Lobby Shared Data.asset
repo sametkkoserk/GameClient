@@ -31,10 +31,6 @@ MonoBehaviour:
     m_Key: LobbyManagerPanelExit
     m_Metadata:
       m_Items: []
-  - m_Id: 1853710077149184
-    m_Key: Try
-    m_Metadata:
-      m_Items: []
   m_Metadata:
     m_Items:
     - rid: 3133085166479605789
