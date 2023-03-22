@@ -24,13 +24,12 @@
 /// cleaned up when Execute has completed, unless Retain is called (more on that
 /// in the OpenWebPageCommand).
 
-using System;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.impl;
 
-namespace strange.examples.multiplecontexts.main
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller
 {
 	public class StartCommand : EventCommand
 	{

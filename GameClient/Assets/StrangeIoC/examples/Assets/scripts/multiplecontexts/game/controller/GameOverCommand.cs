@@ -14,12 +14,14 @@
  *		limitations under the License.
  */
 
-using System;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.model;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.util;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.examples.multiplecontexts.main;
-using strange.extensions.command.impl;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 {
 	public class GameOverCommand : EventCommand
 	{

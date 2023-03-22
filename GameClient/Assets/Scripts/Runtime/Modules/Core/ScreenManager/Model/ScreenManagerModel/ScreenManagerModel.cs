@@ -3,8 +3,9 @@ using System.Linq;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Vo;
-using strange.extensions.context.api;
-using strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
 using UnityEngine.ResourceManagement.AsyncOperations;
 
@@ -29,6 +30,9 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
 
     public void AddLayerContainer(string sceneKey)
     {
+      if (sceneKeys.Contains(sceneKey))
+        return;
+      
       sceneKeys.Add(sceneKey);
       
       DebugX.Log(DebugKey.ScreenManager, $"New Scene added to Layer Container: {sceneKey}");
@@ -40,6 +44,7 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
       layers = layers.Reverse().ToArray();
       for (int i = 0; i < layers.Length; i++)
       {
+        if (layerMap.ContainsKey(layers[i])) continue;
         layerMap.Add(layers[i], i * 10);
       }
     }
@@ -49,13 +54,13 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
       if (!sceneKeys.Contains(sceneKey.ToString()))
       {
         // If panel does not stop in there and nothing happens, there is a sequence problem or scene does not exist in the hierarchy.
-        DebugX.Log(DebugKey.ScreenManager, "There is no Scene key like that!");
+        DebugX.Log(DebugKey.ScreenManager, "There is no Scene key like that!", LogKey.Error);
         return;
       }
       
       if (!layerMap.ContainsKey(layerKey.ToString()))
       {
-        DebugX.Log(DebugKey.ScreenManager, "There is no Layer key like that!");
+        DebugX.Log(DebugKey.ScreenManager, "There is no Layer key like that!", LogKey.Error);
         return;
       }
       

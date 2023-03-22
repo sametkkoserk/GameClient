@@ -10,32 +10,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: Lobby Shared Data
+  m_Name: Settings Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: Lobby
-  m_TableCollectionNameGuidString: 57d24590deb22564bba8089f78e0b875
+  m_TableCollectionName: Settings
+  m_TableCollectionNameGuidString: bcd6b9afb5452cc4d8ca26679803a2a5
   m_Entries:
-  - m_Id: 67455565824
-    m_Key: LobbyPanelJoin
+  - m_Id: 76561399808
+    m_Key: SettingsPanelButton
     m_Metadata:
       m_Items: []
-  - m_Id: 1654546644992
-    m_Key: LobbyPanelHost
+  - m_Id: 147298336768
+    m_Key: SettingsPanelLanguageTab
+    m_Metadata:
+      m_Items: []
+  - m_Id: 248964071424
+    m_Key: SettingsPanelAudioTab
     m_Metadata:
       m_Items: []
   m_Metadata:
-    m_Items:
-    - rid: 3133085166479605789
+    m_Items: []
   m_KeyGenerator:
-    rid: 3133085166479605784
+    rid: 3133085276221734914
   references:
     version: 2
     RefIds:
-    - rid: 3133085166479605784
+    - rid: 3133085276221734914
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1679048939967
-    - rid: 3133085166479605789
-      type: {class: PreloadAssetTableMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_PreloadBehaviour: 1
+        m_CustomEpoch: 1679469245234

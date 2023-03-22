@@ -2,12 +2,12 @@
 /// =====================
 /// Note how we no longer extend EventMediator, and inject Signals instead
 
-using System;
+using StrangeIoC.examples.Assets.scripts.signalsproject.signal;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.view
 {
 	//Not extending EventMediator anymore
 	public class ExampleMediator : Mediator

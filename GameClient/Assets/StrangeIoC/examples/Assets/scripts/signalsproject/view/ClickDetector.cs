@@ -1,11 +1,9 @@
 /// Uses a signal instead of an EventDispatcher
 
-using System;
-using UnityEngine;
-using strange.extensions.mediation.impl;
-using strange.extensions.signal.impl;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.signal.impl;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.view
 {
 	public class ClickDetector : View
 	{

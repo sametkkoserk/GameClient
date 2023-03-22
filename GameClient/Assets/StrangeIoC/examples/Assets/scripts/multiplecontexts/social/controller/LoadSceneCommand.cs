@@ -19,12 +19,9 @@
 /// This Command adds a Scene to the current one
 
 using System;
-using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.impl;
+using StrangeIoC.scripts.strange.extensions.command.impl;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
 	public class LoadSceneCommand : EventCommand
 	{

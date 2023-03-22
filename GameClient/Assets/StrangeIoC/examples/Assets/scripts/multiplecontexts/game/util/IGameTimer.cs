@@ -14,9 +14,7 @@
  *		limitations under the License.
  */
 
-using System;
-
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.util
 {
 	public interface IGameTimer
 	{

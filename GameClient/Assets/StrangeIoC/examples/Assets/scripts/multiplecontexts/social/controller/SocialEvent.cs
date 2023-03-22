@@ -14,9 +14,7 @@
  *		limitations under the License.
  */
 
-using System;
-
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
 	public enum SocialEvent
 	{

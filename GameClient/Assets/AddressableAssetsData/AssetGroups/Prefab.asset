@@ -21,6 +21,22 @@ MonoBehaviour:
     m_Address: MainCamera
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 7c8187c63b922374d99bf641144bf387
+    m_Address: ParameterText
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 1e97da94dad288f4ca4ea29cb35a97a0
+    m_Address: ParameterTextButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 5a6aa5d1e71dbac4a860309b1d20dcc4
+    m_Address: StandardButton
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: ad7934c8824c4a94db2fa409d2c16358
+    m_Address: StandardText
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:

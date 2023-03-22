@@ -21,14 +21,13 @@
 /// the View (listening to/controlling interface), Commands (business logic),
 /// Models (maintaining state) or Services (reaching out for data).
 
-using System;
-using System.Collections;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using strange.examples.multiplecontexts.game;
-using strange.extensions.dispatcher.eventdispatcher.impl;
-using strange.extensions.mediation.impl;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 {
 	public class UserTileMediator : EventMediator
 	{

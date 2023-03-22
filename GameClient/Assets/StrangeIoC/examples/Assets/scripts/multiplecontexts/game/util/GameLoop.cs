@@ -14,12 +14,13 @@
  *		limitations under the License.
  */
 
-using System;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.dispatcher.eventdispatcher.api;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.util
 {
 	public class GameLoop : MonoBehaviour, IGameTimer
 	{

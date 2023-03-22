@@ -4,14 +4,13 @@
 /// for example, if you need to call a web service. The two most important lines
 /// are the Retain() and Release() calls.
 
-using System;
-using System.Collections;
-using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.model;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.service;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject.controller
 {
 	public class CallWebServiceCommand : EventCommand
 	{

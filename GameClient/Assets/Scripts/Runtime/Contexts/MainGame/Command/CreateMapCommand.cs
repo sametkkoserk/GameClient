@@ -1,5 +1,5 @@
 using Runtime.Contexts.MainGame.Enum;
-using strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.command.impl;
 
 namespace Runtime.Contexts.MainGame.Command
 {

@@ -20,11 +20,13 @@
 
 using System;
 using System.Collections;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 {
 	public class UserTileView : View
 	{

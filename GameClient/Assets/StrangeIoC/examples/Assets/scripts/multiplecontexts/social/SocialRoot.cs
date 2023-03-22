@@ -22,12 +22,9 @@
 /// Social mocks a social component within your app, for example checking your high-score against
 /// that of your Facebook friends.
 
-using System;
-using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social
 {
 	public class SocialRoot : ContextView
 	{

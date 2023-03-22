@@ -2,7 +2,8 @@ using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
 namespace Runtime.Contexts.Lobby.View.CreateLobbyPanel
 {

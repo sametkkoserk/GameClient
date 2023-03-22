@@ -1,7 +1,6 @@
-using System;
-using strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.examples.Assets.scripts.signalsproject.signal;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.service
 {
 	public interface IExampleService
 	{

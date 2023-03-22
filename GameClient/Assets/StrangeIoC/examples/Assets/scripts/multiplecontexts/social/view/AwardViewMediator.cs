@@ -21,13 +21,14 @@
 /// the View (listening to/controlling interface), Commands (business logic),
 /// Models (maintaining state) or Services (reaching out for data).
 
-using System;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
-using  strange.examples.multiplecontexts.game;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 {
 	public class AwardViewMediator : EventMediator
 	{

@@ -16,13 +16,13 @@
 /// reactive. It gets messy. Let your view be what it needs to be while
 /// insulating the rest of your app from this chaos.
 
-using System;
 using System.Collections;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
 
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
 {
 	public class ExampleView : View
 	{

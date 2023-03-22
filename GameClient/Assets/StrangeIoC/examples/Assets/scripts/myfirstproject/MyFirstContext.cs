@@ -15,14 +15,15 @@
 /// 									unless the sequence is interrupted, fire each subsequent Command until the
 /// 									sequence is complete.
 
-using System;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.controller;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.model;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.service;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.view;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.dispatcher.eventdispatcher.impl;
 
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject
 {
 	public class MyFirstContext : MVCSContext
 	{

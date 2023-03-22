@@ -1,7 +1,8 @@
 using Runtime.Contexts.Main.Command;
-using Runtime.Contexts.Main.View;
+using Runtime.Contexts.Main.Enum;
+using Runtime.Contexts.Main.View.MainSceneCamera;
 using Runtime.Modules.Core.GeneralContext;
-using strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.api;
 using UnityEngine;
 
 namespace Runtime.Contexts.Main.Config
@@ -36,6 +37,7 @@ namespace Runtime.Contexts.Main.Config
             //The START event is fired as soon as mappings are complete.
             //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
             commandBinder.Bind(ContextEvent.START).To<StartCommand>();
+            commandBinder.Bind(MainEvent.OpenSettingsPanel).To<OpenSettingsPanelCommand>();
         }
     }
 }

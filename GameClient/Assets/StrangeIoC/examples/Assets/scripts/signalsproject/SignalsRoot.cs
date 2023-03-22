@@ -3,11 +3,9 @@
 /// rest of Strange. This example shows how Signals differ from the default
 /// EventDispatcher.
 
-using System;
-using UnityEngine;
-using strange.extensions.context.impl;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject
 {
 	public class SignalsRoot : ContextView
 	{

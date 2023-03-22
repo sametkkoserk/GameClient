@@ -10,27 +10,26 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Lobby_en
+  m_Name: Settings_en
   m_EditorClassIdentifier: 
   m_LocaleId:
     m_Code: en
-  m_SharedData: {fileID: 11400000, guid: 57d24590deb22564bba8089f78e0b875, type: 2}
+  m_SharedData: {fileID: 11400000, guid: bcd6b9afb5452cc4d8ca26679803a2a5, type: 2}
   m_Metadata:
-    m_Items:
-    - rid: 3133085166479605792
+    m_Items: []
   m_TableData:
-  - m_Id: 67455565824
-    m_Localized: Join
+  - m_Id: 76561399808
+    m_Localized: Settings
     m_Metadata:
       m_Items: []
-  - m_Id: 1654546644992
-    m_Localized: Host
+  - m_Id: 147298336768
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 248964071424
+    m_Localized: Audio
     m_Metadata:
       m_Items: []
   references:
     version: 2
-    RefIds:
-    - rid: 3133085166479605792
-      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
-      data:
-        m_Entries: 00402ae023430000
+    RefIds: []

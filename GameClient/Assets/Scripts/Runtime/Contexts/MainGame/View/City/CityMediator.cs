@@ -1,5 +1,6 @@
 using Runtime.Contexts.MainGame.Model;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.View.City

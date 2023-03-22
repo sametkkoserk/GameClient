@@ -16,11 +16,9 @@
 
 /// Just a simple MonoBehaviour Click Detector
 
-using System;
-using UnityEngine;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
 {
 	public class ClickDetector : EventView
 	{

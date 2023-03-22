@@ -1,8 +1,8 @@
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
-using strange.extensions.command.impl;
-using UnityEngine;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.Lobby.Command
 {

@@ -10,7 +10,7 @@ using Runtime.Contexts.MainGame.View.MainMapContainer;
 using Runtime.Contexts.MainGame.View.YourTurnPanel;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.GeneralContext;
-using strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.api;
 using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.Config

@@ -1,6 +1,6 @@
 using Runtime.Modules.Core.TestScene.View.TestPanelContainer;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 using UnityEngine;
 
 namespace Runtime.Modules.Core.TestScene.Config

@@ -21,12 +21,11 @@
 /// the View (listening to/controlling interface), Commands (business logic),
 /// Models (maintaining state) or Services (reaching out for data).
 
-using System;
-using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.impl;
-using strange.extensions.mediation.impl;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
 {
 	public class EnemyMediator : EventMediator
 	{

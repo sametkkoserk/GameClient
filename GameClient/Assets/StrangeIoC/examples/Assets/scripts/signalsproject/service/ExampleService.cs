@@ -1,12 +1,12 @@
 /// The service, now with signals
 
-using System;
 using System.Collections;
+using StrangeIoC.examples.Assets.scripts.signalsproject.signal;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.dispatcher.eventdispatcher.api;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.service
 {
 	public class ExampleService : IExampleService
 	{

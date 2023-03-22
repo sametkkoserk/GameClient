@@ -1,6 +1,7 @@
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Network.Services.NetworkManager;
-using strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 

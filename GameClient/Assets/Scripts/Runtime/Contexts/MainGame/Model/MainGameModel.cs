@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Contexts.MainGame.Vo;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.Model

@@ -2,9 +2,7 @@
 /// ======================
 /// Nothing to see here. Just your typical place to store some data.
 
-using System;
-
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject.model
 {
 	public class ExampleModel : IExampleModel
 	{

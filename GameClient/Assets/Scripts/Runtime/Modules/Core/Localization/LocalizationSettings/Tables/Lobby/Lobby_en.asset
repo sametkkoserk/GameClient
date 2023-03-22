@@ -10,27 +10,40 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
-  m_Name: Lobby_tr
+  m_Name: Lobby_en
   m_EditorClassIdentifier: 
   m_LocaleId:
-    m_Code: tr
+    m_Code: en
   m_SharedData: {fileID: 11400000, guid: 57d24590deb22564bba8089f78e0b875, type: 2}
   m_Metadata:
     m_Items:
-    - rid: 3133085166479605793
+    - rid: 3133085166479605792
   m_TableData:
   - m_Id: 67455565824
-    m_Localized: "Oyuna Kat\u0131l"
+    m_Localized: Join
     m_Metadata:
       m_Items: []
   - m_Id: 1654546644992
-    m_Localized: "Oyun Olu\u015Ftur"
+    m_Localized: Host
     m_Metadata:
       m_Items: []
+  - m_Id: 1773266405048320
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1773505681702912
+    m_Localized: Exit Lobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1853710077149184
+    m_Localized: 'Try: {0}'
+    m_Metadata:
+      m_Items:
+      - rid: 3133085166479605792
   references:
     version: 2
     RefIds:
-    - rid: 3133085166479605793
+    - rid: 3133085166479605792
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 00402ae023430000
+        m_Entries: 00402ae0234300000040aa82f0950600

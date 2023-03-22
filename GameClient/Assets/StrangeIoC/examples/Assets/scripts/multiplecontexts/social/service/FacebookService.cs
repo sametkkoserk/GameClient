@@ -27,13 +27,14 @@
 /// Google one. And you can swap the two of them in and own with a single-line
 /// change in the Context that doesn't touch any other part of your app.
 
-using System;
 using System.Collections;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.dispatcher.eventdispatcher.api;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
 	public class FacebookService : ISocialService
 	{

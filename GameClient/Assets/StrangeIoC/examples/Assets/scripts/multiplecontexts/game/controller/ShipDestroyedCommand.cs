@@ -14,11 +14,11 @@
  *		limitations under the License.
  */
 
-using System;
-using UnityEngine;
-using strange.extensions.command.impl;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.model;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 {
 	public class ShipDestroyedCommand : EventCommand
 	{

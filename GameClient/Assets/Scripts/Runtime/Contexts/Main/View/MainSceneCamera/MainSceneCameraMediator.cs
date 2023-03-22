@@ -1,8 +1,9 @@
 using Runtime.Contexts.Main.Enum;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 
-namespace Runtime.Contexts.Main.View
+namespace Runtime.Contexts.Main.View.MainSceneCamera
 {
   public class MainSceneCameraMediator : EventMediator
   {
@@ -18,7 +19,6 @@ namespace Runtime.Contexts.Main.View
     private void OnCloseCamera()
     {
       gameObject.SetActive(false);
-      Debug.Log("de");
     }
 
     private void OnOpenCamera()

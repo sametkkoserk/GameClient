@@ -21,12 +21,9 @@
 /// 
 /// Game includes a simple Asteroids-style game.
 
-using System;
-using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game
 {
 	public class GameRoot : ContextView
 	{

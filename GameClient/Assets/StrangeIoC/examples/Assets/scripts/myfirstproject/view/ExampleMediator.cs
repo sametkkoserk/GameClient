@@ -5,12 +5,13 @@
 /// the View (listening to/controlling interface), Commands (business logic),
 /// Models (maintaining state) or Services (reaching out for data).
 
-using System;
+using StrangeIoC.examples.Assets.scripts.myfirstproject.controller;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
 
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
 {
 	public class ExampleMediator : EventMediator
 	{

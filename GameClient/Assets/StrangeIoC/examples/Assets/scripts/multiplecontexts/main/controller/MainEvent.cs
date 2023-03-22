@@ -14,9 +14,7 @@
  *		limitations under the License.
  */
 
-using System;
-
-namespace strange.examples.multiplecontexts.main
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller
 {
 	public enum MainEvent
 	{

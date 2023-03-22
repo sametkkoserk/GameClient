@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Localization;
@@ -27,10 +26,12 @@ namespace Runtime.Modules.Core.Localization.View
       label.text = value;
     }
     
-    public void OnChangeArguments(string value, string[] arguments)
+    public void OnChangeArguments(string value, string tableKey, string[] arguments)
     {
       if (localizedString.Arguments == null)
         Init();
+      
+      localizedString.SetReference(tableKey, value);
       
       label.text = value;
 

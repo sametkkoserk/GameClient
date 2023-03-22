@@ -14,12 +14,13 @@
  *		limitations under the License.
  */
 
-using System;
-using UnityEngine;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.model;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
 {
 	public class ScoreboardMediator : EventMediator
 	{

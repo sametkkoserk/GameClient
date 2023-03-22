@@ -21,12 +21,9 @@
 /// 
 /// Main is responsible for setting up the main context and loading the other components.
 
-using System;
-using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 
-namespace strange.examples.multiplecontexts.main
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main
 {
 	public class MainRoot : ContextView
 	{

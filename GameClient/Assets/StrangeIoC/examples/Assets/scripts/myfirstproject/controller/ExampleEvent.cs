@@ -1,6 +1,4 @@
-using System;
-
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject.controller
 {
 	public class ExampleEvent
 	{

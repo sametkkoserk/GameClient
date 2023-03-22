@@ -14,10 +14,9 @@
  *		limitations under the License.
  */
 
-using System;
-using strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
 	public interface ISocialService
 	{

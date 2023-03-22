@@ -1,4 +1,4 @@
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine.UI;
 

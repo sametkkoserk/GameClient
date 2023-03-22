@@ -1,8 +1,6 @@
 /// No change
 
-using System;
-
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.model
 {
 	public interface IExampleModel
 	{

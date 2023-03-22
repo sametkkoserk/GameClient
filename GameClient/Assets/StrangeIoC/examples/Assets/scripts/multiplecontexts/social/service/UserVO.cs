@@ -21,9 +21,7 @@
 /// 
 /// This UserVO carries some relevant data about the user as gleaned from a social service
 
-using System;
-
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
 	public class UserVO
 	{

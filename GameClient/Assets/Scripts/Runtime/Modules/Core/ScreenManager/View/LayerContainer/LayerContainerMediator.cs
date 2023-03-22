@@ -2,8 +2,8 @@ using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.View.PanelContainer;
 using Runtime.Modules.Core.ScreenManager.Vo;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 
 namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
@@ -24,12 +24,12 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
     private void Init()
     {
       screenManagerModel.AddLayerContainer(transform.gameObject.scene.name);
+      
+      screenManagerModel.SetSortOrder();
     }
 
     private void Start()
     {
-      screenManagerModel.SetSortOrder();
-      
       for (int i = 0; i < view.layerVos.Count; i++)
       {
         if (!view.layerVos[i].active) continue;
@@ -43,7 +43,6 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
         behaviour.Init(view.layerVos[i].key);
       }
       
-      //TODO: Şafak: burada dispatch at ve ppanellerin açılmasını söyleyen yerler ona göre dinlesin. Her context için geçerli.
       dispatcher.Dispatch(PanelEvent.PanelContainersCreated);
     }
 

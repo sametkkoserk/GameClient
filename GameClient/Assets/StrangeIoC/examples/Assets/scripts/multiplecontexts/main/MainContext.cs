@@ -19,15 +19,13 @@
 /// I'm assuming here that you've already gone through myfirstproject, or that
 /// you're experienced with strange.
 
-using System;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.dispatcher.eventdispatcher.impl;
-using strange.examples.multiplecontexts.game;
 
-namespace strange.examples.multiplecontexts.main
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main
 {
 	public class MainContext : MVCSContext
 	{

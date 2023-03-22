@@ -8,7 +8,8 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
 {
   public interface ILocalizationModel
   {
-    string languageKey { get; set; }
+    string GetLanguageCode();
+
     IEnumerator ChangeLanguage(string newLanguageKey);
     
     /// <summary>

@@ -18,12 +18,12 @@
 /// ============================
 /// Demonstrates how to remove a Context
 
-using System;
-using strange.extensions.command.impl;
-using strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
 	public class RemoveContextCommand : EventCommand
 	{

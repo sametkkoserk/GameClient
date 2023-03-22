@@ -9,7 +9,7 @@ using Runtime.Contexts.Lobby.View.LobbyPanel;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.GeneralContext;
 using Runtime.Modules.Core.ScreenManager.Enum;
-using strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.api;
 using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Config

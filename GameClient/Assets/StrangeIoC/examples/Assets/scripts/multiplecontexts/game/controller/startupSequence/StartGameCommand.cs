@@ -16,13 +16,11 @@
 
 /// Kicks off the app, directly after context binding
 
-using System;
-using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.impl;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.util;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
 
-namespace strange.examples.multiplecontexts.game
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller.startupSequence
 {
 	public class StartGameCommand : Command
 	{

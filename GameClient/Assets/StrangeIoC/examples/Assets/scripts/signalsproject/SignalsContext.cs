@@ -5,16 +5,18 @@
 /// All comments from MyFirstProjectContext have been removed and replaced by comments focusing
 /// on the differences 
 
-using System;
+using StrangeIoC.examples.Assets.scripts.signalsproject.controller;
+using StrangeIoC.examples.Assets.scripts.signalsproject.model;
+using StrangeIoC.examples.Assets.scripts.signalsproject.service;
+using StrangeIoC.examples.Assets.scripts.signalsproject.signal;
+using StrangeIoC.examples.Assets.scripts.signalsproject.view;
+using StrangeIoC.scripts.strange.extensions.command.api;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.dispatcher.eventdispatcher.impl;
-using strange.extensions.command.api;
-using strange.extensions.command.impl;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject
 {
 	public class SignalsContext : MVCSContext
 	{

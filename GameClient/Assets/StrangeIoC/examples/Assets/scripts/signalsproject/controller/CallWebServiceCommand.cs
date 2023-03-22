@@ -4,14 +4,14 @@
 /// for example, if you need to call a web service. The two most important lines
 /// are the Retain() and Release() calls.
 
-using System;
-using System.Collections;
+using StrangeIoC.examples.Assets.scripts.signalsproject.model;
+using StrangeIoC.examples.Assets.scripts.signalsproject.service;
+using StrangeIoC.examples.Assets.scripts.signalsproject.signal;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.controller
 {
 	//Again, we extend Command, not EventCommand
 	public class CallWebServiceCommand : Command

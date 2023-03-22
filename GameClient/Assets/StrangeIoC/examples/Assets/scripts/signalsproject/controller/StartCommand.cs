@@ -1,12 +1,12 @@
 /// The only change in StartCommand is that we extend Command, not EventCommand
 
-using System;
+using StrangeIoC.examples.Assets.scripts.signalsproject.view;
+using StrangeIoC.scripts.strange.extensions.command.impl;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
-using strange.extensions.context.api;
-using strange.extensions.command.impl;
-using strange.extensions.dispatcher.eventdispatcher.impl;
 
-namespace strange.examples.signals
+namespace StrangeIoC.examples.Assets.scripts.signalsproject.controller
 {
 	public class StartCommand : Command
 	{

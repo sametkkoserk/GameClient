@@ -4,5 +4,6 @@ namespace Runtime.Contexts.Main.Enum
   {
     OpenMainSceneCamera,
     CloseMainSceneCamera,
+    OpenSettingsPanel
   }
 }

@@ -13,11 +13,9 @@
 /// useful in commands, where you can access the ContextView to attach further GameObjects 
 /// or MonoBehaviours.
 
-using System;
-using UnityEngine;
-using strange.extensions.context.impl;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 
-namespace strange.examples.myfirstproject
+namespace StrangeIoC.examples.Assets.scripts.myfirstproject
 {
 	public class MyFirstProjectRoot : ContextView
 	{

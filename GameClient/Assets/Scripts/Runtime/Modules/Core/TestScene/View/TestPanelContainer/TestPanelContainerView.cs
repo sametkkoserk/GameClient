@@ -1,5 +1,5 @@
 using Runtime.Modules.Core.TestScene.Enum;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
 namespace Runtime.Modules.Core.TestScene.View.TestPanelContainer
 {

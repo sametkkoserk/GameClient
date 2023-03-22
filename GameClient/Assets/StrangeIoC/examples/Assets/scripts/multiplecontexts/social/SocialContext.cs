@@ -19,15 +19,17 @@
 /// A key thing to notice here is how easily we can swap one service (or model, or whatever)
 /// for another that satisfies the same interface.
 
-using System;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service;
+using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view;
+using StrangeIoC.scripts.strange.extensions.context.api;
+using StrangeIoC.scripts.strange.extensions.context.impl;
 using UnityEngine;
-using strange.examples.multiplecontexts.main;
-using strange.extensions.context.api;
-using strange.extensions.context.impl;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.dispatcher.eventdispatcher.impl;
+using GameCompleteCommand = StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller.GameCompleteCommand;
+using StartCommand = StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller.StartCommand;
 
-namespace strange.examples.multiplecontexts.social
+namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social
 {
 	public class SocialContext : MVCSContext
 	{
