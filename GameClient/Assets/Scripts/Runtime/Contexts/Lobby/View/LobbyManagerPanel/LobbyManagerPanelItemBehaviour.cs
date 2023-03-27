@@ -13,6 +13,9 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     
     public GameObject readyObj;
 
+    [HideInInspector]
+    public ushort inLobbyId;
+
     public void Init(ClientVo clientVo, Color color)
     {
       userNameText.text = "ID: " + clientVo.id + " - Lobby ID: " + clientVo.inLobbyId;

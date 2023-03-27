@@ -4,8 +4,9 @@ using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
-using strange.extensions.dispatcher.eventdispatcher.api;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
+using StrangeIoC.scripts.strange.extensions.injector;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
@@ -39,11 +40,12 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       dispatcher.AddListener(LobbyEvent.PlayerReadyResponse, OnPlayerReadyResponse);
       dispatcher.AddListener(LobbyEvent.PlayerIsOut, OnPlayerIsOut);
       dispatcher.AddListener(LobbyEvent.GetGameSettings, OnGetSettings);
+      dispatcher.AddListener(LobbyEvent.OnChangeUserLobbyID, OnChangeUserLobbyID);
     }
 
     private void Start()
     {
-      view.behaviours = new Dictionary<ushort, LobbyManagerPanelItemBehaviour>();
+      lobbyModel.userItemBehaviours = new Dictionary<ushort, LobbyManagerPanelItemBehaviour>();
       LobbyVo lobbyVo = lobbyModel.lobbyVo;
       view.lobbyNameText.text = lobbyVo.lobbyName;
       view.playerCountText.text = $"{lobbyVo.playerCount}/{lobbyVo.maxPlayerCount}";
@@ -56,7 +58,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
         LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
         behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
 
-        view.behaviours[clientVo.inLobbyId] = behaviour;
+        lobbyModel.userItemBehaviours[clientVo.inLobbyId] = behaviour;
       }
       
       DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}, Player's Lobby ID: {lobbyModel.clientVo.inLobbyId}," +
@@ -75,7 +77,14 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
       LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
       behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
-      view.behaviours[clientVo.inLobbyId] = behaviour;
+      lobbyModel.userItemBehaviours[clientVo.inLobbyId] = behaviour;
+    }
+
+    private void OnChangeUserLobbyID(IEvent payload)
+    {
+      ClientVo clientVo = (ClientVo)payload.data;
+      
+      lobbyModel.userItemBehaviours[clientVo.inLobbyId].Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
     }
 
 
@@ -88,7 +97,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void OnPlayerReadyResponse(IEvent payload)
     {
       ushort inLobbyId = (ushort)payload.data;
-      view.behaviours[inLobbyId].PlayerReady();
+      lobbyModel.userItemBehaviours[inLobbyId].PlayerReady();
       Debug.Log("Player is ready: " + inLobbyId);
     }
 
@@ -104,10 +113,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
       view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
 
-      view.behaviours[inLobbyId].PlayerIsOut();
+      lobbyModel.userItemBehaviours[inLobbyId].PlayerIsOut();
       for (ushort i = 0; i < lobbyVo.clients.Count; i++)
       {
-        view.behaviours[i].Init(lobbyVo.clients.ElementAt(i).Value, lobbyModel.colors[i]);
+        lobbyModel.userItemBehaviours[i].Init(lobbyVo.clients.ElementAt(i).Value, lobbyModel.colors[i]);
       }
     }
 
@@ -176,6 +185,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       dispatcher.RemoveListener(LobbyEvent.PlayerReadyResponse, OnPlayerReadyResponse);
       dispatcher.RemoveListener(LobbyEvent.PlayerIsOut, OnPlayerIsOut);
       dispatcher.RemoveListener(LobbyEvent.GetGameSettings, OnGetSettings);
+      dispatcher.RemoveListener(LobbyEvent.OnChangeUserLobbyID, OnChangeUserLobbyID);
     }
   }
 }

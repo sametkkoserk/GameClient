@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using strange.extensions.mediation.impl;
+using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,8 +9,6 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 {
   public class LobbyManagerPanelView : EventView
   {
-    public Dictionary<ushort, LobbyManagerPanelItemBehaviour> behaviours;
-
     public GameObject lobbyManagerPanelItem;
     
     public Transform playerContainer;
