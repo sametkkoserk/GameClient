@@ -9,5 +9,7 @@ namespace Editor.Tools.PrefabCreator.Editor
     
     public const string StandardButton = "StandardButton";
     public const string ParameterTextButton = "ParameterTextButton";
+    
+    public const string Icon = "Icon";
   }
 }
