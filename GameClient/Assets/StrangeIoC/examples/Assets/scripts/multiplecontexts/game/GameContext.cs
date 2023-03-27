@@ -29,33 +29,31 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game
 {
-	public class GameContext : MVCSContext
-	{
+  public class GameContext : MVCSContext
+  {
+    public GameContext(MonoBehaviour view) : base(view)
+    {
+    }
 
-		public GameContext (MonoBehaviour view) : base(view)
-		{
-		}
+    public GameContext(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
+    {
+    }
 
-		public GameContext (MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
-		{
-		}
-		
-		protected override void mapBindings()
-		{
-			injectionBinder.Bind<IScore>().To<ScoreModel>().ToSingleton();
-			
-			mediationBinder.Bind<ShipView>().To<ShipMediator>();
-			mediationBinder.Bind<EnemyView>().To<EnemyMediator>();
-			mediationBinder.Bind<ScoreboardView>().To<ScoreboardMediator>();
-			
-			commandBinder.Bind(ContextEvent.START).To<StartAppCommand>().To<StartGameCommand>().Once().InSequence();
-			
-			commandBinder.Bind(GameEvent.ADD_TO_SCORE).To<UpdateScoreCommand>();
-			commandBinder.Bind(GameEvent.SHIP_DESTROYED).To<ShipDestroyedCommand>();
-			commandBinder.Bind(GameEvent.GAME_OVER).To<GameOverCommand>();
-			commandBinder.Bind(GameEvent.REPLAY).To<ReplayGameCommand>();
-			commandBinder.Bind(GameEvent.REMOVE_SOCIAL_CONTEXT).To<RemoveSocialContextCommand>();
-		}
-	}
+    protected override void mapBindings()
+    {
+      injectionBinder.Bind<IScore>().To<ScoreModel>().ToSingleton();
+
+      mediationBinder.Bind<ShipView>().To<ShipMediator>();
+      mediationBinder.Bind<EnemyView>().To<EnemyMediator>();
+      mediationBinder.Bind<ScoreboardView>().To<ScoreboardMediator>();
+
+      commandBinder.Bind(ContextEvent.START).To<StartAppCommand>().To<StartGameCommand>().Once().InSequence();
+
+      commandBinder.Bind(GameEvent.ADD_TO_SCORE).To<UpdateScoreCommand>();
+      commandBinder.Bind(GameEvent.SHIP_DESTROYED).To<ShipDestroyedCommand>();
+      commandBinder.Bind(GameEvent.GAME_OVER).To<GameOverCommand>();
+      commandBinder.Bind(GameEvent.REPLAY).To<ReplayGameCommand>();
+      commandBinder.Bind(GameEvent.REMOVE_SOCIAL_CONTEXT).To<RemoveSocialContextCommand>();
+    }
+  }
 }
-

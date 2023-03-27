@@ -48,47 +48,43 @@ using StrangeIoC.scripts.strange.framework.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.context.impl
 {
-	public class CrossContextBridge : Binder, ITriggerable
-	{
-		[Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
-		public IEventDispatcher crossContextDispatcher{ get; set;}
+  public class CrossContextBridge : Binder, ITriggerable
+  {
+    /// Prevents the currently dispatching Event from cycling back on itself
+    protected HashSet<object> eventsInProgress = new();
 
-		/// Prevents the currently dispatching Event from cycling back on itself
-		protected HashSet<object> eventsInProgress = new HashSet<object>();
+    [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
+    public IEventDispatcher crossContextDispatcher { get; set; }
 
-		public CrossContextBridge ()
-		{
-		}
+    public override IBinding Bind(object key)
+    {
+      IBinding binding;
+      binding = GetRawBinding();
+      binding.Bind(key);
+      resolver(binding);
+      return binding;
+    }
 
-		override public IBinding Bind(object key)
-		{
-			IBinding binding;
-			binding = GetRawBinding ();
-			binding.Bind(key);
-			resolver (binding);
-			return binding;
-		}
+    #region ITriggerable implementation
 
-		#region ITriggerable implementation
+    public bool Trigger<T>(object data)
+    {
+      return Trigger(typeof(T), data);
+    }
 
-		public bool Trigger<T> (object data)
-		{
-			return Trigger (typeof(T), data);
-		}
+    public bool Trigger(object key, object data)
+    {
+      var binding = GetBinding(key, null);
+      if (binding != null && !eventsInProgress.Contains(key))
+      {
+        eventsInProgress.Add(key);
+        crossContextDispatcher.Dispatch(key, data);
+        eventsInProgress.Remove(key);
+      }
 
-		public bool Trigger (object key, object data)
-		{
-			IBinding binding = GetBinding (key, null);
-			if (binding != null && !eventsInProgress.Contains(key))
-			{
-				eventsInProgress.Add (key);
-				crossContextDispatcher.Dispatch (key, data);
-				eventsInProgress.Remove (key);
-			}
-			return true;
-		}
+      return true;
+    }
 
-		#endregion
-	}
+    #endregion
+  }
 }
-

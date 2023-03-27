@@ -25,39 +25,34 @@ using StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller;
 using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 {
-	public class UserTileMediator : EventMediator
-	{
-		[Inject]
-		public UserTileView view{ get; set;}
-		
-		[Inject]
-		public UserVO userVO{get;set;}
-		
-		public override void OnRegister()
-		{
-			dispatcher.AddListener(GameEvent.RESTART_GAME, onGameRestart);
-			
-			view.init ();
-		}
-		
-		public override void OnRemove()
-		{
-			//Clean up listeners when the view is about to be destroyed
-			dispatcher.RemoveListener(GameEvent.RESTART_GAME, onGameRestart);
-		}
-		
-		private void onGameRestart()
-		{
-			UserVO viewUserVO = view.getUser();
-			if (viewUserVO != null && viewUserVO.serviceId != userVO.serviceId)
-			{
-				GameObject.Destroy(gameObject);
-			}
-		}
-	}
-}
+  public class UserTileMediator : EventMediator
+  {
+    [Inject]
+    public UserTileView view { get; set; }
 
+    [Inject]
+    public UserVO userVO { get; set; }
+
+    public override void OnRegister()
+    {
+      dispatcher.AddListener(GameEvent.RESTART_GAME, onGameRestart);
+
+      view.init();
+    }
+
+    public override void OnRemove()
+    {
+      //Clean up listeners when the view is about to be destroyed
+      dispatcher.RemoveListener(GameEvent.RESTART_GAME, onGameRestart);
+    }
+
+    private void onGameRestart()
+    {
+      var viewUserVO = view.getUser();
+      if (viewUserVO != null && viewUserVO.serviceId != userVO.serviceId) Destroy(gameObject);
+    }
+  }
+}

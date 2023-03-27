@@ -5,11 +5,11 @@ using UnityEngine.SceneManagement;
 
 namespace Runtime.Contexts.Main.Command
 {
-    public class StartCommand : EventCommand
+  public class StartCommand : EventCommand
+  {
+    public override void Execute()
     {
-        public override void Execute()
-        {
-            Addressables.LoadSceneAsync(SceneKeys.NetworkScene, LoadSceneMode.Additive);
-        }
+      Addressables.LoadSceneAsync(SceneKeys.NetworkScene, LoadSceneMode.Additive);
     }
+  }
 }

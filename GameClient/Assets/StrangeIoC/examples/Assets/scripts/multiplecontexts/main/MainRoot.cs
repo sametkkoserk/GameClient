@@ -25,14 +25,12 @@ using StrangeIoC.scripts.strange.extensions.context.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main
 {
-	public class MainRoot : ContextView
-	{
-	
-		void Awake()
-		{
-			//Instantiate the context, passing it this instance.
-			context = new MainContext(this);
-		}
-	}
+  public class MainRoot : ContextView
+  {
+    private void Awake()
+    {
+      //Instantiate the context, passing it this instance.
+      context = new MainContext(this);
+    }
+  }
 }
-

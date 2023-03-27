@@ -46,353 +46,293 @@ using StrangeIoC.scripts.strange.framework.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 {
-	public class EventDispatcher : Binder, IEventDispatcher, ITriggerProvider, ITriggerable
-	{
-		/// The list of clients that will be triggered as a consequence of an Event firing.
-		protected HashSet<ITriggerable> triggerClients;
-		protected HashSet<ITriggerable> triggerClientRemovals;
-		protected bool isTriggeringClients;
+  public class EventDispatcher : Binder, IEventDispatcher, ITriggerProvider, ITriggerable
+  {
+    /// The eventPool is shared across all EventDispatchers for efficiency
+    public static IPool<TmEvent> eventPool;
 
-		/// The eventPool is shared across all EventDispatchers for efficiency
-		public static IPool<TmEvent> eventPool;
+    protected bool isTriggeringClients;
+    protected HashSet<ITriggerable> triggerClientRemovals;
 
-		public EventDispatcher ()
-		{
-			if (eventPool == null)
-			{
-				eventPool = new Pool<TmEvent> ();
-				eventPool.instanceProvider = new EventInstanceProvider ();
-			}
-		}
+    /// The list of clients that will be triggered as a consequence of an Event firing.
+    protected HashSet<ITriggerable> triggerClients;
 
-		override public IBinding GetRawBinding()
-		{
-			return new EventBinding (resolver);
-		}
+    public EventDispatcher()
+    {
+      if (eventPool == null)
+      {
+        eventPool = new Pool<TmEvent>();
+        eventPool.instanceProvider = new EventInstanceProvider();
+      }
+    }
 
-		new public IEventBinding Bind(object key)
-		{
-			return base.Bind (key) as IEventBinding;
-		}
+    public new IEventBinding Bind(object key)
+    {
+      return base.Bind(key) as IEventBinding;
+    }
 
-		public void Dispatch (object eventType)
-		{
-			Dispatch (eventType, null);
-		}
+    public void Dispatch(object eventType)
+    {
+      Dispatch(eventType, null);
+    }
 
-		public void Dispatch (object eventType, object data)
-		{
-			//Scrub the data to make eventType and data conform if possible
-			IEvent evt = conformDataToEvent (eventType, data);
+    public void Dispatch(object eventType, object data)
+    {
+      //Scrub the data to make eventType and data conform if possible
+      var evt = conformDataToEvent(eventType, data);
 
-			if (evt is IPoolable)
-			{
-				(evt as IPoolable).Retain ();
-			}
+      if (evt is IPoolable) (evt as IPoolable).Retain();
 
-			bool continueDispatch = true;
-			if (triggerClients != null)
-			{
-				isTriggeringClients = true;
-				foreach (ITriggerable trigger in triggerClients)
-				{
-					if (!trigger.Trigger(eventType, evt))
-					{
-						continueDispatch = false;
-						break;
-					}
-				}
-				if (triggerClientRemovals != null)
-				{
-					flushRemovals();
-				}
-				isTriggeringClients = false;
-			}
+      var continueDispatch = true;
+      if (triggerClients != null)
+      {
+        isTriggeringClients = true;
+        foreach (var trigger in triggerClients)
+          if (!trigger.Trigger(eventType, evt))
+          {
+            continueDispatch = false;
+            break;
+          }
 
-			if (!continueDispatch)
-			{
-				internalReleaseEvent (evt);
-				return;
-			}
+        if (triggerClientRemovals != null) flushRemovals();
+        isTriggeringClients = false;
+      }
 
-			IEventBinding binding = GetBinding (eventType) as IEventBinding;
-			if (binding == null)
-			{
-				internalReleaseEvent (evt);
-				return;
-			}
+      if (!continueDispatch)
+      {
+        internalReleaseEvent(evt);
+        return;
+      }
 
-			object[] callbacks = (binding.value as object[]).Clone() as object[];
-			if (callbacks == null)
-			{
-				internalReleaseEvent (evt);
-				return;
-			}
-			for(int a = 0; a < callbacks.Length; a++)
-			{
-				object callback = callbacks[a];
-				if(callback == null)
-					continue;
+      var binding = GetBinding(eventType) as IEventBinding;
+      if (binding == null)
+      {
+        internalReleaseEvent(evt);
+        return;
+      }
 
-				callbacks[a] = null;
+      var callbacks = (binding.value as object[]).Clone() as object[];
+      if (callbacks == null)
+      {
+        internalReleaseEvent(evt);
+        return;
+      }
 
-				object[] currentCallbacks = binding.value as object[];
-				if(Array.IndexOf(currentCallbacks, callback) == -1)
-					continue;
+      for (var a = 0; a < callbacks.Length; a++)
+      {
+        var callback = callbacks[a];
+        if (callback == null)
+          continue;
 
-				if (callback is EventCallback)
-				{
-					invokeEventCallback (evt, callback as EventCallback);
-				}
-				else if (callback is EmptyCallback)
-				{
-					(callback as EmptyCallback)();
-				}
-			}
+        callbacks[a] = null;
 
-			internalReleaseEvent (evt);
-		}
+        var currentCallbacks = binding.value as object[];
+        if (Array.IndexOf(currentCallbacks, callback) == -1)
+          continue;
 
-		virtual protected IEvent conformDataToEvent(object eventType, object data)
-		{
-			IEvent retv = null;
-			if (eventType == null)
-			{
-				throw new EventDispatcherException("Attempt to Dispatch to null.\ndata: " + data, EventDispatcherExceptionType.EVENT_KEY_NULL);
-			}
-			else if (eventType is IEvent)
-			{
-				//Client provided a full-formed event
-				retv = (IEvent)eventType;
-			}
-			else if (data == null)
-			{
-				//Client provided just an event ID. Create an event for injection
-				retv = createEvent (eventType, null);
-			}
-			else if (data is IEvent)
-			{
-				//Client provided both an evertType and a full-formed IEvent
-				retv = (IEvent)data;
-			}
-			else
-			{
-				//Client provided an eventType and some data which is not a IEvent.
-				retv = createEvent (eventType, data);
-			}
-			return retv;
-		}
+        if (callback is EventCallback)
+          invokeEventCallback(evt, callback as EventCallback);
+        else if (callback is EmptyCallback) (callback as EmptyCallback)();
+      }
 
-		virtual protected IEvent createEvent(object eventType, object data)
-		{
-			IEvent retv = eventPool.GetInstance();
-			retv.type = eventType;
-			retv.target = this;
-			retv.data = data;
-			return retv;
+      internalReleaseEvent(evt);
+    }
 
-		}
+    public void AddListener(object evt, EventCallback callback)
+    {
+      var binding = GetBinding(evt);
+      if (binding == null)
+        Bind(evt).To(callback);
+      else
+        binding.To(callback);
+    }
 
-		virtual protected void invokeEventCallback(object data, EventCallback callback)
-		{
-			try
-			{
-				callback (data as IEvent);
-			}
-			catch(InvalidCastException)
-			{
-				object tgt = callback.Target;
-				string methodName = (callback as Delegate).Method.Name;
-				string message = "An EventCallback is attempting an illegal cast. One possible reason is not typing the payload to IEvent in your callback. Another is illegal casting of the data.\nTarget class: "  + tgt + " method: " + methodName;
-				throw new EventDispatcherException (message, EventDispatcherExceptionType.TARGET_INVOCATION);
-			}
-		}
+    public void AddListener(object evt, EmptyCallback callback)
+    {
+      var binding = GetBinding(evt);
+      if (binding == null)
+        Bind(evt).To(callback);
+      else
+        binding.To(callback);
+    }
 
-		public void AddListener(object evt, EventCallback callback)
-		{
-			IBinding binding = GetBinding (evt);
-			if (binding == null)
-			{
-				Bind (evt).To (callback);
-			}
-			else
-			{
-				binding.To (callback);
-			}
-		}
+    public void RemoveListener(object evt, EventCallback callback)
+    {
+      var binding = GetBinding(evt);
+      RemoveValue(binding, callback);
+    }
 
-		public void AddListener(object evt, EmptyCallback callback)
-		{
-			IBinding binding = GetBinding (evt);
-			if (binding == null)
-			{
-				Bind (evt).To (callback);
-			}
-			else
-			{
-				binding.To (callback);
-			}
-		}
+    public void RemoveListener(object evt, EmptyCallback callback)
+    {
+      var binding = GetBinding(evt);
+      RemoveValue(binding, callback);
+    }
 
-		public void RemoveListener(object evt, EventCallback callback)
-		{
-			IBinding binding = GetBinding (evt);
-			RemoveValue (binding, callback);
-		}
+    public bool HasListener(object evt, EventCallback callback)
+    {
+      var binding = GetBinding(evt) as IEventBinding;
+      if (binding == null) return false;
+      return binding.TypeForCallback(callback) != EventCallbackType.NOT_FOUND;
+    }
 
-		public void RemoveListener(object evt, EmptyCallback callback)
-		{
-			IBinding binding = GetBinding (evt);
-			RemoveValue (binding, callback);
-		}
+    public bool HasListener(object evt, EmptyCallback callback)
+    {
+      var binding = GetBinding(evt) as IEventBinding;
+      if (binding == null) return false;
+      return binding.TypeForCallback(callback) != EventCallbackType.NOT_FOUND;
+    }
 
-		public bool HasListener(object evt, EventCallback callback)
-		{
-			IEventBinding binding = GetBinding (evt) as IEventBinding;
-			if (binding == null)
-			{
-				return false;
-			}
-			return binding.TypeForCallback (callback) != EventCallbackType.NOT_FOUND;
-		}
+    public void UpdateListener(bool toAdd, object evt, EventCallback callback)
+    {
+      if (toAdd)
+        AddListener(evt, callback);
+      else
+        RemoveListener(evt, callback);
+    }
 
-		public bool HasListener(object evt, EmptyCallback callback)
-		{
-			IEventBinding binding = GetBinding (evt) as IEventBinding;
-			if (binding == null)
-			{
-				return false;
-			}
-			return binding.TypeForCallback (callback) != EventCallbackType.NOT_FOUND;
-		}
+    public void UpdateListener(bool toAdd, object evt, EmptyCallback callback)
+    {
+      if (toAdd)
+        AddListener(evt, callback);
+      else
+        RemoveListener(evt, callback);
+    }
 
-		public void UpdateListener(bool toAdd, object evt, EventCallback callback)
-		{
-			if (toAdd)
-			{
-				AddListener (evt, callback);
-			}
-			else
-			{
-				RemoveListener (evt, callback);
-			}
-		}
+    public void ReleaseEvent(IEvent evt)
+    {
+      if ((evt as IPoolable).retain == false)
+      {
+        cleanEvent(evt);
+        eventPool.ReturnInstance(evt);
+      }
+    }
 
-		public void UpdateListener(bool toAdd, object evt, EmptyCallback callback)
-		{
-			if (toAdd)
-			{
-				AddListener (evt, callback);
-			}
-			else
-			{
-				RemoveListener (evt, callback);
-			}
-		}
+    public bool Trigger<T>(object data)
+    {
+      return Trigger(typeof(T), data);
+    }
 
-		public void AddTriggerable(ITriggerable target)
-		{
-			if (triggerClients == null)
-			{
-				triggerClients = new HashSet<ITriggerable>();
-			}
-			triggerClients.Add(target);
-		}
+    public bool Trigger(object key, object data)
+    {
+      var allow = (data is IEvent && ReferenceEquals((data as IEvent).target, this) == false) ||
+                  (key is IEvent && ReferenceEquals((data as IEvent).target, this) == false);
 
-		public void RemoveTriggerable(ITriggerable target)
-		{
-			if (triggerClients.Contains(target))
-			{
-				if (triggerClientRemovals == null)
-				{
-					triggerClientRemovals = new HashSet<ITriggerable>();
-				}
-				triggerClientRemovals.Add (target);
-				if (!isTriggeringClients)
-				{
-					flushRemovals();
-				}
-			}
-		}
+      if (allow)
+        Dispatch(key, data);
+      return true;
+    }
 
-		public int Triggerables
-		{
-			get
-			{
-				if (triggerClients == null)
-					return 0;
-				return triggerClients.Count;
-			}
-		}
+    public void AddTriggerable(ITriggerable target)
+    {
+      if (triggerClients == null) triggerClients = new HashSet<ITriggerable>();
+      triggerClients.Add(target);
+    }
 
-		protected void flushRemovals()
-		{
-			if (triggerClientRemovals == null)
-			{
-				return;
-			}
-			foreach(ITriggerable target in triggerClientRemovals)
-			{
-				if (triggerClients.Contains(target))
-				{
-					triggerClients.Remove(target);
-				}
-			}
-			triggerClientRemovals = null;
-		}
+    public void RemoveTriggerable(ITriggerable target)
+    {
+      if (triggerClients.Contains(target))
+      {
+        if (triggerClientRemovals == null) triggerClientRemovals = new HashSet<ITriggerable>();
+        triggerClientRemovals.Add(target);
+        if (!isTriggeringClients) flushRemovals();
+      }
+    }
 
-		public bool Trigger<T>(object data)
-		{
-			return Trigger (typeof(T), data);
-		}
+    public int Triggerables
+    {
+      get
+      {
+        if (triggerClients == null)
+          return 0;
+        return triggerClients.Count;
+      }
+    }
 
-		public bool Trigger(object key, object data)
-		{
-			bool allow = ((data is IEvent && System.Object.ReferenceEquals((data as IEvent).target, this) == false) ||
-				(key is IEvent && System.Object.ReferenceEquals((data as IEvent).target, this) == false));
+    public override IBinding GetRawBinding()
+    {
+      return new EventBinding(resolver);
+    }
 
-			if (allow)
-				Dispatch(key, data);
-			return true;
-		}
+    protected virtual IEvent conformDataToEvent(object eventType, object data)
+    {
+      IEvent retv = null;
+      if (eventType == null)
+        throw new EventDispatcherException("Attempt to Dispatch to null.\ndata: " + data, EventDispatcherExceptionType.EVENT_KEY_NULL);
+      if (eventType is IEvent)
+        //Client provided a full-formed event
+        retv = (IEvent)eventType;
+      else if (data == null)
+        //Client provided just an event ID. Create an event for injection
+        retv = createEvent(eventType, null);
+      else if (data is IEvent)
+        //Client provided both an evertType and a full-formed IEvent
+        retv = (IEvent)data;
+      else
+        //Client provided an eventType and some data which is not a IEvent.
+        retv = createEvent(eventType, data);
+      return retv;
+    }
 
-		protected void internalReleaseEvent(IEvent evt)
-		{
-			if (evt is IPoolable)
-			{
-				(evt as IPoolable).Release ();
-			}
-		}
+    protected virtual IEvent createEvent(object eventType, object data)
+    {
+      IEvent retv = eventPool.GetInstance();
+      retv.type = eventType;
+      retv.target = this;
+      retv.data = data;
+      return retv;
+    }
 
-		public void ReleaseEvent(IEvent evt)
-		{
-			if ((evt as IPoolable).retain == false)
-			{
-				cleanEvent (evt);
-				eventPool.ReturnInstance (evt);
-			}
-		}
+    protected virtual void invokeEventCallback(object data, EventCallback callback)
+    {
+      try
+      {
+        callback(data as IEvent);
+      }
+      catch (InvalidCastException)
+      {
+        var tgt = callback.Target;
+        var methodName = callback.Method.Name;
+        var message =
+          "An EventCallback is attempting an illegal cast. One possible reason is not typing the payload to IEvent in your callback. Another is illegal casting of the data.\nTarget class: " + tgt +
+          " method: " + methodName;
+        throw new EventDispatcherException(message, EventDispatcherExceptionType.TARGET_INVOCATION);
+      }
+    }
 
-		protected void cleanEvent(IEvent evt)
-		{
-			evt.target = null;
-			evt.data = null;
-			evt.type = null;
-		}
-	}
+    protected void flushRemovals()
+    {
+      if (triggerClientRemovals == null) return;
+      foreach (var target in triggerClientRemovals)
+        if (triggerClients.Contains(target))
+          triggerClients.Remove(target);
+      triggerClientRemovals = null;
+    }
 
-	class EventInstanceProvider : IInstanceProvider
-	{
-		public T GetInstance<T>()
-		{
-			object instance = new TmEvent ();
-			T retv = (T) instance;
-			return retv;
-		}
+    protected void internalReleaseEvent(IEvent evt)
+    {
+      if (evt is IPoolable) (evt as IPoolable).Release();
+    }
 
-		public object GetInstance(Type key)
-		{
-			return new TmEvent ();
-		}
-	}
+    protected void cleanEvent(IEvent evt)
+    {
+      evt.target = null;
+      evt.data = null;
+      evt.type = null;
+    }
+  }
+
+  internal class EventInstanceProvider : IInstanceProvider
+  {
+    public T GetInstance<T>()
+    {
+      object instance = new TmEvent();
+      var retv = (T)instance;
+      return retv;
+    }
+
+    public object GetInstance(Type key)
+    {
+      return new TmEvent();
+    }
+  }
 }

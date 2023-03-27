@@ -23,13 +23,12 @@
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
-	public class UserVO
-	{
-		public string serviceId;
-		public string imgUrl;
-		public string userFirstName;
-		public int highScore;
-		public int currentScore;
-	}
+  public class UserVO
+  {
+    public int currentScore;
+    public int highScore;
+    public string imgUrl;
+    public string serviceId;
+    public string userFirstName;
+  }
 }
-

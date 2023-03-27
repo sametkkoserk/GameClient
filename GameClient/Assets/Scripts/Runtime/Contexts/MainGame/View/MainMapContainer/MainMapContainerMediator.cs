@@ -1,5 +1,4 @@
 using Runtime.Contexts.Lobby.Enum;
-using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using StrangeIoC.scripts.strange.extensions.injector;
@@ -26,10 +25,8 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
       Addressables.InstantiateAsync(LobbyKey.MainMap, gameObject.transform);
 
       if (mainGameModel.materials.Count == 0)
-      {
         // Player Vo olusturulacak.
         mainGameModel.materials = view.playerMaterials;
-      }
     }
 
     public override void OnRemove()

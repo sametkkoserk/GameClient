@@ -20,17 +20,16 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 {
-	public class UpdateScoreCommand : EventCommand
-	{
-		[Inject]
-		public IScore scoreKeeper{get;set;}
-		
-		public override void Execute()
-		{
-			int increment = (int)evt.data;
-			int newScore = scoreKeeper.AddToScore(increment);
-			dispatcher.Dispatch(GameEvent.SCORE_CHANGE, newScore);
-		}
-	}
-}
+  public class UpdateScoreCommand : EventCommand
+  {
+    [Inject]
+    public IScore scoreKeeper { get; set; }
 
+    public override void Execute()
+    {
+      var increment = (int)evt.data;
+      var newScore = scoreKeeper.AddToScore(increment);
+      dispatcher.Dispatch(GameEvent.SCORE_CHANGE, newScore);
+    }
+  }
+}

@@ -2,13 +2,12 @@ using StrangeIoC.scripts.strange.extensions.context.impl;
 
 namespace Runtime.Contexts.Lobby.Config
 {
-    public class LobbyRoot : ContextView
+  public class LobbyRoot : ContextView
+  {
+    private void Awake()
     {
-        void Awake()
-        {
-            //Instantiate the context, passing it this instance.
-            context = new LobbyContext(this);
-
-        }
+      //Instantiate the context, passing it this instance.
+      context = new LobbyContext(this);
     }
+  }
 }

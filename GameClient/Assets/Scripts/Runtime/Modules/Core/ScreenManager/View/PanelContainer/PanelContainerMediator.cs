@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Editor.Tools.DebugX.Runtime;
@@ -8,15 +7,13 @@ using Runtime.Modules.Core.ScreenManager.Vo;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 {
   public enum PanelContainerEvent
   {
-    SetInitialData,
+    SetInitialData
   }
 
   public class PanelContainerMediator : EventMediator
@@ -48,12 +45,9 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OpenPanel(IEvent payload)
     {
-      PanelVo panelVo = (PanelVo)payload.data;
+      var panelVo = (PanelVo)payload.data;
 
-      if (panelVo.layerKey != view.key || panelVo.sceneKey.ToString() != gameObject.scene.name)
-      {
-        return;
-      }
+      if (panelVo.layerKey != view.key || panelVo.sceneKey.ToString() != gameObject.scene.name) return;
 
       switch (panelVo.panelMode)
       {
@@ -75,7 +69,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     private void OnDestroyPanelContainer(PanelVo panelVo)
     {
       DestroyAllChild();
-      
+
       CreatePanel(panelVo);
     }
 
@@ -86,96 +80,38 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OnHidePanelContainer(PanelVo panelVo)
     {
-      for (int i = 0; i < gameObject.transform.childCount; i++)
-      {
-        transform.GetChild(i).gameObject.SetActive(false);
-      }
+      for (var i = 0; i < gameObject.transform.childCount; i++) transform.GetChild(i).gameObject.SetActive(false);
 
       CreatePanel(panelVo);
     }
 
     private void CreatePanel(PanelVo vo)
     {
-      AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(vo.addressableKey, transform);
+      var instantiateAsync = Addressables.InstantiateAsync(vo.addressableKey, transform);
       instantiateAsync.Completed += handle =>
       {
         if (handle.Result == null)
           return;
 
-        GameObject panel = handle.Result;
+        var panel = handle.Result;
         panel.name = vo.addressableKey;
         screenManagerModel.instantiatedPanels.Add(vo, instantiateAsync);
       };
-      
+
       DebugX.Log(DebugKey.ScreenManager, $"{vo.addressableKey} panel successfully created.");
     }
-
-    #region Close Panel
-
-    private void OnCloseLayerPanels(IEvent payload)
-    {
-      LayerKey layerKey = (LayerKey)payload.data;
-
-      if (view.key != layerKey) return;
-      
-      DestroyAllChild();
-    }
-
-    private void OnCloseScenePanels(IEvent payload)
-    {
-      SceneKey sceneKey = (SceneKey)payload.data;
-
-      if (gameObject.scene.name != sceneKey.ToString()) return;
-      
-      DestroyAllChild();
-    }
-
-    private void OnCloseAllPanels()
-    {
-      DestroyAllChild();
-      
-      screenManagerModel.instantiatedPanels.Clear();
-    }
-
-    private void OnCloseSpecificLayer(IEvent payload)
-    {
-      KeyValuePair<SceneKey, LayerKey> specificLayer = (KeyValuePair<SceneKey, LayerKey>)payload.data;
-
-      if (gameObject.scene.name == specificLayer.Key.ToString() && view.key == specificLayer.Value)
-      {
-        DestroyAllChild();
-      }
-    }
-
-    private void OnCloseSpecificPanel(IEvent payload)
-    {
-      string panelAddressableKey = (string)payload.data;
-
-      for (int i = 0; i < screenManagerModel.instantiatedPanels.Count; i++)
-      {
-        if (screenManagerModel.instantiatedPanels.ElementAt(i).Key.addressableKey != panelAddressableKey) continue;
-        
-        Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(i).Value);
-        screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(i).Key);
-        return;
-      }
-    }
-
-    #endregion
 
     private void DestroyAllChild()
     {
       // Panel will have an closing animations. Destroy will change.
-      for (int i = 0; i < transform.childCount; i++)
+      for (var i = 0; i < transform.childCount; i++)
+      for (var j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
       {
-        for (int j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
-        {
-          string key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
+        var key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
 
-          if (transform.GetChild(i).name != key) continue;
-          Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(j).Value);
-          screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(j).Key);
-        }
+        if (transform.GetChild(i).name != key) continue;
+        Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(j).Value);
+        screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(j).Key);
       }
     }
 
@@ -190,5 +126,55 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
       dispatcher.RemoveListener(PanelEvent.CloseSpecificLayerPanels, OnCloseSpecificLayer);
       dispatcher.RemoveListener(PanelEvent.CloseSpecificPanel, OnCloseSpecificPanel);
     }
+
+    #region Close Panel
+
+    private void OnCloseLayerPanels(IEvent payload)
+    {
+      var layerKey = (LayerKey)payload.data;
+
+      if (view.key != layerKey) return;
+
+      DestroyAllChild();
+    }
+
+    private void OnCloseScenePanels(IEvent payload)
+    {
+      var sceneKey = (SceneKey)payload.data;
+
+      if (gameObject.scene.name != sceneKey.ToString()) return;
+
+      DestroyAllChild();
+    }
+
+    private void OnCloseAllPanels()
+    {
+      DestroyAllChild();
+
+      screenManagerModel.instantiatedPanels.Clear();
+    }
+
+    private void OnCloseSpecificLayer(IEvent payload)
+    {
+      var specificLayer = (KeyValuePair<SceneKey, LayerKey>)payload.data;
+
+      if (gameObject.scene.name == specificLayer.Key.ToString() && view.key == specificLayer.Value) DestroyAllChild();
+    }
+
+    private void OnCloseSpecificPanel(IEvent payload)
+    {
+      var panelAddressableKey = (string)payload.data;
+
+      for (var i = 0; i < screenManagerModel.instantiatedPanels.Count; i++)
+      {
+        if (screenManagerModel.instantiatedPanels.ElementAt(i).Key.addressableKey != panelAddressableKey) continue;
+
+        Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(i).Value);
+        screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(i).Key);
+        return;
+      }
+    }
+
+    #endregion
   }
 }

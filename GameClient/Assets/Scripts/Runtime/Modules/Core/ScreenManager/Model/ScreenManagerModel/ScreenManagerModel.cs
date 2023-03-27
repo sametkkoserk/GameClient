@@ -14,41 +14,33 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
   public class ScreenManagerModel : IScreenManagerModel
   {
     [Inject(ContextKeys.CONTEXT_DISPATCHER)]
-    public IEventDispatcher dispatcher{ get; set;}
-    
+    public IEventDispatcher dispatcher { get; set; }
+
     public Dictionary<string, int> layerMap { get; set; }
     public List<string> sceneKeys { get; set; }
     public Dictionary<PanelVo, AsyncOperationHandle<GameObject>> instantiatedPanels { get; set; }
-
-    [PostConstruct]
-    public void OnPostConstruct()
-    {
-      layerMap = new Dictionary<string, int>();
-      sceneKeys = new List<string>();
-      instantiatedPanels = new Dictionary<PanelVo, AsyncOperationHandle<GameObject>>();
-    }
 
     public void AddLayerContainer(string sceneKey)
     {
       if (sceneKeys.Contains(sceneKey))
         return;
-      
+
       sceneKeys.Add(sceneKey);
-      
+
       DebugX.Log(DebugKey.ScreenManager, $"New Scene added to Layer Container: {sceneKey}");
     }
 
     public void SetSortOrder()
     {
-      string[] layers = System.Enum.GetNames(typeof(LayerKey));
+      var layers = System.Enum.GetNames(typeof(LayerKey));
       layers = layers.Reverse().ToArray();
-      for (int i = 0; i < layers.Length; i++)
+      for (var i = 0; i < layers.Length; i++)
       {
         if (layerMap.ContainsKey(layers[i])) continue;
         layerMap.Add(layers[i], i * 10);
       }
     }
-    
+
     public void OpenPanel(string panelAddressableKey, SceneKey sceneKey, LayerKey layerKey, PanelMode panelMode, PanelType panelType)
     {
       if (!sceneKeys.Contains(sceneKey.ToString()))
@@ -57,13 +49,13 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
         DebugX.Log(DebugKey.ScreenManager, "There is no Scene key like that!", LogKey.Error);
         return;
       }
-      
+
       if (!layerMap.ContainsKey(layerKey.ToString()))
       {
         DebugX.Log(DebugKey.ScreenManager, "There is no Layer key like that!", LogKey.Error);
         return;
       }
-      
+
       PanelVo vo = new()
       {
         layerKey = layerKey,
@@ -72,7 +64,7 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
         sceneKey = sceneKey,
         addressableKey = panelAddressableKey
       };
-      
+
       dispatcher.Dispatch(PanelEvent.OpenPanel, vo);
     }
 
@@ -101,6 +93,14 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
     public void CloseSpecificPanel(string panelAddressableKey)
     {
       dispatcher.Dispatch(PanelEvent.CloseSpecificPanel, panelAddressableKey);
+    }
+
+    [PostConstruct]
+    public void OnPostConstruct()
+    {
+      layerMap = new Dictionary<string, int>();
+      sceneKeys = new List<string>();
+      instantiatedPanels = new Dictionary<PanelVo, AsyncOperationHandle<GameObject>>();
     }
   }
 }

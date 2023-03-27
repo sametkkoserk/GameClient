@@ -16,11 +16,10 @@
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
-	public enum SocialEvent
-	{
-		FULFILL_CURRENT_USER_REQUEST,
-		FULFILL_FRIENDS_REQUEST,
-		REWARD_TEXT
-	}
+  public enum SocialEvent
+  {
+    FULFILL_CURRENT_USER_REQUEST,
+    FULFILL_FRIENDS_REQUEST,
+    REWARD_TEXT
+  }
 }
-

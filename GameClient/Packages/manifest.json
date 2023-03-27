@@ -1,13 +1,4 @@
 {
-  "scopedRegistries": [
-    {
-      "name": "Packages from jillejr",
-      "url": "https://npm.cloudsmith.io/jillejr/newtonsoft-json-for-unity/",
-      "scopes": [
-        "jillejr"
-      ]
-    }
-  ],
   "dependencies": {
     "com.unity.2d.spriteshape": "7.0.7",
     "com.unity.addressables": "1.19.19",
@@ -22,8 +13,6 @@
     "com.unity.timeline": "1.6.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.7.8",
-    "jillejr.newtonsoft.json-for-unity": "12.0.101",
-    "jillejr.newtonsoft.json-for-unity.converters": "1.0.0",
     "net.tomweiland.riptide": "https://github.com/RiptideNetworking/Riptide.git?path=/Packages/Core#2.0.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",

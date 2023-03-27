@@ -1,7 +1,6 @@
 using Runtime.Contexts.Main.Enum;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 
 namespace Runtime.Contexts.Main.View.MainSceneCamera
 {

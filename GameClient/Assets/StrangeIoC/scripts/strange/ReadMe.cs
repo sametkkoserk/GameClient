@@ -15,7 +15,6 @@
  */
 
 
-
 /** \mainpage StrangeIoC
  *
  * \section intro_sec Introduction
@@ -53,3 +52,4 @@
  * 
  * StrangeIoC is open sourced under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 license</a>.
  */
+

@@ -24,13 +24,12 @@
 
 namespace StrangeIoC.scripts.strange.extensions.injector.api
 {
-	public interface IInjectorFactory
-	{
-		/// Request instantiation based on the provided binding
-		object Get (IInjectionBinding binding);
+  public interface IInjectorFactory
+  {
+    /// Request instantiation based on the provided binding
+    object Get(IInjectionBinding binding);
 
-		/// Request instantiation based on the provided binding and an array of Constructor arguments
-		object Get (IInjectionBinding binding, object[] args);
-	}
+    /// Request instantiation based on the provided binding and an array of Constructor arguments
+    object Get(IInjectionBinding binding, object[] args);
+  }
 }
-

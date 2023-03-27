@@ -1,9 +1,5 @@
 using System;
 using Editor.Tools.DebugX.Runtime;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json.UnityConverters.Math;
 using Riptide;
 using Riptide.Utils;
 using Runtime.Contexts.Network.Enum;
@@ -15,94 +11,86 @@ using UnityEngine;
 
 namespace Runtime.Contexts.Network.Services.NetworkManager
 {
-    public class NetworkManagerService :  INetworkManagerService
+  public class NetworkManagerService : INetworkManagerService
+  {
+    private string ip;
+    private ushort port;
+
+    [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
+    public IEventDispatcher crossDispatcher { get; set; }
+
+    [Inject(ContextKeys.CONTEXT_DISPATCHER)]
+    public IEventDispatcher dispatcher { get; set; }
+
+    public Client Client { get; private set; }
+
+    public void Connect(string _ip, ushort _port)
     {
-        public Client Client { get; private set; }
-        [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
-        public IEventDispatcher crossDispatcher{ get; set;}
-        [Inject(ContextKeys.CONTEXT_DISPATCHER)]
-        public IEventDispatcher dispatcher{ get; set;}
+      ip = _ip;
+      port = _port;
 
-        private JsonSerializerSettings settings = new()
-        {
-            Converters = new JsonConverter[] {
-                new Vector3Converter(),
-                new StringEnumConverter(),
-            },
-            ContractResolver = new DefaultContractResolver(),
-        };
+      RiptideLogger.Initialize(Debug.Log, Debug.Log, Debug.LogWarning, Debug.LogError, false);
+      Client = new Client();
 
-        private string ip;
-        private ushort port;
+      Client.Connected += DidConnect;
+      Client.ConnectionFailed += FailedToConnect;
+      Client.Disconnected += DidDisconnect;
 
-        public void Connect(string _ip, ushort _port)
-        {
-            ip = _ip;
-            port = _port;
-            
-            RiptideLogger.Initialize(Debug.Log,Debug.Log,Debug.LogWarning,Debug.LogError,false);
-            Client = new Client();
-            
-            Client.Connected += DidConnect;
-            Client.ConnectionFailed += FailedToConnect;
-            Client.Disconnected += DidDisconnect;
-            
-            Client.Connect($"{ip}:{port}");
-            
-            Client.MessageReceived+= MessageHandler;
+      Client.Connect($"{ip}:{port}");
 
-            
-        }
-
-        public void Ticker()
-        {
-            if (Client != null)
-            {
-                Client.Update();
-            }
-        }
-        
-        public void MessageHandler(object sender, MessageReceivedEventArgs messageArgs)
-        {
-            MessageReceivedVo vo = new()
-            {
-                message = messageArgs.Message.GetString()
-            };
-            crossDispatcher.Dispatch((ServerToClientId)messageArgs.MessageId,vo);
-        }
-
-        public T GetData<T>(string message) where T : new()
-        {
-            return message== null ? default(T) : JsonConvert.DeserializeObject<T>(message);
-        }
-        public Message SetData(Message message, object obj)
-        {
-            if (obj == null)
-                Debug.LogError("Set data object is null");
-            string objStr = JsonConvert.SerializeObject(obj, settings);
-
-            message.AddString(objStr);
-            return message;
-        }
-        private void DidConnect(object sender, EventArgs e)
-        {
-            DebugX.Log(DebugKey.Server,"Connected");
-            dispatcher.Dispatch(NetworkEvent.SendMessage);
-        }
-
-        private void FailedToConnect(object sender, EventArgs e)
-        {
-            DebugX.Log(DebugKey.Server,"Connection Failed");
-        }
-
-        private void DidDisconnect(object sender, EventArgs e)
-        {
-            DebugX.Log(DebugKey.Server,"Disconnected");
-        }
-        
-        public void OnQuit()
-        {
-            Client.Disconnect();
-        }
+      Client.MessageReceived += MessageHandler;
     }
+
+    public void Ticker()
+    {
+      if (Client != null) Client.Update();
+    }
+
+    public T GetData<T>(string message) where T : new()
+    {
+      return message == null ? default : JsonUtility.FromJson<T>(message);
+    }
+
+    public Message SetData(Message message, object obj)
+    {
+      if (obj == null)
+        Debug.LogError("Set data object is null");
+      var objStr = JsonUtility.ToJson(obj);
+
+      Debug.Log(objStr);
+      message.AddString(objStr);
+      return message;
+    }
+
+    public void OnQuit()
+    {
+      Client.Disconnect();
+    }
+
+    public void MessageHandler(object sender, MessageReceivedEventArgs messageArgs)
+    {
+      MessageReceivedVo vo = new()
+      {
+        message = messageArgs.Message.GetString()
+      };
+      Debug.Log(vo.message);
+      crossDispatcher.Dispatch((ServerToClientId)messageArgs.MessageId, vo);
+    }
+
+    private void DidConnect(object sender, EventArgs e)
+    {
+      DebugX.Log(DebugKey.Server, "Connected");
+      dispatcher.Dispatch(NetworkEvent.SendMessage);
+    }
+
+    private void FailedToConnect(object sender, EventArgs e)
+    {
+      DebugX.Log(DebugKey.Server, "Connection Failed");
+    }
+
+    private void DidDisconnect(object sender, EventArgs e)
+    {
+      DebugX.Log(DebugKey.Server, "Disconnected");
+    }
+  }
 }

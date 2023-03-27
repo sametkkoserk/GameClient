@@ -13,13 +13,10 @@ namespace Runtime.Modules.Core.TabManager.View
 
     public void OnEnable()
     {
-      for (int i = 0; i < tabManagerVoList.Count; i++)
+      for (var i = 0; i < tabManagerVoList.Count; i++)
       {
-        int count = i;
-        tabManagerVoList[count].button.onClick.AddListener(delegate
-        {
-          OnClick(tabManagerVoList[count].button);
-        });
+        var count = i;
+        tabManagerVoList[count].button.onClick.AddListener(delegate { OnClick(tabManagerVoList[count].button); });
 
         if (i == 0)
         {
@@ -36,8 +33,7 @@ namespace Runtime.Modules.Core.TabManager.View
 
     public void OnClick(Button button)
     {
-      for (int i = 0; i < tabManagerVoList.Count; i++)
-      {
+      for (var i = 0; i < tabManagerVoList.Count; i++)
         if (tabManagerVoList[i].button == button)
         {
           tabManagerVoList[i].tab.SetActive(true);
@@ -48,7 +44,6 @@ namespace Runtime.Modules.Core.TabManager.View
           tabManagerVoList[i].tab.SetActive(false);
           tabManagerVoList[i].title.fontStyle = FontStyles.Normal;
         }
-      }
     }
   }
 }

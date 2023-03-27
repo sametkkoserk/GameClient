@@ -2,13 +2,12 @@ using StrangeIoC.scripts.strange.extensions.context.impl;
 
 namespace Runtime.Contexts.Network.Config
 {
-    public class NetworkRoot : ContextView
+  public class NetworkRoot : ContextView
+  {
+    private void Awake()
     {
-        void Awake()
-        {
-            //Instantiate the context, passing it this instance.
-            context = new NetworkContext(this);
-
-        }
+      //Instantiate the context, passing it this instance.
+      context = new NetworkContext(this);
     }
+  }
 }

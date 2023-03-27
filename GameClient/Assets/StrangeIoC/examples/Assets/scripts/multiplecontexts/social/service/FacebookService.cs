@@ -36,66 +36,61 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
-	public class FacebookService : ISocialService
-	{
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		[Inject]
-		public IEventDispatcher dispatcher{get;set;}
-		
-		public FacebookService ()
-		{
-		}
+  public class FacebookService : ISocialService
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
-		public void FetchCurrentUser()
-		{
-			MonoBehaviour root = contextView.GetComponent<SocialRoot>();
-			root.StartCoroutine(waitASecondThenReturnCurrentUser());
-		}
+    [Inject]
+    public IEventDispatcher dispatcher { get; set; }
 
-		public void FetchScoresForFriends()
-		{
-			MonoBehaviour root = contextView.GetComponent<SocialRoot>();
-			root.StartCoroutine(waitASecondThenReturnFriendList());
-		}
+    public void FetchCurrentUser()
+    {
+      MonoBehaviour root = contextView.GetComponent<SocialRoot>();
+      root.StartCoroutine(waitASecondThenReturnCurrentUser());
+    }
 
-		private IEnumerator waitASecondThenReturnCurrentUser()
-		{
-			yield return new WaitForSeconds(1f);
+    public void FetchScoresForFriends()
+    {
+      MonoBehaviour root = contextView.GetComponent<SocialRoot>();
+      root.StartCoroutine(waitASecondThenReturnFriendList());
+    }
 
-			//...then pass back some fake data
-			UserVO user = getUserData ("Zaphod", "12345", 
-			                        "http://upload.wikimedia.org/wikipedia/en/7/72/Mark_Wing-Davey_as_Zaphod_Beeblebrox.jpg",
-			                        100);
+    private IEnumerator waitASecondThenReturnCurrentUser()
+    {
+      yield return new WaitForSeconds(1f);
 
-			dispatcher.Dispatch(SocialEvent.FULFILL_CURRENT_USER_REQUEST, user);
-		}
+      //...then pass back some fake data
+      var user = getUserData("Zaphod", "12345",
+        "http://upload.wikimedia.org/wikipedia/en/7/72/Mark_Wing-Davey_as_Zaphod_Beeblebrox.jpg",
+        100);
 
-		private IEnumerator waitASecondThenReturnFriendList()
-		{
-			yield return new WaitForSeconds(1f);
+      dispatcher.Dispatch(SocialEvent.FULFILL_CURRENT_USER_REQUEST, user);
+    }
 
-			ArrayList friends = new ArrayList ();
+    private IEnumerator waitASecondThenReturnFriendList()
+    {
+      yield return new WaitForSeconds(1f);
 
-			friends.Add (getUserData("Arthur", "12346", "http://upload.wikimedia.org/wikipedia/en/e/eb/Arthur_Dent_Livid.jpg", 20));
-			friends.Add (getUserData("Ford", "12347", "http://fc01.deviantart.net/fs7/i/2005/227/8/3/Ford_Prefect_by_KatoChan.jpg", 50));
-			friends.Add (getUserData("Trillian", "12348", "http://upload.wikimedia.org/wikipedia/en/6/6d/Sandra_Dickinson_as_Trillian.jpg", 110));
-			friends.Add (getUserData("Slartibartfast", "12349", "http://upload.wikimedia.org/wikipedia/en/3/31/SlartBartFast.JPG", 200));
-			friends.Add (getUserData("Marvin", "12350", "http://upload.wikimedia.org/wikipedia/en/2/25/Marvin-TV-3.jpg", 800));
+      var friends = new ArrayList();
 
-			dispatcher.Dispatch(SocialEvent.FULFILL_FRIENDS_REQUEST, friends);
-		}
+      friends.Add(getUserData("Arthur", "12346", "http://upload.wikimedia.org/wikipedia/en/e/eb/Arthur_Dent_Livid.jpg", 20));
+      friends.Add(getUserData("Ford", "12347", "http://fc01.deviantart.net/fs7/i/2005/227/8/3/Ford_Prefect_by_KatoChan.jpg", 50));
+      friends.Add(getUserData("Trillian", "12348", "http://upload.wikimedia.org/wikipedia/en/6/6d/Sandra_Dickinson_as_Trillian.jpg", 110));
+      friends.Add(getUserData("Slartibartfast", "12349", "http://upload.wikimedia.org/wikipedia/en/3/31/SlartBartFast.JPG", 200));
+      friends.Add(getUserData("Marvin", "12350", "http://upload.wikimedia.org/wikipedia/en/2/25/Marvin-TV-3.jpg", 800));
 
-		private UserVO getUserData(string name, string id, string imgUrl, int score)
-		{
-			UserVO retv = new UserVO ();
-			retv.userFirstName = name;
-			retv.serviceId = id;
-			retv.imgUrl = imgUrl;
-			retv.highScore = score;
-			return retv;
-		}
-	}
+      dispatcher.Dispatch(SocialEvent.FULFILL_FRIENDS_REQUEST, friends);
+    }
+
+    private UserVO getUserData(string name, string id, string imgUrl, int score)
+    {
+      var retv = new UserVO();
+      retv.userFirstName = name;
+      retv.serviceId = id;
+      retv.imgUrl = imgUrl;
+      retv.highScore = score;
+      return retv;
+    }
+  }
 }
-

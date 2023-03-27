@@ -8,9 +8,9 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
   public class LobbyManagerPanelItemBehaviour : MonoBehaviour
   {
     public TMP_Text userNameText;
-    
+
     public Image colorImage;
-    
+
     public GameObject readyObj;
 
     [HideInInspector]

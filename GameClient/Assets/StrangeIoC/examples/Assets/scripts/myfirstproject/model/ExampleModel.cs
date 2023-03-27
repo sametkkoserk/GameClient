@@ -4,13 +4,8 @@
 
 namespace StrangeIoC.examples.Assets.scripts.myfirstproject.model
 {
-	public class ExampleModel : IExampleModel
-	{
-		public string data {get;set;}
-		
-		public ExampleModel ()
-		{
-		}
-	}
+  public class ExampleModel : IExampleModel
+  {
+    public string data { get; set; }
+  }
 }
-

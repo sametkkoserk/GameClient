@@ -4,9 +4,7 @@ using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.View.City;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 using UnityEngine.AddressableAssets;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.Contexts.MainGame.View.MainMap
 {
@@ -22,29 +20,29 @@ namespace Runtime.Contexts.MainGame.View.MainMap
     [Inject]
     public IMainGameModel mainGameModel { get; set; }
 
-    public override void OnRegister()
-    {
-      dispatcher.AddListener(MainGameEvent.MapGenerator, OnMapGenerator);
-    }
-
     private void Start()
     {
       OnMapGenerator();
     }
 
+    public override void OnRegister()
+    {
+      dispatcher.AddListener(MainGameEvent.MapGenerator, OnMapGenerator);
+    }
+
     private void OnMapGenerator()
     {
-      for (int i = 0; i < mainGameModel.cities.Count; i++)
+      for (var i = 0; i < mainGameModel.cities.Count; i++)
       {
-        int count = i;
+        var count = i;
 
-        AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(MainGameKeys.City, transform);
+        var instantiateAsync = Addressables.InstantiateAsync(MainGameKeys.City, transform);
 
         instantiateAsync.Completed += handle =>
         {
-          GameObject cityObject = instantiateAsync.Result;
+          var cityObject = instantiateAsync.Result;
 
-          CityView cityView = cityObject.transform.GetComponent<CityView>();
+          var cityView = cityObject.transform.GetComponent<CityView>();
 
           cityView.Init(mainGameModel.cities.ElementAt(count).Value);
         };

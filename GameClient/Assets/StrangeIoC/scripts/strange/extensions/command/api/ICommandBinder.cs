@@ -55,30 +55,28 @@ using StrangeIoC.scripts.strange.framework.api;
 
 namespace StrangeIoC.scripts.strange.extensions.command.api
 {
-	public interface ICommandBinder : IBinder
-	{
+  public interface ICommandBinder : IBinder
+  {
+    /// Trigger a key that unlocks one or more Commands
+    void ReactTo(object trigger);
 
-		/// Trigger a key that unlocks one or more Commands
-		void ReactTo (object trigger);
+    /// Trigger a key that unlocks one or more Commands and provide a data injection to that Command
+    void ReactTo(object trigger, object data);
 
-		/// Trigger a key that unlocks one or more Commands and provide a data injection to that Command
-		void ReactTo (object trigger, object data);
+    /// Release a previously retained Command.
+    /// By default, a Command is garbage collected at the end of its `Execute()` method. 
+    /// But the Command can be retained for asynchronous calls.
+    void ReleaseCommand(ICommand command);
 
-		/// Release a previously retained Command.
-		/// By default, a Command is garbage collected at the end of its `Execute()` method. 
-		/// But the Command can be retained for asynchronous calls.
-		void ReleaseCommand(ICommand command);
+    /// Called to halt execution of a currently running command group
+    void Stop(object key);
 
-		/// Called to halt execution of a currently running command group
-		void Stop(object key);
+    /// Bind a trigger Key by generic Type
+    new ICommandBinding Bind<T>();
 
-		/// Bind a trigger Key by generic Type
-		new ICommandBinding Bind<T>();
+    /// Bind a trigger Key by value
+    new ICommandBinding Bind(object value);
 
-		/// Bind a trigger Key by value
-		new ICommandBinding Bind(object value);
-
-		new ICommandBinding GetBinding<T>();
-	}
+    new ICommandBinding GetBinding<T>();
+  }
 }
-

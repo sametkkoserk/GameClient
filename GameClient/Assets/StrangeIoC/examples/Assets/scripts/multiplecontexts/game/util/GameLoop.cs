@@ -22,32 +22,27 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.util
 {
-	public class GameLoop : MonoBehaviour, IGameTimer
-	{
-		private bool sendUpdates = false;
-		
-		[Inject(ContextKeys.CONTEXT_DISPATCHER)]
-		public IEventDispatcher dispatcher{get;set;}
-		
-		public GameLoop ()
-		{
-		}
-		
-		public void Start()
-		{
-			sendUpdates = true;
-		}
-		
-		public void Stop()
-		{
-			sendUpdates = false;
-		}
-		
-		void Update()
-		{
-			if (sendUpdates && dispatcher != null)
-				dispatcher.Dispatch(GameEvent.GAME_UPDATE);
-		}
-	}
-}
+  public class GameLoop : MonoBehaviour, IGameTimer
+  {
+    private bool sendUpdates;
 
+    [Inject(ContextKeys.CONTEXT_DISPATCHER)]
+    public IEventDispatcher dispatcher { get; set; }
+
+    private void Update()
+    {
+      if (sendUpdates && dispatcher != null)
+        dispatcher.Dispatch(GameEvent.GAME_UPDATE);
+    }
+
+    public void Start()
+    {
+      sendUpdates = true;
+    }
+
+    public void Stop()
+    {
+      sendUpdates = false;
+    }
+  }
+}

@@ -18,11 +18,10 @@ using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
-	public interface ISocialService
-	{
-		void FetchCurrentUser();
-		void FetchScoresForFriends();
-		IEventDispatcher dispatcher{get;set;}
-	}
+  public interface ISocialService
+  {
+    IEventDispatcher dispatcher { get; set; }
+    void FetchCurrentUser();
+    void FetchScoresForFriends();
+  }
 }
-

@@ -8,7 +8,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyPanel
     {
       dispatcher.Dispatch(LobbyPanelEvent.ToCreate);
     }
-    
+
     public void OnJoin()
     {
       dispatcher.Dispatch(LobbyPanelEvent.ToJoin);

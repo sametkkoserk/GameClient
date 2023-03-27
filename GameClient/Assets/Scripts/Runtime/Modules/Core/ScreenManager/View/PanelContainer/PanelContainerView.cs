@@ -7,13 +7,13 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
   public class PanelContainerView : EventView
   {
     public Canvas canvas;
-    
+
     public LayerKey key;
-    
+
     public void Init(LayerKey _layerKey)
     {
       key = _layerKey;
-      
+
       dispatcher.Dispatch(PanelContainerEvent.SetInitialData);
     }
   }

@@ -23,20 +23,15 @@ using StrangeIoC.scripts.strange.extensions.command.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller
 {
-	public class LoadSceneCommand : EventCommand
-	{
-		
-		public override void Execute()
-		{
-			string filepath = evt.data as string;
-			
-			//Load the component
-			if (String.IsNullOrEmpty(filepath))
-			{
-				throw new Exception("Can't load a module with a null or empty filepath.");
-			}
-			//		Application.LoadLevelAdditive(filepath);
-		}
-	}
-}
+  public class LoadSceneCommand : EventCommand
+  {
+    public override void Execute()
+    {
+      var filepath = evt.data as string;
 
+      //Load the component
+      if (string.IsNullOrEmpty(filepath)) throw new Exception("Can't load a module with a null or empty filepath.");
+      //		Application.LoadLevelAdditive(filepath);
+    }
+  }
+}

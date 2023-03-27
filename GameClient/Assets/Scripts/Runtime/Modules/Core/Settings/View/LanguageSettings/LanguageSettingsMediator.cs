@@ -8,13 +8,14 @@ namespace Runtime.Modules.Core.Settings.View.LanguageSettings
 {
   public enum LanguageSettingsEvent
   {
-    ChangeLanguage,
+    ChangeLanguage
   }
+
   public class LanguageSettingsMediator : EventMediator
   {
     [Inject]
     public LanguageSettingsView view { get; set; }
-    
+
     [Inject]
     public ILocalizationModel localizationModel { get; set; }
 
@@ -40,7 +41,7 @@ namespace Runtime.Modules.Core.Settings.View.LanguageSettings
 
     private void OnChangeLanguage(IEvent payload)
     {
-      string language = (string)payload.data;
+      var language = (string)payload.data;
 
       switch (language)
       {

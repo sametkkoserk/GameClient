@@ -4,14 +4,13 @@ namespace Runtime.Modules.Core.ScreenManager.Vo
 {
   public class PanelVo
   {
-    public PanelType panelType;
-
-    public PanelMode panelMode;
+    public string addressableKey;
 
     public LayerKey layerKey;
 
-    public SceneKey sceneKey;
+    public PanelMode panelMode;
+    public PanelType panelType;
 
-    public string addressableKey;
+    public SceneKey sceneKey;
   }
 }

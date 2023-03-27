@@ -19,39 +19,38 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
 {
-	public class EnemyView : EventView
-	{
-		internal const string CLICK_EVENT = "CLICK_EVENT";
-		
-		private float theta = 0f;
-		private Vector3 basePosition;
-		
-		//Publicly settable from Unity3D
-		public float edx_WobbleForce = .4f;
-		public float edx_WobbleIncrement = .1f;
-		
-		internal void init()
-		{
-			gameObject.AddComponent<ClickDetector>();
-			ClickDetector clicker = gameObject.GetComponent<ClickDetector>();
-			clicker.dispatcher.AddListener(ClickDetector.CLICK, onClick);
-		}
-		
-		internal void updatePosition()
-		{
-			wobble();
-		}
-		
-		void onClick()
-		{
-			dispatcher.Dispatch(CLICK_EVENT);
-		}
-		
-		void wobble()
-		{
-			theta += edx_WobbleIncrement;
-			gameObject.transform.Rotate(Vector3.forward, edx_WobbleForce * Mathf.Sin(theta));
-		}
-	}
-}
+  public class EnemyView : EventView
+  {
+    internal const string CLICK_EVENT = "CLICK_EVENT";
 
+    //Publicly settable from Unity3D
+    public float edx_WobbleForce = .4f;
+    public float edx_WobbleIncrement = .1f;
+    private Vector3 basePosition;
+
+    private float theta;
+
+    internal void init()
+    {
+      gameObject.AddComponent<ClickDetector>();
+      var clicker = gameObject.GetComponent<ClickDetector>();
+      clicker.dispatcher.AddListener(ClickDetector.CLICK, onClick);
+    }
+
+    internal void updatePosition()
+    {
+      wobble();
+    }
+
+    private void onClick()
+    {
+      dispatcher.Dispatch(CLICK_EVENT);
+    }
+
+    private void wobble()
+    {
+      theta += edx_WobbleIncrement;
+      gameObject.transform.Rotate(Vector3.forward, edx_WobbleForce * Mathf.Sin(theta));
+    }
+  }
+}

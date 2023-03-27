@@ -21,20 +21,19 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 {
-	public class ReplayGameCommand : EventCommand
-	{
-		[Inject]
-		public IScore scoreKeeper{get;set;}
-		
-		[Inject]
-		public IGameTimer gameTimer{get;set;}
-		
-		public override void Execute()
-		{
-			scoreKeeper.Reset();
-			dispatcher.Dispatch(GameEvent.RESTART_GAME);
-			gameTimer.Start();
-		}
-	}
-}
+  public class ReplayGameCommand : EventCommand
+  {
+    [Inject]
+    public IScore scoreKeeper { get; set; }
 
+    [Inject]
+    public IGameTimer gameTimer { get; set; }
+
+    public override void Execute()
+    {
+      scoreKeeper.Reset();
+      dispatcher.Dispatch(GameEvent.RESTART_GAME);
+      gameTimer.Start();
+    }
+  }
+}

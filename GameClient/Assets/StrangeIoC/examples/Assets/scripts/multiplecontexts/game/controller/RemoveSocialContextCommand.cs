@@ -19,13 +19,11 @@ using StrangeIoC.scripts.strange.extensions.command.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 {
-	public class RemoveSocialContextCommand : EventCommand
-	{
-		
-		public override void Execute()
-		{
-			dispatcher.Dispatch(MainEvent.REMOVE_SOCIAL_CONTEXT);
-		}
-	}
+  public class RemoveSocialContextCommand : EventCommand
+  {
+    public override void Execute()
+    {
+      dispatcher.Dispatch(MainEvent.REMOVE_SOCIAL_CONTEXT);
+    }
+  }
 }
-

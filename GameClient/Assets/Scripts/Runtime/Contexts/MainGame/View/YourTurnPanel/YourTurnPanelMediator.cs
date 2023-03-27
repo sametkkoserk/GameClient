@@ -1,4 +1,3 @@
-using System;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
 using StrangeIoC.scripts.strange.extensions.injector;
@@ -11,13 +10,9 @@ namespace Runtime.Contexts.MainGame.View.YourTurnPanel
   {
     [Inject]
     public YourTurnPanelView view { get; set; }
-    
+
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
-
-    public override void OnRegister()
-    {
-    }
 
     private void Start()
     {
@@ -33,9 +28,13 @@ namespace Runtime.Contexts.MainGame.View.YourTurnPanel
         TimeOver();
         return;
       }
-      
+
       view.remainingTime -= Time.deltaTime;
       UpdateSlider();
+    }
+
+    public override void OnRegister()
+    {
     }
 
     private void UpdateSlider()
@@ -43,10 +42,7 @@ namespace Runtime.Contexts.MainGame.View.YourTurnPanel
       view.sliderImage.fillAmount = view.remainingTime / view.totalTime;
       view.timer.text = view.remainingTime.ToString("f0");
 
-      if (view.sliderImage.fillAmount <= 0.25f)
-      {
-        view.sliderImage.color = Color.red;
-      }
+      if (view.sliderImage.fillAmount <= 0.25f) view.sliderImage.color = Color.red;
     }
 
     private void TimeOver()

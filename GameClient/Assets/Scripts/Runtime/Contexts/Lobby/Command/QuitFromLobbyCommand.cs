@@ -18,11 +18,11 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
+      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
       OutFromLobbyVo outFromLobbyVo = new()
       {
         lobbyId = lobbyModel.lobbyVo.lobbyId,
-        inLobbyId = lobbyModel.clientVo.inLobbyId,
+        inLobbyId = lobbyModel.clientVo.inLobbyId
       };
       message = networkManager.SetData(message, outFromLobbyVo);
 

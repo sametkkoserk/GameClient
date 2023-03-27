@@ -27,11 +27,9 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace StrangeIoC.scripts.strange.extensions.mediation.impl
 {
-	public class EventMediator : Mediator
-	{
-		[Inject(ContextKeys.CONTEXT_DISPATCHER)]
-		public IEventDispatcher dispatcher{ get; set;}
-
-	}
+  public class EventMediator : Mediator
+  {
+    [Inject(ContextKeys.CONTEXT_DISPATCHER)]
+    public IEventDispatcher dispatcher { get; set; }
+  }
 }
-

@@ -19,7 +19,7 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.PlayerReady);
+      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.PlayerReady);
       PlayerReadyVo playerReadyVo = new()
       {
         lobbyId = lobbyModel.lobbyVo.lobbyId,

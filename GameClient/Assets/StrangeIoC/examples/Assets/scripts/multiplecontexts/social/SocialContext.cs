@@ -31,36 +31,34 @@ using StartCommand = StrangeIoC.examples.Assets.scripts.multiplecontexts.social.
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social
 {
-	public class SocialContext : MVCSContext
-	{
+  public class SocialContext : MVCSContext
+  {
+    public SocialContext(MonoBehaviour view) : base(view)
+    {
+    }
 
-		public SocialContext (MonoBehaviour view) : base(view)
-		{
-		}
+    public SocialContext(MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
+    {
+    }
 
-		public SocialContext (MonoBehaviour view, ContextStartupFlags flags) : base(view, flags)
-		{
-		}
-		
-		protected override void mapBindings()
-		{
-			commandBinder.Bind(ContextEvent.START).To<StartCommand>().Once();
-			commandBinder.Bind(SocialEvent.FULFILL_CURRENT_USER_REQUEST).To<CreateUserTileCommand>();
-				
-			commandBinder.Bind(MainEvent.GAME_COMPLETE).InSequence()
-				.To<GameCompleteCommand>()
-				.To<CreateFriendListCommand>();
-			
-			commandBinder.Bind (MainEvent.REMOVE_SOCIAL_CONTEXT).To<RemoveContextCommand>();
-			
-			//So today we're posting to Facebook. Maybe tomorrow we'll want to use
-			//GooglePlus, or Twitter, or Pinterest...
-			injectionBinder.Bind<ISocialService> ().To<FacebookService> ().ToSingleton ();
-			//injectionBinder.Bind<ISocialService> ().To<GoogleService> ().ToSingleton ();
-			
-			mediationBinder.Bind<UserTileView>().To<UserTileMediator>();
-			mediationBinder.Bind<AwardView>().To<AwardViewMediator>();
-		}
-	}
+    protected override void mapBindings()
+    {
+      commandBinder.Bind(ContextEvent.START).To<StartCommand>().Once();
+      commandBinder.Bind(SocialEvent.FULFILL_CURRENT_USER_REQUEST).To<CreateUserTileCommand>();
+
+      commandBinder.Bind(MainEvent.GAME_COMPLETE).InSequence()
+        .To<GameCompleteCommand>()
+        .To<CreateFriendListCommand>();
+
+      commandBinder.Bind(MainEvent.REMOVE_SOCIAL_CONTEXT).To<RemoveContextCommand>();
+
+      //So today we're posting to Facebook. Maybe tomorrow we'll want to use
+      //GooglePlus, or Twitter, or Pinterest...
+      injectionBinder.Bind<ISocialService>().To<FacebookService>().ToSingleton();
+      //injectionBinder.Bind<ISocialService> ().To<GoogleService> ().ToSingleton ();
+
+      mediationBinder.Bind<UserTileView>().To<UserTileMediator>();
+      mediationBinder.Bind<AwardView>().To<AwardViewMediator>();
+    }
+  }
 }
-

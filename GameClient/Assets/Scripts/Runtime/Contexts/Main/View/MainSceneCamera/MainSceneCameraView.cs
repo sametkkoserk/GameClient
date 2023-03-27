@@ -4,6 +4,5 @@ namespace Runtime.Contexts.Main.View.MainSceneCamera
 {
   public class MainSceneCameraView : EventView
   {
-    
   }
 }

@@ -38,32 +38,27 @@ using UnityEngine;
 
 namespace StrangeIoC.scripts.strange.extensions.context.impl
 {
-	public class ContextView : MonoBehaviour, IContextView
-	{
-		public IContext context{get;set;}
-		
-		public ContextView ()
-		{
-		}
+  public class ContextView : MonoBehaviour, IContextView
+  {
+	  /// <summary>
+	  ///   When a ContextView is Destroyed, automatically removes the associated Context.
+	  /// </summary>
+	  protected virtual void OnDestroy()
+    {
+      if (context != null)
+        Context.firstContext.RemoveContext(context);
+    }
 
-		/// <summary>
-		/// When a ContextView is Destroyed, automatically removes the associated Context.
-		/// </summary>
-		protected virtual void OnDestroy()
-		{
-			if (context != null)
-				Context.firstContext.RemoveContext(context);
-		}
+    public IContext context { get; set; }
 
-		#region IView implementation
+    #region IView implementation
 
-		public bool requiresContext {get;set;}
+    public bool requiresContext { get; set; }
 
-		public bool registeredWithContext {get;set;}
+    public bool registeredWithContext { get; set; }
 
-		public bool autoRegisterWithContext{ get; set; }
+    public bool autoRegisterWithContext { get; set; }
 
-		#endregion
-	}
+    #endregion
+  }
 }
-

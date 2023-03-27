@@ -11,36 +11,31 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.myfirstproject.service
 {
-	public class ExampleService : IExampleService
-	{
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		[Inject]
-		public IEventDispatcher dispatcher{get;set;}
-		
-		private string url;
-		
-		public ExampleService ()
-		{
-		}
+  public class ExampleService : IExampleService
+  {
+    private string url;
 
-		public void Request(string url)
-		{
-			this.url = url;
-			
-			//For now, we'll spoof a web service by running a coroutine for 1 second...
-			MonoBehaviour root = contextView.GetComponent<MyFirstProjectRoot>();
-			root.StartCoroutine(waitASecond());
-		}
-		
-		private IEnumerator waitASecond()
-		{
-			yield return new WaitForSeconds(1f);
-			
-			//...then pass back some fake data
-			dispatcher.Dispatch(ExampleEvent.FULFILL_SERVICE_REQUEST, url);
-		}
-	}
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
+
+    [Inject]
+    public IEventDispatcher dispatcher { get; set; }
+
+    public void Request(string url)
+    {
+      this.url = url;
+
+      //For now, we'll spoof a web service by running a coroutine for 1 second...
+      MonoBehaviour root = contextView.GetComponent<MyFirstProjectRoot>();
+      root.StartCoroutine(waitASecond());
+    }
+
+    private IEnumerator waitASecond()
+    {
+      yield return new WaitForSeconds(1f);
+
+      //...then pass back some fake data
+      dispatcher.Dispatch(ExampleEvent.FULFILL_SERVICE_REQUEST, url);
+    }
+  }
 }
-

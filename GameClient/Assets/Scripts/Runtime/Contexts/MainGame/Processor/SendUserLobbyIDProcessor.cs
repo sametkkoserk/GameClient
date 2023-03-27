@@ -16,9 +16,9 @@ namespace Runtime.Contexts.MainGame.Processor
 
     public override void Execute()
     {
-      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
+      var vo = (MessageReceivedVo)evt.data;
 
-      ushort lobbyID = networkManager.GetData<ushort>(vo.message);
+      var lobbyID = networkManager.GetData<ushort>(vo.message);
 
       mainGameModel.lobbyID = lobbyID;
     }

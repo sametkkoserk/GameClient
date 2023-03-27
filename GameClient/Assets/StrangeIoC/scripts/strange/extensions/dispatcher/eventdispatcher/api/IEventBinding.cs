@@ -32,25 +32,22 @@ using StrangeIoC.scripts.strange.framework.api;
 
 namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api
 {
-	/// Delegate for adding a listener with a single argument
-	public delegate void EventCallback(IEvent payload);
+  /// Delegate for adding a listener with a single argument
+  public delegate void EventCallback(IEvent payload);
 
-	/// Delegate for adding a listener with a no arguments
-	public delegate void EmptyCallback();
+  /// Delegate for adding a listener with a no arguments
+  public delegate void EmptyCallback();
 
-	public interface IEventBinding : IBinding
-	{
-		/// Retrieve the type of the provided callback
-		EventCallbackType TypeForCallback (EventCallback callback);
+  public interface IEventBinding : IBinding
+  {
+    /// Retrieve the type of the provided callback
+    EventCallbackType TypeForCallback(EventCallback callback);
 
-		/// Retrieve the type of the provided callback
-		EventCallbackType TypeForCallback (EmptyCallback callback);
+    /// Retrieve the type of the provided callback
+    EventCallbackType TypeForCallback(EmptyCallback callback);
 
-		new IEventBinding Bind (object key);
-		IEventBinding To (EventCallback callback);
-		IEventBinding To (EmptyCallback callback);
-
-
-	}
+    new IEventBinding Bind(object key);
+    IEventBinding To(EventCallback callback);
+    IEventBinding To(EmptyCallback callback);
+  }
 }
-

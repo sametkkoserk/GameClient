@@ -1,7 +1,6 @@
 namespace Runtime.Contexts.Main.Model.SceneModel
 {
-    public class SceneModel : ISceneModel
-    {
-        
-    }
+  public class SceneModel : ISceneModel
+  {
+  }
 }

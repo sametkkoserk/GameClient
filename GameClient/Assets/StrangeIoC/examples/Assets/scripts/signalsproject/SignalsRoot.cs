@@ -7,13 +7,11 @@ using StrangeIoC.scripts.strange.extensions.context.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.signalsproject
 {
-	public class SignalsRoot : ContextView
-	{
-	
-		void Awake()
-		{
-			context = new SignalsContext(this);
-		}
-	}
+  public class SignalsRoot : ContextView
+  {
+    private void Awake()
+    {
+      context = new SignalsContext(this);
+    }
+  }
 }
-

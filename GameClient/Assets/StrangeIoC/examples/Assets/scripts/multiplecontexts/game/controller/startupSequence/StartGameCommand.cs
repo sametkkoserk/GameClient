@@ -22,15 +22,14 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller.startupSequence
 {
-	public class StartGameCommand : Command
-	{
-		[Inject]
-		public IGameTimer timer{get;set;}
-		
-		public override void Execute()
-		{
-			timer.Start();
-		}
-	}
-}
+  public class StartGameCommand : Command
+  {
+    [Inject]
+    public IGameTimer timer { get; set; }
 
+    public override void Execute()
+    {
+      timer.Start();
+    }
+  }
+}

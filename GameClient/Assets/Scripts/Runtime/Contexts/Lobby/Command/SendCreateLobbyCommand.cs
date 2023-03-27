@@ -9,26 +9,26 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.Lobby.Command
 {
-    public class SendCreateLobbyCommand : EventCommand
+  public class SendCreateLobbyCommand : EventCommand
+  {
+    [Inject]
+    public INetworkManagerService networkManager { get; set; }
+
+    [Inject]
+    public IScreenManagerModel screenManagerModel { get; set; }
+
+    public override void Execute()
     {
-        [Inject] 
-        public INetworkManagerService networkManager { get; set; }
-        
-        [Inject]
-        public IScreenManagerModel screenManagerModel { get; set; }
+      var vo = (LobbyVo)evt.data;
+      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.CreateLobby);
+      message = networkManager.SetData(message, vo);
 
-        public override void Execute()
-        {
-            LobbyVo vo = (LobbyVo)evt.data;
-            Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.CreateLobby);
-            message = networkManager.SetData(message,vo);
+      // message.AddString(vo.lobbyName);
+      // message.AddBool(vo.isPrivate);
+      // message.AddUShort(6);
+      networkManager.Client.Send(message);
 
-            // message.AddString(vo.lobbyName);
-            // message.AddBool(vo.isPrivate);
-            // message.AddUShort(6);
-            networkManager.Client.Send(message);
-            
-            DebugX.Log(DebugKey.Server,"Create Lobby Message sent");   
-        }
+      DebugX.Log(DebugKey.Server, "Create Lobby Message sent");
     }
+  }
 }

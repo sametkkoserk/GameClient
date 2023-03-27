@@ -27,50 +27,49 @@ using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
 {
-	public class EnemyMediator : EventMediator
-	{
-		[Inject]
-		public EnemyView view{ get; set;}
-		
-		public override void OnRegister()
-		{
-			UpdateListeners(true);
-			view.init ();
-		}
-		
-		public override void OnRemove()
-		{
-			UpdateListeners(false);
-		}
-		
-		private void UpdateListeners(bool value)
-		{
-			view.dispatcher.UpdateListener(value, EnemyView.CLICK_EVENT, onViewClicked);
-			dispatcher.UpdateListener( value, GameEvent.GAME_UPDATE, onGameUpdate);
-			dispatcher.UpdateListener( value, GameEvent.GAME_OVER, onGameOver);
-			
-			dispatcher.AddListener(GameEvent.RESTART_GAME, onRestart);
-		}
-		
-		private void onViewClicked()
-		{
-			dispatcher.Dispatch(GameEvent.ADD_TO_SCORE, 10);
-		}
-		
-		private void onGameUpdate()
-		{
-			view.updatePosition();
-		}
-		
-		private void onGameOver()
-		{
-			UpdateListeners(false);
-		}
-		
-		private void onRestart()
-		{
-			OnRegister();
-		}
-	}
-}
+  public class EnemyMediator : EventMediator
+  {
+    [Inject]
+    public EnemyView view { get; set; }
 
+    public override void OnRegister()
+    {
+      UpdateListeners(true);
+      view.init();
+    }
+
+    public override void OnRemove()
+    {
+      UpdateListeners(false);
+    }
+
+    private void UpdateListeners(bool value)
+    {
+      view.dispatcher.UpdateListener(value, EnemyView.CLICK_EVENT, onViewClicked);
+      dispatcher.UpdateListener(value, GameEvent.GAME_UPDATE, onGameUpdate);
+      dispatcher.UpdateListener(value, GameEvent.GAME_OVER, onGameOver);
+
+      dispatcher.AddListener(GameEvent.RESTART_GAME, onRestart);
+    }
+
+    private void onViewClicked()
+    {
+      dispatcher.Dispatch(GameEvent.ADD_TO_SCORE, 10);
+    }
+
+    private void onGameUpdate()
+    {
+      view.updatePosition();
+    }
+
+    private void onGameOver()
+    {
+      UpdateListeners(false);
+    }
+
+    private void onRestart()
+    {
+      OnRegister();
+    }
+  }
+}

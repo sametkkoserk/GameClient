@@ -42,31 +42,30 @@ using StrangeIoC.scripts.strange.extensions.reflector.api;
 
 namespace StrangeIoC.scripts.strange.extensions.injector.api
 {
-	public interface IInjector
-	{
-		/// Request an instantiation based on the given binding.
-		/// This request is made to the Injector, but it's really the InjectorFactory that does the instantiation.
-		object Instantiate (IInjectionBinding binding);
+  public interface IInjector
+  {
+    /// Get/set an InjectorFactory.
+    IInjectorFactory factory { get; set; }
 
-		/// Request that the provided target be injected.
-		object Inject(object target);
+    /// Get/set an InjectionBinder.
+    IInjectionBinder binder { get; set; }
 
-		/// Request that the provided target be injected.
-		object Inject(object target, bool attemptConstructorInjection);
+    /// Get/set a ReflectionBinder.
+    IReflectionBinder reflector { get; set; }
 
-		/// Clear the injections from the provided instance.
-		/// Note that Uninject can only clean public properties...therefore only
-		/// setters will be uninjected...not injections provided via constructor injection
-		void Uninject(object target);
+    /// Request an instantiation based on the given binding.
+    /// This request is made to the Injector, but it's really the InjectorFactory that does the instantiation.
+    object Instantiate(IInjectionBinding binding);
 
-		/// Get/set an InjectorFactory.
-		IInjectorFactory factory{ get; set;}
+    /// Request that the provided target be injected.
+    object Inject(object target);
 
-		/// Get/set an InjectionBinder.
-		IInjectionBinder binder{ get; set;}
+    /// Request that the provided target be injected.
+    object Inject(object target, bool attemptConstructorInjection);
 
-		/// Get/set a ReflectionBinder.
-		IReflectionBinder reflector{ get; set;}
-	}
+    /// Clear the injections from the provided instance.
+    /// Note that Uninject can only clean public properties...therefore only
+    /// setters will be uninjected...not injections provided via constructor injection
+    void Uninject(object target);
+  }
 }
-
