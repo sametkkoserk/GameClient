@@ -20,21 +20,21 @@ namespace Runtime.Contexts.Lobby.Processor
   {
     [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
     public IEventDispatcher crossDispatcher { get; set; }
-    
+
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
 
     [Inject]
     public INetworkManagerService networkManager { get; set; }
-    
+
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
 
     public override void Execute()
     {
-      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      string message = vo.message;
-      PlayerReadyResponseVo playerReadyResponseVo = networkManager.GetData<PlayerReadyResponseVo>(message);
+      var vo = (MessageReceivedVo)evt.data;
+      var message = vo.message;
+      var playerReadyResponseVo = networkManager.GetData<PlayerReadyResponseVo>(message);
 
       if (lobbyModel.lobbyVo.lobbyId != playerReadyResponseVo.lobbyId)
         return;
@@ -45,11 +45,11 @@ namespace Runtime.Contexts.Lobby.Processor
       dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse, playerReadyResponseVo.inLobbyId);
 
       Debug.Log("player ready responded");
-      
+
       if (!playerReadyResponseVo.startGame) return;
-      
+
       crossDispatcher.Dispatch(MainEvent.CloseMainSceneCamera);
-      
+
       Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
       screenManagerModel.CloseScenePanels(SceneKey.Lobby);
     }

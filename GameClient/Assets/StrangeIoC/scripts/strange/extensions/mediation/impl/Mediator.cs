@@ -29,40 +29,34 @@ using UnityEngine;
 
 namespace StrangeIoC.scripts.strange.extensions.mediation.impl
 {
-	public class Mediator : MonoBehaviour, IMediator
-	{
+  public class Mediator : MonoBehaviour, IMediator
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-
-		public Mediator ()
-		{
-		}
-
-		/**
+    /**
 		 * Fires directly after creation and before injection
 		 */
-		virtual public void PreRegister()
-		{
-		}
+    public virtual void PreRegister()
+    {
+    }
 
-		/**
-		 * Fires after all injections satisifed.
-		 *
-		 * Override and place your initialization code here.
-		 */
-		virtual public void OnRegister()
-		{
-		}
+    /**
+     * Fires after all injections satisifed.
+     * 
+     * Override and place your initialization code here.
+     */
+    public virtual void OnRegister()
+    {
+    }
 
-		/**
-		 * Fires on removal of view.
-		 *
-		 * Override and place your cleanup code here
-		 */
-		virtual public void OnRemove()
-		{
-		}
-	}
+    /**
+     * Fires on removal of view.
+     * 
+     * Override and place your cleanup code here
+     */
+    public virtual void OnRemove()
+    {
+    }
+  }
 }
-

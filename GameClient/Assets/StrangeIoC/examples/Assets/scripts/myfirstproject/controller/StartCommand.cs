@@ -16,19 +16,17 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.myfirstproject.controller
 {
-	public class StartCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		public override void Execute()
-		{
-			GameObject go = new GameObject();
-			go.name = "ExampleView";
-			go.AddComponent<ExampleView>();
-			go.transform.parent = contextView.transform;
-		}
-	}
-}
+  public class StartCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    public override void Execute()
+    {
+      var go = new GameObject();
+      go.name = "ExampleView";
+      go.AddComponent<ExampleView>();
+      go.transform.parent = contextView.transform;
+    }
+  }
+}

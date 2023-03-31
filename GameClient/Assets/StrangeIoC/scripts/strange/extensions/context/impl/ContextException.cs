@@ -27,19 +27,18 @@ using StrangeIoC.scripts.strange.extensions.context.api;
 
 namespace StrangeIoC.scripts.strange.extensions.context.impl
 {
-	public class ContextException : Exception
-	{
-		public ContextExceptionType type{ get; set;}
+  public class ContextException : Exception
+  {
+    public ContextException()
+    {
+    }
 
-		public ContextException () : base()
-		{
-		}
+    /// Constructs a ContextException with a message and ContextExceptionType
+    public ContextException(string message, ContextExceptionType exceptionType) : base(message)
+    {
+      type = exceptionType;
+    }
 
-		/// Constructs a ContextException with a message and ContextExceptionType
-		public ContextException(string message, ContextExceptionType exceptionType) : base(message)
-		{
-			type = exceptionType;
-		}
-	}
+    public ContextExceptionType type { get; set; }
+  }
 }
-

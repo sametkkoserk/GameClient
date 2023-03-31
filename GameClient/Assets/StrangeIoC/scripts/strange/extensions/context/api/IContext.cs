@@ -28,29 +28,27 @@ using StrangeIoC.scripts.strange.framework.api;
 
 namespace StrangeIoC.scripts.strange.extensions.context.api
 {
-	public interface IContext : IBinder
-	{
-		/// Kicks off the internal Context binding/instantiation mechanisms 
-		IContext Start();
+  public interface IContext : IBinder
+  {
+	  /// Kicks off the internal Context binding/instantiation mechanisms
+	  IContext Start();
 
-		/// Fires ContextEvent.START (or the equivalent Signal) to launch the application
-		void Launch();
-		
-		/// Register a new context to this one
-		IContext AddContext(IContext context);
-		
-		/// Remove a context from this one
-		IContext RemoveContext(IContext context);
-		
-		/// Register a view with this context
-		void AddView(object view);
-		
-		/// Remove a view from this context
-		void RemoveView(object view);
-		
-		/// Get the ContextView
-		object GetContextView();
+    /// Fires ContextEvent.START (or the equivalent Signal) to launch the application
+    void Launch();
 
-	}
+    /// Register a new context to this one
+    IContext AddContext(IContext context);
+
+    /// Remove a context from this one
+    IContext RemoveContext(IContext context);
+
+    /// Register a view with this context
+    void AddView(object view);
+
+    /// Remove a view from this context
+    void RemoveView(object view);
+
+    /// Get the ContextView
+    object GetContextView();
+  }
 }
-

@@ -34,140 +34,122 @@ using StrangeIoC.scripts.strange.framework.api;
 
 namespace StrangeIoC.scripts.strange.extensions.context.impl
 {
-	public class CrossContext : Context, ICrossContextCapable
-	{
-		private ICrossContextInjectionBinder _injectionBinder;
-		private IBinder _crossContextBridge;
+  public class CrossContext : Context, ICrossContextCapable
+  {
+    private IBinder _crossContextBridge;
 
-		/// A Binder that handles dependency injection binding and instantiation
-		public ICrossContextInjectionBinder injectionBinder
-		{
-			get { return _injectionBinder ?? (_injectionBinder = new CrossContextInjectionBinder()); }
-		    set { _injectionBinder = value; }
-		}
+    /// A specific instance of EventDispatcher that communicates 
+    /// across multiple contexts. An event sent across this 
+    /// dispatcher will be re-dispatched by the various context-wide 
+    /// dispatchers. So a dispatch to other contexts is simply 
+    /// 
+    /// `crossContextDispatcher.Dispatch(MY_EVENT, payload)`;
+    /// 
+    /// Other contexts don't need to listen to the cross-context dispatcher
+    /// as such, just map the necessary event to your local context
+    /// dispatcher and you'll receive it.
+    protected IEventDispatcher _crossContextDispatcher;
 
-		/// A specific instance of EventDispatcher that communicates 
-		/// across multiple contexts. An event sent across this 
-		/// dispatcher will be re-dispatched by the various context-wide 
-		/// dispatchers. So a dispatch to other contexts is simply 
-		/// 
-		/// `crossContextDispatcher.Dispatch(MY_EVENT, payload)`;
-		/// 
-		/// Other contexts don't need to listen to the cross-context dispatcher
-		/// as such, just map the necessary event to your local context
-		/// dispatcher and you'll receive it.
-	    protected IEventDispatcher _crossContextDispatcher;
+    private ICrossContextInjectionBinder _injectionBinder;
 
-        
-		public CrossContext() : base()
-		{}
 
-		public CrossContext(object view) : base(view)
-		{
-		}
+    public CrossContext()
+    {
+    }
 
-		public CrossContext(object view, ContextStartupFlags flags) : base(view, flags)
-		{
-		}
+    public CrossContext(object view) : base(view)
+    {
+    }
 
-		public CrossContext(object view, bool autoMapping) : base(view, autoMapping)
-		{
-		}
+    public CrossContext(object view, ContextStartupFlags flags) : base(view, flags)
+    {
+    }
 
-		protected override void addCoreComponents()
-		{
-			base.addCoreComponents();
-			if (injectionBinder.CrossContextBinder == null)  //Only null if it could not find a parent context / firstContext
-			{
-				injectionBinder.CrossContextBinder = new CrossContextInjectionBinder();
-			}
+    public CrossContext(object view, bool autoMapping) : base(view, autoMapping)
+    {
+    }
 
-			if (firstContext == this)
-			{
-				injectionBinder.Bind<IEventDispatcher>().To<EventDispatcher>().ToSingleton().ToName(ContextKeys.CROSS_CONTEXT_DISPATCHER).CrossContext();
-				injectionBinder.Bind<CrossContextBridge> ().ToSingleton ().CrossContext();
-			}
+    public virtual IBinder crossContextBridge
+    {
+      get
+      {
+        if (_crossContextBridge == null) _crossContextBridge = injectionBinder.GetInstance<CrossContextBridge>();
+        return _crossContextBridge;
+      }
+      set => _crossContextDispatcher = value as IEventDispatcher;
+    }
 
-		}
+    /// A Binder that handles dependency injection binding and instantiation
+    public ICrossContextInjectionBinder injectionBinder
+    {
+      get => _injectionBinder ?? (_injectionBinder = new CrossContextInjectionBinder());
+      set => _injectionBinder = value;
+    }
 
-		protected override void instantiateCoreComponents()
-		{
-			base.instantiateCoreComponents();
+    public virtual void AssignCrossContext(ICrossContextCapable childContext)
+    {
+      childContext.crossContextDispatcher = crossContextDispatcher;
+      childContext.injectionBinder.CrossContextBinder = injectionBinder.CrossContextBinder;
+    }
 
-			IInjectionBinding dispatcherBinding = injectionBinder.GetBinding<IEventDispatcher> (ContextKeys.CONTEXT_DISPATCHER);
+    public virtual void RemoveCrossContext(ICrossContextCapable childContext)
+    {
+      if (childContext.crossContextDispatcher != null)
+      {
+        (childContext.crossContextDispatcher as ITriggerProvider).RemoveTriggerable(childContext.GetComponent<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER) as ITriggerable);
+        childContext.crossContextDispatcher = null;
+      }
+    }
 
-			if (dispatcherBinding != null) {
-				IEventDispatcher dispatcher = injectionBinder.GetInstance<IEventDispatcher> (ContextKeys.CONTEXT_DISPATCHER) as IEventDispatcher;
+    public virtual IDispatcher crossContextDispatcher
+    {
+      get => _crossContextDispatcher;
+      set => _crossContextDispatcher = value as IEventDispatcher;
+    }
 
-				if (dispatcher != null) {
-					crossContextDispatcher = injectionBinder.GetInstance<IEventDispatcher> (ContextKeys.CROSS_CONTEXT_DISPATCHER) as IEventDispatcher;
-					(crossContextDispatcher as ITriggerProvider).AddTriggerable (dispatcher as ITriggerable);
-					(dispatcher as ITriggerProvider).AddTriggerable (crossContextBridge as ITriggerable);
-				}
-			}
-		}
+    protected override void addCoreComponents()
+    {
+      base.addCoreComponents();
+      if (injectionBinder.CrossContextBinder == null) //Only null if it could not find a parent context / firstContext
+        injectionBinder.CrossContextBinder = new CrossContextInjectionBinder();
 
-		override public IContext AddContext(IContext context)
-		{
-			base.AddContext(context);
-			if (context is ICrossContextCapable)
-			{
-				AssignCrossContext((ICrossContextCapable)context);
-			}
-			return this;
-		}
+      if (firstContext == this)
+      {
+        injectionBinder.Bind<IEventDispatcher>().To<EventDispatcher>().ToSingleton().ToName(ContextKeys.CROSS_CONTEXT_DISPATCHER).CrossContext();
+        injectionBinder.Bind<CrossContextBridge>().ToSingleton().CrossContext();
+      }
+    }
 
-		virtual public void AssignCrossContext(ICrossContextCapable childContext)
-		{
-			childContext.crossContextDispatcher = crossContextDispatcher;
-			childContext.injectionBinder.CrossContextBinder = injectionBinder.CrossContextBinder;
-		}
+    protected override void instantiateCoreComponents()
+    {
+      base.instantiateCoreComponents();
 
-		virtual public void RemoveCrossContext(ICrossContextCapable childContext)
-		{
-			if (childContext.crossContextDispatcher != null)
-			{
-				((childContext.crossContextDispatcher) as ITriggerProvider).RemoveTriggerable(childContext.GetComponent<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER) as ITriggerable);
-				childContext.crossContextDispatcher = null;
-			}
-		}
+      var dispatcherBinding = injectionBinder.GetBinding<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER);
 
-		override public IContext RemoveContext(IContext context)
-		{
-			if (context is ICrossContextCapable)
-			{
-				RemoveCrossContext((ICrossContextCapable)context);
-			}
-			return base.RemoveContext(context);
-		}
+      if (dispatcherBinding != null)
+      {
+        var dispatcher = injectionBinder.GetInstance<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER);
 
-		virtual public IDispatcher crossContextDispatcher
-		{
-			get
-			{
-				return _crossContextDispatcher;
-			}
-			set
-			{
-				_crossContextDispatcher = value as IEventDispatcher;
-			}
-		}
+        if (dispatcher != null)
+        {
+          crossContextDispatcher = injectionBinder.GetInstance<IEventDispatcher>(ContextKeys.CROSS_CONTEXT_DISPATCHER);
+          (crossContextDispatcher as ITriggerProvider).AddTriggerable(dispatcher as ITriggerable);
+          (dispatcher as ITriggerProvider).AddTriggerable(crossContextBridge as ITriggerable);
+        }
+      }
+    }
 
-		virtual public IBinder crossContextBridge
-		{
-			get
-			{
-				if (_crossContextBridge == null)
-				{
-					_crossContextBridge = injectionBinder.GetInstance<CrossContextBridge> () as IBinder;
-				}
-				return _crossContextBridge;
-			}
-			set
-			{
-				_crossContextDispatcher = value as IEventDispatcher;
-			}
-		}
+    public override IContext AddContext(IContext context)
+    {
+      base.AddContext(context);
+      if (context is ICrossContextCapable) AssignCrossContext((ICrossContextCapable)context);
+      return this;
+    }
 
-	}
+    public override IContext RemoveContext(IContext context)
+    {
+      if (context is ICrossContextCapable) RemoveCrossContext((ICrossContextCapable)context);
+      return base.RemoveContext(context);
+    }
+  }
 }

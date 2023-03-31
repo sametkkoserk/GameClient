@@ -1,6 +1,4 @@
 using Runtime.Contexts.Main.Enum;
-using Runtime.Modules.Core.ScreenManager.Enum;
-using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.context.api;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
@@ -12,11 +10,12 @@ namespace Runtime.Contexts.Main.View.SettingsButton
   {
     OpenSettingsPanel
   }
+
   public class SettingsButtonMediator : EventMediator
   {
     [Inject(ContextKeys.CROSS_CONTEXT_DISPATCHER)]
     public IEventDispatcher crossDispatcher { get; set; }
-    
+
     [Inject]
     public SettingsButtonView view { get; set; }
 

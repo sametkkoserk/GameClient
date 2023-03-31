@@ -24,18 +24,15 @@ using StrangeIoC.scripts.strange.extensions.command.api;
 
 namespace StrangeIoC.scripts.strange.extensions.sequencer.api
 {
-	public interface ISequencer : ICommandBinder
-	{
+  public interface ISequencer : ICommandBinder
+  {
+	  /// Release a previously retained SequenceCommand.
+	  /// By default, a Command is garbage collected at the end of its `Execute()` method. 
+	  /// But the Command can be retained for asynchronous calls.
+	  void ReleaseCommand(ISequenceCommand command);
 
+    new ISequenceBinding Bind<T>();
 
-		/// Release a previously retained SequenceCommand.
-		/// By default, a Command is garbage collected at the end of its `Execute()` method. 
-		/// But the Command can be retained for asynchronous calls.
-		void ReleaseCommand(ISequenceCommand command);
-
-		new ISequenceBinding Bind<T>();
-
-		new ISequenceBinding Bind(object value);
-	}
+    new ISequenceBinding Bind(object value);
+  }
 }
-

@@ -12,58 +12,58 @@ namespace Editor.Tools.Quick.UpperButtons
   public class DefaultToolbarButtons
   {
     private const string scenesFolder = "Scenes";
-    private static AdvancedDropdownState scenesState = new AdvancedDropdownState();
-    
+    private static AdvancedDropdownState scenesState = new();
+
     public static T[] GetAtPath<T>(string path)
     {
-      ArrayList al = new ArrayList();
-      string[] fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
-    
-      foreach (string fileName in fileEntries)
+      var al = new ArrayList();
+      var fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
+
+      foreach (var fileName in fileEntries)
       {
-        string temp = fileName.Replace("\\", "/");
-        int index = temp.LastIndexOf("/");
-        string localPath = "Assets/" + path;
-    
+        var temp = fileName.Replace("\\", "/");
+        var index = temp.LastIndexOf("/");
+        var localPath = "Assets/" + path;
+
         if (index > 0)
           localPath += temp.Substring(index);
-    
-        System.Object t = AssetDatabase.LoadAssetAtPath(localPath, typeof(T));
-    
+
+        object t = AssetDatabase.LoadAssetAtPath(localPath, typeof(T));
+
         if (t != null)
           al.Add(t);
       }
-    
-      T[] result = new T[al.Count];
-    
-      for (int i = 0; i < al.Count; i++)
+
+      var result = new T[al.Count];
+
+      for (var i = 0; i < al.Count; i++)
         result[i] = (T)al[i];
-    
+
       return result;
     }
 
-        [ToolbarButton("d_winbtn_win_max", "Open Terminal")]
-        public static void OpenTerminal()
-        {
-            var projectPath = Directory.GetParent(Application.dataPath).FullName;
+    [ToolbarButton("d_winbtn_win_max", "Open Terminal")]
+    public static void OpenTerminal()
+    {
+      var projectPath = Directory.GetParent(Application.dataPath).FullName;
 
-            Process cmd = new Process();
+      var cmd = new Process();
 #if UNITY_EDITOR_WIN
-            cmd.StartInfo.FileName = "cmd.exe";
+      cmd.StartInfo.FileName = "cmd.exe";
 #endif
 #if UNITY_EDITOR_OSX
             cmd.StartInfo.FileName = "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal";
 #endif
-            cmd.StartInfo.WorkingDirectory = projectPath;
-            cmd.Start();
-        }
+      cmd.StartInfo.WorkingDirectory = projectPath;
+      cmd.Start();
+    }
 
     [ToolbarButton("Folder Icon", "Open Folder")]
     public static void OpenFolder()
     {
       var projectPath = Directory.GetParent(Application.dataPath).FullName;
 
-      Process cmd = new Process();
+      var cmd = new Process();
 #if UNITY_EDITOR_WIN
       cmd.StartInfo.FileName = "explorer.exe";
 #endif
@@ -185,10 +185,10 @@ namespace Editor.Tools.Quick.UpperButtons
     public static void StartLauncherScene()
     {
       EditorApplication.isPlaying = false;
-    
+
       if (EditorApplication.isPlaying)
         return;
-    
+
       EditorSceneManager.OpenScene("Assets/Scripts/Runtime/Contexts/Main/Main.unity");
       EditorApplication.isPlaying = true;
     }

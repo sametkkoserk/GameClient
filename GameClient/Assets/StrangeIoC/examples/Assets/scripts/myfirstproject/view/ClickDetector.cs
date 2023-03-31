@@ -4,14 +4,13 @@ using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
 {
-	public class ClickDetector : EventView
-	{
-		public const string CLICK = "CLICK";
-		
-		void OnMouseDown()
-		{
-			dispatcher.Dispatch(CLICK);
-		}
-	}
-}
+  public class ClickDetector : EventView
+  {
+    public const string CLICK = "CLICK";
 
+    private void OnMouseDown()
+    {
+      dispatcher.Dispatch(CLICK);
+    }
+  }
+}

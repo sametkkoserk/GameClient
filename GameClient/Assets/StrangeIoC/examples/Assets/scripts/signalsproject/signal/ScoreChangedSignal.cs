@@ -6,8 +6,7 @@ using StrangeIoC.scripts.strange.extensions.signal.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.signalsproject.signal
 {
-	public class ScoreChangedSignal : Signal<string>
-	{
-	}
+  public class ScoreChangedSignal : Signal<string>
+  {
+  }
 }
-

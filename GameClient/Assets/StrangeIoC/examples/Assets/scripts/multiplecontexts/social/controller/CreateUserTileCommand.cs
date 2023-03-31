@@ -27,29 +27,27 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
-	public class CreateUserTileCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		public override void Execute()
-		{
-			UserVO vo = evt.data as UserVO;
-			
-			GameObject go = UnityEngine.Object.Instantiate(Resources.Load("GameTile")) as GameObject;
-			go.transform.parent = contextView.transform;
-			go.AddComponent<UserTileView>();
-			
-			//Here's something interesting. I'm technically bypassing the mediator here.
-			//Stylistically I think this is fine during instantiation. Your team might decide differently.
-			UserTileView view = go.GetComponent<UserTileView>() as UserTileView;
-			view.setUser(vo);
-			
-			Vector3 bottomLeft = new Vector3(.1f, .1f, (Camera.main.farClipPlane - Camera.main.nearClipPlane)/2f);
-			Vector3 dest = Camera.main.ViewportToWorldPoint(bottomLeft);
-			view.SetTilePosition(dest);
-		}
-	}
-}
+  public class CreateUserTileCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    public override void Execute()
+    {
+      var vo = evt.data as UserVO;
+
+      var go = Object.Instantiate(Resources.Load("GameTile")) as GameObject;
+      go.transform.parent = contextView.transform;
+      go.AddComponent<UserTileView>();
+
+      //Here's something interesting. I'm technically bypassing the mediator here.
+      //Stylistically I think this is fine during instantiation. Your team might decide differently.
+      var view = go.GetComponent<UserTileView>();
+      view.setUser(vo);
+
+      var bottomLeft = new Vector3(.1f, .1f, (Camera.main.farClipPlane - Camera.main.nearClipPlane) / 2f);
+      var dest = Camera.main.ViewportToWorldPoint(bottomLeft);
+      view.SetTilePosition(dest);
+    }
+  }
+}

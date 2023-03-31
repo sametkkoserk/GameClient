@@ -16,10 +16,9 @@
 
 namespace StrangeIoC.scripts.strange.framework.api
 {
-	public enum BindingConst
-	{
-		/// Null is an acceptable binding, but dictionaries choke on it, so we map null to this instead.
-		NULLOID
-	}
+  public enum BindingConst
+  {
+    /// Null is an acceptable binding, but dictionaries choke on it, so we map null to this instead.
+    NULLOID
+  }
 }
-

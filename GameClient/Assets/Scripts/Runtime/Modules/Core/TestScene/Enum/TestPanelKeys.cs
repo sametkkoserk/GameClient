@@ -5,6 +5,6 @@ namespace Runtime.Modules.Core.TestScene.Enum
     LobbyPanel,
     CreateLobbyPanel,
     JoinLobbyPanel,
-    LobbyManagerPanel,
+    LobbyManagerPanel
   }
 }

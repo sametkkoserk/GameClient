@@ -23,30 +23,29 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 {
-	public class AwardView : View
-	{
-		private Vector3 basePosition;
-		private TextMesh textfield;
-		
-		internal void init()
-		{
-			GameObject go = Instantiate(Resources.Load("AwardText")) as GameObject;
-			go.transform.parent = gameObject.transform;
-			textfield = go.GetComponent<TextMesh>();
-		}
-		
-		internal void setTest(string message)
-		{
-			textfield.text = message;
-		}
-		
-		void Update()
-		{
-			Vector3 dest = Vector3.zero;
-			Vector3 scale = transform.localScale;
-			scale += (dest - scale) * .009f;
-			transform.localScale = scale;
-		}
-	}
-}
+  public class AwardView : View
+  {
+    private Vector3 basePosition;
+    private TextMesh textfield;
 
+    private void Update()
+    {
+      var dest = Vector3.zero;
+      var scale = transform.localScale;
+      scale += (dest - scale) * .009f;
+      transform.localScale = scale;
+    }
+
+    internal void init()
+    {
+      var go = Instantiate(Resources.Load("AwardText")) as GameObject;
+      go.transform.parent = gameObject.transform;
+      textfield = go.GetComponent<TextMesh>();
+    }
+
+    internal void setTest(string message)
+    {
+      textfield.text = message;
+    }
+  }
+}

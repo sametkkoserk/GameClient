@@ -31,27 +31,26 @@ using StrangeIoC.scripts.strange.extensions.injector.api;
 
 namespace StrangeIoC.scripts.strange.extensions.context.api
 {
-	public interface ICrossContextCapable
-	{
-		/// Add cross-context functionality to a child context being added
-		void AssignCrossContext(ICrossContextCapable childContext);
+  public interface ICrossContextCapable
+  {
+    /// All cross-context capable contexts must implement an injectionBinder
+    ICrossContextInjectionBinder injectionBinder { get; set; }
 
-		/// Clean up cross-context functionality from a child context being removed
-		void RemoveCrossContext(ICrossContextCapable childContext);
+    /// Set and get the shared system bus for communicating across contexts
+    IDispatcher crossContextDispatcher { get; set; }
 
-		/// Request a component from the context (might be useful in certain cross-context situations)
-		/// This is technically a deprecated methodology. Bind using CrossContext() instead.
-		object GetComponent<T>();
+    /// Add cross-context functionality to a child context being added
+    void AssignCrossContext(ICrossContextCapable childContext);
 
-		/// Request a component from the context (might be useful in certain cross-context situations)
-		/// This is technically a deprecated methodology. Bind using CrossContext() instead.
-		object GetComponent<T>(object name);
+    /// Clean up cross-context functionality from a child context being removed
+    void RemoveCrossContext(ICrossContextCapable childContext);
 
-		/// All cross-context capable contexts must implement an injectionBinder
-		ICrossContextInjectionBinder injectionBinder { get; set; }
+    /// Request a component from the context (might be useful in certain cross-context situations)
+    /// This is technically a deprecated methodology. Bind using CrossContext() instead.
+    object GetComponent<T>();
 
-		/// Set and get the shared system bus for communicating across contexts
-		IDispatcher crossContextDispatcher { get; set; }
-
-	}
+    /// Request a component from the context (might be useful in certain cross-context situations)
+    /// This is technically a deprecated methodology. Bind using CrossContext() instead.
+    object GetComponent<T>(object name);
+  }
 }

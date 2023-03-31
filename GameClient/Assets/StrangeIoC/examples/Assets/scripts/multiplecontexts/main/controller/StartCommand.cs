@@ -31,17 +31,15 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller
 {
-	public class StartCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		public override void Execute()
-		{
-			dispatcher.Dispatch(MainEvent.LOAD_SCENE, "game");
-			dispatcher.Dispatch(MainEvent.LOAD_SCENE, "social");
-		}
-	}
-}
+  public class StartCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    public override void Execute()
+    {
+      dispatcher.Dispatch(MainEvent.LOAD_SCENE, "game");
+      dispatcher.Dispatch(MainEvent.LOAD_SCENE, "social");
+    }
+  }
+}

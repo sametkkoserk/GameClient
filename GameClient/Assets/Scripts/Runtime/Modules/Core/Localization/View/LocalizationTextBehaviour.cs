@@ -6,14 +6,14 @@ namespace Runtime.Modules.Core.Localization.View
 {
   public class LocalizationTextBehaviour : MonoBehaviour
   {
-    [SerializeField] 
+    [SerializeField]
     public LocalizedString localizedString;
 
     [SerializeField]
     public TextMeshProUGUI label;
-    
+
     private string arg0, arg1, arg2, arg3, arg4;
-    
+
     private void Init()
     {
       localizedString.Arguments = new object[] { arg0, arg1, arg2, arg3, arg4 };
@@ -25,37 +25,37 @@ namespace Runtime.Modules.Core.Localization.View
     {
       label.text = value;
     }
-    
+
     public void OnChangeArguments(string value, string tableKey, string[] arguments)
     {
       if (localizedString.Arguments == null)
         Init();
-      
+
       localizedString.SetReference(tableKey, value);
-      
+
       label.text = value;
 
-      for (int i = 0; i < arguments.Length; i++)
+      for (var i = 0; i < arguments.Length; i++)
       {
         if (i > 4)
           break;
-        
+
         localizedString.Arguments[i] = arguments[i];
       }
 
       localizedString.RefreshString();
     }
-    
+
     public void OnChangeArguments(string[] arguments)
     {
       if (localizedString.Arguments == null)
         Init();
-      
-      for (int i = 0; i < arguments.Length; i++)
+
+      for (var i = 0; i < arguments.Length; i++)
       {
         if (i > 4)
           break;
-        
+
         localizedString.Arguments[i] = arguments[i];
       }
 

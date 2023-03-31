@@ -18,16 +18,16 @@ namespace Runtime.Contexts.Lobby.Processor
 
     [Inject]
     public INetworkManagerService networkManager { get; set; }
-    
+
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
-    
+
     public override void Execute()
     {
-      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      string message = vo.message;
+      var vo = (MessageReceivedVo)evt.data;
+      var message = vo.message;
       Debug.Log("joined to lobby");
-      JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(message);
+      var joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(message);
       // lobbyVo.lobbyId = message.GetUShort();
       // lobbyVo.lobbyName = message.GetString();
       // lobbyVo.isPrivate = message.GetBool();
@@ -45,7 +45,7 @@ namespace Runtime.Contexts.Lobby.Processor
       //   clientVo.colorId = message.GetUShort();
       //   lobbyVo.clients[clientVo.inLobbyId]=clientVo;
       // }
-      
+
       lobbyModel.lobbyVo = joinedToLobbyVo.lobby;
       lobbyModel.clientVo = joinedToLobbyVo.clientVo;
 

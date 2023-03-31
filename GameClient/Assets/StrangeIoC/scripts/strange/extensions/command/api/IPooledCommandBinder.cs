@@ -24,13 +24,12 @@ using StrangeIoC.scripts.strange.extensions.pool.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.command.api
 {
-	public interface IPooledCommandBinder
-	{
-		/// Retrieve the Pool of the specified type
-		Pool<T> GetPool<T>();
+  public interface IPooledCommandBinder
+  {
+    /// Switch to disable pooling for those that don't want to use it.
+    bool usePooling { get; set; }
 
-		/// Switch to disable pooling for those that don't want to use it.
-		bool usePooling{ get; set; }
-	}
+    /// Retrieve the Pool of the specified type
+    Pool<T> GetPool<T>();
+  }
 }
-

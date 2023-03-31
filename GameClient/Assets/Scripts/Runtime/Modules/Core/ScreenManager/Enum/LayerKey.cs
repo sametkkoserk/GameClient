@@ -8,8 +8,8 @@ namespace Runtime.Modules.Core.ScreenManager.Enum
     SecondLayer,
     ThirdLayer,
     FourthLayer,
-    FifthLayer,
-    
+    FifthLayer
+
     // MainFirstLayer,
     // LobbyFirstLayer,
     // NetworkFirstLayer,

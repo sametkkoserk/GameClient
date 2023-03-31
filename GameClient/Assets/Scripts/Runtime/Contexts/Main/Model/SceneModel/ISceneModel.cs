@@ -1,7 +1,6 @@
 namespace Runtime.Contexts.Main.Model.SceneModel
 {
-    public interface ISceneModel
-    {
-        
-    }
+  public interface ISceneModel
+  {
+  }
 }

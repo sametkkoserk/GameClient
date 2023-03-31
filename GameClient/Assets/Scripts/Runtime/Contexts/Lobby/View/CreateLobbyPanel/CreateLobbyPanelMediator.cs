@@ -34,7 +34,7 @@ namespace Runtime.Contexts.Lobby.View.CreateLobbyPanel
       {
         turnTime = 60
       };
-      
+
       LobbyVo lobbyVo = new()
       {
         lobbyName = view.LobbyNameInputField.text,
@@ -42,7 +42,7 @@ namespace Runtime.Contexts.Lobby.View.CreateLobbyPanel
         maxPlayerCount = 10,
         lobbySettingsVo = settingsVo
       };
-      
+
       dispatcher.Dispatch(LobbyEvent.SendCreateLobby, lobbyVo);
     }
 

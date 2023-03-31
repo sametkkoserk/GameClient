@@ -67,14 +67,14 @@ using UnityEngine;
 
 namespace StrangeIoC.scripts.strange.extensions.mediation.api
 {
-	public interface IMediationBinder : IBinder
-	{
-		/// An event that just happened, and the View it happened to.
-		/// If the event was Awake, it will trigger creation of a mapped Mediator.
-		void Trigger (MediationEvent evt, IView view);
+  public interface IMediationBinder : IBinder
+  {
+	  /// An event that just happened, and the View it happened to.
+	  /// If the event was Awake, it will trigger creation of a mapped Mediator.
+	  void Trigger(MediationEvent evt, IView view);
 
-		/// Porcelain for Bind<T> providing a little extra clarity and security.
-		IMediationBinding BindView<T> () where T : MonoBehaviour;
-	}
+	  /// Porcelain for Bind
+	  /// <T> providing a little extra clarity and security.
+	  IMediationBinding BindView<T>() where T : MonoBehaviour;
+  }
 }
-

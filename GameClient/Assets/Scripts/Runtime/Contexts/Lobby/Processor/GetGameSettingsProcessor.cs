@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -6,7 +5,6 @@ using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
-using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Processor
 {
@@ -14,14 +12,14 @@ namespace Runtime.Contexts.Lobby.Processor
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
-    
+
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
 
     public override void Execute()
     {
-      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      LobbySettingsVo lobbySettingsVo = networkManager.GetData<LobbySettingsVo>(vo.message);
+      var vo = (MessageReceivedVo)evt.data;
+      var lobbySettingsVo = networkManager.GetData<LobbySettingsVo>(vo.message);
 
       lobbyModel.lobbyVo.lobbySettingsVo = lobbySettingsVo;
       dispatcher.Dispatch(LobbyEvent.GetGameSettings);

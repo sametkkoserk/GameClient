@@ -28,10 +28,9 @@ using StrangeIoC.scripts.strange.extensions.mediation.api;
 
 namespace StrangeIoC.scripts.strange.extensions.context.api
 {
-	public interface IContextView : IView
-	{
-		/// Get and set the Context
-		IContext context{get;set;}
-	}
+  public interface IContextView : IView
+  {
+    /// Get and set the Context
+    IContext context { get; set; }
+  }
 }
-

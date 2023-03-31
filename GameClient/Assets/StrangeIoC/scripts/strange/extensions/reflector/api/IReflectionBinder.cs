@@ -30,13 +30,12 @@ using System;
 
 namespace StrangeIoC.scripts.strange.extensions.reflector.api
 {
-	public interface IReflectionBinder
-	{
-		/// Get a binding based on the provided Type
-		IReflectedClass Get (Type type);
+  public interface IReflectionBinder
+  {
+    /// Get a binding based on the provided Type
+    IReflectedClass Get(Type type);
 
-		/// Get a binding based on the provided Type generic.
-		IReflectedClass Get<T> ();
-	}
+    /// Get a binding based on the provided Type generic.
+    IReflectedClass Get<T>();
+  }
 }
-

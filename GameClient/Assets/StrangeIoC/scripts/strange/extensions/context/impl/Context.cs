@@ -31,143 +31,133 @@ using StrangeIoC.scripts.strange.framework.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.context.impl
 {
-	public class Context : Binder, IContext
-	{
-		/// The top of the View hierarchy.
-		/// In MVCSContext, this is your top-level GameObject
-		public object contextView{get;set;}
+  public class Context : Binder, IContext
+  {
+    /// In a multi-Context app, this represents the first Context to instantiate.
+    public static IContext firstContext;
 
-		/// In a multi-Context app, this represents the first Context to instantiate.
-		public static IContext firstContext;
+    /// If false, the `Launch()` method won't fire.
+    public bool autoStartup;
 
-		/// If false, the `Launch()` method won't fire.
-		public bool autoStartup;
-		
-		public Context ()
-		{
-		}
+    public Context()
+    {
+    }
 
-		public Context (object view, ContextStartupFlags flags)
-		{
-			//If firstContext was unloaded, the contextView will be null. Assign the new context as firstContext.
-			if (firstContext == null || firstContext.GetContextView() == null)
-			{
-				firstContext = this;
-			}
-			else
-			{
-				firstContext.AddContext(this);
-			}
-			SetContextView(view);
-			addCoreComponents();
-			this.autoStartup = (flags & ContextStartupFlags.MANUAL_LAUNCH) != ContextStartupFlags.MANUAL_LAUNCH;
-			if ((flags & ContextStartupFlags.MANUAL_MAPPING) != ContextStartupFlags.MANUAL_MAPPING)
-			{
-				Start();
-			}
-		}
+    public Context(object view, ContextStartupFlags flags)
+    {
+      //If firstContext was unloaded, the contextView will be null. Assign the new context as firstContext.
+      if (firstContext == null || firstContext.GetContextView() == null)
+        firstContext = this;
+      else
+        firstContext.AddContext(this);
+      SetContextView(view);
+      addCoreComponents();
+      autoStartup = (flags & ContextStartupFlags.MANUAL_LAUNCH) != ContextStartupFlags.MANUAL_LAUNCH;
+      if ((flags & ContextStartupFlags.MANUAL_MAPPING) != ContextStartupFlags.MANUAL_MAPPING) Start();
+    }
 
-		public Context (object view) : this (view, ContextStartupFlags.AUTOMATIC){}
-		
-		public Context (object view, bool autoMapping) : this(view, (autoMapping) ? ContextStartupFlags.MANUAL_MAPPING : ContextStartupFlags.MANUAL_LAUNCH | ContextStartupFlags.MANUAL_MAPPING)
-		{
-		}
-		
-		/// Override to add componentry. Or just extend MVCSContext.
-		virtual protected void addCoreComponents()
-		{
-		}
-		
-		/// Override to instantiate componentry. Or just extend MVCSContext.
-		virtual protected void instantiateCoreComponents()
-		{
-		}
+    public Context(object view) : this(view, ContextStartupFlags.AUTOMATIC)
+    {
+    }
 
-		/// Set the object that represents the top of the Context hierarchy.
-		/// In MVCSContext, this would be a GameObject.
-		virtual public IContext SetContextView(object view)
-		{
-			contextView = view;
-			return this;
-		}
-		
-		virtual public object GetContextView() 
-		{ 
-			return contextView; 
-		}
+    public Context(object view, bool autoMapping) : this(view, autoMapping ? ContextStartupFlags.MANUAL_MAPPING : ContextStartupFlags.MANUAL_LAUNCH | ContextStartupFlags.MANUAL_MAPPING)
+    {
+    }
 
-		/// Call this from your Root to set everything in action.
-		virtual public IContext Start()
-		{
-			instantiateCoreComponents();
-			mapBindings();
-			postBindings();
-			if (autoStartup)
-				Launch();
-			return this;
-		}
+    /// The top of the View hierarchy.
+    /// In MVCSContext, this is your top-level GameObject
+    public object contextView { get; set; }
 
-		/// The final method to fire after mappings.
-		/// If autoStartup is false, you need to call this manually.
-		virtual public void Launch()
-		{
-		}
-		
-		/// Override to map project-specific bindings
-		virtual protected void mapBindings()
-		{
-		}
-		
-		/// Override to do things after binding but before app launch
-		virtual protected void postBindings()
-		{
-		}
+    public virtual object GetContextView()
+    {
+      return contextView;
+    }
 
-		/// Add another Context to this one.
-		virtual public IContext AddContext(IContext context)
-		{
-			return this;
-		}
+    /// Call this from your Root to set everything in action.
+    public virtual IContext Start()
+    {
+      instantiateCoreComponents();
+      mapBindings();
+      postBindings();
+      if (autoStartup)
+        Launch();
+      return this;
+    }
 
-		/// Remove a context from this one.
-		virtual public IContext RemoveContext(IContext context)
-		{
-            //If we're removing firstContext, set firstContext to null
-		    if (context == firstContext)
-		    {
-		    	firstContext = null;
-		    }
-		    else
-		    {
-		    	context.OnRemove();
-		    }
-		    return this;
-		}
+    /// The final method to fire after mappings.
+    /// If autoStartup is false, you need to call this manually.
+    public virtual void Launch()
+    {
+    }
 
-		/// Retrieve a component from this Context by generic type
-		virtual public object GetComponent<T>()
-		{
-			return null;
-		}
+    /// Add another Context to this one.
+    public virtual IContext AddContext(IContext context)
+    {
+      return this;
+    }
+
+    /// Remove a context from this one.
+    public virtual IContext RemoveContext(IContext context)
+    {
+      //If we're removing firstContext, set firstContext to null
+      if (context == firstContext)
+        firstContext = null;
+      else
+        context.OnRemove();
+      return this;
+    }
+
+    /// Register a View with this Context
+    public virtual void AddView(object view)
+    {
+      //Override in subclasses
+    }
+
+    /// Remove a View from this Context
+    public virtual void RemoveView(object view)
+    {
+      //Override in subclasses
+    }
+
+    /// Override to add componentry. Or just extend MVCSContext.
+    protected virtual void addCoreComponents()
+    {
+    }
+
+    /// Override to instantiate componentry. Or just extend MVCSContext.
+    protected virtual void instantiateCoreComponents()
+    {
+    }
+
+    /// Set the object that represents the top of the Context hierarchy.
+    /// In MVCSContext, this would be a GameObject.
+    public virtual IContext SetContextView(object view)
+    {
+      contextView = view;
+      return this;
+    }
+
+    /// Override to map project-specific bindings
+    protected virtual void mapBindings()
+    {
+    }
+
+    /// Override to do things after binding but before app launch
+    protected virtual void postBindings()
+    {
+    }
+
+    /// Retrieve a component from this Context by generic type
+    public virtual object GetComponent<T>()
+    {
+      return null;
+    }
 
 
-		/// Retrieve a component from this Context by generic type and name
-		virtual public object GetComponent<T>(object name)
-		{
-			return null;
-		}
-
-		/// Register a View with this Context
-		virtual public void AddView(object view)
-		{
-			//Override in subclasses
-		}
-
-		/// Remove a View from this Context
-		virtual public void RemoveView(object view)
-		{
-			//Override in subclasses
-		}
-	}
+    /// Retrieve a component from this Context by generic type and name
+    public virtual object GetComponent<T>(object name)
+    {
+      return null;
+    }
+  }
 }
-

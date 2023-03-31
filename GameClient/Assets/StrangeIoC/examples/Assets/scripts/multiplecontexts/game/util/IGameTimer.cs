@@ -16,10 +16,9 @@
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.util
 {
-	public interface IGameTimer
-	{
-		void Start();
-		void Stop();
-	}
+  public interface IGameTimer
+  {
+    void Start();
+    void Stop();
+  }
 }
-

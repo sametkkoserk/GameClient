@@ -25,18 +25,16 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller
 {
-	public class GameCompleteCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		public override void Execute()
-		{
-			int score = (int)evt.data;
-			
-			Debug.Log ("MAIN SCENE KNOWS THAT GAME IS OVER. Your score is: " + score);
-		}
-	}
-}
+  public class GameCompleteCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    public override void Execute()
+    {
+      var score = (int)evt.data;
+
+      Debug.Log("MAIN SCENE KNOWS THAT GAME IS OVER. Your score is: " + score);
+    }
+  }
+}

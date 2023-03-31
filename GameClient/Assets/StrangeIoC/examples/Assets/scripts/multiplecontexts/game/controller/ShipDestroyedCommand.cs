@@ -20,21 +20,17 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 {
-	public class ShipDestroyedCommand : EventCommand
-	{
-		[Inject]
-		public IScore scoreKeeper{get;set;}
-		
-		public override void Execute()
-		{
-			int livesRemaining = scoreKeeper.LoseLife();
-			dispatcher.Dispatch(GameEvent.LIVES_CHANGE, livesRemaining);
-			
-			if (livesRemaining == 0)
-			{
-				dispatcher.Dispatch(GameEvent.GAME_OVER);
-			}
-		}
-	}
-}
+  public class ShipDestroyedCommand : EventCommand
+  {
+    [Inject]
+    public IScore scoreKeeper { get; set; }
 
+    public override void Execute()
+    {
+      var livesRemaining = scoreKeeper.LoseLife();
+      dispatcher.Dispatch(GameEvent.LIVES_CHANGE, livesRemaining);
+
+      if (livesRemaining == 0) dispatcher.Dispatch(GameEvent.GAME_OVER);
+    }
+  }
+}

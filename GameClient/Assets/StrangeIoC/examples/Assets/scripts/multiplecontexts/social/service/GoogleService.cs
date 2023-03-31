@@ -36,66 +36,61 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 {
-	public class GoogleService : ISocialService
-	{
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
+  public class GoogleService : ISocialService
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
-		[Inject]
-		public IEventDispatcher dispatcher{get;set;}
+    [Inject]
+    public IEventDispatcher dispatcher { get; set; }
 
-		public GoogleService ()
-		{
-		}
+    public void FetchCurrentUser()
+    {
+      MonoBehaviour root = contextView.GetComponent<SocialRoot>();
+      root.StartCoroutine(waitASecondThenReturnCurrentUser());
+    }
 
-		public void FetchCurrentUser()
-		{
-			MonoBehaviour root = contextView.GetComponent<SocialRoot>();
-			root.StartCoroutine(waitASecondThenReturnCurrentUser());
-		}
+    public void FetchScoresForFriends()
+    {
+      MonoBehaviour root = contextView.GetComponent<SocialRoot>();
+      root.StartCoroutine(waitASecondThenReturnFriendList());
+    }
 
-		public void FetchScoresForFriends()
-		{
-			MonoBehaviour root = contextView.GetComponent<SocialRoot>();
-			root.StartCoroutine(waitASecondThenReturnFriendList());
-		}
+    private IEnumerator waitASecondThenReturnCurrentUser()
+    {
+      yield return new WaitForSeconds(1f);
 
-		private IEnumerator waitASecondThenReturnCurrentUser()
-		{
-			yield return new WaitForSeconds(1f);
+      //...then pass back some fake data
+      var user = getUserData("Kirk", "54321",
+        "http://upload.wikimedia.org/wikipedia/commons/a/a5/Star_Trek_William_Shatner.JPG",
+        100);
 
-			//...then pass back some fake data
-			UserVO user = getUserData ("Kirk", "54321", 
-			                           "http://upload.wikimedia.org/wikipedia/commons/a/a5/Star_Trek_William_Shatner.JPG",
-			                           100);
+      dispatcher.Dispatch(SocialEvent.FULFILL_CURRENT_USER_REQUEST, user);
+    }
 
-			dispatcher.Dispatch(SocialEvent.FULFILL_CURRENT_USER_REQUEST, user);
-		}
+    private IEnumerator waitASecondThenReturnFriendList()
+    {
+      yield return new WaitForSeconds(1f);
 
-		private IEnumerator waitASecondThenReturnFriendList()
-		{
-			yield return new WaitForSeconds(1f);
+      var friends = new ArrayList();
 
-			ArrayList friends = new ArrayList ();
+      friends.Add(getUserData("Spock", "54322", "http://upload.wikimedia.org/wikipedia/commons/a/a8/Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG", 20));
+      friends.Add(getUserData("McCoy", "54323", "http://upload.wikimedia.org/wikipedia/commons/6/6a/Deforest_Kelly_Dr_McCoy_Star_Trek.JPG", 50));
+      friends.Add(getUserData("Uhura", "54324", "http://upload.wikimedia.org/wikipedia/commons/b/b7/Nichelle_Nichols%2C_NASA_Recruiter_-_GPN-2004-00017.jpg", 110));
+      friends.Add(getUserData("Sulu", "54325", "http://upload.wikimedia.org/wikipedia/commons/f/f8/George_Takei_Sulu_Star_Trek.JPG", 200));
+      friends.Add(getUserData("Khaaan!", "54326", "http://upload.wikimedia.org/wikipedia/en/1/19/Khan1.jpg", 800));
 
-			friends.Add (getUserData("Spock", "54322", "http://upload.wikimedia.org/wikipedia/commons/a/a8/Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG", 20));
-			friends.Add (getUserData("McCoy", "54323", "http://upload.wikimedia.org/wikipedia/commons/6/6a/Deforest_Kelly_Dr_McCoy_Star_Trek.JPG", 50));
-			friends.Add (getUserData("Uhura", "54324", "http://upload.wikimedia.org/wikipedia/commons/b/b7/Nichelle_Nichols%2C_NASA_Recruiter_-_GPN-2004-00017.jpg", 110));
-			friends.Add (getUserData("Sulu", "54325", "http://upload.wikimedia.org/wikipedia/commons/f/f8/George_Takei_Sulu_Star_Trek.JPG", 200));
-			friends.Add (getUserData("Khaaan!", "54326", "http://upload.wikimedia.org/wikipedia/en/1/19/Khan1.jpg", 800));
+      dispatcher.Dispatch(SocialEvent.FULFILL_FRIENDS_REQUEST, friends);
+    }
 
-			dispatcher.Dispatch(SocialEvent.FULFILL_FRIENDS_REQUEST, friends);
-		}
-
-		private UserVO getUserData(string name, string id, string imgUrl, int score)
-		{
-			UserVO retv = new UserVO ();
-			retv.userFirstName = name;
-			retv.serviceId = id;
-			retv.imgUrl = imgUrl;
-			retv.highScore = score;
-			return retv;
-		}
-	}
+    private UserVO getUserData(string name, string id, string imgUrl, int score)
+    {
+      var retv = new UserVO();
+      retv.userFirstName = name;
+      retv.serviceId = id;
+      retv.imgUrl = imgUrl;
+      retv.highScore = score;
+      return retv;
+    }
+  }
 }
-

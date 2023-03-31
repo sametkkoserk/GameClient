@@ -26,10 +26,10 @@ using StrangeIoC.scripts.strange.framework.api;
 
 namespace StrangeIoC.scripts.strange.extensions.mediation.api
 {
-	public interface IMediationBinding : IBinding
-	{
-		/// Porcelain for To<T> providing a little extra clarity and security.
-		IMediationBinding ToMediator<T>();
-	}
+  public interface IMediationBinding : IBinding
+  {
+	  /// Porcelain for To
+	  /// <T> providing a little extra clarity and security.
+	  IMediationBinding ToMediator<T>();
+  }
 }
-

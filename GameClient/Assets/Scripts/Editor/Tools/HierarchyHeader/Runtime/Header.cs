@@ -2,27 +2,34 @@ using UnityEngine;
 
 namespace Editor.Tools.HierarchyHeader.Runtime
 {
-    public enum HeaderType
+  public enum HeaderType
+  {
+    Default,
+    Dotted,
+    Custom
+  }
+
+  public enum HeaderAlignment
+  {
+    Start,
+    Center,
+    End
+  }
+
+  public class Header : MonoBehaviour
+  {
+    public string title = "Header";
+
+    [HideInInspector]
+    public HeaderType type;
+
+    [HideInInspector]
+    public HeaderAlignment alignment;
+
+    private void OnDrawGizmos()
     {
-        Default, Dotted, Custom
+      //locking the postion
+      transform.position = Vector3.zero;
     }
-
-    public enum HeaderAlignment
-    {
-        Start, Center, End
-    }
-
-    public class Header : MonoBehaviour
-    {
-        public string title = "Header";
-
-        [HideInInspector] public HeaderType type;
-        [HideInInspector] public HeaderAlignment alignment;
-
-        private void OnDrawGizmos()
-        {
-            //locking the postion
-            transform.position = Vector3.zero;
-        }
-    }
+  }
 }

@@ -28,16 +28,15 @@ using StrangeIoC.scripts.strange.framework.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.mediation.impl
 {
-	public class MediationBinding : Binding, IMediationBinding
-	{
-		public MediationBinding (Binder.BindingResolver resolver) : base(resolver)
-		{
-		}
+  public class MediationBinding : Binding, IMediationBinding
+  {
+    public MediationBinding(Binder.BindingResolver resolver) : base(resolver)
+    {
+    }
 
-		IMediationBinding IMediationBinding.ToMediator<T> ()
-		{
-			return base.To (typeof(T)) as IMediationBinding;
-		}
-	}
+    IMediationBinding IMediationBinding.ToMediator<T>()
+    {
+      return base.To(typeof(T)) as IMediationBinding;
+    }
+  }
 }
-

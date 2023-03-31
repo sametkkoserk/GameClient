@@ -27,7 +27,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using StrangeIoC.scripts.strange.extensions.dispatcher.api;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.dispatcher.impl;
@@ -36,91 +35,81 @@ using StrangeIoC.scripts.strange.framework.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 {
-	public class EventBinding : Binding, IEventBinding
-	{
-		private Dictionary<Delegate, EventCallbackType> callbackTypes;
+  public class EventBinding : Binding, IEventBinding
+  {
+    private readonly Dictionary<Delegate, EventCallbackType> callbackTypes;
 
-		public EventBinding () : this(null)
-		{
-		}
+    public EventBinding() : this(null)
+    {
+    }
 
-		public EventBinding (strange.framework.impl.Binder.BindingResolver resolver) : base(resolver)
-		{
-			keyConstraint = BindingConstraintType.ONE;
-			valueConstraint = BindingConstraintType.MANY;
-			callbackTypes = new Dictionary<Delegate, EventCallbackType> ();
-		}
+    public EventBinding(Binder.BindingResolver resolver) : base(resolver)
+    {
+      keyConstraint = BindingConstraintType.ONE;
+      valueConstraint = BindingConstraintType.MANY;
+      callbackTypes = new Dictionary<Delegate, EventCallbackType>();
+    }
 
-		public EventCallbackType TypeForCallback(EmptyCallback callback)
-		{ 
-			if (callbackTypes.ContainsKey (callback)) 
-			{
-				return callbackTypes [callback];
-			}
-			return EventCallbackType.NOT_FOUND;
-		}
+    public EventCallbackType TypeForCallback(EmptyCallback callback)
+    {
+      if (callbackTypes.ContainsKey(callback)) return callbackTypes[callback];
+      return EventCallbackType.NOT_FOUND;
+    }
 
-		public EventCallbackType TypeForCallback(EventCallback callback)
-		{ 
-			if (callbackTypes.ContainsKey (callback)) 
-			{
-				return callbackTypes [callback];
-			}
-			return EventCallbackType.NOT_FOUND;
-		}
+    public EventCallbackType TypeForCallback(EventCallback callback)
+    {
+      if (callbackTypes.ContainsKey(callback)) return callbackTypes[callback];
+      return EventCallbackType.NOT_FOUND;
+    }
 
-		new public IEventBinding Bind(object key)
-		{
-			return base.Bind (key) as IEventBinding;
-		}
+    public new IEventBinding Bind(object key)
+    {
+      return base.Bind(key) as IEventBinding;
+    }
 
-		public IEventBinding To(EventCallback value)
-		{
-			base.To (value);
-			storeMethodType(value as Delegate);
-			return this;
-		}
+    public IEventBinding To(EventCallback value)
+    {
+      base.To(value);
+      storeMethodType(value);
+      return this;
+    }
 
-		public IEventBinding To(EmptyCallback value)
-		{
-			base.To (value);
-			storeMethodType(value as Delegate);
-			return this;
-		}
+    public IEventBinding To(EmptyCallback value)
+    {
+      base.To(value);
+      storeMethodType(value);
+      return this;
+    }
 
-		new public IEventBinding To(object value)
-		{
-			base.To (value);
-			storeMethodType(value as Delegate);
-			return this;
-		}
+    public override void RemoveValue(object value)
+    {
+      base.RemoveValue(value);
+      callbackTypes.Remove(value as Delegate);
+    }
 
-		override public void RemoveValue(object value)
-		{
-			base.RemoveValue (value);
-			callbackTypes.Remove (value as Delegate);
-		}
+    public new IEventBinding To(object value)
+    {
+      base.To(value);
+      storeMethodType(value as Delegate);
+      return this;
+    }
 
-		private void storeMethodType(Delegate value)
-		{
-			if (value == null)
-			{
-				throw new DispatcherException ("EventDispatcher can't map something that isn't a delegate'", DispatcherExceptionType.ILLEGAL_CALLBACK_HANDLER);
-			}
-			MethodInfo methodInfo = value.Method;
-			int argsLen = methodInfo.GetParameters ().Length;
-			switch(argsLen)
-			{
-				case 0:
-					callbackTypes[value] = EventCallbackType.NO_ARGUMENTS;
-					break;
-				case 1:
-					callbackTypes[value] = EventCallbackType.ONE_ARGUMENT;
-					break;
-				default:
-					throw new DispatcherException ("Event callbacks must have either one or no arguments", DispatcherExceptionType.ILLEGAL_CALLBACK_HANDLER);
-			}
-		}
-	}
+    private void storeMethodType(Delegate value)
+    {
+      if (value == null) throw new DispatcherException("EventDispatcher can't map something that isn't a delegate'", DispatcherExceptionType.ILLEGAL_CALLBACK_HANDLER);
+      var methodInfo = value.Method;
+      var argsLen = methodInfo.GetParameters().Length;
+      switch (argsLen)
+      {
+        case 0:
+          callbackTypes[value] = EventCallbackType.NO_ARGUMENTS;
+          break;
+        case 1:
+          callbackTypes[value] = EventCallbackType.ONE_ARGUMENT;
+          break;
+        default:
+          throw new DispatcherException("Event callbacks must have either one or no arguments", DispatcherExceptionType.ILLEGAL_CALLBACK_HANDLER);
+      }
+    }
+  }
 }
-

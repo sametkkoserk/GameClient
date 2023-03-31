@@ -1,7 +1,6 @@
 using System;
 using UnityEditor;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Editor.Tools.PrefabCreator.Editor
 {
@@ -11,8 +10,8 @@ namespace Editor.Tools.PrefabCreator.Editor
 #if UNITY_EDITOR
     public static void InstantiateObject(string objName, string specialName = null)
     {
-      Object gameObject = Resources.Load("Prefab/" + objName);
-      
+      var gameObject = Resources.Load("Prefab/" + objName);
+
       PrefabUtility.InstantiatePrefab(gameObject, Selection.activeTransform);
       gameObject.name = specialName ?? objName;
 
@@ -29,37 +28,37 @@ namespace Editor.Tools.PrefabCreator.Editor
       //   gameObject.name = specialName ?? objName;
       // };
     }
-    
+
     [MenuItem("GameObject/PrefabList/MainCamera", false, 3000)]
     public static void MainCamera()
     {
       InstantiateObject(PrefabKey.MainCamera);
     }
-    
+
     [MenuItem("GameObject/PrefabList/StandardText", false, 4000)]
     public static void StandardText()
     {
       InstantiateObject(PrefabKey.StandardText);
     }
-    
+
     [MenuItem("GameObject/PrefabList/ParameterText", false, 4001)]
     public static void ParameterText()
     {
       InstantiateObject(PrefabKey.ParameterText);
     }
-    
+
     [MenuItem("GameObject/PrefabList/StandardTextButton", false, 5000)]
     public static void StandardTextButton()
     {
       InstantiateObject(PrefabKey.StandardButton);
     }
-    
+
     [MenuItem("GameObject/PrefabList/ParameterTextButton", false, 5001)]
     public static void ParameterTextButton()
     {
       InstantiateObject(PrefabKey.ParameterTextButton);
     }
-    
+
     [MenuItem("GameObject/PrefabList/Icon", false, 6000)]
     public static void Icon()
     {

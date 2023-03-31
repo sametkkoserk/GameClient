@@ -7,7 +7,6 @@ using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 
 namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 {
@@ -20,16 +19,9 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
   {
     [Inject]
     public JoinLobbyPanelView view { get; set; }
-    
+
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
-
-    public override void OnRegister()
-    {
-      view.dispatcher.AddListener(JoinLobbyPanelEvent.Back, OnBack);
-      
-      dispatcher.AddListener(LobbyEvent.listLobbies, OnLobbies);
-    }
 
     private void Start()
     {
@@ -37,18 +29,22 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
       Debug.Log("GetLobbies Waiting");
     }
 
+    public override void OnRegister()
+    {
+      view.dispatcher.AddListener(JoinLobbyPanelEvent.Back, OnBack);
+
+      dispatcher.AddListener(LobbyEvent.listLobbies, OnLobbies);
+    }
+
     private void OnLobbies(IEvent payload)
     {
-      Dictionary<ushort, LobbyVo> lobbies = (Dictionary<ushort, LobbyVo>)payload.data;
+      var lobbies = (Dictionary<ushort, LobbyVo>)payload.data;
       for (ushort i = 0; i < lobbies.Count; i++)
       {
-        ushort count = i;
-        GameObject joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
-        JoinLobbyPanelItemBehaviour behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
-        behaviour.Init(lobbies[count], () =>
-        {
-          dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId);
-        });
+        var count = i;
+        var joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
+        var behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
+        behaviour.Init(lobbies[count], () => { dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId); });
       }
     }
 
@@ -60,7 +56,7 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(JoinLobbyPanelEvent.Back, OnBack);
-      
+
       dispatcher.RemoveListener(LobbyEvent.listLobbies, OnLobbies);
     }
   }

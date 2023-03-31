@@ -24,89 +24,89 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
 {
-	public class ExampleView : View
-	{
-		internal const string CLICK_EVENT = "CLICK_EVENT";
-		
-		[Inject]
-		public IEventDispatcher dispatcher{get;set;}
-		
-		private float theta = 20f;
-		private Vector3 basePosition;
-		
-		//Publicly settable from Unity3D
-		public float edx_WobbleSize = 1f;
-		public float edx_WobbleDampen = .9f;
-		public float edx_WobbleMin = .001f;
-		
-		internal void init()
-		{
-			GameObject go = Instantiate(Resources.Load("Textfield")) as GameObject;
-			
-			TextMesh textMesh = go.GetComponent<TextMesh>();
-			textMesh.text = "http://www.thirdmotion.com";
-			textMesh.font.material.color = Color.red;
-			
-			Vector3 localPosition = go.transform.localPosition;
-			localPosition.x -= go.GetComponent<Renderer>().bounds.extents.x;
-			localPosition.y += go.GetComponent<Renderer>().bounds.extents.y;
-			go.transform.localPosition = localPosition;
-			
-			Vector3 extents = Vector3.zero;
-			extents.x = go.GetComponent<Renderer>().bounds.size.x;
-			extents.y = go.GetComponent<Renderer>().bounds.size.y;
-			extents.z = go.GetComponent<Renderer>().bounds.size.z;
-			(go.GetComponent<Collider>() as BoxCollider).size = extents;
-			(go.GetComponent<Collider>() as BoxCollider).center = -localPosition;
-			
-			go.transform.parent = gameObject.transform;
-			
-			go.AddComponent<ClickDetector>();
-			ClickDetector clicker = go.GetComponent<ClickDetector>() as ClickDetector;
-			clicker.dispatcher.AddListener(ClickDetector.CLICK, onClick);
-		}
-		
-		internal void updateScore(string score)
-		{
-			GameObject go = Instantiate(Resources.Load("Textfield")) as GameObject;
-			TextMesh textMesh = go.GetComponent<TextMesh>();
-			textMesh.font.material.color = Color.white;
-			go.transform.parent = transform;
+  public class ExampleView : View
+  {
+    internal const string CLICK_EVENT = "CLICK_EVENT";
 
-			textMesh.text = score.ToString();
-		}
-		
-		void Update()
-		{
-			transform.Rotate(Vector3.up * Time.deltaTime * theta, Space.Self);
-		}
-		
-		void onClick()
-		{
-			dispatcher.Dispatch(CLICK_EVENT);
-			startWobble();
-		}
-		
-		private void startWobble()
-		{
-			StartCoroutine(wobble (edx_WobbleSize));
-			basePosition = Vector3.zero;
-		}
-		
-		private IEnumerator wobble(float size)
-		{
-			while(size > edx_WobbleMin)
-			{
-				size *= edx_WobbleDampen;
-				Vector3 newPosition = basePosition;
-				newPosition.x += UnityEngine.Random.Range(-size, size);
-				newPosition.y += UnityEngine.Random.Range(-size, size);
-				newPosition.z += UnityEngine.Random.Range(-size, size);
-				gameObject.transform.localPosition = newPosition;
-				yield return null;
-			}
-			gameObject.transform.localPosition = basePosition;
-		}
-	}
+    //Publicly settable from Unity3D
+    public float edx_WobbleSize = 1f;
+    public float edx_WobbleDampen = .9f;
+    public float edx_WobbleMin = .001f;
+    private Vector3 basePosition;
+
+    private readonly float theta = 20f;
+
+    [Inject]
+    public IEventDispatcher dispatcher { get; set; }
+
+    private void Update()
+    {
+      transform.Rotate(Vector3.up * Time.deltaTime * theta, Space.Self);
+    }
+
+    internal void init()
+    {
+      var go = Instantiate(Resources.Load("Textfield")) as GameObject;
+
+      var textMesh = go.GetComponent<TextMesh>();
+      textMesh.text = "http://www.thirdmotion.com";
+      textMesh.font.material.color = Color.red;
+
+      var localPosition = go.transform.localPosition;
+      localPosition.x -= go.GetComponent<Renderer>().bounds.extents.x;
+      localPosition.y += go.GetComponent<Renderer>().bounds.extents.y;
+      go.transform.localPosition = localPosition;
+
+      var extents = Vector3.zero;
+      extents.x = go.GetComponent<Renderer>().bounds.size.x;
+      extents.y = go.GetComponent<Renderer>().bounds.size.y;
+      extents.z = go.GetComponent<Renderer>().bounds.size.z;
+      (go.GetComponent<Collider>() as BoxCollider).size = extents;
+      (go.GetComponent<Collider>() as BoxCollider).center = -localPosition;
+
+      go.transform.parent = gameObject.transform;
+
+      go.AddComponent<ClickDetector>();
+      var clicker = go.GetComponent<ClickDetector>();
+      clicker.dispatcher.AddListener(ClickDetector.CLICK, onClick);
+    }
+
+    internal void updateScore(string score)
+    {
+      var go = Instantiate(Resources.Load("Textfield")) as GameObject;
+      var textMesh = go.GetComponent<TextMesh>();
+      textMesh.font.material.color = Color.white;
+      go.transform.parent = transform;
+
+      textMesh.text = score;
+    }
+
+    private void onClick()
+    {
+      dispatcher.Dispatch(CLICK_EVENT);
+      startWobble();
+    }
+
+    private void startWobble()
+    {
+      StartCoroutine(wobble(edx_WobbleSize));
+      basePosition = Vector3.zero;
+    }
+
+    private IEnumerator wobble(float size)
+    {
+      while (size > edx_WobbleMin)
+      {
+        size *= edx_WobbleDampen;
+        var newPosition = basePosition;
+        newPosition.x += Random.Range(-size, size);
+        newPosition.y += Random.Range(-size, size);
+        newPosition.z += Random.Range(-size, size);
+        gameObject.transform.localPosition = newPosition;
+        yield return null;
+      }
+
+      gameObject.transform.localPosition = basePosition;
+    }
+  }
 }
-

@@ -7,13 +7,14 @@ namespace Runtime.Contexts.MainGame.View.City
 {
   public enum CityEvent
   {
-    OnClick,
+    OnClick
   }
+
   public class CityMediator : EventMediator
   {
     [Inject]
     public CityView view { get; set; }
-    
+
     [Inject]
     public IMainGameModel mainGameModel { get; set; }
 
@@ -30,13 +31,13 @@ namespace Runtime.Contexts.MainGame.View.City
     public void Conquer(int newOwnerPlayerID)
     {
       view.cityVo.ownerID = newOwnerPlayerID;
-      
+
       FillColor();
     }
 
     public void FillColor()
     {
-      for (int i = 0; i < mainGameModel.materials.Count; i++)
+      for (var i = 0; i < mainGameModel.materials.Count; i++)
       {
         if (i != view.cityVo.ownerID) continue;
         view.material = mainGameModel.materials[i];

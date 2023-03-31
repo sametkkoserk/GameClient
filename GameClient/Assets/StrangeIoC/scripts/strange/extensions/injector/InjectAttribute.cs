@@ -59,51 +59,45 @@ using System;
 
 namespace StrangeIoC.scripts.strange.extensions.injector
 {
-	[AttributeUsage(AttributeTargets.Property, 
-		AllowMultiple = false,
-		Inherited = true)]
-	public class Inject: Attribute
-	{
-		public Inject(){}
-	
-		public Inject(object n)
-		{
-			name = n;
-		}
-	
-		public object name{get; set;}
-	}
+  [AttributeUsage(AttributeTargets.Property)]
+  public class Inject : Attribute
+  {
+    public Inject()
+    {
+    }
+
+    public Inject(object n)
+    {
+      name = n;
+    }
+
+    public object name { get; set; }
+  }
 
 //Tag [PostConstruct] to perform post-injection construction actions
-	[AttributeUsage(AttributeTargets.Constructor, 
-		AllowMultiple = false,
-		Inherited = true)]
-	public class Construct: Attribute
-	{
-		public Construct(){}
-	}
+  [AttributeUsage(AttributeTargets.Constructor)]
+  public class Construct : Attribute
+  {
+  }
 
 //Tag [PostConstruct] to perform post-injection construction actions
-	[AttributeUsage(AttributeTargets.Method, 
-		AllowMultiple = false,
-		Inherited = true)]
-	public class PostConstruct: Attribute
-	{
-		public PostConstruct(){}
+  [AttributeUsage(AttributeTargets.Method)]
+  public class PostConstruct : Attribute
+  {
+    public PostConstruct()
+    {
+    }
 
-		public PostConstruct(int p)
-		{
-			priority = p;
-		}
+    public PostConstruct(int p)
+    {
+      priority = p;
+    }
 
-		public int priority{get; set;}
-	}
+    public int priority { get; set; }
+  }
 
-	[AttributeUsage(AttributeTargets.Method, 
-		AllowMultiple = false,
-		Inherited = true)]
-	public class Deconstruct: Attribute
-	{
-		public Deconstruct(){}
-	}
+  [AttributeUsage(AttributeTargets.Method)]
+  public class Deconstruct : Attribute
+  {
+  }
 }

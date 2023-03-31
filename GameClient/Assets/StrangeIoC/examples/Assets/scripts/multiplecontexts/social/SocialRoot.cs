@@ -26,14 +26,12 @@ using StrangeIoC.scripts.strange.extensions.context.impl;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social
 {
-	public class SocialRoot : ContextView
-	{
-	
-		void Awake()
-		{
-			//Instantiate the context, passing it this instance
-			context = new SocialContext(this);
-		}
-	}
+  public class SocialRoot : ContextView
+  {
+    private void Awake()
+    {
+      //Instantiate the context, passing it this instance
+      context = new SocialContext(this);
+    }
+  }
 }
-

@@ -26,40 +26,38 @@ using StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 {
-	public class AwardViewMediator : EventMediator
-	{
-		[Inject]
-		public AwardView view{ get; set;}
-		
-		public override void OnRegister()
-		{
-			//Listen to the global event bus for events
-			dispatcher.AddListener(GameEvent.RESTART_GAME, onGameRestart);
-			dispatcher.AddListener(SocialEvent.REWARD_TEXT, onReward);
-			
-			view.init ();
-		}
-		
-		public override void OnRemove()
-		{
-			//Clean up listeners when the view is about to be destroyed
-			dispatcher.RemoveListener(GameEvent.RESTART_GAME, onGameRestart);
-			dispatcher.RemoveListener(SocialEvent.REWARD_TEXT, onReward);
-		}
-		
-		private void onGameRestart()
-		{
-			GameObject.Destroy(gameObject);
-		}
-		
-		private void onReward(IEvent evt)
-		{
-			view.setTest(evt.data as string);
-		}
-	}
-}
+  public class AwardViewMediator : EventMediator
+  {
+    [Inject]
+    public AwardView view { get; set; }
 
+    public override void OnRegister()
+    {
+      //Listen to the global event bus for events
+      dispatcher.AddListener(GameEvent.RESTART_GAME, onGameRestart);
+      dispatcher.AddListener(SocialEvent.REWARD_TEXT, onReward);
+
+      view.init();
+    }
+
+    public override void OnRemove()
+    {
+      //Clean up listeners when the view is about to be destroyed
+      dispatcher.RemoveListener(GameEvent.RESTART_GAME, onGameRestart);
+      dispatcher.RemoveListener(SocialEvent.REWARD_TEXT, onReward);
+    }
+
+    private void onGameRestart()
+    {
+      Destroy(gameObject);
+    }
+
+    private void onReward(IEvent evt)
+    {
+      view.setTest(evt.data as string);
+    }
+  }
+}

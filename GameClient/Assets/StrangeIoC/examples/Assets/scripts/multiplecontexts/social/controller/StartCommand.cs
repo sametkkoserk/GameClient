@@ -27,37 +27,35 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
-	public class StartCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		[Inject]
-		public ISocialService social{get;set;}
-		
-		public override void Execute()
-		{
-			Retain();
-			//Note how we're using the same event for convenience here
-			//and below. But the local event bus and the global one are separate, so there's
-			//no systemic confusion.
-			social.dispatcher.AddListener(SocialEvent.FULFILL_CURRENT_USER_REQUEST, onResponse);
-			social.FetchCurrentUser();
-		}
-		
-		private void onResponse(IEvent evt)
-		{
-			social.dispatcher.RemoveListener(SocialEvent.FULFILL_CURRENT_USER_REQUEST, onResponse);
-			UserVO vo = evt.data as UserVO;
-			
-			//We're going to Bind this for injection, since we'll need it later when we compare
-			//the user's highscore with his own score and the highscore of others.
-			injectionBinder.Bind<UserVO>().ToValue(vo);
-			
-			dispatcher.Dispatch(SocialEvent.FULFILL_CURRENT_USER_REQUEST, vo);
-			Release();
-		}
-	}
-}
+  public class StartCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    [Inject]
+    public ISocialService social { get; set; }
+
+    public override void Execute()
+    {
+      Retain();
+      //Note how we're using the same event for convenience here
+      //and below. But the local event bus and the global one are separate, so there's
+      //no systemic confusion.
+      social.dispatcher.AddListener(SocialEvent.FULFILL_CURRENT_USER_REQUEST, onResponse);
+      social.FetchCurrentUser();
+    }
+
+    private void onResponse(IEvent evt)
+    {
+      social.dispatcher.RemoveListener(SocialEvent.FULFILL_CURRENT_USER_REQUEST, onResponse);
+      var vo = evt.data as UserVO;
+
+      //We're going to Bind this for injection, since we'll need it later when we compare
+      //the user's highscore with his own score and the highscore of others.
+      injectionBinder.Bind<UserVO>().ToValue(vo);
+
+      dispatcher.Dispatch(SocialEvent.FULFILL_CURRENT_USER_REQUEST, vo);
+      Release();
+    }
+  }
+}

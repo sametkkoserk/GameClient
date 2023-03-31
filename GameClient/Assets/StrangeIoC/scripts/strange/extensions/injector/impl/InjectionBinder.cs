@@ -32,140 +32,126 @@ using StrangeIoC.scripts.strange.framework.impl;
 
 namespace StrangeIoC.scripts.strange.extensions.injector.impl
 {
-	public class InjectionBinder : Binder, IInjectionBinder
-	{
-		private IInjector _injector;
+  public class InjectionBinder : Binder, IInjectionBinder
+  {
+    private IInjector _injector;
 
-		public InjectionBinder ()
-		{
-			injector = new Injector ();
-			injector.binder = this;
-			injector.reflector = new ReflectionBinder ();
-		}
+    public InjectionBinder()
+    {
+      injector = new Injector();
+      injector.binder = this;
+      injector.reflector = new ReflectionBinder();
+    }
 
-		public object GetInstance(Type key)
-		{
-			return GetInstance(key, null);
-		}
+    public object GetInstance(Type key)
+    {
+      return GetInstance(key, null);
+    }
 
-		public virtual object GetInstance(Type key, object name)
-		{
-			IInjectionBinding binding = GetBinding (key, name) as IInjectionBinding;
-			if (binding == null)
-			{
-				throw new InjectionException ("InjectionBinder has no binding for:\n\tkey: " + key + "\nname: " + name, InjectionExceptionType.NULL_BINDING);
-			}
-			object instance = GetInjectorForBinding(binding).Instantiate (binding);
-			return instance;
-		}
+    public virtual object GetInstance(Type key, object name)
+    {
+      var binding = GetBinding(key, name);
+      if (binding == null) throw new InjectionException("InjectionBinder has no binding for:\n\tkey: " + key + "\nname: " + name, InjectionExceptionType.NULL_BINDING);
+      var instance = GetInjectorForBinding(binding).Instantiate(binding);
+      return instance;
+    }
 
-		protected virtual IInjector GetInjectorForBinding(IInjectionBinding binding)
-		{
-			return injector;
-		}
+    public T GetInstance<T>()
+    {
+      var instance = GetInstance(typeof(T));
+      var retv = (T)instance;
+      return retv;
+    }
 
-		public T GetInstance<T>()
-		{
-			object instance = GetInstance (typeof (T));
-			T retv = (T) instance;
-			return retv;
-		}
+    public T GetInstance<T>(object name)
+    {
+      var instance = GetInstance(typeof(T), name);
+      var retv = (T)instance;
+      return retv;
+    }
 
-		public T GetInstance<T>(object name)
-		{
-			object instance = GetInstance (typeof (T), name);
-			T retv = (T) instance;
-			return retv;
-		}
+    public IInjector injector
+    {
+      get => _injector;
+      set
+      {
+        if (_injector != null) _injector.binder = null;
+        _injector = value;
+        _injector.binder = this;
+      }
+    }
 
-		override public IBinding GetRawBinding()
-		{
-			return new InjectionBinding (resolver);
-		}
+    public new IInjectionBinding Bind<T>()
+    {
+      return base.Bind<T>() as IInjectionBinding;
+    }
 
-		public IInjector injector
-		{ 
-			get
-			{
-				return _injector;
-			}
-			set
-			{
-				if (_injector != null)
-				{
-					_injector.binder = null;
-				}
-				_injector = value;
-				_injector.binder = this;
-			}
-		}
+    public IInjectionBinding Bind(Type key)
+    {
+      return base.Bind(key) as IInjectionBinding;
+    }
 
-		new public IInjectionBinding Bind<T>()
-		{
-			return base.Bind<T> () as IInjectionBinding;
-		}
+    public new virtual IInjectionBinding GetBinding<T>()
+    {
+      return base.GetBinding<T>() as IInjectionBinding;
+    }
 
-		public IInjectionBinding Bind(Type key)
-		{
-			return base.Bind(key) as IInjectionBinding;
-		}
+    //SDM2014-0120: "virtual" added as dictated by changes to CrossContextInjectionBinder in relation to the cross-context implicit binding fix
+    public new virtual IInjectionBinding GetBinding<T>(object name)
+    {
+      return base.GetBinding<T>(name) as IInjectionBinding;
+    }
 
-		new virtual public IInjectionBinding GetBinding<T>()
-		{
-			return base.GetBinding<T> () as IInjectionBinding;
-		}
+    //SDM2014-0120: "virtual" added as dictated by changes to CrossContextInjectionBinder in relation to the cross-context implicit binding fix
+    public new virtual IInjectionBinding GetBinding(object key)
+    {
+      return base.GetBinding(key) as IInjectionBinding;
+    }
 
-		//SDM2014-0120: "virtual" added as dictated by changes to CrossContextInjectionBinder in relation to the cross-context implicit binding fix
-		new virtual public IInjectionBinding GetBinding<T>(object name)
-		{
-			return base.GetBinding<T> (name) as IInjectionBinding;
-		}
+    public new virtual IInjectionBinding GetBinding(object key, object name)
+    {
+      return base.GetBinding(key, name) as IInjectionBinding;
+    }
 
-		//SDM2014-0120: "virtual" added as dictated by changes to CrossContextInjectionBinder in relation to the cross-context implicit binding fix
-		new virtual public IInjectionBinding GetBinding(object key)
-		{
-			return base.GetBinding (key) as IInjectionBinding;
-		}
+    public int ReflectAll()
+    {
+      var list = new List<Type>();
+      foreach (var pair in bindings)
+      {
+        var dict = pair.Value;
+        foreach (var bPair in dict)
+        {
+          var binding = bPair.Value;
+          var t = binding.value is Type ? (Type)binding.value : binding.value.GetType();
+          if (list.IndexOf(t) == -1) list.Add(t);
+        }
+      }
 
-		new virtual public IInjectionBinding GetBinding(object key, object name)
-		{
-			return base.GetBinding(key, name) as IInjectionBinding;
-		}
+      return Reflect(list);
+    }
 
-		public int ReflectAll()
-		{
-			List<Type> list = new List<Type> ();
-			foreach (KeyValuePair<object, Dictionary<object, IBinding>> pair in bindings)
-			{
-				Dictionary<object, IBinding> dict = pair.Value;
-				foreach(KeyValuePair<object, IBinding> bPair in dict)
-				{
-					IBinding binding = bPair.Value as IBinding;
-					Type t = (binding.value is Type) ? (Type) binding.value : binding.value.GetType();
-					if (list.IndexOf(t) == -1)
-					{
-						list.Add (t);
-					}
-				}
-			}
-			return Reflect (list);
-		}
+    public int Reflect(List<Type> list)
+    {
+      var count = 0;
+      foreach (var t in list)
+      {
+        //Reflector won't permit primitive types, so screen them
+        if (t.IsPrimitive || t == typeof(decimal) || t == typeof(string)) continue;
+        count++;
+        injector.reflector.Get(t);
+      }
 
-		public int Reflect(List<Type> list)
-		{
-			int count = 0;
-			foreach(Type t in list)
-			{
-				//Reflector won't permit primitive types, so screen them
-				if (t.IsPrimitive || t == typeof(Decimal) || t == typeof(string))
-				{
-					continue;
-				}
-				count ++;
-				injector.reflector.Get (t);
-			}
-			return count;
-		}
-	}
+      return count;
+    }
+
+    protected virtual IInjector GetInjectorForBinding(IInjectionBinding binding)
+    {
+      return injector;
+    }
+
+    public override IBinding GetRawBinding()
+    {
+      return new InjectionBinding(resolver);
+    }
+  }
 }
-

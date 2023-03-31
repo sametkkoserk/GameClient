@@ -6,6 +6,6 @@ namespace Runtime.Modules.Core.ScreenManager.Enum
     MainGame,
     Lobby,
     Network,
-    MiniGame,
+    MiniGame
   }
 }

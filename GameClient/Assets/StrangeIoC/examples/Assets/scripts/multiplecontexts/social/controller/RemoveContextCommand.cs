@@ -25,17 +25,15 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
-	public class RemoveContextCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		public override void Execute()
-		{
-			//The act of destroying the CONTEXT_VIEW GameObject automatically removes the Context
-			GameObject.Destroy(contextView);
-		}
-	}
-}
+  public class RemoveContextCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    public override void Execute()
+    {
+      //The act of destroying the CONTEXT_VIEW GameObject automatically removes the Context
+      Object.Destroy(contextView);
+    }
+  }
+}

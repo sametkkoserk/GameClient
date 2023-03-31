@@ -24,9 +24,9 @@
 
 namespace StrangeIoC.scripts.strange.extensions.injector.api
 {
-	public interface ICrossContextInjectionBinder : IInjectionBinder
-	{
-		//Cross-context Injection Binder is shared across all child contexts
-		IInjectionBinder CrossContextBinder { get; set; }
-	}
+  public interface ICrossContextInjectionBinder : IInjectionBinder
+  {
+    //Cross-context Injection Binder is shared across all child contexts
+    IInjectionBinder CrossContextBinder { get; set; }
+  }
 }

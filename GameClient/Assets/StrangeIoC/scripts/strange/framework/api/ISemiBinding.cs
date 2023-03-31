@@ -41,13 +41,12 @@ using System;
 
 namespace StrangeIoC.scripts.strange.framework.api
 {
-	public interface ISemiBinding : IManagedList
-	{
-		/// Set or get the constraint. 
-		Enum constraint{ get; set;}
+  public interface ISemiBinding : IManagedList
+  {
+	  /// Set or get the constraint.
+	  Enum constraint { get; set; }
 
-		/// A secondary constraint that ensures that this SemiBinding will never contain multiple values equivalent to each other. 
-		bool uniqueValues{get;set;}
-	}
+	  /// A secondary constraint that ensures that this SemiBinding will never contain multiple values equivalent to each other.
+	  bool uniqueValues { get; set; }
+  }
 }
-

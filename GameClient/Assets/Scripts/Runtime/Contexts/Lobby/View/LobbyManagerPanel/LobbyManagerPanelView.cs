@@ -10,15 +10,15 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
   public class LobbyManagerPanelView : EventView
   {
     public GameObject lobbyManagerPanelItem;
-    
+
     public Transform playerContainer;
-    
+
     public TMP_Text lobbyNameText;
-    
+
     public TMP_Text playerCountText;
 
     public Button saveButton;
-    
+
     public Button readyButton;
 
     [HideInInspector]
@@ -31,10 +31,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     [Header("Game Settings")]
     [Tooltip("Time of the turn.")]
     public TMP_Dropdown timerDropdown;
-    
+
     [Tooltip("Only owner of lobby can change game settings.")]
     public List<GameObject> adminGameObjects;
-    
+
     [Tooltip("Players will see these objects.")]
     public List<GameObject> playerGameObjects;
 
@@ -44,6 +44,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     {
       dispatcher.Dispatch(LobbyManagerPanelEvent.Ready);
     }
+
     public void OnBack()
     {
       dispatcher.Dispatch(LobbyManagerPanelEvent.Back);
@@ -60,7 +61,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     {
       dispatcher.Dispatch(LobbyManagerPanelEvent.ChangedSettings);
     }
-    
+
     #endregion
   }
 }

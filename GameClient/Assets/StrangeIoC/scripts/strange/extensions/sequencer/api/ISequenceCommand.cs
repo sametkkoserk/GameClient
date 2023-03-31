@@ -26,10 +26,7 @@ using StrangeIoC.scripts.strange.extensions.command.api;
 
 namespace StrangeIoC.scripts.strange.extensions.sequencer.api
 {
-	public interface ISequenceCommand : ICommand
-	{
-
-
-	}
+  public interface ISequenceCommand : ICommand
+  {
+  }
 }
-

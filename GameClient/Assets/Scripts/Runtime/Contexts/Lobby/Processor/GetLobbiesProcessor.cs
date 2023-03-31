@@ -16,9 +16,9 @@ namespace Runtime.Contexts.Lobby.Processor
 
     public override void Execute()
     {
-      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      string message = vo.message;
-      Dictionary<ushort, LobbyVo> lobbies = networkManager.GetData<Dictionary<ushort, LobbyVo>>(message);
+      var vo = (MessageReceivedVo)evt.data;
+      var message = vo.message;
+      var lobbies = networkManager.GetData<Dictionary<ushort, LobbyVo>>(message);
 
       // int lobbyCount = message.GetInt();
       // lobbiesVo.lobbies = new List<LobbyVo>();

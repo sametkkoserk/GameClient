@@ -28,41 +28,39 @@ using UnityEngine;
 
 namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 {
-	public class GameCompleteCommand : EventCommand
-	{
-		
-		[Inject(ContextKeys.CONTEXT_VIEW)]
-		public GameObject contextView{get;set;}
-		
-		[Inject]
-		public ISocialService social{get;set;}
-		
-		//Remember back in StartCommand when I said we'd need the userVO again?
-		[Inject]
-		public UserVO userVO{get;set;}
-		
-		public override void Execute()
-		{
-			Retain ();
-			int score = (int)evt.data;
-			
-			//Set the current score
-			userVO.currentScore = score;
-			
-			Debug.Log ("Social SCENE KNOWS THAT GAME IS OVER. Your score is: " + score);
-			social.dispatcher.AddListener(SocialEvent.FULFILL_FRIENDS_REQUEST, onResponse);
-			social.FetchScoresForFriends();
-		}
-		
-		private void onResponse(IEvent evt)
-		{
-			social.dispatcher.RemoveListener(SocialEvent.FULFILL_FRIENDS_REQUEST, onResponse);
-			ArrayList list = evt.data as ArrayList;
-			
-			//Save the list as the data for the next item in the sequence
-			data = list;
-			Release();
-		}
-	}
-}
+  public class GameCompleteCommand : EventCommand
+  {
+    [Inject(ContextKeys.CONTEXT_VIEW)]
+    public GameObject contextView { get; set; }
 
+    [Inject]
+    public ISocialService social { get; set; }
+
+    //Remember back in StartCommand when I said we'd need the userVO again?
+    [Inject]
+    public UserVO userVO { get; set; }
+
+    public override void Execute()
+    {
+      Retain();
+      var score = (int)evt.data;
+
+      //Set the current score
+      userVO.currentScore = score;
+
+      Debug.Log("Social SCENE KNOWS THAT GAME IS OVER. Your score is: " + score);
+      social.dispatcher.AddListener(SocialEvent.FULFILL_FRIENDS_REQUEST, onResponse);
+      social.FetchScoresForFriends();
+    }
+
+    private void onResponse(IEvent evt)
+    {
+      social.dispatcher.RemoveListener(SocialEvent.FULFILL_FRIENDS_REQUEST, onResponse);
+      var list = evt.data as ArrayList;
+
+      //Save the list as the data for the next item in the sequence
+      data = list;
+      Release();
+    }
+  }
+}

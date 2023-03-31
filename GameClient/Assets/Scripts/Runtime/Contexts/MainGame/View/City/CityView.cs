@@ -6,12 +6,11 @@ namespace Runtime.Contexts.MainGame.View.City
 {
   public class CityView : EventView
   {
-    public CityVo cityVo;
-
     [HideInInspector]
     public Material material;
 
     public MeshRenderer meshRenderer;
+    public CityVo cityVo;
 
     public void OnClick()
     {

@@ -14,7 +14,7 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GetLobbies);
+      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GetLobbies);
       message.AddSByte(0);
       networkManager.Client.Send(message);
       Debug.Log("GetLobbies sent");

@@ -9,11 +9,12 @@ namespace Runtime.Modules.Core.Settings.View.Settings
   {
     ClosePanel
   }
+
   public class SettingsPanelMediator : EventMediator
   {
     [Inject]
     public SettingsPanelView view { get; set; }
-    
+
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
 
@@ -26,7 +27,7 @@ namespace Runtime.Modules.Core.Settings.View.Settings
     {
       screenManagerModel.CloseLayerPanels(LayerKey.SettingsLayer);
     }
-    
+
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(SettingsPanelEvent.ClosePanel, OnClosePanel);

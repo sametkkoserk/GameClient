@@ -1,7 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
-using Button = UnityEngine.UI.Button;
+using UnityEngine.UI;
 
 namespace Runtime.Modules.Core.TabManager.Vo
 {
