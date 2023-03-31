@@ -1,0 +1,22 @@
+diff a/GameClient/Assets/Scripts/Runtime/Modules/Core/GeneralContext/GeneralContext.cs b/GameClient/Assets/Scripts/Runtime/Modules/Core/GeneralContext/GeneralContext.cs	(rejected hunks)
+@@ -26,16 +26,16 @@
+       base.mapBindings();
+ 
+       injectionBinder.Bind<IScreenManagerModel>().To<ScreenManagerModel>().ToSingleton();
+-      
++
+       injectionBinder.Bind<ILocalizationModel>().To<LocalizationModel>().ToSingleton();
+ 
+-      
++
+       mediationBinder.Bind<LayerContainerView>().To<LayerContainerMediator>();
+       mediationBinder.Bind<PanelContainerView>().To<PanelContainerMediator>();
+-      
++
+       mediationBinder.Bind<SettingsButtonView>().To<SettingsButtonMediator>();
+       mediationBinder.Bind<SettingsPanelView>().To<SettingsPanelMediator>();
+-      
++
+       mediationBinder.Bind<LanguageSettingsView>().To<LanguageSettingsMediator>();
+     }
+   }
