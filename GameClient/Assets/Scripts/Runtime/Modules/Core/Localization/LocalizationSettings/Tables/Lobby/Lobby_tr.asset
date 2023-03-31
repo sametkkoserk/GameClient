@@ -35,6 +35,38 @@ MonoBehaviour:
     m_Localized: "Lobiden Ayr\u0131l"
     m_Metadata:
       m_Items: []
+  - m_Id: 5224082470223872
+    m_Localized: "\xD6zel Oda"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5224242029936640
+    m_Localized: "Olu\u015Ftur"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5226815310938112
+    m_Localized: "Kat\u0131l"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5228672347422720
+    m_Localized: Oyuncu Listesi
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5228812936298496
+    m_Localized: "Lobi Ayarlar\u0131"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229030280937472
+    m_Localized: "Tur S\xFCresi:"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229158899269632
+    m_Localized: Kaydet
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229179640102912
+    m_Localized: "Haz\u0131r"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:

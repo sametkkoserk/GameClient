@@ -15,6 +15,10 @@ MonoBehaviour:
   m_TableCollectionName: Lobby
   m_TableCollectionNameGuidString: 57d24590deb22564bba8089f78e0b875
   m_Entries:
+  - m_Id: 1773266405048320
+    m_Key: LobbyPanelsBack
+    m_Metadata:
+      m_Items: []
   - m_Id: 67455565824
     m_Key: LobbyPanelJoin
     m_Metadata:
@@ -23,12 +27,40 @@ MonoBehaviour:
     m_Key: LobbyPanelHost
     m_Metadata:
       m_Items: []
-  - m_Id: 1773266405048320
-    m_Key: LobbyPanelsBack
-    m_Metadata:
-      m_Items: []
   - m_Id: 1773505681702912
     m_Key: LobbyManagerPanelExit
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5226815310938112
+    m_Key: JoinLobbyPanelJoinButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5224082470223872
+    m_Key: CreateLobbyPanelisPrivate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5224242029936640
+    m_Key: CreateLobbyPanelCreate
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5228672347422720
+    m_Key: LobbyManagerPanelPlayerList
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5228812936298496
+    m_Key: LobbyManagerPanelGameSettings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229030280937472
+    m_Key: LobbyManagerPanelTurnTime
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229158899269632
+    m_Key: LobbyManagerPanelSaveButton
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229179640102912
+    m_Key: LobbyManagerPanelReadyButton
     m_Metadata:
       m_Items: []
   m_Metadata:

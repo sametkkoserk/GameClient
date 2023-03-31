@@ -35,6 +35,38 @@ MonoBehaviour:
     m_Localized: Exit Lobby
     m_Metadata:
       m_Items: []
+  - m_Id: 5224082470223872
+    m_Localized: Private
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5224242029936640
+    m_Localized: Create
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5226815310938112
+    m_Localized: Join
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5228672347422720
+    m_Localized: Player List
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5228812936298496
+    m_Localized: Lobby Settings
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229030280937472
+    m_Localized: 'Turn Time:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229158899269632
+    m_Localized: Save
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5229179640102912
+    m_Localized: Ready
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds:
