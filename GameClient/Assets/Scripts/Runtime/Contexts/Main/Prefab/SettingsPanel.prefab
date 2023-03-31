@@ -311,6 +311,7 @@ GameObject:
   - component: {fileID: 4498650294587484513}
   - component: {fileID: 6237288975643454733}
   - component: {fileID: 1713547582238462218}
+  - component: {fileID: 1290332119513141414}
   m_Layer: 0
   m_Name: AuidoSettingsButton
   m_TagString: Untagged
@@ -421,6 +422,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1290332119513141414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903553054873748189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ba6c06a2864827a6fb5352c661d797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPointerEnter: 1
+  onPointerExit: 0
 --- !u!1 &1200988139169186209
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,7 +503,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Dil
+  m_text: Language
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1074,7 +1089,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Ses
+  m_text: Audio
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1515,6 +1530,7 @@ GameObject:
   - component: {fileID: 9025022321200938262}
   - component: {fileID: 5849796750413193630}
   - component: {fileID: 2570416568384402094}
+  - component: {fileID: 367312000105187985}
   m_Layer: 0
   m_Name: LanguageDropdown
   m_TagString: Untagged
@@ -1654,6 +1670,20 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &367312000105187985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4954564767182626626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ba6c06a2864827a6fb5352c661d797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPointerEnter: 1
+  onPointerExit: 0
 --- !u!1 &5440498460965533620
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,6 +1696,7 @@ GameObject:
   - component: {fileID: 1732171482381805867}
   - component: {fileID: 7590915439348781269}
   - component: {fileID: 9039123513567600837}
+  - component: {fileID: 5500413944520052999}
   m_Layer: 0
   m_Name: LanguageSettingsButton
   m_TagString: Untagged
@@ -1776,6 +1807,20 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5500413944520052999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5440498460965533620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ba6c06a2864827a6fb5352c661d797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPointerEnter: 1
+  onPointerExit: 0
 --- !u!1 &5848261076529192703
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,8 +2153,9 @@ GameObject:
   - component: {fileID: 365485778440184274}
   - component: {fileID: 2276993377967514911}
   - component: {fileID: 6851217708036517109}
+  - component: {fileID: 6471590618914723974}
   m_Layer: 0
-  m_Name: StandardButton
+  m_Name: ExitSettingsButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2231,6 +2277,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &6471590618914723974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8541719083147639272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ba6c06a2864827a6fb5352c661d797, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onPointerEnter: 1
+  onPointerExit: 0
 --- !u!1 &8584386576009354303
 GameObject:
   m_ObjectHideFlags: 0
@@ -2459,7 +2519,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec583eb528854256a5f526c8362d74a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMeshProUGUI: {fileID: 0}
 --- !u!1 &9105129962893478458
 GameObject:
   m_ObjectHideFlags: 0
