@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e16294ad3ca42de92e97a20e16be7c9, type: 3}
+  m_Name: DeviceCursorSettings
+  m_EditorClassIdentifier: 
+  list:
+  - name: 0
+    texture: {fileID: 2800000, guid: 9df0c7ea41d76764d889a7e6a065c02a, type: 3}
+    hotPoint: {x: 0, y: 0}
+  - name: 1
+    texture: {fileID: 2800000, guid: f6335e19a827a49428e1fd2f849841a8, type: 3}
+    hotPoint: {x: 0, y: 0}
