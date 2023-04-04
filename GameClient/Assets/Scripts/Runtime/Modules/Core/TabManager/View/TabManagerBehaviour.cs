@@ -16,7 +16,10 @@ namespace Runtime.Modules.Core.TabManager.View
       for (int i = 0; i < tabManagerVoList.Count; i++)
       {
         int count = i;
-        tabManagerVoList[count].button.onClick.AddListener(delegate { OnClick(tabManagerVoList[count].button); });
+        tabManagerVoList[count].button.onClick.AddListener(delegate
+        {
+          OnClick(tabManagerVoList[count].button);
+        });
 
         if (i == 0)
         {
