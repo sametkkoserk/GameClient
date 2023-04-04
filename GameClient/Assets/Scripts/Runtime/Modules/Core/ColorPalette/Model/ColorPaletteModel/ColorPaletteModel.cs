@@ -1,39 +1,44 @@
+using System;
 using System.Collections.Generic;
 using Runtime.Modules.Core.Bundle.Model.BundleModel;
-using Runtime.Modules.Core.Cursor.Enum;
-using Runtime.Modules.Core.Cursor.Vo;
+using Runtime.Modules.Core.ColorPalette.Enum;
 using Runtime.Modules.Core.PromiseTool;
 using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
 
-namespace Runtime.Modules.Core.Cursor.Model.CursorModel
+namespace Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel
 {
-  public class CursorModel : ICursorModel
+  public class ColorPaletteModel : IColorPaletteModel
   {
-    public static ICursorModel instance;
-    
     [Inject]
     public IBundleModel bundleModel { get; set; }
-
-    private Dictionary<CursorKey, CursorVo> cursorsData { get; set; }
+    
+    public static IColorPaletteModel instance { get; set; }
+    
+    protected ColorPaletteKey colorPaletteKey { get; set; }
+    
+    protected List<ColorPaletteVo> colorPaletteVos { get; set; }
+    
+    
+    public delegate void ColorPaletteChangedEventHandler();
+    
+    
+    public event ColorPaletteChangedEventHandler OnColorPaletteChangedTrigger;
 
     [PostConstruct]
-    private void OnPostConstruct()
+    public void OnPostConstruct()
     {
-      cursorsData = new Dictionary<CursorKey, CursorVo>();
+      colorPaletteVos = new List<ColorPaletteVo>();
     }
 
     public IPromise Init()
     {
       Promise promise = new();
-      Debug.Log("init1");
 
-      bundleModel.LoadAssetAsync<CursorData>("DeviceCursorSettings").Then(data =>
+      bundleModel.LoadAssetAsync<ColorPaletteData>("ColorPaletteSettings").Then(data =>
       {
-        cursorsData = new Dictionary<CursorKey, CursorVo>();
-
-        foreach (CursorVo deviceCursorVo in data.list)
-          cursorsData.Add(deviceCursorVo.name, deviceCursorVo);
+        foreach (ColorPaletteVo colorPaletteVo in data.colorPaletteVos)
+          colorPaletteVos.Add(colorPaletteVo);
 
         instance = this;
 
@@ -42,25 +47,40 @@ namespace Runtime.Modules.Core.Cursor.Model.CursorModel
 
       return promise;
     }
-    
-    public void OnLoadCursors()
+
+    public ColorPaletteKey GetColorPalette()
     {
-      // string folderPath = "Assets/Scripts/Modules/Runtime/Modules/Cursor/2D Textures";
-      // string[] filePaths = Directory.GetFiles(folderPath);
-      //
-      // for (int i = 0; i < filePaths.Length; i++)
-      // {
-      //   Texture2D cursorTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(filePaths[i]);
-      //
-      //   cursors.Add(cursorTexture.name, cursorTexture);
-      // }
+      return colorPaletteKey;
     }
 
-    public void OnChangeCursor(CursorKey cursorKey)
+    public Color ChangeColor(ColorKey colorKey)
     {
-      if (!cursorsData.ContainsKey(cursorKey)) return;
-      CursorVo CursorVo = cursorsData[cursorKey];
-      UnityEngine.Cursor.SetCursor(CursorVo.texture, CursorVo.hotPoint, CursorMode.Auto);
+      for (int i = 0; i < colorPaletteVos.Count; i++)
+      {
+        if (colorPaletteVos[i].colorPaletteKey != colorPaletteKey) continue;
+        for (int j = 0; j < colorPaletteVos[i].colorVos.Count; j++)
+        {
+          if (colorPaletteVos[i].colorVos[j].colorKey != colorKey) continue;
+          return colorPaletteVos[i].colorVos[j].color;
+        }
+      }
+
+      return Color.white;
+    }
+
+    public void ChangeColorPalette(ColorPaletteKey newColorPaletteKey)
+    {
+      colorPaletteKey = newColorPaletteKey;
+      
+      OnColorPaletteChangedTrigger?.Invoke();
+    }
+    
+    public void BindMethod(Action callback)
+    {
+      ColorPaletteChangedEventHandler handler = () => callback();
+
+      OnColorPaletteChangedTrigger += handler;
+      // OnColorPaletteChangedTrigger += callback;
     }
   }
 }

@@ -1,11 +1,16 @@
-using Runtime.Modules.Core.Cursor.Enum;
+using System;
+using Runtime.Modules.Core.ColorPalette.Enum;
 using Runtime.Modules.Core.PromiseTool;
+using UnityEngine;
 
-namespace Runtime.Modules.Core.Cursor.Model.CursorModel
+namespace Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel
 {
-  public interface ICursorModel
+  public interface IColorPaletteModel
   {
+    void BindMethod(Action callback);
     IPromise Init();
-    void OnChangeCursor(CursorKey cursorKey){}
+    ColorPaletteKey GetColorPalette();
+    Color ChangeColor(ColorKey colorKey);
+    void ChangeColorPalette(ColorPaletteKey newColorPaletteKey);
   }
 }
