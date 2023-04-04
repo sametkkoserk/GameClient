@@ -13,36 +13,40 @@ namespace Runtime.Modules.Core.TabManager.View
 
     public void OnEnable()
     {
-      for (var i = 0; i < tabManagerVoList.Count; i++)
+      for (int i = 0; i < tabManagerVoList.Count; i++)
       {
-        var count = i;
+        int count = i;
         tabManagerVoList[count].button.onClick.AddListener(delegate { OnClick(tabManagerVoList[count].button); });
 
         if (i == 0)
         {
           tabManagerVoList[i].tab.SetActive(true);
           tabManagerVoList[i].title.fontStyle = FontStyles.Bold;
+          tabManagerVoList[i].button.interactable = false;
         }
         else
         {
           tabManagerVoList[i].tab.SetActive(false);
           tabManagerVoList[i].title.fontStyle = FontStyles.Normal;
+          tabManagerVoList[i].button.interactable = true;
         }
       }
     }
 
     public void OnClick(Button button)
     {
-      for (var i = 0; i < tabManagerVoList.Count; i++)
+      for (int i = 0; i < tabManagerVoList.Count; i++)
         if (tabManagerVoList[i].button == button)
         {
           tabManagerVoList[i].tab.SetActive(true);
           tabManagerVoList[i].title.fontStyle = FontStyles.Bold;
+          tabManagerVoList[i].button.interactable = false;
         }
         else
         {
           tabManagerVoList[i].tab.SetActive(false);
           tabManagerVoList[i].title.fontStyle = FontStyles.Normal;
+          tabManagerVoList[i].button.interactable = true;
         }
     }
   }

@@ -26,7 +26,6 @@ namespace Runtime.Modules.Core.Cursor.Model.CursorModel
     public IPromise Init()
     {
       Promise promise = new();
-      Debug.Log("init1");
 
       bundleModel.LoadAssetAsync<CursorData>("DeviceCursorSettings").Then(data =>
       {
@@ -41,19 +40,6 @@ namespace Runtime.Modules.Core.Cursor.Model.CursorModel
       }).Catch(promise.Reject);
 
       return promise;
-    }
-    
-    public void OnLoadCursors()
-    {
-      // string folderPath = "Assets/Scripts/Modules/Runtime/Modules/Cursor/2D Textures";
-      // string[] filePaths = Directory.GetFiles(folderPath);
-      //
-      // for (int i = 0; i < filePaths.Length; i++)
-      // {
-      //   Texture2D cursorTexture = AssetDatabase.LoadAssetAtPath<Texture2D>(filePaths[i]);
-      //
-      //   cursors.Add(cursorTexture.name, cursorTexture);
-      // }
     }
 
     public void OnChangeCursor(CursorKey cursorKey)
