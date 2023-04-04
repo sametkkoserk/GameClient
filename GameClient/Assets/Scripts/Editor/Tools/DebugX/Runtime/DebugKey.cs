@@ -8,6 +8,7 @@ namespace Editor.Tools.DebugX.Runtime
     Server,
     ScreenManager,
     JoinServer,
-    Localization
+    Localization,
+    ColorPalette
   }
 }
