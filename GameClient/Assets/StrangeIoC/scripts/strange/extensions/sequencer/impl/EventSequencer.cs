@@ -37,7 +37,7 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
         ;
       }
 
-      var command = injectionBinder.GetInstance<ISequenceCommand>();
+      ISequenceCommand command = injectionBinder.GetInstance<ISequenceCommand>();
       command.data = data;
       if (data is IEvent) injectionBinder.Unbind<IEvent>();
       injectionBinder.Unbind<ISequenceCommand>();

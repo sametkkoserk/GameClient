@@ -37,7 +37,7 @@ namespace Runtime.Contexts.MainGame.View.City
 
     public void FillColor()
     {
-      for (var i = 0; i < mainGameModel.materials.Count; i++)
+      for (int i = 0; i < mainGameModel.materials.Count; i++)
       {
         if (i != view.cityVo.ownerID) continue;
         view.material = mainGameModel.materials[i];

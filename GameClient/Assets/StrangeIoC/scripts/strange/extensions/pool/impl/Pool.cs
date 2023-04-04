@@ -100,7 +100,7 @@ namespace StrangeIoC.scripts.strange.extensions.pool.impl
 
     public virtual IManagedList Add(object[] list)
     {
-      foreach (var item in list)
+      foreach (object item in list)
         Add(item);
 
       return this;
@@ -115,7 +115,7 @@ namespace StrangeIoC.scripts.strange.extensions.pool.impl
 
     public virtual IManagedList Remove(object[] list)
     {
-      foreach (var item in list)
+      foreach (object item in list)
         Remove(item);
 
       return this;
@@ -145,12 +145,12 @@ namespace StrangeIoC.scripts.strange.extensions.pool.impl
       // Is an instance available?
       if (instancesAvailable.Count > 0)
       {
-        var retv = instancesAvailable.Pop();
+        object retv = instancesAvailable.Pop();
         instancesInUse.Add(retv);
         return retv;
       }
 
-      var instancesToCreate = 0;
+      int instancesToCreate = 0;
 
       //New fixed-size pool. Populate.
       if (size > 0)
@@ -184,9 +184,9 @@ namespace StrangeIoC.scripts.strange.extensions.pool.impl
       {
         failIf(instanceProvider == null, "A Pool of type: " + poolType + " has no instance provider.", PoolExceptionType.NO_INSTANCE_PROVIDER);
 
-        for (var a = 0; a < instancesToCreate; a++)
+        for (int a = 0; a < instancesToCreate; a++)
         {
-          var newInstance = instanceProvider.GetInstance(poolType);
+          object newInstance = instanceProvider.GetInstance(poolType);
           Add(newInstance);
         }
 

@@ -29,9 +29,9 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       // Clear Input Field
       ChatInputField.text = string.Empty;
 
-      var timeNow = DateTime.Now;
+      DateTime timeNow = DateTime.Now;
 
-      var formattedInput = "[<#FFFF80>" + timeNow.Hour.ToString("d2") + ":" + timeNow.Minute.ToString("d2") + ":" + timeNow.Second.ToString("d2") + "</color>] " + newText;
+      string formattedInput = "[<#FFFF80>" + timeNow.Hour.ToString("d2") + ":" + timeNow.Minute.ToString("d2") + ":" + timeNow.Second.ToString("d2") + "</color>] " + newText;
 
       if (ChatDisplayOutput != null)
       {

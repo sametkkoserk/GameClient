@@ -39,7 +39,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
         gameStart = true,
         lobbyId = lobbyModel.lobbyVo.lobbyId
       };
-      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GameStart);
+      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GameStart);
       message = networkManager.SetData(message, vo);
 
       networkManager.Client.Send(message);
@@ -54,8 +54,8 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
     private void OnTurn(IEvent payload)
     {
-      var messageReceivedVo = (MessageReceivedVo)payload.data;
-      var inLobbyId = Convert.ToUInt16(messageReceivedVo.message);
+      MessageReceivedVo messageReceivedVo = (MessageReceivedVo)payload.data;
+      ushort inLobbyId = Convert.ToUInt16(messageReceivedVo.message);
       mainGameModel.queue = inLobbyId;
 
       screenManagerModel.OpenPanel(MainGameKeys.YourTurnPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
@@ -70,7 +70,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
         currentTurnPlayerLobbyId = lobbyModel.clientVo.inLobbyId,
         lobbyId = lobbyModel.lobbyVo.lobbyId
       };
-      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.NextTurn);
+      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.NextTurn);
       message = networkManager.SetData(message, vo);
 
       networkManager.Client.Send(message);

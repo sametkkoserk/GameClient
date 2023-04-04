@@ -16,14 +16,14 @@ namespace Editor.Tools.Quick.UpperButtons
 
     public static T[] GetAtPath<T>(string path)
     {
-      var al = new ArrayList();
-      var fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
+      ArrayList al = new ArrayList();
+      string[] fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
 
-      foreach (var fileName in fileEntries)
+      foreach (string fileName in fileEntries)
       {
-        var temp = fileName.Replace("\\", "/");
-        var index = temp.LastIndexOf("/");
-        var localPath = "Assets/" + path;
+        string temp = fileName.Replace("\\", "/");
+        int index = temp.LastIndexOf("/");
+        string localPath = "Assets/" + path;
 
         if (index > 0)
           localPath += temp.Substring(index);
@@ -34,9 +34,9 @@ namespace Editor.Tools.Quick.UpperButtons
           al.Add(t);
       }
 
-      var result = new T[al.Count];
+      T[] result = new T[al.Count];
 
-      for (var i = 0; i < al.Count; i++)
+      for (int i = 0; i < al.Count; i++)
         result[i] = (T)al[i];
 
       return result;
@@ -45,9 +45,9 @@ namespace Editor.Tools.Quick.UpperButtons
     [ToolbarButton("d_winbtn_win_max", "Open Terminal")]
     public static void OpenTerminal()
     {
-      var projectPath = Directory.GetParent(Application.dataPath).FullName;
+      string projectPath = Directory.GetParent(Application.dataPath).FullName;
 
-      var cmd = new Process();
+      Process cmd = new Process();
 #if UNITY_EDITOR_WIN
       cmd.StartInfo.FileName = "cmd.exe";
 #endif
@@ -61,9 +61,9 @@ namespace Editor.Tools.Quick.UpperButtons
     [ToolbarButton("Folder Icon", "Open Folder")]
     public static void OpenFolder()
     {
-      var projectPath = Directory.GetParent(Application.dataPath).FullName;
+      string projectPath = Directory.GetParent(Application.dataPath).FullName;
 
-      var cmd = new Process();
+      Process cmd = new Process();
 #if UNITY_EDITOR_WIN
       cmd.StartInfo.FileName = "explorer.exe";
 #endif

@@ -42,7 +42,7 @@ namespace Editor.Tools.HierarchyHeader.Editor
     [UserSettingBlock("General")]
     private static void CustomSettingsGUI(string searchContext)
     {
-      using (var scope = new EditorGUI.ChangeCheckScope())
+      using (EditorGUI.ChangeCheckScope scope = new EditorGUI.ChangeCheckScope())
       {
         maxLength.value = SettingsGUILayout.SettingsSlider("Max Length", maxLength, 10, 60, searchContext);
 
@@ -51,7 +51,7 @@ namespace Editor.Tools.HierarchyHeader.Editor
 
         if (headerType.value == HeaderType.Custom)
         {
-          var v = SettingsGUILayout.SettingsTextField("Custom Prefix", customPrefix, searchContext);
+          string v = SettingsGUILayout.SettingsTextField("Custom Prefix", customPrefix, searchContext);
           if (v?.Length <= 1)
             customPrefix.value = v;
         }
@@ -76,7 +76,7 @@ namespace Editor.Tools.HierarchyHeader.Editor
     [SettingsProvider]
     private static SettingsProvider CreateSettingsProvider()
     {
-      var provider = new UserSettingsProvider(k_PreferencesPath, Instance,
+      UserSettingsProvider provider = new UserSettingsProvider(k_PreferencesPath, Instance,
         new[] { typeof(HeaderSettings).Assembly }, SettingsScope.Project);
 
       return provider;

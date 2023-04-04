@@ -33,7 +33,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
     internal void init()
     {
       gameObject.AddComponent<ClickDetector>();
-      var clicker = gameObject.GetComponent<ClickDetector>();
+      ClickDetector clicker = gameObject.GetComponent<ClickDetector>();
       clicker.dispatcher.AddListener(ClickDetector.CLICK, onClick);
     }
 

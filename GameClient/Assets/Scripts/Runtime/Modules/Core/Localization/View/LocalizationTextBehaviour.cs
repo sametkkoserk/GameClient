@@ -35,7 +35,7 @@ namespace Runtime.Modules.Core.Localization.View
 
       label.text = value;
 
-      for (var i = 0; i < arguments.Length; i++)
+      for (int i = 0; i < arguments.Length; i++)
       {
         if (i > 4)
           break;
@@ -51,7 +51,7 @@ namespace Runtime.Modules.Core.Localization.View
       if (localizedString.Arguments == null)
         Init();
 
-      for (var i = 0; i < arguments.Length; i++)
+      for (int i = 0; i < arguments.Length; i++)
       {
         if (i > 4)
           break;

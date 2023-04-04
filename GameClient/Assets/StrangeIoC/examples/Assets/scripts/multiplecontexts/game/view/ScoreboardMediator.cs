@@ -57,13 +57,13 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.view
 
     private void onScoreChange(IEvent evt)
     {
-      var score = SCORE_STRING + (int)evt.data;
+      string score = SCORE_STRING + (int)evt.data;
       view.updateScore(score);
     }
 
     private void onLivesChange(IEvent evt)
     {
-      var lives = LIVES_STRING + (int)evt.data;
+      string lives = LIVES_STRING + (int)evt.data;
       view.updateLives(lives);
     }
 

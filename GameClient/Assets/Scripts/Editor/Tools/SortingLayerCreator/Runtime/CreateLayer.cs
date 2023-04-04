@@ -12,14 +12,14 @@ namespace Editor.Tools.SortingLayerCreator.Runtime
     {
       DeleteAllSortingLayers();
 
-      var layers = Enum.GetNames(typeof(LayerKey));
-      for (var i = 0; i < layers.Length; i++) CreateSortingLayer(layers[i]);
+      string[] layers = Enum.GetNames(typeof(LayerKey));
+      for (int i = 0; i < layers.Length; i++) CreateSortingLayer(layers[i]);
     }
 
     public static void DeleteAllSortingLayers()
     {
       SerializedObject serializedObject = new(AssetDatabase.LoadMainAssetAtPath("ProjectSettings/TagManager.asset"));
-      var sortingLayers = serializedObject.FindProperty("m_SortingLayers");
+      SerializedProperty sortingLayers = serializedObject.FindProperty("m_SortingLayers");
 
       sortingLayers.ClearArray();
 
@@ -34,14 +34,14 @@ namespace Editor.Tools.SortingLayerCreator.Runtime
     public static void CreateSortingLayer(string layerName)
     {
       SerializedObject serializedObject = new(AssetDatabase.LoadMainAssetAtPath("ProjectSettings/TagManager.asset"));
-      var sortingLayers = serializedObject.FindProperty("m_SortingLayers");
+      SerializedProperty sortingLayers = serializedObject.FindProperty("m_SortingLayers");
 
-      for (var i = 0; i < sortingLayers.arraySize; i++)
+      for (int i = 0; i < sortingLayers.arraySize; i++)
         if (sortingLayers.GetArrayElementAtIndex(i).FindPropertyRelative("name").stringValue.Equals(layerName))
           return;
 
       sortingLayers.InsertArrayElementAtIndex(sortingLayers.arraySize);
-      var newLayer = sortingLayers.GetArrayElementAtIndex(sortingLayers.arraySize - 1);
+      SerializedProperty newLayer = sortingLayers.GetArrayElementAtIndex(sortingLayers.arraySize - 1);
 
       newLayer.FindPropertyRelative("name").stringValue = layerName;
       newLayer.FindPropertyRelative("uniqueID").intValue = layerName.GetHashCode(); /* some unique number */

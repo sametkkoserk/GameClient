@@ -46,22 +46,22 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 
     public override void Execute()
     {
-      var list = data as ArrayList;
+      ArrayList list = data as ArrayList;
 
-      var highScore = 0;
-      var aa = list.Count;
-      for (var a = 0; a < aa; a++)
+      int highScore = 0;
+      int aa = list.Count;
+      for (int a = 0; a < aa; a++)
       {
-        var vo = list[a] as UserVO;
+        UserVO vo = list[a] as UserVO;
 
-        var go = Object.Instantiate(Resources.Load("GameTile")) as GameObject;
+        GameObject go = Object.Instantiate(Resources.Load("GameTile")) as GameObject;
         go.AddComponent<UserTileView>();
         go.transform.parent = contextView.transform;
-        var view = go.GetComponent<UserTileView>();
+        UserTileView view = go.GetComponent<UserTileView>();
         view.setUser(vo);
 
-        var pos = new Vector3(.2f + .1f * a, .1f, (Camera.main.farClipPlane - Camera.main.nearClipPlane) / 2f);
-        var dest = Camera.main.ViewportToWorldPoint(pos);
+        Vector3 pos = new Vector3(.2f + .1f * a, .1f, (Camera.main.farClipPlane - Camera.main.nearClipPlane) / 2f);
+        Vector3 dest = Camera.main.ViewportToWorldPoint(pos);
         view.SetTilePosition(dest);
 
         highScore = Math.Max(highScore, vo.highScore);
@@ -75,7 +75,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
       else
         msg = "Score of " + userVO.currentScore + " is nothing special.";
 
-      var award = new GameObject();
+      GameObject award = new GameObject();
       award.transform.parent = contextView.transform;
       award.AddComponent<AwardView>();
 

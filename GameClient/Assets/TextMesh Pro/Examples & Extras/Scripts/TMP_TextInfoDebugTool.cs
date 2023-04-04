@@ -117,16 +117,16 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     /// <param name="text"></param>
     private void DrawCharactersBounds()
     {
-      var characterCount = m_TextInfo.characterCount;
+      int characterCount = m_TextInfo.characterCount;
 
-      for (var i = 0; i < characterCount; i++)
+      for (int i = 0; i < characterCount; i++)
       {
         // Draw visible as well as invisible characters
-        var characterInfo = m_TextInfo.characterInfo[i];
+        TMP_CharacterInfo characterInfo = m_TextInfo.characterInfo[i];
 
-        var isCharacterVisible = i < m_TextComponent.maxVisibleCharacters &&
-                                 characterInfo.lineNumber < m_TextComponent.maxVisibleLines &&
-                                 i >= m_TextComponent.firstVisibleCharacter;
+        bool isCharacterVisible = i < m_TextComponent.maxVisibleCharacters &&
+                                  characterInfo.lineNumber < m_TextComponent.maxVisibleLines &&
+                                  i >= m_TextComponent.firstVisibleCharacter;
 
         if (m_TextComponent.overflowMode == TextOverflowModes.Page)
           isCharacterVisible = isCharacterVisible && characterInfo.pageNumber + 1 == m_TextComponent.pageToDisplay;
@@ -137,49 +137,49 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         float dottedLineSize = 6;
 
         // Get Bottom Left and Top Right position of the current character
-        var bottomLeft = m_Transform.TransformPoint(characterInfo.bottomLeft);
-        var topLeft = m_Transform.TransformPoint(new Vector3(characterInfo.topLeft.x, characterInfo.topLeft.y, 0));
-        var topRight = m_Transform.TransformPoint(characterInfo.topRight);
-        var bottomRight = m_Transform.TransformPoint(new Vector3(characterInfo.bottomRight.x, characterInfo.bottomRight.y, 0));
+        Vector3 bottomLeft = m_Transform.TransformPoint(characterInfo.bottomLeft);
+        Vector3 topLeft = m_Transform.TransformPoint(new Vector3(characterInfo.topLeft.x, characterInfo.topLeft.y, 0));
+        Vector3 topRight = m_Transform.TransformPoint(characterInfo.topRight);
+        Vector3 bottomRight = m_Transform.TransformPoint(new Vector3(characterInfo.bottomRight.x, characterInfo.bottomRight.y, 0));
 
         // Draw character bounds
         if (characterInfo.isVisible)
         {
-          var color = Color.green;
+          Color color = Color.green;
           DrawDottedRectangle(bottomLeft, topRight, color);
         }
         else
         {
-          var color = Color.grey;
+          Color color = Color.grey;
 
-          var whiteSpaceAdvance = Math.Abs(characterInfo.origin - characterInfo.xAdvance) > 0.01f
+          float whiteSpaceAdvance = Math.Abs(characterInfo.origin - characterInfo.xAdvance) > 0.01f
             ? characterInfo.xAdvance
             : characterInfo.origin + (characterInfo.ascender - characterInfo.descender) * 0.03f;
           DrawDottedRectangle(m_Transform.TransformPoint(new Vector3(characterInfo.origin, characterInfo.descender, 0)),
             m_Transform.TransformPoint(new Vector3(whiteSpaceAdvance, characterInfo.ascender, 0)), color, 4);
         }
 
-        var origin = characterInfo.origin;
-        var advance = characterInfo.xAdvance;
-        var ascentline = characterInfo.ascender;
-        var baseline = characterInfo.baseLine;
-        var descentline = characterInfo.descender;
+        float origin = characterInfo.origin;
+        float advance = characterInfo.xAdvance;
+        float ascentline = characterInfo.ascender;
+        float baseline = characterInfo.baseLine;
+        float descentline = characterInfo.descender;
 
         //Draw Ascent line
-        var ascentlineStart = m_Transform.TransformPoint(new Vector3(origin, ascentline, 0));
-        var ascentlineEnd = m_Transform.TransformPoint(new Vector3(advance, ascentline, 0));
+        Vector3 ascentlineStart = m_Transform.TransformPoint(new Vector3(origin, ascentline, 0));
+        Vector3 ascentlineEnd = m_Transform.TransformPoint(new Vector3(advance, ascentline, 0));
 
         Handles.color = Color.cyan;
         Handles.DrawDottedLine(ascentlineStart, ascentlineEnd, dottedLineSize);
 
         // Draw Cap Height & Mean line
-        var capline = characterInfo.fontAsset == null ? 0 : baseline + characterInfo.fontAsset.faceInfo.capLine * characterInfo.scale;
-        var capHeightStart = new Vector3(topLeft.x, m_Transform.TransformPoint(new Vector3(0, capline, 0)).y, 0);
-        var capHeightEnd = new Vector3(topRight.x, m_Transform.TransformPoint(new Vector3(0, capline, 0)).y, 0);
+        float capline = characterInfo.fontAsset == null ? 0 : baseline + characterInfo.fontAsset.faceInfo.capLine * characterInfo.scale;
+        Vector3 capHeightStart = new Vector3(topLeft.x, m_Transform.TransformPoint(new Vector3(0, capline, 0)).y, 0);
+        Vector3 capHeightEnd = new Vector3(topRight.x, m_Transform.TransformPoint(new Vector3(0, capline, 0)).y, 0);
 
-        var meanline = characterInfo.fontAsset == null ? 0 : baseline + characterInfo.fontAsset.faceInfo.meanLine * characterInfo.scale;
-        var meanlineStart = new Vector3(topLeft.x, m_Transform.TransformPoint(new Vector3(0, meanline, 0)).y, 0);
-        var meanlineEnd = new Vector3(topRight.x, m_Transform.TransformPoint(new Vector3(0, meanline, 0)).y, 0);
+        float meanline = characterInfo.fontAsset == null ? 0 : baseline + characterInfo.fontAsset.faceInfo.meanLine * characterInfo.scale;
+        Vector3 meanlineStart = new Vector3(topLeft.x, m_Transform.TransformPoint(new Vector3(0, meanline, 0)).y, 0);
+        Vector3 meanlineEnd = new Vector3(topRight.x, m_Transform.TransformPoint(new Vector3(0, meanline, 0)).y, 0);
 
         if (characterInfo.isVisible)
         {
@@ -193,39 +193,39 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         }
 
         //Draw Base line
-        var baselineStart = m_Transform.TransformPoint(new Vector3(origin, baseline, 0));
-        var baselineEnd = m_Transform.TransformPoint(new Vector3(advance, baseline, 0));
+        Vector3 baselineStart = m_Transform.TransformPoint(new Vector3(origin, baseline, 0));
+        Vector3 baselineEnd = m_Transform.TransformPoint(new Vector3(advance, baseline, 0));
 
         Handles.color = Color.cyan;
         Handles.DrawDottedLine(baselineStart, baselineEnd, dottedLineSize);
 
         //Draw Descent line
-        var descentlineStart = m_Transform.TransformPoint(new Vector3(origin, descentline, 0));
-        var descentlineEnd = m_Transform.TransformPoint(new Vector3(advance, descentline, 0));
+        Vector3 descentlineStart = m_Transform.TransformPoint(new Vector3(origin, descentline, 0));
+        Vector3 descentlineEnd = m_Transform.TransformPoint(new Vector3(advance, descentline, 0));
 
         Handles.color = Color.cyan;
         Handles.DrawDottedLine(descentlineStart, descentlineEnd, dottedLineSize);
 
         // Draw Origin
-        var originPosition = m_Transform.TransformPoint(new Vector3(origin, baseline, 0));
+        Vector3 originPosition = m_Transform.TransformPoint(new Vector3(origin, baseline, 0));
         DrawCrosshair(originPosition, 0.05f / m_ScaleMultiplier, Color.cyan);
 
         // Draw Horizontal Advance
-        var advancePosition = m_Transform.TransformPoint(new Vector3(advance, baseline, 0));
+        Vector3 advancePosition = m_Transform.TransformPoint(new Vector3(advance, baseline, 0));
         DrawSquare(advancePosition, 0.025f / m_ScaleMultiplier, Color.yellow);
         DrawCrosshair(advancePosition, 0.0125f / m_ScaleMultiplier, Color.yellow);
 
         // Draw text labels for metrics
         if (m_HandleSize < 0.5f)
         {
-          var style = new GUIStyle(GUI.skin.GetStyle("Label"));
+          GUIStyle style = new GUIStyle(GUI.skin.GetStyle("Label"));
           style.normal.textColor = new Color(0.6f, 0.6f, 0.6f, 1.0f);
           style.fontSize = 12;
           style.fixedWidth = 200;
           style.fixedHeight = 20;
 
           Vector3 labelPosition;
-          var center = (origin + advance) / 2;
+          float center = (origin + advance) / 2;
 
           //float baselineMetrics = 0;
           //float ascentlineMetrics = ascentline - baseline;
@@ -284,32 +284,32 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     /// <param name="text"></param>
     private void DrawWordBounds()
     {
-      for (var i = 0; i < m_TextInfo.wordCount; i++)
+      for (int i = 0; i < m_TextInfo.wordCount; i++)
       {
-        var wInfo = m_TextInfo.wordInfo[i];
+        TMP_WordInfo wInfo = m_TextInfo.wordInfo[i];
 
-        var isBeginRegion = false;
+        bool isBeginRegion = false;
 
-        var bottomLeft = Vector3.zero;
-        var topLeft = Vector3.zero;
-        var bottomRight = Vector3.zero;
-        var topRight = Vector3.zero;
+        Vector3 bottomLeft = Vector3.zero;
+        Vector3 topLeft = Vector3.zero;
+        Vector3 bottomRight = Vector3.zero;
+        Vector3 topRight = Vector3.zero;
 
-        var maxAscender = -Mathf.Infinity;
-        var minDescender = Mathf.Infinity;
+        float maxAscender = -Mathf.Infinity;
+        float minDescender = Mathf.Infinity;
 
-        var wordColor = Color.green;
+        Color wordColor = Color.green;
 
         // Iterate through each character of the word
-        for (var j = 0; j < wInfo.characterCount; j++)
+        for (int j = 0; j < wInfo.characterCount; j++)
         {
-          var characterIndex = wInfo.firstCharacterIndex + j;
-          var currentCharInfo = m_TextInfo.characterInfo[characterIndex];
-          var currentLine = currentCharInfo.lineNumber;
+          int characterIndex = wInfo.firstCharacterIndex + j;
+          TMP_CharacterInfo currentCharInfo = m_TextInfo.characterInfo[characterIndex];
+          int currentLine = currentCharInfo.lineNumber;
 
-          var isCharacterVisible = characterIndex > m_TextComponent.maxVisibleCharacters ||
-                                   currentCharInfo.lineNumber > m_TextComponent.maxVisibleLines ||
-                                   (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
+          bool isCharacterVisible = characterIndex > m_TextComponent.maxVisibleCharacters ||
+                                    currentCharInfo.lineNumber > m_TextComponent.maxVisibleLines ||
+                                    (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
             ? false
             : true;
 
@@ -387,34 +387,34 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     /// <param name="text"></param>
     private void DrawLinkBounds()
     {
-      var textInfo = m_TextComponent.textInfo;
+      TMP_TextInfo textInfo = m_TextComponent.textInfo;
 
-      for (var i = 0; i < textInfo.linkCount; i++)
+      for (int i = 0; i < textInfo.linkCount; i++)
       {
-        var linkInfo = textInfo.linkInfo[i];
+        TMP_LinkInfo linkInfo = textInfo.linkInfo[i];
 
-        var isBeginRegion = false;
+        bool isBeginRegion = false;
 
-        var bottomLeft = Vector3.zero;
-        var topLeft = Vector3.zero;
-        var bottomRight = Vector3.zero;
-        var topRight = Vector3.zero;
+        Vector3 bottomLeft = Vector3.zero;
+        Vector3 topLeft = Vector3.zero;
+        Vector3 bottomRight = Vector3.zero;
+        Vector3 topRight = Vector3.zero;
 
-        var maxAscender = -Mathf.Infinity;
-        var minDescender = Mathf.Infinity;
+        float maxAscender = -Mathf.Infinity;
+        float minDescender = Mathf.Infinity;
 
         Color32 linkColor = Color.cyan;
 
         // Iterate through each character of the link text
-        for (var j = 0; j < linkInfo.linkTextLength; j++)
+        for (int j = 0; j < linkInfo.linkTextLength; j++)
         {
-          var characterIndex = linkInfo.linkTextfirstCharacterIndex + j;
-          var currentCharInfo = textInfo.characterInfo[characterIndex];
-          var currentLine = currentCharInfo.lineNumber;
+          int characterIndex = linkInfo.linkTextfirstCharacterIndex + j;
+          TMP_CharacterInfo currentCharInfo = textInfo.characterInfo[characterIndex];
+          int currentLine = currentCharInfo.lineNumber;
 
-          var isCharacterVisible = characterIndex > m_TextComponent.maxVisibleCharacters ||
-                                   currentCharInfo.lineNumber > m_TextComponent.maxVisibleLines ||
-                                   (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
+          bool isCharacterVisible = characterIndex > m_TextComponent.maxVisibleCharacters ||
+                                    currentCharInfo.lineNumber > m_TextComponent.maxVisibleLines ||
+                                    (m_TextComponent.overflowMode == TextOverflowModes.Page && currentCharInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
             ? false
             : true;
 
@@ -493,29 +493,29 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     /// <param name="text"></param>
     private void DrawLineBounds()
     {
-      var lineCount = m_TextInfo.lineCount;
+      int lineCount = m_TextInfo.lineCount;
 
-      for (var i = 0; i < lineCount; i++)
+      for (int i = 0; i < lineCount; i++)
       {
-        var lineInfo = m_TextInfo.lineInfo[i];
-        var firstCharacterInfo = m_TextInfo.characterInfo[lineInfo.firstCharacterIndex];
-        var lastCharacterInfo = m_TextInfo.characterInfo[lineInfo.lastCharacterIndex];
+        TMP_LineInfo lineInfo = m_TextInfo.lineInfo[i];
+        TMP_CharacterInfo firstCharacterInfo = m_TextInfo.characterInfo[lineInfo.firstCharacterIndex];
+        TMP_CharacterInfo lastCharacterInfo = m_TextInfo.characterInfo[lineInfo.lastCharacterIndex];
 
-        var isLineVisible = (lineInfo.characterCount == 1 &&
-                             (firstCharacterInfo.character == 10 || firstCharacterInfo.character == 11 || firstCharacterInfo.character == 0x2028 || firstCharacterInfo.character == 0x2029)) ||
-                            i > m_TextComponent.maxVisibleLines ||
-                            (m_TextComponent.overflowMode == TextOverflowModes.Page && firstCharacterInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
+        bool isLineVisible = (lineInfo.characterCount == 1 &&
+                              (firstCharacterInfo.character == 10 || firstCharacterInfo.character == 11 || firstCharacterInfo.character == 0x2028 || firstCharacterInfo.character == 0x2029)) ||
+                             i > m_TextComponent.maxVisibleLines ||
+                             (m_TextComponent.overflowMode == TextOverflowModes.Page && firstCharacterInfo.pageNumber + 1 != m_TextComponent.pageToDisplay)
           ? false
           : true;
 
         if (!isLineVisible) continue;
 
-        var lineBottomLeft = firstCharacterInfo.bottomLeft.x;
-        var lineTopRight = lastCharacterInfo.topRight.x;
+        float lineBottomLeft = firstCharacterInfo.bottomLeft.x;
+        float lineTopRight = lastCharacterInfo.topRight.x;
 
-        var ascentline = lineInfo.ascender;
-        var baseline = lineInfo.baseline;
-        var descentline = lineInfo.descender;
+        float ascentline = lineInfo.ascender;
+        float baseline = lineInfo.baseline;
+        float descentline = lineInfo.descender;
 
         float dottedLineSize = 12;
 
@@ -523,22 +523,22 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         DrawDottedRectangle(m_Transform.TransformPoint(lineInfo.lineExtents.min), m_Transform.TransformPoint(lineInfo.lineExtents.max), Color.green, 4);
 
         // Draw Ascent line
-        var ascentlineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, ascentline, 0));
-        var ascentlineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, ascentline, 0));
+        Vector3 ascentlineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, ascentline, 0));
+        Vector3 ascentlineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, ascentline, 0));
 
         Handles.color = Color.yellow;
         Handles.DrawDottedLine(ascentlineStart, ascentlineEnd, dottedLineSize);
 
         // Draw Base line
-        var baseLineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, baseline, 0));
-        var baseLineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, baseline, 0));
+        Vector3 baseLineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, baseline, 0));
+        Vector3 baseLineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, baseline, 0));
 
         Handles.color = Color.yellow;
         Handles.DrawDottedLine(baseLineStart, baseLineEnd, dottedLineSize);
 
         // Draw Descent line
-        var descentLineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, descentline, 0));
-        var descentLineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, descentline, 0));
+        Vector3 descentLineStart = m_Transform.TransformPoint(new Vector3(lineBottomLeft, descentline, 0));
+        Vector3 descentLineEnd = m_Transform.TransformPoint(new Vector3(lineTopRight, descentline, 0));
 
         Handles.color = Color.yellow;
         Handles.DrawDottedLine(descentLineStart, descentLineEnd, dottedLineSize);
@@ -546,7 +546,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         // Draw text labels for metrics
         if (m_HandleSize < 1.0f)
         {
-          var style = new GUIStyle();
+          GUIStyle style = new GUIStyle();
           style.normal.textColor = new Color(0.8f, 0.8f, 0.8f, 1.0f);
           style.fontSize = 12;
           style.fixedWidth = 200;
@@ -576,11 +576,11 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     /// </summary>
     private void DrawBounds()
     {
-      var meshBounds = m_TextComponent.bounds;
+      Bounds meshBounds = m_TextComponent.bounds;
 
       // Get Bottom Left and Top Right position of each word
-      var bottomLeft = m_TextComponent.transform.position + meshBounds.min;
-      var topRight = m_TextComponent.transform.position + meshBounds.max;
+      Vector3 bottomLeft = m_TextComponent.transform.position + meshBounds.min;
+      Vector3 topRight = m_TextComponent.transform.position + meshBounds.max;
 
       DrawRectangle(bottomLeft, topRight, new Color(1, 0.5f, 0));
     }
@@ -588,10 +588,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
     private void DrawTextBounds()
     {
-      var textBounds = m_TextComponent.textBounds;
+      Bounds textBounds = m_TextComponent.textBounds;
 
-      var bottomLeft = m_TextComponent.transform.position + (textBounds.center - textBounds.extents);
-      var topRight = m_TextComponent.transform.position + (textBounds.center + textBounds.extents);
+      Vector3 bottomLeft = m_TextComponent.transform.position + (textBounds.center - textBounds.extents);
+      Vector3 topRight = m_TextComponent.transform.position + (textBounds.center + textBounds.extents);
 
       DrawRectangle(bottomLeft, topRight, new Color(0f, 0.5f, 0.5f));
     }
@@ -620,17 +620,17 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     private void DrawSolidRectangle(Vector3 bottomLeft, Vector3 topRight, Color color, float size = 5.0f)
     {
       Handles.color = color;
-      var rect = new Rect(bottomLeft, topRight - bottomLeft);
+      Rect rect = new Rect(bottomLeft, topRight - bottomLeft);
       Handles.DrawSolidRectangleWithOutline(rect, color, Color.black);
     }
 
     private void DrawSquare(Vector3 position, float size, Color color)
     {
       Handles.color = color;
-      var bottomLeft = new Vector3(position.x - size, position.y - size, position.z);
-      var topLeft = new Vector3(position.x - size, position.y + size, position.z);
-      var topRight = new Vector3(position.x + size, position.y + size, position.z);
-      var bottomRight = new Vector3(position.x + size, position.y - size, position.z);
+      Vector3 bottomLeft = new Vector3(position.x - size, position.y - size, position.z);
+      Vector3 topLeft = new Vector3(position.x - size, position.y + size, position.z);
+      Vector3 topRight = new Vector3(position.x + size, position.y + size, position.z);
+      Vector3 bottomRight = new Vector3(position.x + size, position.y - size, position.z);
 
       Handles.DrawLine(bottomLeft, topLeft);
       Handles.DrawLine(topLeft, topRight);
@@ -662,8 +662,8 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     // Draw Rectangles
     private void DrawDottedRectangle(Vector3 bl, Vector3 tl, Vector3 tr, Vector3 br, Color color)
     {
-      var cam = Camera.current;
-      var dotSpacing = (cam.WorldToScreenPoint(br).x - cam.WorldToScreenPoint(bl).x) / 75f;
+      Camera cam = Camera.current;
+      float dotSpacing = (cam.WorldToScreenPoint(br).x - cam.WorldToScreenPoint(bl).x) / 75f;
       Handles.color = color;
 
       Handles.DrawDottedLine(bl, tl, dotSpacing);

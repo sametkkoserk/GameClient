@@ -43,7 +43,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
     public override void Execute()
     {
       Retain();
-      var score = (int)evt.data;
+      int score = (int)evt.data;
 
       //Set the current score
       userVO.currentScore = score;
@@ -56,7 +56,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
     private void onResponse(IEvent evt)
     {
       social.dispatcher.RemoveListener(SocialEvent.FULFILL_FRIENDS_REQUEST, onResponse);
-      var list = evt.data as ArrayList;
+      ArrayList list = evt.data as ArrayList;
 
       //Save the list as the data for the next item in the sequence
       data = list;

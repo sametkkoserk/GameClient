@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using Editor.Tools.HierarchyHeader.Runtime;
 using UnityEditor;
+using UnityEditor.SettingsManagement;
 using UnityEngine;
 
 namespace Editor.Tools.HierarchyHeader.Editor
@@ -24,10 +25,10 @@ namespace Editor.Tools.HierarchyHeader.Editor
 
     public static void UpdateAllHeader()
     {
-      var targetType = HeaderSettings.headerType;
-      var targetAlignment = HeaderSettings.alignment;
-      var allHeader = FindObjectsOfType<Header>();
-      foreach (var header in allHeader)
+      UserSetting<HeaderType> targetType = HeaderSettings.headerType;
+      UserSetting<HeaderAlignment> targetAlignment = HeaderSettings.alignment;
+      Header[] allHeader = FindObjectsOfType<Header>();
+      foreach (Header header in allHeader)
       {
         header.type = targetType;
         header.alignment = targetAlignment;
@@ -44,11 +45,11 @@ namespace Editor.Tools.HierarchyHeader.Editor
 
     public static string GetSimpleTitle(char prefix, string title)
     {
-      var maxCharLength = HeaderSettings.maxLength;
-      var charLength = maxCharLength - title.Length;
+      UserSetting<int> maxCharLength = HeaderSettings.maxLength;
+      int charLength = maxCharLength - title.Length;
 
-      var leftSize = 0;
-      var rightSize = 0;
+      int leftSize = 0;
+      int rightSize = 0;
       switch (HeaderSettings.alignment.value)
       {
         case HeaderAlignment.Start:
@@ -65,10 +66,10 @@ namespace Editor.Tools.HierarchyHeader.Editor
           break;
       }
 
-      var left = leftSize > 0 ? new string(prefix, leftSize) : "";
-      var right = rightSize > 0 ? new string(prefix, rightSize) : "";
+      string left = leftSize > 0 ? new string(prefix, leftSize) : "";
+      string right = rightSize > 0 ? new string(prefix, rightSize) : "";
 
-      var builder = new StringBuilder();
+      StringBuilder builder = new StringBuilder();
       builder.Append(left);
       builder.Append(" ");
       builder.Append(title.ToUpper());
@@ -93,7 +94,7 @@ namespace Editor.Tools.HierarchyHeader.Editor
 
     public static void UpdateHeader(Header header, string title = null, bool markAsDirty = false)
     {
-      var targetTitle = title == null ? header.title : title;
+      string targetTitle = title == null ? header.title : title;
 
       header.name = GetFormattedTitle(targetTitle);
 
@@ -108,13 +109,13 @@ namespace Editor.Tools.HierarchyHeader.Editor
 
     public override void OnInspectorGUI()
     {
-      var typeProperty = serializedObject.FindProperty("type");
+      SerializedProperty typeProperty = serializedObject.FindProperty("type");
 
-      var header = target as Header;
+      Header header = target as Header;
 
       serializedObject.Update();
 
-      var titleProperty = serializedObject.FindProperty("title");
+      SerializedProperty titleProperty = serializedObject.FindProperty("title");
       EditorGUI.BeginChangeCheck();
       EditorGUILayout.PropertyField(titleProperty);
       if (EditorGUI.EndChangeCheck())
@@ -139,7 +140,7 @@ namespace Editor.Tools.HierarchyHeader.Editor
       if (GUILayout.Button("Refresh")) UpdateAllHeader();
       if (GUILayout.Button("Create Empty"))
       {
-        var o = new GameObject("Empty");
+        GameObject o = new GameObject("Empty");
         o.transform.SetSiblingIndex((target as Header).transform.GetSiblingIndex() + 1);
         Undo.RegisterCreatedObjectUndo(o, "Create Empty");
       }

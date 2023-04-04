@@ -63,8 +63,8 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
 
     public new ISequenceBinding To(object o)
     {
-      var oType = o as Type;
-      var sType = typeof(ISequenceCommand);
+      Type oType = o as Type;
+      Type sType = typeof(ISequenceCommand);
 
 
       if (sType.IsAssignableFrom(oType) == false)

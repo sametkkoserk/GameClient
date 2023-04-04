@@ -27,8 +27,8 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 
     public override void Execute()
     {
-      var increment = (int)evt.data;
-      var newScore = scoreKeeper.AddToScore(increment);
+      int increment = (int)evt.data;
+      int newScore = scoreKeeper.AddToScore(increment);
       dispatcher.Dispatch(GameEvent.SCORE_CHANGE, newScore);
     }
   }

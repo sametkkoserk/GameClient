@@ -9,7 +9,7 @@ namespace Runtime.Modules.Core.PromiseTool.Tests.RemoveHandlers
     public IPromise Request()
     {
       Debug.Log("RemoveHandlersServerTest> Request");
-      var request = new Promise();
+      Promise request = new Promise();
 
       Debug.Log("request.GetHashCode 0 " + request.Id);
       Debug.Log("request.GetHashCode 1 " + request.Id);

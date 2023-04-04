@@ -32,7 +32,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.main.controller
 
     public override void Execute()
     {
-      var score = (int)evt.data;
+      int score = (int)evt.data;
 
       Debug.Log("MAIN SCENE KNOWS THAT GAME IS OVER. Your score is: " + score);
     }

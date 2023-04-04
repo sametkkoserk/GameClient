@@ -18,9 +18,9 @@ namespace Runtime.Contexts.MainGame.Processor
 
     public override void Execute()
     {
-      var vo = (MessageReceivedVo)evt.data;
-      var message = vo.message;
-      var mapGeneratorVo = networkManager.GetData<MapGeneratorVo>(message);
+      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
+      string message = vo.message;
+      MapGeneratorVo mapGeneratorVo = networkManager.GetData<MapGeneratorVo>(message);
 
       mainGameModel.cities = mapGeneratorVo.cityVos;
 

@@ -46,18 +46,18 @@ namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
 
     internal void init()
     {
-      var go = Instantiate(Resources.Load("Textfield")) as GameObject;
+      GameObject go = Instantiate(Resources.Load("Textfield")) as GameObject;
 
-      var textMesh = go.GetComponent<TextMesh>();
+      TextMesh textMesh = go.GetComponent<TextMesh>();
       textMesh.text = "http://www.thirdmotion.com";
       textMesh.font.material.color = Color.red;
 
-      var localPosition = go.transform.localPosition;
+      Vector3 localPosition = go.transform.localPosition;
       localPosition.x -= go.GetComponent<Renderer>().bounds.extents.x;
       localPosition.y += go.GetComponent<Renderer>().bounds.extents.y;
       go.transform.localPosition = localPosition;
 
-      var extents = Vector3.zero;
+      Vector3 extents = Vector3.zero;
       extents.x = go.GetComponent<Renderer>().bounds.size.x;
       extents.y = go.GetComponent<Renderer>().bounds.size.y;
       extents.z = go.GetComponent<Renderer>().bounds.size.z;
@@ -67,14 +67,14 @@ namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
       go.transform.parent = gameObject.transform;
 
       go.AddComponent<ClickDetector>();
-      var clicker = go.GetComponent<ClickDetector>();
+      ClickDetector clicker = go.GetComponent<ClickDetector>();
       clicker.dispatcher.AddListener(ClickDetector.CLICK, onClick);
     }
 
     internal void updateScore(string score)
     {
-      var go = Instantiate(Resources.Load("Textfield")) as GameObject;
-      var textMesh = go.GetComponent<TextMesh>();
+      GameObject go = Instantiate(Resources.Load("Textfield")) as GameObject;
+      TextMesh textMesh = go.GetComponent<TextMesh>();
       textMesh.font.material.color = Color.white;
       go.transform.parent = transform;
 
@@ -98,7 +98,7 @@ namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
       while (size > edx_WobbleMin)
       {
         size *= edx_WobbleDampen;
-        var newPosition = basePosition;
+        Vector3 newPosition = basePosition;
         newPosition.x += Random.Range(-size, size);
         newPosition.y += Random.Range(-size, size);
         newPosition.z += Random.Range(-size, size);

@@ -4,7 +4,9 @@ using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.View.City;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.Contexts.MainGame.View.MainMap
 {
@@ -32,17 +34,17 @@ namespace Runtime.Contexts.MainGame.View.MainMap
 
     private void OnMapGenerator()
     {
-      for (var i = 0; i < mainGameModel.cities.Count; i++)
+      for (int i = 0; i < mainGameModel.cities.Count; i++)
       {
-        var count = i;
+        int count = i;
 
-        var instantiateAsync = Addressables.InstantiateAsync(MainGameKeys.City, transform);
+        AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(MainGameKeys.City, transform);
 
         instantiateAsync.Completed += handle =>
         {
-          var cityObject = instantiateAsync.Result;
+          GameObject cityObject = instantiateAsync.Result;
 
-          var cityView = cityObject.transform.GetComponent<CityView>();
+          CityView cityView = cityObject.transform.GetComponent<CityView>();
 
           cityView.Init(mainGameModel.cities.ElementAt(count).Value);
         };

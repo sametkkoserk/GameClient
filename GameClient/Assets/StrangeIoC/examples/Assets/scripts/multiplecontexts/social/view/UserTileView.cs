@@ -73,7 +73,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 
     private IEnumerator tweenToPosition()
     {
-      var pos = gameObject.transform.localPosition;
+      Vector3 pos = gameObject.transform.localPosition;
 
       while (Vector3.Distance(pos, dest) > .1f)
       {
@@ -99,7 +99,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
     [Obsolete("Obsolete")]
     private IEnumerator loadUserImg()
     {
-      var www = new WWW(imgUrl);
+      WWW www = new WWW(imgUrl);
       yield return www;
       edx_ImageHolder.GetComponent<Renderer>().material.mainTexture = www.texture;
     }

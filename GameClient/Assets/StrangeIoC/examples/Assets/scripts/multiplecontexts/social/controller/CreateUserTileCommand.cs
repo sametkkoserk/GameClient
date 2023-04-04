@@ -34,19 +34,19 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
 
     public override void Execute()
     {
-      var vo = evt.data as UserVO;
+      UserVO vo = evt.data as UserVO;
 
-      var go = Object.Instantiate(Resources.Load("GameTile")) as GameObject;
+      GameObject go = Object.Instantiate(Resources.Load("GameTile")) as GameObject;
       go.transform.parent = contextView.transform;
       go.AddComponent<UserTileView>();
 
       //Here's something interesting. I'm technically bypassing the mediator here.
       //Stylistically I think this is fine during instantiation. Your team might decide differently.
-      var view = go.GetComponent<UserTileView>();
+      UserTileView view = go.GetComponent<UserTileView>();
       view.setUser(vo);
 
-      var bottomLeft = new Vector3(.1f, .1f, (Camera.main.farClipPlane - Camera.main.nearClipPlane) / 2f);
-      var dest = Camera.main.ViewportToWorldPoint(bottomLeft);
+      Vector3 bottomLeft = new Vector3(.1f, .1f, (Camera.main.farClipPlane - Camera.main.nearClipPlane) / 2f);
+      Vector3 dest = Camera.main.ViewportToWorldPoint(bottomLeft);
       view.SetTilePosition(dest);
     }
   }

@@ -79,15 +79,15 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
     public void Dispatch(object eventType, object data)
     {
       //Scrub the data to make eventType and data conform if possible
-      var evt = conformDataToEvent(eventType, data);
+      IEvent evt = conformDataToEvent(eventType, data);
 
       if (evt is IPoolable) (evt as IPoolable).Retain();
 
-      var continueDispatch = true;
+      bool continueDispatch = true;
       if (triggerClients != null)
       {
         isTriggeringClients = true;
-        foreach (var trigger in triggerClients)
+        foreach (ITriggerable trigger in triggerClients)
           if (!trigger.Trigger(eventType, evt))
           {
             continueDispatch = false;
@@ -104,29 +104,29 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
         return;
       }
 
-      var binding = GetBinding(eventType) as IEventBinding;
+      IEventBinding binding = GetBinding(eventType) as IEventBinding;
       if (binding == null)
       {
         internalReleaseEvent(evt);
         return;
       }
 
-      var callbacks = (binding.value as object[]).Clone() as object[];
+      object[] callbacks = (binding.value as object[]).Clone() as object[];
       if (callbacks == null)
       {
         internalReleaseEvent(evt);
         return;
       }
 
-      for (var a = 0; a < callbacks.Length; a++)
+      for (int a = 0; a < callbacks.Length; a++)
       {
-        var callback = callbacks[a];
+        object callback = callbacks[a];
         if (callback == null)
           continue;
 
         callbacks[a] = null;
 
-        var currentCallbacks = binding.value as object[];
+        object[] currentCallbacks = binding.value as object[];
         if (Array.IndexOf(currentCallbacks, callback) == -1)
           continue;
 
@@ -140,7 +140,7 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 
     public void AddListener(object evt, EventCallback callback)
     {
-      var binding = GetBinding(evt);
+      IBinding binding = GetBinding(evt);
       if (binding == null)
         Bind(evt).To(callback);
       else
@@ -149,7 +149,7 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 
     public void AddListener(object evt, EmptyCallback callback)
     {
-      var binding = GetBinding(evt);
+      IBinding binding = GetBinding(evt);
       if (binding == null)
         Bind(evt).To(callback);
       else
@@ -158,26 +158,26 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 
     public void RemoveListener(object evt, EventCallback callback)
     {
-      var binding = GetBinding(evt);
+      IBinding binding = GetBinding(evt);
       RemoveValue(binding, callback);
     }
 
     public void RemoveListener(object evt, EmptyCallback callback)
     {
-      var binding = GetBinding(evt);
+      IBinding binding = GetBinding(evt);
       RemoveValue(binding, callback);
     }
 
     public bool HasListener(object evt, EventCallback callback)
     {
-      var binding = GetBinding(evt) as IEventBinding;
+      IEventBinding binding = GetBinding(evt) as IEventBinding;
       if (binding == null) return false;
       return binding.TypeForCallback(callback) != EventCallbackType.NOT_FOUND;
     }
 
     public bool HasListener(object evt, EmptyCallback callback)
     {
-      var binding = GetBinding(evt) as IEventBinding;
+      IEventBinding binding = GetBinding(evt) as IEventBinding;
       if (binding == null) return false;
       return binding.TypeForCallback(callback) != EventCallbackType.NOT_FOUND;
     }
@@ -214,8 +214,8 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 
     public bool Trigger(object key, object data)
     {
-      var allow = (data is IEvent && ReferenceEquals((data as IEvent).target, this) == false) ||
-                  (key is IEvent && ReferenceEquals((data as IEvent).target, this) == false);
+      bool allow = (data is IEvent && ReferenceEquals((data as IEvent).target, this) == false) ||
+                   (key is IEvent && ReferenceEquals((data as IEvent).target, this) == false);
 
       if (allow)
         Dispatch(key, data);
@@ -290,9 +290,9 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
       }
       catch (InvalidCastException)
       {
-        var tgt = callback.Target;
-        var methodName = callback.Method.Name;
-        var message =
+        object tgt = callback.Target;
+        string methodName = callback.Method.Name;
+        string message =
           "An EventCallback is attempting an illegal cast. One possible reason is not typing the payload to IEvent in your callback. Another is illegal casting of the data.\nTarget class: " + tgt +
           " method: " + methodName;
         throw new EventDispatcherException(message, EventDispatcherExceptionType.TARGET_INVOCATION);
@@ -302,7 +302,7 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
     protected void flushRemovals()
     {
       if (triggerClientRemovals == null) return;
-      foreach (var target in triggerClientRemovals)
+      foreach (ITriggerable target in triggerClientRemovals)
         if (triggerClients.Contains(target))
           triggerClients.Remove(target);
       triggerClientRemovals = null;
@@ -326,7 +326,7 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
     public T GetInstance<T>()
     {
       object instance = new TmEvent();
-      var retv = (T)instance;
+      T retv = (T)instance;
       return retv;
     }
 

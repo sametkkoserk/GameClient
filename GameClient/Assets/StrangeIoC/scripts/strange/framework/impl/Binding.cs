@@ -127,7 +127,7 @@ namespace StrangeIoC.scripts.strange.framework.impl
 
     public virtual IBinding ToName(object o)
     {
-      var toName = o == null ? BindingConst.NULLOID : o;
+      object toName = o == null ? BindingConst.NULLOID : o;
       _name.Add(toName);
       if (resolver != null)
         resolver(this);

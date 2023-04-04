@@ -23,7 +23,7 @@ namespace StrangeIoC.examples.Assets.scripts.myfirstproject.controller
 
     public override void Execute()
     {
-      var go = new GameObject();
+      GameObject go = new GameObject();
       go.name = "ExampleView";
       go.AddComponent<ExampleView>();
       go.transform.parent = contextView.transform;

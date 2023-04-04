@@ -12,7 +12,7 @@ namespace Editor.Tools.IconSetter.Editor
     {
       DrawDefaultInspector();
 
-      var iconBehaviour = (IconBehaviour)target;
+      IconBehaviour iconBehaviour = (IconBehaviour)target;
 
       if (GUILayout.Button(new GUIContent("Save", "Change Icon On Inspector!"), EditorStyles.miniButton)) iconBehaviour.SetFromInspector();
     }

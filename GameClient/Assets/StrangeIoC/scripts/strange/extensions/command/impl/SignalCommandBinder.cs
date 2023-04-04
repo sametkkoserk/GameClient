@@ -57,6 +57,7 @@
 using System;
 using System.Collections.Generic;
 using StrangeIoC.scripts.strange.extensions.command.api;
+using StrangeIoC.scripts.strange.extensions.injector.api;
 using StrangeIoC.scripts.strange.extensions.injector.impl;
 using StrangeIoC.scripts.strange.extensions.signal.api;
 using StrangeIoC.scripts.strange.extensions.signal.impl;
@@ -72,24 +73,24 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
 
       if (bindings.ContainsKey(key)) //If this key already exists, don't bind this again
       {
-        var signal = (IBaseSignal)key;
+        IBaseSignal signal = (IBaseSignal)key;
         signal.AddListener(ReactTo); //Do normal bits, then assign the commandlistener to be reactTo
       }
     }
 
     public override void OnRemove()
     {
-      foreach (var key in bindings.Keys)
+      foreach (object key in bindings.Keys)
       {
-        var signal = (IBaseSignal)key;
+        IBaseSignal signal = (IBaseSignal)key;
         if (signal != null) signal.RemoveListener(ReactTo);
       }
     }
 
     protected override ICommand invokeCommand(Type cmd, ICommandBinding binding, object data, int depth)
     {
-      var signal = (IBaseSignal)binding.key;
-      var command = createCommandForSignal(cmd, data, signal.GetTypes()); //Special signal-only command creation
+      IBaseSignal signal = (IBaseSignal)binding.key;
+      ICommand command = createCommandForSignal(cmd, data, signal.GetTypes()); //Special signal-only command creation
       command.sequenceId = depth;
       trackCommand(command, binding);
       executeCommand(command);
@@ -101,19 +102,19 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     {
       if (data != null)
       {
-        var signalData = (object[])data;
+        object[] signalData = (object[])data;
 
         //Iterate each signal type, in order. 
         //Iterate values and find a match
         //If we cannot find a match, throw an error
-        var injectedTypes = new HashSet<Type>();
-        var values = new List<object>(signalData);
+        HashSet<Type> injectedTypes = new HashSet<Type>();
+        List<object> values = new List<object>(signalData);
 
-        foreach (var type in signalTypes)
+        foreach (Type type in signalTypes)
           if (!injectedTypes.Contains(type)) // Do not allow more than one injection of the same Type
           {
-            var foundValue = false;
-            foreach (var value in values)
+            bool foundValue = false;
+            foreach (object value in values)
               if (value != null)
               {
                 if (type.IsAssignableFrom(value.GetType())) //IsAssignableFrom lets us test interfaces as well
@@ -142,21 +143,21 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
           }
       }
 
-      var command = getCommand(cmd);
+      ICommand command = getCommand(cmd);
       command.data = data;
 
-      foreach (var typeToRemove in signalTypes) //clean up these bindings
+      foreach (Type typeToRemove in signalTypes) //clean up these bindings
         injectionBinder.Unbind(typeToRemove);
       return command;
     }
 
     public override ICommandBinding Bind<T>()
     {
-      var binding = injectionBinder.GetBinding<T>();
+      IInjectionBinding binding = injectionBinder.GetBinding<T>();
       if (binding == null) //If this isn't injected yet, inject a new one as a singleton
         injectionBinder.Bind<T>().ToSingleton();
 
-      var signal = injectionBinder.GetInstance<T>();
+      T signal = injectionBinder.GetInstance<T>();
       return base.Bind(signal);
     }
 
@@ -164,10 +165,10 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     /// <exception cref="InjectionException">If there is no binding for this type.</exception>
     public override void Unbind<T>()
     {
-      var binding = (ICommandBinding)injectionBinder.GetBinding<T>();
+      ICommandBinding binding = (ICommandBinding)injectionBinder.GetBinding<T>();
       if (binding != null)
       {
-        var signal = injectionBinder.GetInstance<T>();
+        T signal = injectionBinder.GetInstance<T>();
         Unbind(signal, null);
       }
     }
@@ -178,7 +179,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     {
       if (bindings.ContainsKey(key))
       {
-        var signal = (IBaseSignal)key;
+        IBaseSignal signal = (IBaseSignal)key;
         signal.RemoveListener(ReactTo);
       }
 
@@ -188,7 +189,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     public override ICommandBinding GetBinding<T>()
     {
       //This should be a signal, see Bind<T> above
-      var signal = injectionBinder.GetInstance<T>();
+      T signal = injectionBinder.GetInstance<T>();
       return base.GetBinding(signal) as ICommandBinding;
     }
   }

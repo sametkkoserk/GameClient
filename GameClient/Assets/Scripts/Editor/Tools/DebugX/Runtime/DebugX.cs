@@ -25,9 +25,9 @@ namespace Editor.Tools.DebugX.Runtime
 #if UNITY_EDITOR
       LogMap = new Dictionary<DebugKey, LoggerVo>();
 
-      var data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
+      DebugX data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
 
-      foreach (var vo in data.loggerList) LogMap[vo.key] = vo;
+      foreach (LoggerVo vo in data.loggerList) LogMap[vo.key] = vo;
 
       _inited = true;
 #endif
@@ -44,11 +44,11 @@ namespace Editor.Tools.DebugX.Runtime
 
       if (!LogMap.ContainsKey(tag)) return;
 
-      var loggerVo = LogMap[tag];
+      LoggerVo loggerVo = LogMap[tag];
 
       if (!loggerVo.active) return;
 
-      var text = string.Format("<color=#{0}>" + "<b>{1}</b>" + "</color>: {2}", ColorUtility.ToHtmlStringRGBA(loggerVo.color), tag, message);
+      string text = string.Format("<color=#{0}>" + "<b>{1}</b>" + "</color>: {2}", ColorUtility.ToHtmlStringRGBA(loggerVo.color), tag, message);
 
       switch (logKey)
       {
@@ -69,14 +69,14 @@ namespace Editor.Tools.DebugX.Runtime
     [MenuItem("Tools/Debug X/Create Debug X Data")]
     public static void CreateMyAsset()
     {
-      var old = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
+      DebugX old = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
       if (old != null)
       {
         Selection.activeObject = old;
         return;
       }
 
-      var asset = CreateInstance<DebugX>();
+      DebugX asset = CreateInstance<DebugX>();
       AssetDatabase.CreateAsset(asset, DataPath);
       AssetDatabase.SaveAssets();
       EditorUtility.FocusProjectWindow();
@@ -86,9 +86,9 @@ namespace Editor.Tools.DebugX.Runtime
     [MenuItem("Tools/Debug X/Activate All Logger")]
     public static void ActivateLoggers()
     {
-      var data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
+      DebugX data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
 
-      for (var i = 0; i < data.loggerList.Count; i++) data.loggerList[i].active = true;
+      for (int i = 0; i < data.loggerList.Count; i++) data.loggerList[i].active = true;
 
       AssetDatabase.SaveAssets();
     }
@@ -96,9 +96,9 @@ namespace Editor.Tools.DebugX.Runtime
     [MenuItem("Tools/Debug X/Deactivate All Logger")]
     public static void DeactivateLoggers()
     {
-      var data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
+      DebugX data = AssetDatabase.LoadAssetAtPath<DebugX>(DataPath);
 
-      for (var i = 0; i < data.loggerList.Count; i++) data.loggerList[i].active = false;
+      for (int i = 0; i < data.loggerList.Count; i++) data.loggerList[i].active = false;
 
       AssetDatabase.SaveAssets();
     }

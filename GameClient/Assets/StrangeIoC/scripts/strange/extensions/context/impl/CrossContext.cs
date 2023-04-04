@@ -124,11 +124,11 @@ namespace StrangeIoC.scripts.strange.extensions.context.impl
     {
       base.instantiateCoreComponents();
 
-      var dispatcherBinding = injectionBinder.GetBinding<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER);
+      IInjectionBinding dispatcherBinding = injectionBinder.GetBinding<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER);
 
       if (dispatcherBinding != null)
       {
-        var dispatcher = injectionBinder.GetInstance<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER);
+        IEventDispatcher dispatcher = injectionBinder.GetInstance<IEventDispatcher>(ContextKeys.CONTEXT_DISPATCHER);
 
         if (dispatcher != null)
         {

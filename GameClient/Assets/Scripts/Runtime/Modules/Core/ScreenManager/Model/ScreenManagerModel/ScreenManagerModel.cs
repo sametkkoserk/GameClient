@@ -32,9 +32,9 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
 
     public void SetSortOrder()
     {
-      var layers = System.Enum.GetNames(typeof(LayerKey));
+      string[] layers = System.Enum.GetNames(typeof(LayerKey));
       layers = layers.Reverse().ToArray();
-      for (var i = 0; i < layers.Length; i++)
+      for (int i = 0; i < layers.Length; i++)
       {
         if (layerMap.ContainsKey(layers[i])) continue;
         layerMap.Add(layers[i], i * 10);

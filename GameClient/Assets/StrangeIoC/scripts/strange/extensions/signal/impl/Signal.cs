@@ -127,7 +127,7 @@ namespace StrangeIoC.scripts.strange.extensions.signal.impl
 
     public override List<Type> GetTypes()
     {
-      var retv = new List<Type>();
+      List<Type> retv = new List<Type>();
       retv.Add(typeof(T));
       return retv;
     }
@@ -165,7 +165,7 @@ namespace StrangeIoC.scripts.strange.extensions.signal.impl
 
     public override List<Type> GetTypes()
     {
-      var retv = new List<Type>();
+      List<Type> retv = new List<Type>();
       retv.Add(typeof(T));
       retv.Add(typeof(U));
       return retv;
@@ -204,7 +204,7 @@ namespace StrangeIoC.scripts.strange.extensions.signal.impl
 
     public override List<Type> GetTypes()
     {
-      var retv = new List<Type>();
+      List<Type> retv = new List<Type>();
       retv.Add(typeof(T));
       retv.Add(typeof(U));
       retv.Add(typeof(V));
@@ -244,7 +244,7 @@ namespace StrangeIoC.scripts.strange.extensions.signal.impl
 
     public override List<Type> GetTypes()
     {
-      var retv = new List<Type>();
+      List<Type> retv = new List<Type>();
       retv.Add(typeof(T));
       retv.Add(typeof(U));
       retv.Add(typeof(V));

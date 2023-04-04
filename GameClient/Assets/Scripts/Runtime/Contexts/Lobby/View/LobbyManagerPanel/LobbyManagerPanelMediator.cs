@@ -32,16 +32,16 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void Start()
     {
       lobbyModel.userItemBehaviours = new Dictionary<ushort, LobbyManagerPanelItemBehaviour>();
-      var lobbyVo = lobbyModel.lobbyVo;
+      LobbyVo lobbyVo = lobbyModel.lobbyVo;
       view.lobbyNameText.text = lobbyVo.lobbyName;
       view.playerCountText.text = $"{lobbyVo.playerCount}/{lobbyVo.maxPlayerCount}";
       for (ushort i = 0; i < lobbyVo.playerCount; i++)
       {
-        var count = i;
+        ushort count = i;
 
-        var instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
-        var clientVo = lobbyVo.clients.ElementAt(count).Value;
-        var behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
+        GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
+        ClientVo clientVo = lobbyVo.clients.ElementAt(count).Value;
+        LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
         behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
 
         lobbyModel.userItemBehaviours[clientVo.inLobbyId] = behaviour;
@@ -69,20 +69,20 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnNewPlayer(IEvent payload)
     {
-      var clientVo = (ClientVo)payload.data;
+      ClientVo clientVo = (ClientVo)payload.data;
 
-      var lobbyVo = lobbyModel.lobbyVo;
+      LobbyVo lobbyVo = lobbyModel.lobbyVo;
       view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
 
-      var instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
-      var behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
+      GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
+      LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
       behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
       lobbyModel.userItemBehaviours[clientVo.inLobbyId] = behaviour;
     }
 
     private void OnChangeUserLobbyID(IEvent payload)
     {
-      var clientVo = (ClientVo)payload.data;
+      ClientVo clientVo = (ClientVo)payload.data;
 
       lobbyModel.userItemBehaviours[clientVo.inLobbyId].Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
     }
@@ -96,7 +96,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerReadyResponse(IEvent payload)
     {
-      var inLobbyId = (ushort)payload.data;
+      ushort inLobbyId = (ushort)payload.data;
       lobbyModel.userItemBehaviours[inLobbyId].PlayerReady();
       Debug.Log("Player is ready: " + inLobbyId);
     }
@@ -108,8 +108,8 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerIsOut(IEvent payload)
     {
-      var inLobbyId = (ushort)payload.data;
-      var lobbyVo = lobbyModel.lobbyVo;
+      ushort inLobbyId = (ushort)payload.data;
+      LobbyVo lobbyVo = lobbyModel.lobbyVo;
 
       view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
 
@@ -135,10 +135,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void InitLobbySettings()
     {
-      for (var i = 0; i < view.adminGameObjects.Count; i++)
+      for (int i = 0; i < view.adminGameObjects.Count; i++)
         view.adminGameObjects[i].gameObject.SetActive(lobbyModel.clientVo.id == lobbyModel.lobbyVo.leaderId);
 
-      for (var i = 0; i < view.playerGameObjects.Count; i++)
+      for (int i = 0; i < view.playerGameObjects.Count; i++)
         view.playerGameObjects[i].gameObject.SetActive(lobbyModel.clientVo.id != lobbyModel.lobbyVo.leaderId);
 
       view.saveButton.interactable = false;
@@ -151,7 +151,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       // ----- Turn Timer
       view.turnTimerText.text = lobbyModel.lobbyVo.lobbySettingsVo.turnTime.ToString("f0");
 
-      for (var i = 0; i < view.timerDropdown.options.Count; i++)
+      for (int i = 0; i < view.timerDropdown.options.Count; i++)
         if (view.timerDropdown.options[i].text == lobbyModel.lobbyVo.lobbySettingsVo.turnTime.ToString("f0"))
           view.timerDropdown.value = i;
       // Turn Timer -----

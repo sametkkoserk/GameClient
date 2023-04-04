@@ -95,7 +95,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     public virtual void ReactTo(object trigger, object data)
     {
       if (data is IPoolable) (data as IPoolable).Retain();
-      var binding = GetBinding(trigger) as ICommandBinding;
+      ICommandBinding binding = GetBinding(trigger) as ICommandBinding;
       if (binding != null)
       {
         if (binding.isSequence)
@@ -104,9 +104,9 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
         }
         else
         {
-          var values = binding.value as object[];
-          var aa = values.Length + 1;
-          for (var a = 0; a < aa; a++) next(binding, data, a);
+          object[] values = binding.value as object[];
+          int aa = values.Length + 1;
+          for (int a = 0; a < aa; a++) next(binding, data, a);
         }
       }
     }
@@ -119,13 +119,13 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
       }
       else
       {
-        var binding = GetBinding(key) as ICommandBinding;
+        ICommandBinding binding = GetBinding(key) as ICommandBinding;
         if (binding != null)
           if (activeSequences.ContainsValue(binding))
-            foreach (var sequence in activeSequences)
+            foreach (KeyValuePair<ICommand, ICommandBinding> sequence in activeSequences)
               if (sequence.Value == binding)
               {
-                var command = sequence.Key;
+                ICommand command = sequence.Key;
                 removeSequence(command);
               }
       }
@@ -135,7 +135,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     {
       if (command.retain == false)
       {
-        var t = command.GetType();
+        Type t = command.GetType();
         if (usePooling && pools.ContainsKey(t)) pools[t].ReturnInstance(command);
         if (activeCommands.Contains(command))
         {
@@ -143,8 +143,8 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
         }
         else if (activeSequences.ContainsKey(command))
         {
-          var binding = activeSequences[command];
-          var data = command.data;
+          ICommandBinding binding = activeSequences[command];
+          object data = command.data;
           activeSequences.Remove(command);
           next(binding, data, command.sequenceId + 1);
         }
@@ -170,7 +170,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
 
     public Pool<T> GetPool<T>()
     {
-      var t = typeof(T);
+      Type t = typeof(T);
       if (pools.ContainsKey(t))
         return pools[t] as Pool<T>;
       return null;
@@ -189,11 +189,11 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
 
     protected void next(ICommandBinding binding, object data, int depth)
     {
-      var values = binding.value as object[];
+      object[] values = binding.value as object[];
       if (depth < values.Length)
       {
-        var cmd = values[depth] as Type;
-        var command = invokeCommand(cmd, binding, data, depth);
+        Type cmd = values[depth] as Type;
+        ICommand command = invokeCommand(cmd, binding, data, depth);
         ReleaseCommand(command);
       }
       else
@@ -211,7 +211,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
 
     protected virtual ICommand invokeCommand(Type cmd, ICommandBinding binding, object data, int depth)
     {
-      var command = createCommand(cmd, data);
+      ICommand command = createCommand(cmd, data);
       command.sequenceId = depth;
       trackCommand(command, binding);
       executeCommand(command);
@@ -220,11 +220,11 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
 
     protected virtual ICommand createCommand(object cmd, object data)
     {
-      var command = getCommand(cmd as Type);
+      ICommand command = getCommand(cmd as Type);
 
       if (command == null)
       {
-        var msg = "A Command ";
+        string msg = "A Command ";
         if (data != null) msg += "tied to data " + data;
         msg += " could not be instantiated.\nThis might be caused by a null pointer during instantiation or failing to override Execute (generally you shouldn't have constructor code in Commands).";
         throw new CommandException(msg, CommandExceptionType.BAD_CONSTRUCTOR);
@@ -238,8 +238,8 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
     {
       if (usePooling && pools.ContainsKey(type))
       {
-        var pool = pools[type];
-        var command = pool.GetInstance() as ICommand;
+        Pool pool = pools[type];
+        ICommand command = pool.GetInstance() as ICommand;
         if (command.IsClean)
         {
           injectionBinder.injector.Inject(command);
@@ -251,7 +251,7 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
       else
       {
         injectionBinder.Bind<ICommand>().To(type);
-        var command = injectionBinder.GetInstance<ICommand>();
+        ICommand command = injectionBinder.GetInstance<ICommand>();
         injectionBinder.Unbind<ICommand>();
         return command;
       }
@@ -286,11 +286,11 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
       if (usePooling && (binding as ICommandBinding).isPooled)
         if (binding.value != null)
         {
-          var values = binding.value as object[];
+          object[] values = binding.value as object[];
           foreach (Type value in values)
             if (pools.ContainsKey(value) == false)
             {
-              var myPool = makePoolFromType(value);
+              Pool myPool = makePoolFromType(value);
               pools[value] = myPool;
             }
         }
@@ -298,11 +298,11 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
 
     protected virtual Pool makePoolFromType(Type type)
     {
-      var poolType = typeof(Pool<>).MakeGenericType(type);
+      Type poolType = typeof(Pool<>).MakeGenericType(type);
 
       injectionBinder.Bind(type).To(type);
       injectionBinder.Bind<Pool>().To(poolType).ToName(CommandKeys.COMMAND_POOL);
-      var pool = injectionBinder.GetInstance<Pool>(CommandKeys.COMMAND_POOL);
+      Pool pool = injectionBinder.GetInstance<Pool>(CommandKeys.COMMAND_POOL);
       injectionBinder.Unbind<Pool>(CommandKeys.COMMAND_POOL);
       return pool;
     }

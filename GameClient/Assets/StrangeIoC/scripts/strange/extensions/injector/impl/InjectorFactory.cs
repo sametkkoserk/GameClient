@@ -30,7 +30,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
     public object Get(IInjectionBinding binding, object[] args)
     {
       if (binding == null) throw new InjectionException("InjectorFactory cannot act on null binding", InjectionExceptionType.NULL_BINDING);
-      var type = binding.type;
+      InjectionBindingType type = binding.type;
 
       switch (type)
       {
@@ -55,7 +55,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       {
         if (binding.value.GetType().IsInstanceOfType(typeof(Type)))
         {
-          var o = createFromValue(binding.value, args);
+          object o = createFromValue(binding.value, args);
           if (o == null)
             return null;
           binding.SetValue(o);
@@ -72,7 +72,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     protected object generateImplicit(object key, object[] args)
     {
-      var type = key as Type;
+      Type type = key as Type;
       if (!type.IsInterface && !type.IsAbstract) return createFromValue(key, args);
       throw new InjectionException("InjectorFactory can't instantiate an Interface or Abstract Class. Class: " + key, InjectionExceptionType.NOT_INSTANTIABLE);
     }
@@ -87,14 +87,14 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
     protected object instanceOf(IInjectionBinding binding, object[] args)
     {
       if (binding.value != null) return createFromValue(binding.value, args);
-      var value = generateImplicit((binding.key as object[])[0], args);
+      object value = generateImplicit((binding.key as object[])[0], args);
       return createFromValue(value, args);
     }
 
     /// Call the Activator to attempt instantiation the given object
     protected object createFromValue(object o, object[] args)
     {
-      var value = o is Type ? o as Type : o.GetType();
+      Type value = o is Type ? o as Type : o.GetType();
       object retv = null;
       try
       {

@@ -75,7 +75,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       }
       else if (binding.value == null)
       {
-        var tl = binding.key as object[];
+        object[] tl = binding.key as object[];
         reflectionType = tl[0] as Type;
         if (reflectionType.IsPrimitive || reflectionType == typeof(decimal) || reflectionType == typeof(string)) retv = binding.value;
       }
@@ -86,12 +86,12 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
       if (retv == null) //If we don't have an existing value, go ahead and create one.
       {
-        var reflection = reflector.Get(reflectionType);
+        IReflectedClass reflection = reflector.Get(reflectionType);
 
-        var parameters = reflection.constructorParameters;
-        var aa = parameters.Length;
-        var args = new object [aa];
-        for (var a = 0; a < aa; a++) args[a] = getValueInjection(parameters[a], null, null);
+        Type[] parameters = reflection.constructorParameters;
+        int aa = parameters.Length;
+        object[] args = new object [aa];
+        for (int a = 0; a < aa; a++) args[a] = getValueInjection(parameters[a], null, null);
         retv = factory.Get(binding, args);
 
         //If the InjectorFactory returns null, just return it. Otherwise inject the retv if it needs it
@@ -123,10 +123,10 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       failIf(target == null, "Attempt to inject into null instance", InjectionExceptionType.NULL_TARGET);
 
       //Some things can't be injected into. Bail out.
-      var t = target.GetType();
+      Type t = target.GetType();
       if (t.IsPrimitive || t == typeof(decimal) || t == typeof(string)) return target;
 
-      var reflection = reflector.Get(t);
+      IReflectedClass reflection = reflector.Get(t);
 
       if (attemptConstructorInjection) target = performConstructorInjection(target, reflection);
       performSetterInjection(target, reflection);
@@ -140,10 +140,10 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       failIf(reflector == null, "Attempt to inject without a reflector", InjectionExceptionType.NO_REFLECTOR);
       failIf(target == null, "Attempt to inject into null instance", InjectionExceptionType.NULL_TARGET);
 
-      var t = target.GetType();
+      Type t = target.GetType();
       if (t.IsPrimitive || t == typeof(decimal) || t == typeof(string)) return;
 
-      var reflection = reflector.Get(t);
+      IReflectedClass reflection = reflector.Get(t);
 
       performUninjection(target, reflection);
     }
@@ -153,13 +153,13 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       failIf(target == null, "Attempt to perform constructor injection into a null object", InjectionExceptionType.NULL_TARGET);
       failIf(reflection == null, "Attempt to perform constructor injection without a reflection", InjectionExceptionType.NULL_REFLECTION);
 
-      var constructor = reflection.constructor;
+      ConstructorInfo constructor = reflection.constructor;
       failIf(constructor == null, "Attempt to construction inject a null constructor", InjectionExceptionType.NULL_CONSTRUCTOR);
 
-      var constructorParameters = reflection.constructorParameters;
-      var values = new object[constructorParameters.Length];
-      var i = 0;
-      foreach (var type in constructorParameters)
+      Type[] constructorParameters = reflection.constructorParameters;
+      object[] values = new object[constructorParameters.Length];
+      int i = 0;
+      foreach (Type type in constructorParameters)
       {
         values[i] = getValueInjection(type, null, target);
         i++;
@@ -167,7 +167,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
       if (values.Length == 0) return target;
 
-      var constructedObj = constructor.Invoke(values);
+      object constructedObj = constructor.Invoke(values);
       return constructedObj == null ? target : constructedObj;
     }
 
@@ -178,24 +178,24 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       failIf(reflection.setters.Length != reflection.setterNames.Length, "Attempt to perform setter injection with mismatched names.\nThere must be exactly as many names as setters.",
         InjectionExceptionType.SETTER_NAME_MISMATCH);
 
-      var aa = reflection.setters.Length;
-      for (var a = 0; a < aa; a++)
+      int aa = reflection.setters.Length;
+      for (int a = 0; a < aa; a++)
       {
-        var pair = reflection.setters[a];
-        var value = getValueInjection(pair.Key, reflection.setterNames[a], target);
+        KeyValuePair<Type, PropertyInfo> pair = reflection.setters[a];
+        object value = getValueInjection(pair.Key, reflection.setterNames[a], target);
         injectValueIntoPoint(value, target, pair.Value);
       }
     }
 
     private object getValueInjection(Type t, object name, object target)
     {
-      var binding = binder.GetBinding(t, name);
+      IInjectionBinding binding = binder.GetBinding(t, name);
       failIf(binding == null, "Attempt to Instantiate a null binding.", InjectionExceptionType.NULL_BINDING, t, name, target);
       if (binding.type == InjectionBindingType.VALUE)
       {
         if (!binding.toInject) return binding.value;
 
-        var retv = Inject(binding.value, false);
+        object retv = Inject(binding.value, false);
         binding.ToInject(false);
         return retv;
       }
@@ -226,19 +226,19 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       failIf(target == null, "Attempt to PostConstruct a null target", InjectionExceptionType.NULL_TARGET);
       failIf(reflection == null, "Attempt to PostConstruct without a reflection", InjectionExceptionType.NULL_REFLECTION);
 
-      var postConstructors = reflection.postConstructors;
+      MethodInfo[] postConstructors = reflection.postConstructors;
       if (postConstructors != null)
-        foreach (var method in postConstructors)
+        foreach (MethodInfo method in postConstructors)
           method.Invoke(target, null);
     }
 
     //Note that uninjection can only clean publicly settable points
     private void performUninjection(object target, IReflectedClass reflection)
     {
-      var aa = reflection.setters.Length;
-      for (var a = 0; a < aa; a++)
+      int aa = reflection.setters.Length;
+      for (int a = 0; a < aa; a++)
       {
-        var pair = reflection.setters[a];
+        KeyValuePair<Type, PropertyInfo> pair = reflection.setters[a];
         pair.Value.SetValue(target, null, null);
       }
     }

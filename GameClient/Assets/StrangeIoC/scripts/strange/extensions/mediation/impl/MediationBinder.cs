@@ -46,8 +46,8 @@ namespace StrangeIoC.scripts.strange.extensions.mediation.impl
 
     public void Trigger(MediationEvent evt, IView view)
     {
-      var viewType = view.GetType();
-      var binding = GetBinding(viewType) as IMediationBinding;
+      Type viewType = view.GetType();
+      IMediationBinding binding = GetBinding(viewType) as IMediationBinding;
       if (binding != null)
         switch (evt)
         {
@@ -77,13 +77,13 @@ namespace StrangeIoC.scripts.strange.extensions.mediation.impl
     /// Initialize all IViews within this view
     protected virtual void injectViewAndChildren(IView view)
     {
-      var mono = view as MonoBehaviour;
-      var views = mono.GetComponentsInChildren(typeof(IView), true);
+      MonoBehaviour mono = view as MonoBehaviour;
+      Component[] views = mono.GetComponentsInChildren(typeof(IView), true);
 
-      var aa = views.Length;
-      for (var a = aa - 1; a > -1; a--)
+      int aa = views.Length;
+      for (int a = aa - 1; a > -1; a--)
       {
-        var iView = views[a] as IView;
+        IView iView = views[a] as IView;
         if (iView != null)
         {
           if (iView.autoRegisterWithContext && iView.registeredWithContext) continue;
@@ -100,18 +100,18 @@ namespace StrangeIoC.scripts.strange.extensions.mediation.impl
     /// Takes a specific View instance and a binding and, if a binding is found for that type, creates and registers a Mediator.
     protected virtual void mapView(IView view, IMediationBinding binding)
     {
-      var viewType = view.GetType();
+      Type viewType = view.GetType();
 
       if (bindings.ContainsKey(viewType))
       {
-        var values = binding.value as object[];
-        var aa = values.Length;
-        for (var a = 0; a < aa; a++)
+        object[] values = binding.value as object[];
+        int aa = values.Length;
+        for (int a = 0; a < aa; a++)
         {
-          var mono = view as MonoBehaviour;
-          var mediatorType = values[a] as Type;
+          MonoBehaviour mono = view as MonoBehaviour;
+          Type mediatorType = values[a] as Type;
           if (mediatorType == viewType) throw new MediationException(viewType + "mapped to itself. The result would be a stack overflow.", MediationExceptionType.MEDIATOR_VIEW_STACK_OVERFLOW);
-          var mediator = mono.gameObject.AddComponent(mediatorType) as MonoBehaviour;
+          MonoBehaviour mediator = mono.gameObject.AddComponent(mediatorType) as MonoBehaviour;
           if (mediator == null)
             throw new MediationException(
               "The view: " + viewType + " is mapped to mediator: " + mediatorType + ". AddComponent resulted in null, which probably means " +
@@ -130,17 +130,17 @@ namespace StrangeIoC.scripts.strange.extensions.mediation.impl
     /// Removes a mediator when its view is destroyed
     protected virtual void unmapView(IView view, IMediationBinding binding)
     {
-      var viewType = view.GetType();
+      Type viewType = view.GetType();
 
       if (bindings.ContainsKey(viewType))
       {
-        var values = binding.value as object[];
-        var aa = values.Length;
-        for (var a = 0; a < aa; a++)
+        object[] values = binding.value as object[];
+        int aa = values.Length;
+        for (int a = 0; a < aa; a++)
         {
-          var mediatorType = values[a] as Type;
-          var mono = view as MonoBehaviour;
-          var mediator = mono.GetComponent(mediatorType) as IMediator;
+          Type mediatorType = values[a] as Type;
+          MonoBehaviour mono = view as MonoBehaviour;
+          IMediator mediator = mono.GetComponent(mediatorType) as IMediator;
           if (mediator != null) mediator.OnRemove();
         }
       }

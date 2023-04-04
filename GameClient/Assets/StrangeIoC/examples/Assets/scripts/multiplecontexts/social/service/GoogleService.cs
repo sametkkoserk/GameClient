@@ -61,7 +61,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
       yield return new WaitForSeconds(1f);
 
       //...then pass back some fake data
-      var user = getUserData("Kirk", "54321",
+      UserVO user = getUserData("Kirk", "54321",
         "http://upload.wikimedia.org/wikipedia/commons/a/a5/Star_Trek_William_Shatner.JPG",
         100);
 
@@ -72,7 +72,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
     {
       yield return new WaitForSeconds(1f);
 
-      var friends = new ArrayList();
+      ArrayList friends = new ArrayList();
 
       friends.Add(getUserData("Spock", "54322", "http://upload.wikimedia.org/wikipedia/commons/a/a8/Leonard_Nimoy_William_Shatner_Star_Trek_1968.JPG", 20));
       friends.Add(getUserData("McCoy", "54323", "http://upload.wikimedia.org/wikipedia/commons/6/6a/Deforest_Kelly_Dr_McCoy_Star_Trek.JPG", 50));
@@ -85,7 +85,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.service
 
     private UserVO getUserData(string name, string id, string imgUrl, int score)
     {
-      var retv = new UserVO();
+      UserVO retv = new UserVO();
       retv.userFirstName = name;
       retv.serviceId = id;
       retv.imgUrl = imgUrl;

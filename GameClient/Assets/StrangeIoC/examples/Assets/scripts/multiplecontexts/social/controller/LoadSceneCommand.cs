@@ -27,7 +27,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.controller
   {
     public override void Execute()
     {
-      var filepath = evt.data as string;
+      string filepath = evt.data as string;
 
       //Load the component
       if (string.IsNullOrEmpty(filepath)) throw new Exception("Can't load a module with a null or empty filepath.");

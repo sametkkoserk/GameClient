@@ -15,9 +15,9 @@ namespace Runtime.Modules.Core.PromiseTool.Tests.RemoveHandlers
 
     public void Start()
     {
-      var request = dummyServer.Request();
+      IPromise request = dummyServer.Request();
       Debug.Log("request: " + request.Id);
-      var promise = request.Then(OnResponse);
+      IPromise promise = request.Then(OnResponse);
       Debug.Log("promise.RemoveHandlers()");
       Debug.Log("promise.GetHashCode() 2 " + promise.Id);
 

@@ -37,7 +37,7 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
 
     public override void ReactTo(object key, object data)
     {
-      var binding = GetBinding(key) as ISequenceBinding;
+      ISequenceBinding binding = GetBinding(key) as ISequenceBinding;
       if (binding != null) nextInSequence(binding, data, 0);
     }
 
@@ -46,8 +46,8 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
       if (command.retain == false)
         if (activeSequences.ContainsKey(command))
         {
-          var binding = activeSequences[command] as ISequenceBinding;
-          var data = command.data;
+          ISequenceBinding binding = activeSequences[command] as ISequenceBinding;
+          object data = command.data;
           activeSequences.Remove(command);
           nextInSequence(binding, data, command.sequenceId + 1);
         }
@@ -74,7 +74,7 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
 
     private void invokeCommand(Type cmd, ISequenceBinding binding, object data, int depth)
     {
-      var command = createCommand(cmd, data);
+      ISequenceCommand command = createCommand(cmd, data);
       command.sequenceId = depth;
       trackCommand(command, binding);
       executeCommand(command);
@@ -85,7 +85,7 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
     protected new virtual ISequenceCommand createCommand(object cmd, object data)
     {
       injectionBinder.Bind<ISequenceCommand>().To(cmd);
-      var command = injectionBinder.GetInstance<ISequenceCommand>();
+      ISequenceCommand command = injectionBinder.GetInstance<ISequenceCommand>();
       command.data = data;
       injectionBinder.Unbind<ISequenceCommand>();
       return command;
@@ -104,10 +104,10 @@ namespace StrangeIoC.scripts.strange.extensions.sequencer.impl
 
     private void nextInSequence(ISequenceBinding binding, object data, int depth)
     {
-      var values = binding.value as object[];
+      object[] values = binding.value as object[];
       if (depth < values.Length)
       {
-        var cmd = values[depth] as Type;
+        Type cmd = values[depth] as Type;
         invokeCommand(cmd, binding, data, depth);
       }
       else

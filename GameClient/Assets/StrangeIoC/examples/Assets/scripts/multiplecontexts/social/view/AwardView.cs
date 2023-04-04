@@ -30,15 +30,15 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 
     private void Update()
     {
-      var dest = Vector3.zero;
-      var scale = transform.localScale;
+      Vector3 dest = Vector3.zero;
+      Vector3 scale = transform.localScale;
       scale += (dest - scale) * .009f;
       transform.localScale = scale;
     }
 
     internal void init()
     {
-      var go = Instantiate(Resources.Load("AwardText")) as GameObject;
+      GameObject go = Instantiate(Resources.Load("AwardText")) as GameObject;
       go.transform.parent = gameObject.transform;
       textfield = go.GetComponent<TextMesh>();
     }

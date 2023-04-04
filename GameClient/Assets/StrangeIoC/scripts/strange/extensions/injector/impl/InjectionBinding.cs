@@ -70,15 +70,15 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     public IInjectionBinding SetValue(object o)
     {
-      var objType = o.GetType();
+      Type objType = o.GetType();
 
-      var keys = key as object[];
-      var aa = keys.Length;
+      object[] keys = key as object[];
+      int aa = keys.Length;
       //Check that value is legal for the provided keys
-      for (var a = 0; a < aa; a++)
+      for (int a = 0; a < aa; a++)
       {
-        var aKey = keys[a];
-        var keyType = aKey is Type ? aKey as Type : aKey.GetType();
+        object aKey = keys[a];
+        Type keyType = aKey is Type ? aKey as Type : aKey.GetType();
         if (keyType.IsAssignableFrom(objType) == false && HasGenericAssignableFrom(keyType, objType) == false)
           throw new InjectionException("Injection cannot bind a value that does not extend or implement the binding type.", InjectionExceptionType.ILLEGAL_BINDING_VALUE);
       }
@@ -145,16 +145,16 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     protected bool IsGenericTypeAssignable(Type givenType, Type genericType)
     {
-      var interfaceTypes = givenType.GetInterfaces();
+      Type[] interfaceTypes = givenType.GetInterfaces();
 
-      foreach (var it in interfaceTypes)
+      foreach (Type it in interfaceTypes)
         if (it.IsGenericType && it.GetGenericTypeDefinition() == genericType)
           return true;
 
       if (givenType.IsGenericType && givenType.GetGenericTypeDefinition() == genericType)
         return true;
 
-      var baseType = givenType.BaseType;
+      Type baseType = givenType.BaseType;
       if (baseType == null) return false;
 
       return IsGenericTypeAssignable(baseType, genericType);

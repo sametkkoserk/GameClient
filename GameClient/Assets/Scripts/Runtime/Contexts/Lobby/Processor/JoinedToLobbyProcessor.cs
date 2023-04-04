@@ -24,10 +24,10 @@ namespace Runtime.Contexts.Lobby.Processor
 
     public override void Execute()
     {
-      var vo = (MessageReceivedVo)evt.data;
-      var message = vo.message;
+      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
+      string message = vo.message;
       Debug.Log("joined to lobby");
-      var joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(message);
+      JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(message);
       // lobbyVo.lobbyId = message.GetUShort();
       // lobbyVo.lobbyName = message.GetString();
       // lobbyVo.isPrivate = message.GetBool();

@@ -30,7 +30,7 @@ namespace Runtime.Contexts.Lobby.Model.LobbyModel
 
       lobbyVo.playerCount -= 1;
 
-      for (var i = _inLobbyId; i < lobbyVo.playerCount; i++)
+      for (ushort i = _inLobbyId; i < lobbyVo.playerCount; i++)
       {
         lobbyVo.clients[i] = lobbyVo.clients[(ushort)(i + 1)];
         lobbyVo.clients[i].inLobbyId = i;

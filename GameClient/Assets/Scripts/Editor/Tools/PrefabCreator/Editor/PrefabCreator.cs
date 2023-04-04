@@ -1,6 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Editor.Tools.PrefabCreator.Editor
 {
@@ -10,7 +11,7 @@ namespace Editor.Tools.PrefabCreator.Editor
 #if UNITY_EDITOR
     public static void InstantiateObject(string objName, string specialName = null)
     {
-      var gameObject = Resources.Load("Prefab/" + objName);
+      Object gameObject = Resources.Load("Prefab/" + objName);
 
       PrefabUtility.InstantiatePrefab(gameObject, Selection.activeTransform);
       gameObject.name = specialName ?? objName;

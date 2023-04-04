@@ -89,9 +89,9 @@ namespace StrangeIoC.scripts.strange.framework.impl
     {
       if (conflicts.Count > 0)
       {
-        var conflictSummary = "";
-        var keys = conflicts.Keys;
-        foreach (var k in keys)
+        string conflictSummary = "";
+        Dictionary<object, Dictionary<IBinding, object>>.KeyCollection keys = conflicts.Keys;
+        foreach (object k in keys)
         {
           if (conflictSummary.Length > 0) conflictSummary += ", ";
           conflictSummary += k.ToString();
@@ -102,7 +102,7 @@ namespace StrangeIoC.scripts.strange.framework.impl
 
       if (bindings.ContainsKey(key))
       {
-        var dict = bindings[key];
+        Dictionary<object, IBinding> dict = bindings[key];
         name = name == null ? BindingConst.NULLOID : name;
         if (dict.ContainsKey(name)) return dict[name];
       }
@@ -129,8 +129,8 @@ namespace StrangeIoC.scripts.strange.framework.impl
     {
       if (bindings.ContainsKey(key))
       {
-        var dict = bindings[key];
-        var bindingName = name == null ? BindingConst.NULLOID : name;
+        Dictionary<object, IBinding> dict = bindings[key];
+        object bindingName = name == null ? BindingConst.NULLOID : name;
         if (dict.ContainsKey(bindingName)) dict.Remove(bindingName);
       }
     }
@@ -144,18 +144,18 @@ namespace StrangeIoC.scripts.strange.framework.impl
     public virtual void RemoveValue(IBinding binding, object value)
     {
       if (binding == null || value == null) return;
-      var key = binding.key;
+      object key = binding.key;
       Dictionary<object, IBinding> dict;
       if (bindings.ContainsKey(key))
       {
         dict = bindings[key];
         if (dict.ContainsKey(binding.name))
         {
-          var useBinding = dict[binding.name];
+          IBinding useBinding = dict[binding.name];
           useBinding.RemoveValue(value);
 
           //If result is empty, clean it out
-          var values = useBinding.value as object[];
+          object[] values = useBinding.value as object[];
           if (values == null || values.Length == 0) dict.Remove(useBinding.name);
         }
       }
@@ -164,12 +164,12 @@ namespace StrangeIoC.scripts.strange.framework.impl
     public virtual void RemoveKey(IBinding binding, object key)
     {
       if (binding == null || key == null || bindings.ContainsKey(key) == false) return;
-      var dict = bindings[key];
+      Dictionary<object, IBinding> dict = bindings[key];
       if (dict.ContainsKey(binding.name))
       {
-        var useBinding = dict[binding.name];
+        IBinding useBinding = dict[binding.name];
         useBinding.RemoveKey(key);
-        var keys = useBinding.key as object[];
+        object[] keys = useBinding.key as object[];
         if (keys != null && keys.Length == 0) dict.Remove(binding.name);
       }
     }
@@ -184,14 +184,14 @@ namespace StrangeIoC.scripts.strange.framework.impl
       }
       else
       {
-        var keys = binding.key as object[];
+        object[] keys = binding.key as object[];
         key = keys[0];
       }
 
-      var dict = bindings[key];
+      Dictionary<object, IBinding> dict = bindings[key];
       if (dict.ContainsKey(name))
       {
-        var useBinding = dict[name];
+        IBinding useBinding = dict[name];
         useBinding.RemoveName(name);
       }
     }
@@ -215,10 +215,10 @@ namespace StrangeIoC.scripts.strange.framework.impl
       //Check for existing conflicts
       if (conflicts.ContainsKey(key)) //does the current key have any conflicts?
       {
-        var inConflict = conflicts[key];
+        Dictionary<IBinding, object> inConflict = conflicts[key];
         if (inConflict.ContainsKey(binding)) //Am I on the conflict list?
         {
-          var conflictName = inConflict[binding];
+          object conflictName = inConflict[binding];
           if (isConflictCleared(inConflict, binding)) //Am I now out of conflict?
             clearConflict(key, conflictName, inConflict); //remove all from conflict list.
           else
@@ -227,7 +227,7 @@ namespace StrangeIoC.scripts.strange.framework.impl
       }
 
       //Check for and assign new conflicts
-      var bindingName = binding.name == null ? BindingConst.NULLOID : binding.name;
+      object bindingName = binding.name == null ? BindingConst.NULLOID : binding.name;
       Dictionary<object, IBinding> dict;
       if (bindings.ContainsKey(key))
       {
@@ -237,7 +237,7 @@ namespace StrangeIoC.scripts.strange.framework.impl
         {
           //If the existing binding is not this binding, and the existing binding is not weak
           //If it IS weak, we will proceed normally and overwrite the binding in the dictionary
-          var existingBinding = dict[bindingName];
+          IBinding existingBinding = dict[bindingName];
           //if (existingBinding != binding && !existingBinding.isWeak)
           //SDM2014-01-20: as part of cross-context implicit bindings fix, attempts by a weak binding to replace a non-weak binding are ignored instead of being 
           if (existingBinding != binding && !existingBinding.isWeak && !binding.isWeak)
@@ -277,16 +277,16 @@ namespace StrangeIoC.scripts.strange.framework.impl
     /// The default handler for resolving bindings during chained commands
     protected virtual void resolver(IBinding binding)
     {
-      var key = binding.key;
+      object key = binding.key;
       if (binding.keyConstraint.Equals(BindingConstraintType.ONE))
       {
         ResolveBinding(binding, key);
       }
       else
       {
-        var keys = key as object[];
-        var aa = keys.Length;
-        for (var a = 0; a < aa; a++) ResolveBinding(binding, keys[a]);
+        object[] keys = key as object[];
+        int aa = keys.Length;
+        for (int a = 0; a < aa; a++) ResolveBinding(binding, keys[a]);
       }
     }
 
@@ -313,7 +313,7 @@ namespace StrangeIoC.scripts.strange.framework.impl
     /// Returns true if the provided binding and the binding in the dict are no longer conflicting
     protected bool isConflictCleared(Dictionary<IBinding, object> dict, IBinding binding)
     {
-      foreach (var kv in dict)
+      foreach (KeyValuePair<IBinding, object> kv in dict)
         if (kv.Key != binding && kv.Key.name == binding.name)
           return false;
       return true;
@@ -321,25 +321,25 @@ namespace StrangeIoC.scripts.strange.framework.impl
 
     protected void clearConflict(object key, object name, Dictionary<IBinding, object> dict)
     {
-      var removalList = new List<IBinding>();
+      List<IBinding> removalList = new List<IBinding>();
 
-      foreach (var kv in dict)
+      foreach (KeyValuePair<IBinding, object> kv in dict)
       {
-        var v = kv.Value;
+        object v = kv.Value;
         if (v.Equals(name)) removalList.Add(kv.Key);
       }
 
-      var aa = removalList.Count;
-      for (var a = 0; a < aa; a++) dict.Remove(removalList[a]);
+      int aa = removalList.Count;
+      for (int a = 0; a < aa; a++) dict.Remove(removalList[a]);
       if (dict.Count == 0) conflicts.Remove(key);
     }
 
     protected T[] spliceValueAt<T>(int splicePos, object[] objectValue)
     {
-      var newList = new T[objectValue.Length - 1];
-      var mod = 0;
-      var aa = objectValue.Length;
-      for (var a = 0; a < aa; a++)
+      T[] newList = new T[objectValue.Length - 1];
+      int mod = 0;
+      int aa = objectValue.Length;
+      for (int a = 0; a < aa; a++)
       {
         if (a == splicePos)
         {

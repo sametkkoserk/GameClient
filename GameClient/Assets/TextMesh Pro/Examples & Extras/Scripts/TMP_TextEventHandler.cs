@@ -114,12 +114,12 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       {
         #region Example of Character or Sprite Selection
 
-        var charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextComponent, Input.mousePosition, m_Camera, true);
+        int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextComponent, Input.mousePosition, m_Camera, true);
         if (charIndex != -1 && charIndex != m_lastCharIndex)
         {
           m_lastCharIndex = charIndex;
 
-          var elementType = m_TextComponent.textInfo.characterInfo[charIndex].elementType;
+          TMP_TextElementType elementType = m_TextComponent.textInfo.characterInfo[charIndex].elementType;
 
           // Send event to any event listeners depending on whether it is a character or sprite.
           if (elementType == TMP_TextElementType.Character)
@@ -134,13 +134,13 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         #region Example of Word Selection
 
         // Check if Mouse intersects any words and if so assign a random color to that word.
-        var wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextComponent, Input.mousePosition, m_Camera);
+        int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextComponent, Input.mousePosition, m_Camera);
         if (wordIndex != -1 && wordIndex != m_lastWordIndex)
         {
           m_lastWordIndex = wordIndex;
 
           // Get the information about the selected word.
-          var wInfo = m_TextComponent.textInfo.wordInfo[wordIndex];
+          TMP_WordInfo wInfo = m_TextComponent.textInfo.wordInfo[wordIndex];
 
           // Send the event to any listeners.
           SendOnWordSelection(wInfo.GetWord(), wInfo.firstCharacterIndex, wInfo.characterCount);
@@ -152,20 +152,20 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         #region Example of Line Selection
 
         // Check if Mouse intersects any words and if so assign a random color to that word.
-        var lineIndex = TMP_TextUtilities.FindIntersectingLine(m_TextComponent, Input.mousePosition, m_Camera);
+        int lineIndex = TMP_TextUtilities.FindIntersectingLine(m_TextComponent, Input.mousePosition, m_Camera);
         if (lineIndex != -1 && lineIndex != m_lastLineIndex)
         {
           m_lastLineIndex = lineIndex;
 
           // Get the information about the selected word.
-          var lineInfo = m_TextComponent.textInfo.lineInfo[lineIndex];
+          TMP_LineInfo lineInfo = m_TextComponent.textInfo.lineInfo[lineIndex];
 
           // Send the event to any listeners.
-          var buffer = new char[lineInfo.characterCount];
-          for (var i = 0; i < lineInfo.characterCount && i < m_TextComponent.textInfo.characterInfo.Length; i++)
+          char[] buffer = new char[lineInfo.characterCount];
+          for (int i = 0; i < lineInfo.characterCount && i < m_TextComponent.textInfo.characterInfo.Length; i++)
             buffer[i] = m_TextComponent.textInfo.characterInfo[i + lineInfo.firstCharacterIndex].character;
 
-          var lineText = new string(buffer);
+          string lineText = new string(buffer);
           SendOnLineSelection(lineText, lineInfo.firstCharacterIndex, lineInfo.characterCount);
         }
 
@@ -175,7 +175,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         #region Example of Link Handling
 
         // Check if mouse intersects with any links.
-        var linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextComponent, Input.mousePosition, m_Camera);
+        int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextComponent, Input.mousePosition, m_Camera);
 
         // Handle new Link selection.
         if (linkIndex != -1 && linkIndex != m_selectedLink)
@@ -183,7 +183,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           m_selectedLink = linkIndex;
 
           // Get information about the link.
-          var linkInfo = m_TextComponent.textInfo.linkInfo[linkIndex];
+          TMP_LinkInfo linkInfo = m_TextComponent.textInfo.linkInfo[linkIndex];
 
           // Send the event to any listeners.
           SendOnLinkSelection(linkInfo.GetLinkID(), linkInfo.GetLinkText(), linkIndex);

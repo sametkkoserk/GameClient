@@ -38,12 +38,12 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 
     private void OnLobbies(IEvent payload)
     {
-      var lobbies = (Dictionary<ushort, LobbyVo>)payload.data;
+      Dictionary<ushort, LobbyVo> lobbies = (Dictionary<ushort, LobbyVo>)payload.data;
       for (ushort i = 0; i < lobbies.Count; i++)
       {
-        var count = i;
-        var joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
-        var behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
+        ushort count = i;
+        GameObject joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
+        JoinLobbyPanelItemBehaviour behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
         behaviour.Init(lobbies[count], () => { dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId); });
       }
     }

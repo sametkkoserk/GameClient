@@ -59,7 +59,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
         #region Handle Character Selection
 
-        var charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, m_Camera, true);
+        int charIndex = TMP_TextUtilities.FindIntersectingCharacter(m_TextMeshPro, Input.mousePosition, m_Camera, true);
 
         // Undo Swap and Vertex Attribute changes.
         if (charIndex == -1 || charIndex != m_lastIndex)
@@ -73,13 +73,13 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           m_lastIndex = charIndex;
 
           // Get the index of the material / sub text object used by this character.
-          var materialIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].materialReferenceIndex;
+          int materialIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].materialReferenceIndex;
 
           // Get the index of the first vertex of the selected character.
-          var vertexIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].vertexIndex;
+          int vertexIndex = m_TextMeshPro.textInfo.characterInfo[charIndex].vertexIndex;
 
           // Get a reference to the vertices array.
-          var vertices = m_TextMeshPro.textInfo.meshInfo[materialIndex].vertices;
+          Vector3[] vertices = m_TextMeshPro.textInfo.meshInfo[materialIndex].vertices;
 
           // Determine the center point of the character.
           Vector2 charMidBasline = (vertices[vertexIndex + 0] + vertices[vertexIndex + 2]) / 2;
@@ -94,7 +94,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           vertices[vertexIndex + 2] = vertices[vertexIndex + 2] - offset;
           vertices[vertexIndex + 3] = vertices[vertexIndex + 3] - offset;
 
-          var zoomFactor = 1.5f;
+          float zoomFactor = 1.5f;
 
           // Setup the Matrix for the scale change.
           m_matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity, Vector3.one * zoomFactor);
@@ -112,10 +112,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           vertices[vertexIndex + 3] = vertices[vertexIndex + 3] + offset;
 
           // Change Vertex Colors of the highlighted character
-          var c = new Color32(255, 255, 192, 255);
+          Color32 c = new Color32(255, 255, 192, 255);
 
           // Get a reference to the vertex color
-          var vertexColors = m_TextMeshPro.textInfo.meshInfo[materialIndex].colors32;
+          Color32[] vertexColors = m_TextMeshPro.textInfo.meshInfo[materialIndex].colors32;
 
           vertexColors[vertexIndex + 0] = c;
           vertexColors[vertexIndex + 1] = c;
@@ -124,10 +124,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
 
           // Get a reference to the meshInfo of the selected character.
-          var meshInfo = m_TextMeshPro.textInfo.meshInfo[materialIndex];
+          TMP_MeshInfo meshInfo = m_TextMeshPro.textInfo.meshInfo[materialIndex];
 
           // Get the index of the last character's vertex attributes.
-          var lastVertexIndex = vertices.Length - 4;
+          int lastVertexIndex = vertices.Length - 4;
 
           // Swap the current character's vertex attributes with those of the last element in the vertex attribute arrays.
           // We do this to make sure this character is rendered last and over other characters.
@@ -143,28 +143,28 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         #region Word Selection Handling
 
         //Check if Mouse intersects any words and if so assign a random color to that word.
-        var wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, Input.mousePosition, m_Camera);
+        int wordIndex = TMP_TextUtilities.FindIntersectingWord(m_TextMeshPro, Input.mousePosition, m_Camera);
 
         // Clear previous word selection.
         if (m_TextPopup_RectTransform != null && m_selectedWord != -1 && (wordIndex == -1 || wordIndex != m_selectedWord))
         {
-          var wInfo = m_TextMeshPro.textInfo.wordInfo[m_selectedWord];
+          TMP_WordInfo wInfo = m_TextMeshPro.textInfo.wordInfo[m_selectedWord];
 
           // Iterate through each of the characters of the word.
-          for (var i = 0; i < wInfo.characterCount; i++)
+          for (int i = 0; i < wInfo.characterCount; i++)
           {
-            var characterIndex = wInfo.firstCharacterIndex + i;
+            int characterIndex = wInfo.firstCharacterIndex + i;
 
             // Get the index of the material / sub text object used by this character.
-            var meshIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].materialReferenceIndex;
+            int meshIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].materialReferenceIndex;
 
             // Get the index of the first vertex of this character.
-            var vertexIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].vertexIndex;
+            int vertexIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].vertexIndex;
 
             // Get a reference to the vertex color
-            var vertexColors = m_TextMeshPro.textInfo.meshInfo[meshIndex].colors32;
+            Color32[] vertexColors = m_TextMeshPro.textInfo.meshInfo[meshIndex].colors32;
 
-            var c = vertexColors[vertexIndex + 0].Tint(1.33333f);
+            Color32 c = vertexColors[vertexIndex + 0].Tint(1.33333f);
 
             vertexColors[vertexIndex + 0] = c;
             vertexColors[vertexIndex + 1] = c;
@@ -184,22 +184,22 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         {
           m_selectedWord = wordIndex;
 
-          var wInfo = m_TextMeshPro.textInfo.wordInfo[wordIndex];
+          TMP_WordInfo wInfo = m_TextMeshPro.textInfo.wordInfo[wordIndex];
 
           // Iterate through each of the characters of the word.
-          for (var i = 0; i < wInfo.characterCount; i++)
+          for (int i = 0; i < wInfo.characterCount; i++)
           {
-            var characterIndex = wInfo.firstCharacterIndex + i;
+            int characterIndex = wInfo.firstCharacterIndex + i;
 
             // Get the index of the material / sub text object used by this character.
-            var meshIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].materialReferenceIndex;
+            int meshIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].materialReferenceIndex;
 
-            var vertexIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].vertexIndex;
+            int vertexIndex = m_TextMeshPro.textInfo.characterInfo[characterIndex].vertexIndex;
 
             // Get a reference to the vertex color
-            var vertexColors = m_TextMeshPro.textInfo.meshInfo[meshIndex].colors32;
+            Color32[] vertexColors = m_TextMeshPro.textInfo.meshInfo[meshIndex].colors32;
 
-            var c = vertexColors[vertexIndex + 0].Tint(0.75f);
+            Color32 c = vertexColors[vertexIndex + 0].Tint(0.75f);
 
             vertexColors[vertexIndex + 0] = c;
             vertexColors[vertexIndex + 1] = c;
@@ -217,7 +217,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         #region Example of Link Handling
 
         // Check if mouse intersects with any links.
-        var linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, Input.mousePosition, m_Camera);
+        int linkIndex = TMP_TextUtilities.FindIntersectingLink(m_TextMeshPro, Input.mousePosition, m_Camera);
 
         // Clear previous link selection if one existed.
         if ((linkIndex == -1 && m_selectedLink != -1) || linkIndex != m_selectedLink)
@@ -231,7 +231,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         {
           m_selectedLink = linkIndex;
 
-          var linkInfo = m_TextMeshPro.textInfo.linkInfo[linkIndex];
+          TMP_LinkInfo linkInfo = m_TextMeshPro.textInfo.linkInfo[linkIndex];
 
           // Debug.Log("Link ID: \"" + linkInfo.GetLinkID() + "\"   Link Text: \"" + linkInfo.GetLinkText() + "\""); // Example of how to retrieve the Link ID and Link Text.
 
@@ -463,17 +463,17 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       if (index == -1 || index > m_TextMeshPro.textInfo.characterCount - 1) return;
 
       // Get the index of the material / sub text object used by this character.
-      var materialIndex = m_TextMeshPro.textInfo.characterInfo[index].materialReferenceIndex;
+      int materialIndex = m_TextMeshPro.textInfo.characterInfo[index].materialReferenceIndex;
 
       // Get the index of the first vertex of the selected character.
-      var vertexIndex = m_TextMeshPro.textInfo.characterInfo[index].vertexIndex;
+      int vertexIndex = m_TextMeshPro.textInfo.characterInfo[index].vertexIndex;
 
       // Restore Vertices
       // Get a reference to the cached / original vertices.
-      var src_vertices = m_cachedMeshInfoVertexData[materialIndex].vertices;
+      Vector3[] src_vertices = m_cachedMeshInfoVertexData[materialIndex].vertices;
 
       // Get a reference to the vertices that we need to replace.
-      var dst_vertices = m_TextMeshPro.textInfo.meshInfo[materialIndex].vertices;
+      Vector3[] dst_vertices = m_TextMeshPro.textInfo.meshInfo[materialIndex].vertices;
 
       // Restore / Copy vertices from source to destination
       dst_vertices[vertexIndex + 0] = src_vertices[vertexIndex + 0];
@@ -483,10 +483,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
       // Restore Vertex Colors
       // Get a reference to the vertex colors we need to replace.
-      var dst_colors = m_TextMeshPro.textInfo.meshInfo[materialIndex].colors32;
+      Color32[] dst_colors = m_TextMeshPro.textInfo.meshInfo[materialIndex].colors32;
 
       // Get a reference to the cached / original vertex colors.
-      var src_colors = m_cachedMeshInfoVertexData[materialIndex].colors32;
+      Color32[] src_colors = m_cachedMeshInfoVertexData[materialIndex].colors32;
 
       // Copy the vertex colors from source to destination.
       dst_colors[vertexIndex + 0] = src_colors[vertexIndex + 0];
@@ -496,16 +496,16 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
       // Restore UV0S
       // UVS0
-      var src_uv0s = m_cachedMeshInfoVertexData[materialIndex].uvs0;
-      var dst_uv0s = m_TextMeshPro.textInfo.meshInfo[materialIndex].uvs0;
+      Vector2[] src_uv0s = m_cachedMeshInfoVertexData[materialIndex].uvs0;
+      Vector2[] dst_uv0s = m_TextMeshPro.textInfo.meshInfo[materialIndex].uvs0;
       dst_uv0s[vertexIndex + 0] = src_uv0s[vertexIndex + 0];
       dst_uv0s[vertexIndex + 1] = src_uv0s[vertexIndex + 1];
       dst_uv0s[vertexIndex + 2] = src_uv0s[vertexIndex + 2];
       dst_uv0s[vertexIndex + 3] = src_uv0s[vertexIndex + 3];
 
       // UVS2
-      var src_uv2s = m_cachedMeshInfoVertexData[materialIndex].uvs2;
-      var dst_uv2s = m_TextMeshPro.textInfo.meshInfo[materialIndex].uvs2;
+      Vector2[] src_uv2s = m_cachedMeshInfoVertexData[materialIndex].uvs2;
+      Vector2[] dst_uv2s = m_TextMeshPro.textInfo.meshInfo[materialIndex].uvs2;
       dst_uv2s[vertexIndex + 0] = src_uv2s[vertexIndex + 0];
       dst_uv2s[vertexIndex + 1] = src_uv2s[vertexIndex + 1];
       dst_uv2s[vertexIndex + 2] = src_uv2s[vertexIndex + 2];
@@ -513,7 +513,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
 
       // Restore last vertex attribute as we swapped it as well
-      var lastIndex = (src_vertices.Length / 4 - 1) * 4;
+      int lastIndex = (src_vertices.Length / 4 - 1) * 4;
 
       // Vertices
       dst_vertices[lastIndex + 0] = src_vertices[lastIndex + 0];

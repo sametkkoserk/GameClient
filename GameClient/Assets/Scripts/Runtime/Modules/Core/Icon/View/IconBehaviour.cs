@@ -10,7 +10,7 @@ namespace Runtime.Modules.Core.Icon.View
   public class IconBehaviour : MonoBehaviour
   {
     public Color color = Color.white;
-    [FormerlySerializedAs("IconKey")]
+    
     [Space]
     public IconKey iconKey;
 

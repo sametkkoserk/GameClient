@@ -40,7 +40,7 @@ namespace StrangeIoC.examples.Assets.scripts.signalsproject
     public override IContext Start()
     {
       base.Start();
-      var startSignal = injectionBinder.GetInstance<StartSignal>();
+      StartSignal startSignal = injectionBinder.GetInstance<StartSignal>();
       startSignal.Dispatch();
       return this;
     }

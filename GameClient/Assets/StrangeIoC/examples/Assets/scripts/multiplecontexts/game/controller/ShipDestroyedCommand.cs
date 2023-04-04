@@ -27,7 +27,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller
 
     public override void Execute()
     {
-      var livesRemaining = scoreKeeper.LoseLife();
+      int livesRemaining = scoreKeeper.LoseLife();
       dispatcher.Dispatch(GameEvent.LIVES_CHANGE, livesRemaining);
 
       if (livesRemaining == 0) dispatcher.Dispatch(GameEvent.GAME_OVER);

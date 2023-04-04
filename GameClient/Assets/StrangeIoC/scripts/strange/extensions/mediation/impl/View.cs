@@ -23,6 +23,7 @@
  * critical moments occur in the View lifecycle.
  */
 
+using StrangeIoC.scripts.strange.extensions.context.api;
 using StrangeIoC.scripts.strange.extensions.context.impl;
 using StrangeIoC.scripts.strange.extensions.mediation.api;
 using UnityEngine;
@@ -84,18 +85,18 @@ namespace StrangeIoC.scripts.strange.extensions.mediation.impl
     protected virtual void bubbleToContext(MonoBehaviour view, bool toAdd, bool finalTry)
     {
       const int LOOP_MAX = 100;
-      var loopLimiter = 0;
-      var trans = view.gameObject.transform;
+      int loopLimiter = 0;
+      Transform trans = view.gameObject.transform;
       while (trans.parent != null && loopLimiter < LOOP_MAX)
       {
         loopLimiter++;
         trans = trans.parent;
         if (trans.gameObject.GetComponent<ContextView>() != null)
         {
-          var contextView = trans.gameObject.GetComponent<ContextView>();
+          ContextView contextView = trans.gameObject.GetComponent<ContextView>();
           if (contextView.context != null)
           {
-            var context = contextView.context;
+            IContext context = contextView.context;
             if (toAdd)
             {
               context.AddView(view);

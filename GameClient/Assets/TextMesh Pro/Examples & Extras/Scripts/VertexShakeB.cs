@@ -53,10 +53,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       // Alternatively, we could yield and wait until the end of the frame when the text object will be generated.
       m_TextComponent.ForceMeshUpdate();
 
-      var textInfo = m_TextComponent.textInfo;
+      TMP_TextInfo textInfo = m_TextComponent.textInfo;
 
       Matrix4x4 matrix;
-      var copyOfVertices = new Vector3[0][];
+      Vector3[][] copyOfVertices = new Vector3[0][];
 
       hasTextChanged = true;
 
@@ -68,16 +68,16 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           if (copyOfVertices.Length < textInfo.meshInfo.Length)
             copyOfVertices = new Vector3[textInfo.meshInfo.Length][];
 
-          for (var i = 0; i < textInfo.meshInfo.Length; i++)
+          for (int i = 0; i < textInfo.meshInfo.Length; i++)
           {
-            var length = textInfo.meshInfo[i].vertices.Length;
+            int length = textInfo.meshInfo[i].vertices.Length;
             copyOfVertices[i] = new Vector3[length];
           }
 
           hasTextChanged = false;
         }
 
-        var characterCount = textInfo.characterCount;
+        int characterCount = textInfo.characterCount;
 
         // If No Characters then just yield and wait for some text to be added
         if (characterCount == 0)
@@ -86,36 +86,36 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           continue;
         }
 
-        var lineCount = textInfo.lineCount;
+        int lineCount = textInfo.lineCount;
 
         // Iterate through each line of the text.
-        for (var i = 0; i < lineCount; i++)
+        for (int i = 0; i < lineCount; i++)
         {
-          var first = textInfo.lineInfo[i].firstCharacterIndex;
-          var last = textInfo.lineInfo[i].lastCharacterIndex;
+          int first = textInfo.lineInfo[i].firstCharacterIndex;
+          int last = textInfo.lineInfo[i].lastCharacterIndex;
 
           // Determine the center of each line
-          var centerOfLine = (textInfo.characterInfo[first].bottomLeft + textInfo.characterInfo[last].topRight) / 2;
-          var rotation = Quaternion.Euler(0, 0, Random.Range(-0.25f, 0.25f));
+          Vector3 centerOfLine = (textInfo.characterInfo[first].bottomLeft + textInfo.characterInfo[last].topRight) / 2;
+          Quaternion rotation = Quaternion.Euler(0, 0, Random.Range(-0.25f, 0.25f));
 
           // Iterate through each character of the line.
-          for (var j = first; j <= last; j++)
+          for (int j = first; j <= last; j++)
           {
             // Skip characters that are not visible and thus have no geometry to manipulate.
             if (!textInfo.characterInfo[j].isVisible)
               continue;
 
             // Get the index of the material used by the current character.
-            var materialIndex = textInfo.characterInfo[j].materialReferenceIndex;
+            int materialIndex = textInfo.characterInfo[j].materialReferenceIndex;
 
             // Get the index of the first vertex used by this text element.
-            var vertexIndex = textInfo.characterInfo[j].vertexIndex;
+            int vertexIndex = textInfo.characterInfo[j].vertexIndex;
 
             // Get the vertices of the mesh used by this text element (character or sprite).
-            var sourceVertices = textInfo.meshInfo[materialIndex].vertices;
+            Vector3[] sourceVertices = textInfo.meshInfo[materialIndex].vertices;
 
             // Determine the center point of each character at the baseline.
-            var charCenter = (sourceVertices[vertexIndex + 0] + sourceVertices[vertexIndex + 2]) / 2;
+            Vector3 charCenter = (sourceVertices[vertexIndex + 0] + sourceVertices[vertexIndex + 2]) / 2;
 
             // Need to translate all 4 vertices of each quad to aligned with center of character.
             // This is needed so the matrix TRS is applied at the origin for each character.
@@ -125,7 +125,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
             copyOfVertices[materialIndex][vertexIndex + 3] = sourceVertices[vertexIndex + 3] - charCenter;
 
             // Determine the random scale change for each character.
-            var randomScale = Random.Range(0.95f, 1.05f);
+            float randomScale = Random.Range(0.95f, 1.05f);
 
             // Setup the matrix for the scale change.
             matrix = Matrix4x4.TRS(Vector3.one, Quaternion.identity, Vector3.one * randomScale);
@@ -167,7 +167,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
         }
 
         // Push changes into meshes
-        for (var i = 0; i < textInfo.meshInfo.Length; i++)
+        for (int i = 0; i < textInfo.meshInfo.Length; i++)
         {
           textInfo.meshInfo[i].mesh.vertices = copyOfVertices[i];
           m_TextComponent.UpdateGeometry(textInfo.meshInfo[i].mesh, i);

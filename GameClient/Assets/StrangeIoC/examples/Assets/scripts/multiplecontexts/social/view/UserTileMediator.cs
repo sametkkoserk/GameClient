@@ -51,7 +51,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.social.view
 
     private void onGameRestart()
     {
-      var viewUserVO = view.getUser();
+      UserVO viewUserVO = view.getUser();
       if (viewUserVO != null && viewUserVO.serviceId != userVO.serviceId) Destroy(gameObject);
     }
   }

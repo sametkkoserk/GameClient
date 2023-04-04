@@ -45,9 +45,9 @@ namespace StrangeIoC.scripts.strange.extensions.signal.impl
 
     public void AddListener(Action<IBaseSignal, object[]> callback)
     {
-      foreach (var del in BaseListener.GetInvocationList())
+      foreach (Delegate del in BaseListener.GetInvocationList())
       {
-        var action = (Action<IBaseSignal, object[]>)del;
+        Action<IBaseSignal, object[]> action = (Action<IBaseSignal, object[]>)del;
         if (callback.Equals(action)) //If this callback exists already, ignore this addlistener
           return;
       }
@@ -57,9 +57,9 @@ namespace StrangeIoC.scripts.strange.extensions.signal.impl
 
     public void AddOnce(Action<IBaseSignal, object[]> callback)
     {
-      foreach (var del in OnceBaseListener.GetInvocationList())
+      foreach (Delegate del in OnceBaseListener.GetInvocationList())
       {
-        var action = (Action<IBaseSignal, object[]>)del;
+        Action<IBaseSignal, object[]> action = (Action<IBaseSignal, object[]>)del;
         if (callback.Equals(action)) //If this callback exists already, ignore this addlistener
           return;
       }

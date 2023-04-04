@@ -285,7 +285,7 @@ namespace StrangeIoC.scripts.strange.extensions.context.impl
     /// are removed.
     public override object GetComponent<T>(object name)
     {
-      var binding = injectionBinder.GetBinding<T>(name);
+      IInjectionBinding binding = injectionBinder.GetBinding<T>(name);
       if (binding != null) return injectionBinder.GetInstance<T>(name);
       return null;
     }
@@ -321,10 +321,10 @@ namespace StrangeIoC.scripts.strange.extensions.context.impl
       if (mediationBinder == null)
         throw new ContextException("MVCSContext cannot mediate views without a mediationBinder", ContextExceptionType.NO_MEDIATION_BINDER);
 
-      var values = viewCache.value as object[];
+      object[] values = viewCache.value as object[];
       if (values == null) return;
-      var aa = values.Length;
-      for (var a = 0; a < aa; a++) mediationBinder.Trigger(MediationEvent.AWAKE, values[a] as IView);
+      int aa = values.Length;
+      for (int a = 0; a < aa; a++) mediationBinder.Trigger(MediationEvent.AWAKE, values[a] as IView);
       viewCache = new SemiBinding();
     }
 

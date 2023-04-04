@@ -18,8 +18,8 @@ namespace Runtime.Contexts.Lobby.Processor
 
     public override void Execute()
     {
-      var vo = (MessageReceivedVo)evt.data;
-      var lobbySettingsVo = networkManager.GetData<LobbySettingsVo>(vo.message);
+      MessageReceivedVo vo = (MessageReceivedVo)evt.data;
+      LobbySettingsVo lobbySettingsVo = networkManager.GetData<LobbySettingsVo>(vo.message);
 
       lobbyModel.lobbyVo.lobbySettingsVo = lobbySettingsVo;
       dispatcher.Dispatch(LobbyEvent.GetGameSettings);

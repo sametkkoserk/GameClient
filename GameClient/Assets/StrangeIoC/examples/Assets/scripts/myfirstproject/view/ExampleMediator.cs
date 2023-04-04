@@ -47,7 +47,7 @@ namespace StrangeIoC.examples.Assets.scripts.myfirstproject.view
     private void onScoreChange(IEvent evt)
     {
       //float score = (float)evt.data;
-      var score = (string)evt.data;
+      string score = (string)evt.data;
       view.updateScore(score);
     }
   }

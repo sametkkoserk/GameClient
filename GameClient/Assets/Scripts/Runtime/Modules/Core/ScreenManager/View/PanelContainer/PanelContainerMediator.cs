@@ -7,7 +7,9 @@ using Runtime.Modules.Core.ScreenManager.Vo;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 {
@@ -45,7 +47,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OpenPanel(IEvent payload)
     {
-      var panelVo = (PanelVo)payload.data;
+      PanelVo panelVo = (PanelVo)payload.data;
 
       if (panelVo.layerKey != view.key || panelVo.sceneKey.ToString() != gameObject.scene.name) return;
 
@@ -80,20 +82,20 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OnHidePanelContainer(PanelVo panelVo)
     {
-      for (var i = 0; i < gameObject.transform.childCount; i++) transform.GetChild(i).gameObject.SetActive(false);
+      for (int i = 0; i < gameObject.transform.childCount; i++) transform.GetChild(i).gameObject.SetActive(false);
 
       CreatePanel(panelVo);
     }
 
     private void CreatePanel(PanelVo vo)
     {
-      var instantiateAsync = Addressables.InstantiateAsync(vo.addressableKey, transform);
+      AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(vo.addressableKey, transform);
       instantiateAsync.Completed += handle =>
       {
         if (handle.Result == null)
           return;
 
-        var panel = handle.Result;
+        GameObject panel = handle.Result;
         panel.name = vo.addressableKey;
         screenManagerModel.instantiatedPanels.Add(vo, instantiateAsync);
       };
@@ -104,10 +106,10 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     private void DestroyAllChild()
     {
       // Panel will have an closing animations. Destroy will change.
-      for (var i = 0; i < transform.childCount; i++)
-      for (var j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
+      for (int i = 0; i < transform.childCount; i++)
+      for (int j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
       {
-        var key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
+        string key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
 
         if (transform.GetChild(i).name != key) continue;
         Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(j).Value);
@@ -131,7 +133,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OnCloseLayerPanels(IEvent payload)
     {
-      var layerKey = (LayerKey)payload.data;
+      LayerKey layerKey = (LayerKey)payload.data;
 
       if (view.key != layerKey) return;
 
@@ -140,7 +142,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OnCloseScenePanels(IEvent payload)
     {
-      var sceneKey = (SceneKey)payload.data;
+      SceneKey sceneKey = (SceneKey)payload.data;
 
       if (gameObject.scene.name != sceneKey.ToString()) return;
 
@@ -156,16 +158,16 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
 
     private void OnCloseSpecificLayer(IEvent payload)
     {
-      var specificLayer = (KeyValuePair<SceneKey, LayerKey>)payload.data;
+      KeyValuePair<SceneKey, LayerKey> specificLayer = (KeyValuePair<SceneKey, LayerKey>)payload.data;
 
       if (gameObject.scene.name == specificLayer.Key.ToString() && view.key == specificLayer.Value) DestroyAllChild();
     }
 
     private void OnCloseSpecificPanel(IEvent payload)
     {
-      var panelAddressableKey = (string)payload.data;
+      string panelAddressableKey = (string)payload.data;
 
-      for (var i = 0; i < screenManagerModel.instantiatedPanels.Count; i++)
+      for (int i = 0; i < screenManagerModel.instantiatedPanels.Count; i++)
       {
         if (screenManagerModel.instantiatedPanels.ElementAt(i).Key.addressableKey != panelAddressableKey) continue;
 

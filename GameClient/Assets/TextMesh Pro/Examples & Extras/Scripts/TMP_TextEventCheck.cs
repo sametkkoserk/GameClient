@@ -62,7 +62,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
     {
       if (m_TextComponent != null)
       {
-        var linkInfo = m_TextComponent.textInfo.linkInfo[linkIndex];
+        TMP_LinkInfo linkInfo = m_TextComponent.textInfo.linkInfo[linkIndex];
       }
 
       Debug.Log("Link Index: " + linkIndex + " with ID [" + linkID + "] and Text \"" + linkText + "\" has been selected.");

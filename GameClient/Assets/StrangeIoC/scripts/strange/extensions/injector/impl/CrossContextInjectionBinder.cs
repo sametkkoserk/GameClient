@@ -54,7 +54,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     public override IInjectionBinding GetBinding(object key, object name)
     {
-      var binding = base.GetBinding(key, name);
+      IInjectionBinding binding = base.GetBinding(key, name);
       if (binding == null) //Attempt to get this from the cross context. Cross context is always SECOND PRIORITY. Local injections always override
         if (CrossContextBinder != null)
           binding = CrossContextBinder.GetBinding(key, name);
@@ -66,7 +66,7 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
       //Decide whether to resolve locally or not
       if (binding is IInjectionBinding)
       {
-        var injectionBinding = (InjectionBinding)binding;
+        InjectionBinding injectionBinding = (InjectionBinding)binding;
         if (injectionBinding.isCrossContext)
         {
           if (CrossContextBinder == null) //We are a crosscontextbinder

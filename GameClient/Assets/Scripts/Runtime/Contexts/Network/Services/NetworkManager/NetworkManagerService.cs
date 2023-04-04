@@ -55,7 +55,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
     {
       if (obj == null)
         Debug.LogError("Set data object is null");
-      var objStr = JsonUtility.ToJson(obj);
+      string objStr = JsonUtility.ToJson(obj);
 
       Debug.Log(objStr);
       message.AddString(objStr);

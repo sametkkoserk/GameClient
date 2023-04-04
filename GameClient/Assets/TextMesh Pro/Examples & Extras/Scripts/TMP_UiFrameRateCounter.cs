@@ -34,7 +34,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
 
       Application.targetFrameRate = 1000;
 
-      var frameCounter = new GameObject("Frame Counter");
+      GameObject frameCounter = new GameObject("Frame Counter");
       m_frameCounter_transform = frameCounter.AddComponent<RectTransform>();
 
       m_frameCounter_transform.SetParent(transform, false);
@@ -68,13 +68,13 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       last_AnchorPosition = AnchorPosition;
 
       m_Frames += 1;
-      var timeNow = Time.realtimeSinceStartup;
+      float timeNow = Time.realtimeSinceStartup;
 
       if (timeNow > m_LastInterval + UpdateInterval)
       {
         // display two fractional digits (f2 format)
-        var fps = m_Frames / (timeNow - m_LastInterval);
-        var ms = 1000.0f / Mathf.Max(fps, 0.00001f);
+        float fps = m_Frames / (timeNow - m_LastInterval);
+        float ms = 1000.0f / Mathf.Max(fps, 0.00001f);
 
         if (fps < 30)
           htmlColorTag = "<color=yellow>";

@@ -3,6 +3,7 @@ using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.View.PanelContainer;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using UnityEngine;
 
 namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
 {
@@ -16,15 +17,15 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
 
     private void Start()
     {
-      for (var i = 0; i < view.layerVos.Count; i++)
+      for (int i = 0; i < view.layerVos.Count; i++)
       {
         if (!view.layerVos[i].active) continue;
         if (view.processedKeys.Contains(view.layerVos[i].key.ToString())) continue;
 
         view.processedKeys.Add(view.layerVos[i].key.ToString());
 
-        var instantiated = Instantiate(view.panelContainer, transform);
-        var behaviour = instantiated.GetComponent<PanelContainerView>();
+        GameObject instantiated = Instantiate(view.panelContainer, transform);
+        PanelContainerView behaviour = instantiated.GetComponent<PanelContainerView>();
 
         behaviour.Init(view.layerVos[i].key);
       }

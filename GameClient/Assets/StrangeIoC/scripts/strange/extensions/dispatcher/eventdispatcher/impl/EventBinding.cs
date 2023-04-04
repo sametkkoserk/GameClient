@@ -27,11 +27,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using StrangeIoC.scripts.strange.extensions.dispatcher.api;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.dispatcher.impl;
 using StrangeIoC.scripts.strange.framework.api;
 using StrangeIoC.scripts.strange.framework.impl;
+using Binder = StrangeIoC.scripts.strange.framework.impl.Binder;
 
 namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
 {
@@ -97,8 +99,8 @@ namespace StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.impl
     private void storeMethodType(Delegate value)
     {
       if (value == null) throw new DispatcherException("EventDispatcher can't map something that isn't a delegate'", DispatcherExceptionType.ILLEGAL_CALLBACK_HANDLER);
-      var methodInfo = value.Method;
-      var argsLen = methodInfo.GetParameters().Length;
+      MethodInfo methodInfo = value.Method;
+      int argsLen = methodInfo.GetParameters().Length;
       switch (argsLen)
       {
         case 0:

@@ -50,23 +50,23 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     public virtual object GetInstance(Type key, object name)
     {
-      var binding = GetBinding(key, name);
+      IInjectionBinding binding = GetBinding(key, name);
       if (binding == null) throw new InjectionException("InjectionBinder has no binding for:\n\tkey: " + key + "\nname: " + name, InjectionExceptionType.NULL_BINDING);
-      var instance = GetInjectorForBinding(binding).Instantiate(binding);
+      object instance = GetInjectorForBinding(binding).Instantiate(binding);
       return instance;
     }
 
     public T GetInstance<T>()
     {
-      var instance = GetInstance(typeof(T));
-      var retv = (T)instance;
+      object instance = GetInstance(typeof(T));
+      T retv = (T)instance;
       return retv;
     }
 
     public T GetInstance<T>(object name)
     {
-      var instance = GetInstance(typeof(T), name);
-      var retv = (T)instance;
+      object instance = GetInstance(typeof(T), name);
+      T retv = (T)instance;
       return retv;
     }
 
@@ -115,14 +115,14 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     public int ReflectAll()
     {
-      var list = new List<Type>();
-      foreach (var pair in bindings)
+      List<Type> list = new List<Type>();
+      foreach (KeyValuePair<object, Dictionary<object, IBinding>> pair in bindings)
       {
-        var dict = pair.Value;
-        foreach (var bPair in dict)
+        Dictionary<object, IBinding> dict = pair.Value;
+        foreach (KeyValuePair<object, IBinding> bPair in dict)
         {
-          var binding = bPair.Value;
-          var t = binding.value is Type ? (Type)binding.value : binding.value.GetType();
+          IBinding binding = bPair.Value;
+          Type t = binding.value is Type ? (Type)binding.value : binding.value.GetType();
           if (list.IndexOf(t) == -1) list.Add(t);
         }
       }
@@ -132,8 +132,8 @@ namespace StrangeIoC.scripts.strange.extensions.injector.impl
 
     public int Reflect(List<Type> list)
     {
-      var count = 0;
-      foreach (var t in list)
+      int count = 0;
+      foreach (Type t in list)
       {
         //Reflector won't permit primitive types, so screen them
         if (t.IsPrimitive || t == typeof(decimal) || t == typeof(string)) continue;

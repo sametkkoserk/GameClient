@@ -18,7 +18,7 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      var message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
+      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
       OutFromLobbyVo outFromLobbyVo = new()
       {
         lobbyId = lobbyModel.lobbyVo.lobbyId,

@@ -32,7 +32,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       m_initial_Rotation = m_transform.rotation.eulerAngles;
       m_initial_Position = m_transform.position;
 
-      var light = GetComponent<Light>();
+      Light light = GetComponent<Light>();
       m_lightColor = light != null ? light.color : Color.black;
     }
 
@@ -53,9 +53,9 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       {
         m_time += SpinSpeed * Time.deltaTime;
 
-        var x = 15 * Mathf.Cos(m_time * .95f);
+        float x = 15 * Mathf.Cos(m_time * .95f);
         float y = 10; // *Mathf.Sin(m_time * 1f) * Mathf.Cos(m_time * 1f);
-        var z = 0f; // *Mathf.Sin(m_time * .9f);    
+        float z = 0f; // *Mathf.Sin(m_time * .9f);    
 
         m_transform.position = m_initial_Position + new Vector3(x, z, y);
 

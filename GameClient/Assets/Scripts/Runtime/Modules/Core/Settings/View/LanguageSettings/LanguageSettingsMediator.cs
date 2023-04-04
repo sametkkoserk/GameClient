@@ -41,7 +41,7 @@ namespace Runtime.Modules.Core.Settings.View.LanguageSettings
 
     private void OnChangeLanguage(IEvent payload)
     {
-      var language = (string)payload.data;
+      string language = (string)payload.data;
 
       switch (language)
       {

@@ -21,20 +21,20 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       m_Transform = transform;
 
       float lineHeight = 0;
-      var orthoSize = Camera.main.orthographicSize = Screen.height / 2;
-      var ratio = (float)Screen.width / Screen.height;
+      float orthoSize = Camera.main.orthographicSize = Screen.height / 2;
+      float ratio = (float)Screen.width / Screen.height;
 
-      for (var i = MinPointSize; i <= MaxPointSize; i += Steps)
+      for (int i = MinPointSize; i <= MaxPointSize; i += Steps)
         if (SpawnType == 0)
         {
           // TextMesh Pro Implementation
-          var go = new GameObject("Text - " + i + " Pts");
+          GameObject go = new GameObject("Text - " + i + " Pts");
 
           if (lineHeight > orthoSize * 2) return;
 
           go.transform.position = m_Transform.position + new Vector3(ratio * -orthoSize * 0.975f, orthoSize * 0.975f - lineHeight, 0);
 
-          var textMeshPro = go.AddComponent<TextMeshPro>();
+          TextMeshPro textMeshPro = go.AddComponent<TextMeshPro>();
 
           //textMeshPro.fontSharedMaterial = material;
           //textMeshPro.font = Resources.Load("Fonts & Materials/LiberationSans SDF", typeof(TextMeshProFont)) as TextMeshProFont;

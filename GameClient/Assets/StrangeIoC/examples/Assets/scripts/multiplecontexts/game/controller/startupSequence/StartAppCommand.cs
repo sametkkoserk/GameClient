@@ -40,9 +40,9 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller.st
       //This is one way to do it, but there is no "right" way
       if (context != Context.firstContext)
       {
-        var audioListeners = Object.FindObjectsOfType(typeof(AudioListener)) as AudioListener[];
-        var aa = audioListeners.Length;
-        for (var a = 1; a < aa; a++) audioListeners[a].enabled = false;
+        AudioListener[] audioListeners = Object.FindObjectsOfType(typeof(AudioListener)) as AudioListener[];
+        int aa = audioListeners.Length;
+        for (int a = 1; a < aa; a++) audioListeners[a].enabled = false;
       }
 
 
@@ -55,7 +55,7 @@ namespace StrangeIoC.examples.Assets.scripts.multiplecontexts.game.controller.st
       //...then bind it for injection
       injectionBinder.Bind<IGameTimer>().ToValue(timer);
 
-      var go = new GameObject();
+      GameObject go = new GameObject();
       go.name = "Scoreboard";
       go.AddComponent<ScoreboardView>();
       go.transform.parent = contextView.transform;

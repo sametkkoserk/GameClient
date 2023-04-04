@@ -711,7 +711,7 @@ namespace Runtime.Modules.Core.PromiseTool
         return this;
       }
 
-      var resultPromise = new Promise();
+      Promise resultPromise = new Promise();
       resultPromise.WithName(Name);
 
       Action resolveHandler = () => resultPromise.Resolve();
@@ -812,7 +812,7 @@ namespace Runtime.Modules.Core.PromiseTool
       // Otherwise there is now way to get the converted value to pass to the resulting promise.
       //            Argument.NotNull(() => onResolved);
 
-      var resultPromise = new Promise<ConvertedT>();
+      Promise<ConvertedT> resultPromise = new Promise<ConvertedT>();
       resultPromise.WithName(Name);
 
       Action resolveHandler = () =>
@@ -875,7 +875,7 @@ namespace Runtime.Modules.Core.PromiseTool
         }
       }
 
-      var resultPromise = new Promise();
+      Promise resultPromise = new Promise();
       resultPromise.WithName(Name);
 
       Action resolveHandler;
@@ -939,7 +939,7 @@ namespace Runtime.Modules.Core.PromiseTool
         }
       }
 
-      var resultPromise = new Promise();
+      Promise resultPromise = new Promise();
       resultPromise.WithName(Name);
 
       Action resolveHandler;
@@ -1052,16 +1052,16 @@ namespace Runtime.Modules.Core.PromiseTool
     /// </summary>
     public static IPromise All(IEnumerable<IPromise> promises)
     {
-      var promisesArray = promises.ToArray();
+      IPromise[] promisesArray = promises.ToArray();
       if (promisesArray.Length == 0)
       {
         return Resolved();
       }
 
-      var remainingCount = promisesArray.Length;
-      var resultPromise = new Promise();
+      int remainingCount = promisesArray.Length;
+      Promise resultPromise = new Promise();
       resultPromise.WithName("All");
-      var progress = new float[remainingCount];
+      float[] progress = new float[remainingCount];
 
       promisesArray.Each((promise, index) =>
       {
@@ -1125,7 +1125,7 @@ namespace Runtime.Modules.Core.PromiseTool
     /// </summary>
     public static IPromise Sequence(IEnumerable<Func<IPromise>> fns)
     {
-      var promise = new Promise();
+      Promise promise = new Promise();
 
       int count = 0;
 
@@ -1139,13 +1139,13 @@ namespace Runtime.Modules.Core.PromiseTool
             return prevPromise
               .Then(() =>
               {
-                var sliceLength = 1f / count;
+                float sliceLength = 1f / count;
                 promise.ReportProgress(sliceLength * itemSequence);
                 return fn();
               })
               .Progress(v =>
               {
-                var sliceLength = 1f / count;
+                float sliceLength = 1f / count;
                 promise.ReportProgress(sliceLength * (v + itemSequence));
               });
           }
@@ -1190,16 +1190,16 @@ namespace Runtime.Modules.Core.PromiseTool
     /// </summary>
     public static IPromise Race(IEnumerable<IPromise> promises)
     {
-      var promisesArray = promises.ToArray();
+      IPromise[] promisesArray = promises.ToArray();
       if (promisesArray.Length == 0)
       {
         throw new InvalidOperationException("At least 1 input promise must be provided for Race");
       }
 
-      var resultPromise = new Promise();
+      Promise resultPromise = new Promise();
       resultPromise.WithName("Race");
 
-      var progress = new float[promisesArray.Length];
+      float[] progress = new float[promisesArray.Length];
 
       promisesArray.Each((promise, index) =>
       {
@@ -1248,7 +1248,7 @@ namespace Runtime.Modules.Core.PromiseTool
     {
 //            Argument.NotNull(() => ex);
 
-      var promise = new Promise(PromiseState.Rejected);
+      Promise promise = new Promise(PromiseState.Rejected);
       promise.rejectionException = ex;
       return promise;
     }
@@ -1268,7 +1268,7 @@ namespace Runtime.Modules.Core.PromiseTool
         }
       }
 
-      var promise = new Promise();
+      Promise promise = new Promise();
       promise.WithName(Name);
 
       this.Then((Action) promise.Resolve);
@@ -1290,7 +1290,7 @@ namespace Runtime.Modules.Core.PromiseTool
 
     public IPromise ContinueWith(Func<IPromise> onComplete)
     {
-      var promise = new Promise();
+      Promise promise = new Promise();
       promise.WithName(Name);
 
       this.Then((Action) promise.Resolve);
@@ -1301,7 +1301,7 @@ namespace Runtime.Modules.Core.PromiseTool
 
     public IPromise<ConvertedT> ContinueWith<ConvertedT>(Func<IPromise<ConvertedT>> onComplete)
     {
-      var promise = new Promise();
+      Promise promise = new Promise();
       promise.WithName(Name);
 
       this.Then((Action) promise.Resolve);

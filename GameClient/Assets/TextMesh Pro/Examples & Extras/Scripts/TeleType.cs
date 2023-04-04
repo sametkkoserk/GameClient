@@ -47,9 +47,9 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
       m_textMeshPro.ForceMeshUpdate();
 
 
-      var totalVisibleCharacters = m_textMeshPro.textInfo.characterCount; // Get # of Visible Character in text object
-      var counter = 0;
-      var visibleCount = 0;
+      int totalVisibleCharacters = m_textMeshPro.textInfo.characterCount; // Get # of Visible Character in text object
+      int counter = 0;
+      int visibleCount = 0;
 
       while (true)
       {

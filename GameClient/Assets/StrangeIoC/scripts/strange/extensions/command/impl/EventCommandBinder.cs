@@ -34,13 +34,13 @@ namespace StrangeIoC.scripts.strange.extensions.command.impl
       injectionBinder.Bind<ICommand>().To(cmd);
       if (data is IEvent) injectionBinder.Bind<IEvent>().ToValue(data).ToInject(false);
 
-      var command = injectionBinder.GetInstance<ICommand>();
+      ICommand command = injectionBinder.GetInstance<ICommand>();
       if (command == null)
       {
-        var msg = "A Command ";
+        string msg = "A Command ";
         if (data is IEvent)
         {
-          var evt = (IEvent)data;
+          IEvent evt = (IEvent)data;
           msg += "tied to event " + evt.type;
         }
 

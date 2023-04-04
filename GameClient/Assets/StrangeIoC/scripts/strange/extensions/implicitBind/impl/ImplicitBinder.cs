@@ -49,26 +49,26 @@ namespace StrangeIoC.scripts.strange.extensions.implicitBind.impl
       {
         IEnumerable<Type> types = assembly.GetExportedTypes();
 
-        var typesInNamespaces = new List<Type>();
-        var namespacesLength = usingNamespaces.Length;
-        for (var ns = 0; ns < namespacesLength; ns++) typesInNamespaces.AddRange(types.Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith(usingNamespaces[ns])));
+        List<Type> typesInNamespaces = new List<Type>();
+        int namespacesLength = usingNamespaces.Length;
+        for (int ns = 0; ns < namespacesLength; ns++) typesInNamespaces.AddRange(types.Where(t => !string.IsNullOrEmpty(t.Namespace) && t.Namespace.StartsWith(usingNamespaces[ns])));
 
-        var implementsBindings = new List<ImplicitBindingVO>();
-        var implementedByBindings = new List<ImplicitBindingVO>();
+        List<ImplicitBindingVO> implementsBindings = new List<ImplicitBindingVO>();
+        List<ImplicitBindingVO> implementedByBindings = new List<ImplicitBindingVO>();
 
-        foreach (var type in typesInNamespaces)
+        foreach (Type type in typesInNamespaces)
         {
-          var implements = type.GetCustomAttributes(typeof(Implements), true);
-          var implementedBy = type.GetCustomAttributes(typeof(ImplementedBy), true);
-          var mediated = type.GetCustomAttributes(typeof(MediatedBy), true);
-          var mediates = type.GetCustomAttributes(typeof(Mediates), true);
+          object[] implements = type.GetCustomAttributes(typeof(Implements), true);
+          object[] implementedBy = type.GetCustomAttributes(typeof(ImplementedBy), true);
+          object[] mediated = type.GetCustomAttributes(typeof(MediatedBy), true);
+          object[] mediates = type.GetCustomAttributes(typeof(Mediates), true);
 
           #region Concrete and Interface Bindings
 
           //Interfaces first
           if (implementedBy.Any())
           {
-            var implBy = (ImplementedBy)implementedBy.First();
+            ImplementedBy implBy = (ImplementedBy)implementedBy.First();
             if (implBy.DefaultType.GetInterfaces().Contains(type)) //Verify this DefaultType exists and implements the tagged interface
               implementedByBindings.Add(new ImplicitBindingVO(type, implBy.DefaultType, implBy.Scope == InjectionBindingScope.CROSS_CONTEXT, null));
             else
@@ -78,11 +78,11 @@ namespace StrangeIoC.scripts.strange.extensions.implicitBind.impl
 
           if (implements.Any())
           {
-            var interfaces = type.GetInterfaces();
+            Type[] interfaces = type.GetInterfaces();
 
             object name = null;
-            var isCrossContext = false;
-            var bindTypes = new List<Type>();
+            bool isCrossContext = false;
+            List<Type> bindTypes = new List<Type>();
 
             foreach (Implements impl in implements)
             {
@@ -105,7 +105,7 @@ namespace StrangeIoC.scripts.strange.extensions.implicitBind.impl
               name = name ?? impl.Name;
             }
 
-            var thisBindingVo = new ImplicitBindingVO(bindTypes, type, isCrossContext, name);
+            ImplicitBindingVO thisBindingVo = new ImplicitBindingVO(bindTypes, type, isCrossContext, name);
 
             implementsBindings.Add(thisBindingVo);
           }
@@ -166,12 +166,12 @@ namespace StrangeIoC.scripts.strange.extensions.implicitBind.impl
       //We do not check for the existence of a binding. Because implicit bindings are weak bindings, they are overridden automatically by other implicit bindings
       //Therefore, ImplementedBy will be overriden by an Implements to that interface.
 
-      var binding = injectionBinder.Bind(toBind.BindTypes.First());
+      IInjectionBinding binding = injectionBinder.Bind(toBind.BindTypes.First());
       binding.Weak(); //SDM2014-0120: added as part of cross-context implicit binding fix (moved from below)
 
-      for (var i = 1; i < toBind.BindTypes.Count; i++)
+      for (int i = 1; i < toBind.BindTypes.Count; i++)
       {
-        var bindType = toBind.BindTypes.ElementAt(i);
+        Type bindType = toBind.BindTypes.ElementAt(i);
         binding.Bind(bindType);
       }
 

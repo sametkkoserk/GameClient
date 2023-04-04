@@ -74,7 +74,7 @@ namespace StrangeIoC.scripts.strange.extensions.context.impl
 
     public bool Trigger(object key, object data)
     {
-      var binding = GetBinding(key, null);
+      IBinding binding = GetBinding(key, null);
       if (binding != null && !eventsInProgress.Contains(key))
       {
         eventsInProgress.Add(key);

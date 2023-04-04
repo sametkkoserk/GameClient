@@ -49,7 +49,7 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           break;
       }
 
-      for (var i = 0; i < NumberOfSamples; i++)
+      for (int i = 0; i < NumberOfSamples; i++)
         switch (Benchmark)
         {
           case BenchmarkType.TMP_SDF_MOBILE:
@@ -57,10 +57,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
           case BenchmarkType.TMP_SDF:
           case BenchmarkType.TMP_BITMAP_MOBILE:
           {
-            var go = new GameObject();
+            GameObject go = new GameObject();
             go.transform.position = new Vector3(0, 1.2f, 0);
 
-            var textComponent = go.AddComponent<TextMeshPro>();
+            TextMeshPro textComponent = go.AddComponent<TextMeshPro>();
             textComponent.font = fontAsset;
             textComponent.fontSize = 128;
             textComponent.text = "@";
@@ -73,10 +73,10 @@ namespace TextMesh_Pro.Examples___Extras.Scripts
             break;
           case BenchmarkType.TEXTMESH_BITMAP:
           {
-            var go = new GameObject();
+            GameObject go = new GameObject();
             go.transform.position = new Vector3(0, 1.2f, 0);
 
-            var textMesh = go.AddComponent<TextMesh>();
+            TextMesh textMesh = go.AddComponent<TextMesh>();
             textMesh.GetComponent<Renderer>().sharedMaterial = SourceFont.material;
             textMesh.font = SourceFont;
             textMesh.anchor = TextAnchor.MiddleCenter;
