@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Contexts.Main.Enum;
+using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
 using Runtime.Modules.Core.PromiseTool;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
-using UnityEngine;
 
 namespace Runtime.Contexts.Main.Command
 {
@@ -13,11 +13,15 @@ namespace Runtime.Contexts.Main.Command
   {
     [Inject]
     public ICursorModel cursorModel { get; set; }
+    
+    [Inject]
+    public IColorPaletteModel colorPaletteModel { get; set; }
 
     public override void Execute()
     {
       List<Func<IPromise>> list = new()
       {
+        colorPaletteModel.Init,
         cursorModel.Init,
       };
 
