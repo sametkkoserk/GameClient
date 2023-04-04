@@ -2281,6 +2281,7 @@ GameObject:
   - component: {fileID: 660475128480025867}
   - component: {fileID: 3680541420904180927}
   - component: {fileID: 6647138982865211190}
+  - component: {fileID: 5562515810661610262}
   m_Layer: 0
   m_Name: Outline
   m_TagString: Untagged
@@ -2352,6 +2353,19 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &5562515810661610262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5982219200646108831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967c6c0a1e084653bd3993075f09fe6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colorKey: 0
 --- !u!1 &6423386553905328127
 GameObject:
   m_ObjectHideFlags: 0
