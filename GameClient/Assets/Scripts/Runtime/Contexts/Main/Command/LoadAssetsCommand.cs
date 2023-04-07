@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Runtime.Contexts.Main.Enum;
+using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
 using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
 using Runtime.Modules.Core.PromiseTool;
@@ -16,6 +17,9 @@ namespace Runtime.Contexts.Main.Command
     
     [Inject]
     public IColorPaletteModel colorPaletteModel { get; set; }
+    
+    [Inject]
+    public IAudioModel audioModel { get; set; }
 
     public override void Execute()
     {
@@ -23,6 +27,8 @@ namespace Runtime.Contexts.Main.Command
       {
         colorPaletteModel.Init,
         cursorModel.Init,
+        audioModel.InitMusic,
+        audioModel.InitUISounds
       };
 
       IPromise operation = list[0]();
