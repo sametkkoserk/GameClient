@@ -1,3 +1,5 @@
+using Runtime.Modules.Core.Audio.Enum;
+using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
 using Runtime.Modules.Core.Cursor.Enum;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
 using TMPro;
@@ -7,7 +9,7 @@ using UnityEngine.UI;
 
 namespace Runtime.Modules.Core.Cursor.View
 {
-  public class CursorBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+  public class CursorBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
   {
     public CursorKey onPointerEnter;
     
@@ -28,6 +30,11 @@ namespace Runtime.Modules.Core.Cursor.View
     public void OnPointerExit(PointerEventData eventData)
     {
       CursorModel.instance.OnChangeCursor(onPointerExit);
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+      AudioModel.instance.PlayUISound(UISoundsKey.Click);
     }
 
     public void OnDestroy()
