@@ -9,6 +9,7 @@ namespace Editor.Tools.DebugX.Runtime
     ScreenManager,
     JoinServer,
     Localization,
-    ColorPalette
+    ColorPalette,
+    Audio
   }
 }
