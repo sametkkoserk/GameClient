@@ -1,7 +1,10 @@
 using Runtime.Contexts.Main.View.SettingsButton;
+using Runtime.Modules.Core.Audio.View.AudioSourceItem;
+using Runtime.Modules.Core.Audio.View.SourceCreator;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.View.LayerContainer;
 using Runtime.Modules.Core.ScreenManager.View.PanelContainer;
+using Runtime.Modules.Core.Settings.View.AudioSettings;
 using Runtime.Modules.Core.Settings.View.InterfaceSettings;
 using Runtime.Modules.Core.Settings.View.LanguageSettings;
 using Runtime.Modules.Core.Settings.View.Settings;
@@ -34,6 +37,10 @@ namespace Runtime.Modules.Core.GeneralContext
       
       mediationBinder.Bind<LanguageSettingsView>().To<LanguageSettingsMediator>();
       mediationBinder.Bind<InterfaceSettingsView>().To<InterfaceSettingsMediator>();
+      mediationBinder.Bind<AudioSettingsView>().To<AudioSettingsMediator>();
+      
+      mediationBinder.Bind<AudioSourceCreatorView>().To<AudioSourceCreatorMediator>();
+      mediationBinder.Bind<AudioSourceItemView>().To<AudioSourceItemMediator>();
     }
   }
 }

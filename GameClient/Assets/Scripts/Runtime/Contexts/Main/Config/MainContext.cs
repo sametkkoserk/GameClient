@@ -1,6 +1,7 @@
 using Runtime.Contexts.Main.Command;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Main.View.MainSceneCamera;
+using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
 using Runtime.Modules.Core.Bundle.Model.BundleModel;
 using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
@@ -38,6 +39,7 @@ namespace Runtime.Contexts.Main.Config
             injectionBinder.Bind<ICursorModel>().To<CursorModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<ILocalizationModel>().To<LocalizationModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<IColorPaletteModel>().To<ColorPaletteModel>().ToSingleton().CrossContext();
+            injectionBinder.Bind<IAudioModel>().To<AudioModel>().ToSingleton().CrossContext();
 
             mediationBinder.Bind<MainSceneCameraView>().To<MainSceneCameraMediator>();
             
