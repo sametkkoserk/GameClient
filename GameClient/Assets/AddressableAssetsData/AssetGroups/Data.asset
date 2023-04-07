@@ -26,6 +26,14 @@ MonoBehaviour:
     m_Address: ColorPaletteSettings
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 6fd0489b565d3b64e8df4b57dd72843b
+    m_Address: MusicSoundsSettings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: 65266812b27017846bb3497f7d78f929
+    m_Address: UISoundsSettings
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:
