@@ -5,6 +5,16 @@ namespace Runtime.Contexts.Main.Enum
     StarterSettings,
     OpenMainSceneCamera,
     CloseMainSceneCamera,
-    OpenSettingsPanel
+    OpenSettingsPanel,
+    
+    // Music
+    PlayMusic,
+    StopMusic,
+    ResumeMusic,
+    ChangeMusicVolume,
+    
+    // UI
+    PlayUISound,
+    ChangeUISoundsVolume,
   }
 }
