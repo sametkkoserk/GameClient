@@ -1,30 +1,42 @@
-using System;
 using System.Collections.Generic;
-using Runtime.Modules.Core.Audio.Vo;
+using System.Linq;
+using Runtime.Modules.Core.Audio.Enum;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.Modules.Core.Audio.Model.AudioModel
 {
   [CreateAssetMenu(menuName = "Tools/Audio/CreateMusic", fileName = "MusicSoundsSettings")]
-  [Serializable]
-  public class AudioDataMusic : ScriptableObject
+  public class MusicAudioData : ScriptableObject
   {
-      public List<MusicSoundsVo> musicSounds;
+    public List<AudioClip> musicSounds;
 
+#if UNITY_EDITOR
 
-    [CreateAssetMenu(menuName = "Tools/Audio/CreateUI", fileName = "UISoundsSettings")]
-    [Serializable]
-    public class AudioDataUI : ScriptableObject
+    [MenuItem("Tools/Audio/Remove Repetitive Musics")]
+    public static void UpdateMusics()
     {
-      // public List<CursorVo> list;
-    }
+      AsyncOperationHandle<MusicAudioData> musicAudioData = Addressables.LoadAssetAsync<MusicAudioData>("MusicSoundsSettings");
+    
+      musicAudioData.WaitForCompletion();
+      MusicAudioData data = musicAudioData.Result;
+    
+      data.musicSounds = data.musicSounds.Distinct().ToList();
 
-
-    [CreateAssetMenu(menuName = "Tools/Audio/CreateEffect", fileName = "EffectSoundsSettings")]
-    [Serializable]
-    public class AudioDataEffect : ScriptableObject
-    {
-      // public List<CursorVo> list;
+      
+      List<AudioClip> newList = new();
+    
+      string[] keys = System.Enum.GetNames(typeof(MusicSoundsKey));
+    
+      for (int i = 0; i < keys.Length; i++)
+      {
+        newList.AddRange(data.musicSounds.Where(t => keys[i] == t.name));
+      }
+    
+      data.musicSounds = newList;
     }
+#endif
   }
 }
