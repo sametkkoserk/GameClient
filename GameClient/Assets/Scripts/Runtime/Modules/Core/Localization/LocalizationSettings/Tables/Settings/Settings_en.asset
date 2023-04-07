@@ -38,6 +38,18 @@ MonoBehaviour:
     m_Localized: Purple
     m_Metadata:
       m_Items: []
+  - m_Id: 5830217103458304
+    m_Localized: Master Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5830260720025600
+    m_Localized: Music Volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5831122741772288
+    m_Localized: Interface Volumes
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

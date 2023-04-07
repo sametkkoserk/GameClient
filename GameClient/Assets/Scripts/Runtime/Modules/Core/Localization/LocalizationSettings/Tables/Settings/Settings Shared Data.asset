@@ -35,6 +35,18 @@ MonoBehaviour:
     m_Key: SettingsPanelCPDPurple
     m_Metadata:
       m_Items: []
+  - m_Id: 5830217103458304
+    m_Key: SettingsPanelAudioTabMasterVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5830260720025600
+    m_Key: SettingsPanelAudioTabMusicVolume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5831122741772288
+    m_Key: SettingsPanelAudioTabUIVolume
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

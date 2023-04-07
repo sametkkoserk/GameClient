@@ -19,7 +19,8 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
       return LocalizationSettings.SelectedLocale.Identifier.Code;
     }
 
-     public IEnumerator ChangeLanguage(string newLanguageKey)
+    // ReSharper disable Unity.PerformanceAnalysis
+    public IEnumerator ChangeLanguage(string newLanguageKey)
     {
       short localID = 0;
 

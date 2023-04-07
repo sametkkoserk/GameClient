@@ -38,6 +38,18 @@ MonoBehaviour:
     m_Localized: Mor
     m_Metadata:
       m_Items: []
+  - m_Id: 5830217103458304
+    m_Localized: Genel Ses
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5830260720025600
+    m_Localized: "M\xFCzik Sesi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 5831122741772288
+    m_Localized: "Aray\xFCz Sesleri"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
