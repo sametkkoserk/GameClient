@@ -1,3 +1,5 @@
+using Runtime.Modules.Core.Audio.Enum;
+using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
 using Runtime.Modules.Core.ColorPalette.Enum;
 using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Enum;
@@ -19,11 +21,15 @@ namespace Runtime.Contexts.Main.Command
     
     [Inject]
     public IColorPaletteModel colorPaletteModel { get; set; }
+    
+    [Inject]
+    public IAudioModel audioModel { get; set; }
     public override void Execute()
     {
       LanguageSettings();
       ColorPaletteSettings();
       CursorSettings();
+      StartMusic();
     }
 
     private void CursorSettings()
@@ -40,6 +46,11 @@ namespace Runtime.Contexts.Main.Command
     private void ColorPaletteSettings()
     {
       colorPaletteModel.ChangeColorPalette(ColorPaletteKey.Standard);
+    }
+
+    private void StartMusic()
+    {
+      audioModel.PlayMusic(MusicSoundsKey.StreetLove);
     }
   }
 }
