@@ -68,6 +68,7 @@ namespace Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel
       return Color.white;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public void ChangeColorPalette(ColorPaletteKey newColorPaletteKey)
     {
       colorPaletteKey = newColorPaletteKey;

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Runtime.Modules.Core.Cursor.Model
 {
-  [CreateAssetMenu(menuName = "Tools/DeviceCursor/Create", fileName = "DeviceCursorSettings")]
+  [CreateAssetMenu(menuName = "Tools/Cursor/Create", fileName = "DeviceCursorSettings")]
   [Serializable]
   public class CursorData : ScriptableObject
   {

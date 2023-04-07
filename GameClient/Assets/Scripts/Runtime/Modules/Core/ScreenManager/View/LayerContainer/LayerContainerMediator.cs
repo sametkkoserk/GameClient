@@ -15,6 +15,11 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
 
+    public override void OnRegister()
+    {
+      Init();
+    }
+    
     private void Start()
     {
       for (int i = 0; i < view.layerVos.Count; i++)
@@ -31,11 +36,6 @@ namespace Runtime.Modules.Core.ScreenManager.View.LayerContainer
       }
 
       dispatcher.Dispatch(PanelEvent.PanelContainersCreated);
-    }
-
-    public override void OnRegister()
-    {
-      Init();
     }
 
     private void Init()
