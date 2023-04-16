@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Riptide;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Contexts.Network.Services.NetworkManager;
@@ -17,7 +18,8 @@ namespace Runtime.Contexts.Lobby.Command
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GetLobbies);
       message.AddSByte(0);
       networkManager.Client.Send(message);
-      Debug.Log("GetLobbies sent");
+      
+      DebugX.Log(DebugKey.Request,"Get Lobbies message Sent");
     }
   }
 }

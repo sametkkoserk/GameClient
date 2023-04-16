@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Riptide;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -27,6 +28,9 @@ namespace Runtime.Contexts.Lobby.Command
       message = networkManager.SetData(message, outFromLobbyVo);
 
       networkManager.Client.Send(message);
+      
+      DebugX.Log(DebugKey.Request,"Quit From Lobby message Sent");
+
     }
   }
 }

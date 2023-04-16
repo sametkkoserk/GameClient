@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -29,6 +30,8 @@ namespace Runtime.Contexts.Lobby.Processor
       lobbyModel.lobbyVo.clients[clientVo.inLobbyId] = clientVo;
       lobbyModel.lobbyVo.playerCount += 1;
       dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby, clientVo);
+      
+      DebugX.Log(DebugKey.Response,"New Player message Received");
     }
   }
 }

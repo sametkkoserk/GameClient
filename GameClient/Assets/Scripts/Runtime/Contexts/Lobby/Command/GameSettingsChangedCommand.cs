@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Riptide;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Network.Enum;
@@ -18,6 +19,8 @@ namespace Runtime.Contexts.Lobby.Command
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GameSettingsChanged);
       message = networkManager.SetData(message, lobbySettingsVo);
       networkManager.Client.Send(message);
+      
+      DebugX.Log(DebugKey.Request,"Game Settings Changed message Sent");
     }
   }
 }

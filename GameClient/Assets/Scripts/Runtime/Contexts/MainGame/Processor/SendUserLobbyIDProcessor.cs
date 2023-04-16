@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
@@ -21,6 +22,9 @@ namespace Runtime.Contexts.MainGame.Processor
       ushort lobbyID = networkManager.GetData<ushort>(vo.message);
 
       mainGameModel.lobbyID = lobbyID;
+      
+      DebugX.Log(DebugKey.Response,"Lobby ID message Received");
+
     }
   }
 }

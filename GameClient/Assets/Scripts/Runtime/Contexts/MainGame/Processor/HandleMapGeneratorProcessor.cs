@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Vo;
@@ -24,6 +25,9 @@ namespace Runtime.Contexts.MainGame.Processor
       mainGameModel.cities = mapGeneratorVo.cityVos;
 
       dispatcher.Dispatch(MainGameEvent.StartGame);
+      
+      DebugX.Log(DebugKey.Response,"Map Generator message Received");
+
     }
   }
 }

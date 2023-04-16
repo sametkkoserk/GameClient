@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Network.Services.NetworkManager;
@@ -32,8 +33,10 @@ namespace Runtime.Contexts.Lobby.Processor
       //   lobbyVo.leaderId = message.GetUShort();
       //   lobbiesVo.lobbies.Add(lobbyVo);
       // }
-      Debug.Log("GetLobbies received");
+      
       dispatcher.Dispatch(LobbyEvent.listLobbies, lobbies);
+      
+      DebugX.Log(DebugKey.Response,"Get Lobbies message Received");
     }
   }
 }

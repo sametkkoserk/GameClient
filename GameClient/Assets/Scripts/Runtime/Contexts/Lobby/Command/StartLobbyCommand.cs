@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
@@ -14,6 +15,7 @@ namespace Runtime.Contexts.Lobby.Command
     public override void Execute()
     {
       screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+
     }
   }
 }

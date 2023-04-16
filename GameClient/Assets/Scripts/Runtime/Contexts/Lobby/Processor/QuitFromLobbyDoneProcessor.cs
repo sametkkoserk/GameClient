@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Network.Services.NetworkManager;
@@ -25,7 +26,6 @@ namespace Runtime.Contexts.Lobby.Processor
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       ushort inLobbyId = networkManager.GetData<ushort>(vo.message);
-      Debug.Log("outed message received");
       if (inLobbyId == lobbyModel.clientVo.inLobbyId)
       {
         lobbyModel.LobbyReset();
@@ -35,6 +35,9 @@ namespace Runtime.Contexts.Lobby.Processor
       {
         lobbyModel.OutFromLobby(inLobbyId);
         dispatcher.Dispatch(LobbyEvent.PlayerIsOut, inLobbyId);
+        
+        DebugX.Log(DebugKey.Response,"Quit From Lobby message Received");
+
       }
     }
   }

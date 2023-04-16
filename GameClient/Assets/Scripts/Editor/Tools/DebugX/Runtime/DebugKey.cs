@@ -6,10 +6,14 @@ namespace Editor.Tools.DebugX.Runtime
   public enum DebugKey
   {
     Server,
+    Request,
+    Response,
     ScreenManager,
+    SceneManager,
     JoinServer,
     Localization,
     ColorPalette,
-    Audio
+    Audio,
+    
   }
 }

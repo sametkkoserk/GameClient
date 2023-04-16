@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -25,7 +26,6 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      Debug.Log("joined to lobby");
       JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(vo.message);
       // lobbyVo.lobbyId = message.GetUShort();
       // lobbyVo.lobbyName = message.GetString();
@@ -49,6 +49,9 @@ namespace Runtime.Contexts.Lobby.Processor
       lobbyModel.clientVo = joinedToLobbyVo.clientVo;
 
       screenManagerModel.OpenPanel(LobbyKey.LobbyManagerPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+      
+      DebugX.Log(DebugKey.Response,"Joined To Lobby message Received");
+
     }
   }
 }

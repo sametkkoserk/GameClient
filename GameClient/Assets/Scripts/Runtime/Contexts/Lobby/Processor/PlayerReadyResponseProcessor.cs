@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -51,6 +52,9 @@ namespace Runtime.Contexts.Lobby.Processor
 
       Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
       screenManagerModel.CloseScenePanels(SceneKey.Lobby);
+      
+      DebugX.Log(DebugKey.Response,"Player Ready message Received");
+
     }
   }
 }

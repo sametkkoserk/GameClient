@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Riptide;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -29,7 +30,7 @@ namespace Runtime.Contexts.Lobby.Command
 
       networkManager.Client.Send(message);
 
-      Debug.Log("Player is ready!");
+      DebugX.Log(DebugKey.Request,"Player Ready message Sent");
     }
   }
 }

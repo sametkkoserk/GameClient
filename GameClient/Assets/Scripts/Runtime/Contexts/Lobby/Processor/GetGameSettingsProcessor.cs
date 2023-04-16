@@ -1,3 +1,4 @@
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
@@ -23,6 +24,9 @@ namespace Runtime.Contexts.Lobby.Processor
 
       lobbyModel.lobbyVo.lobbySettingsVo = lobbySettingsVo;
       dispatcher.Dispatch(LobbyEvent.GetGameSettings);
+      
+      DebugX.Log(DebugKey.Response,"Game Settings message Received");
+
     }
   }
 }

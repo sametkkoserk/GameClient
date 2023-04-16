@@ -28,7 +28,7 @@ namespace Runtime.Contexts.Lobby.Command
       // message.AddUShort(6);
       networkManager.Client.Send(message);
 
-      DebugX.Log(DebugKey.Server, "Create Lobby Message sent");
+      DebugX.Log(DebugKey.Request, "Create Lobby Message sent");
     }
   }
 }
