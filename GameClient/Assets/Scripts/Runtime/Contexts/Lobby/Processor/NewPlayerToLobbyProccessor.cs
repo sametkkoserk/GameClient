@@ -19,8 +19,7 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      string message = vo.message;
-      ClientVo clientVo = networkManager.GetData<ClientVo>(message);
+      ClientVo clientVo = networkManager.GetData<ClientVo>(vo.message);
       // {
       //   id = message.GetUShort(),
       //   inLobbyId = message.GetUShort(),

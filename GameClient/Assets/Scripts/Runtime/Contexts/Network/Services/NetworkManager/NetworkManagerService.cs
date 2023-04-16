@@ -1,5 +1,8 @@
 using System;
+using System.IO;
+using System.Linq;
 using Editor.Tools.DebugX.Runtime;
+using ProtoBuf;
 using Riptide;
 using Riptide.Utils;
 using Runtime.Contexts.Network.Enum;
@@ -8,6 +11,7 @@ using StrangeIoC.scripts.strange.extensions.context.api;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
+
 
 namespace Runtime.Contexts.Network.Services.NetworkManager
 {
@@ -46,21 +50,29 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
       if (Client != null) Client.Update();
     }
 
-    public T GetData<T>(string message) where T : new()
+    public T GetData<T>(byte[] message) where T : new()
     {
-      return message == null ? default : JsonUtility.FromJson<T>(message);
+      using MemoryStream stream = new MemoryStream(message);
+      return message == null ? default : Serializer.Deserialize<T>(stream);
     }
 
     public Message SetData(Message message, object obj)
     {
       if (obj == null)
         Debug.LogError("Set data object is null");
-      string objStr = JsonUtility.ToJson(obj);
+      byte[] objBytes = ProtoSerialize<object>(obj);
 
-      Debug.Log(objStr);
-      message.AddString(objStr);
+      message.AddBytes(objBytes);
       return message;
     }
+
+    private byte[] ProtoSerialize<T>(T message) where T : new()
+    {
+      using var stream = new MemoryStream();
+      Serializer.Serialize(stream, message);
+      return stream.ToArray();
+    }
+
 
     public void OnQuit()
     {
@@ -71,9 +83,8 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
     {
       MessageReceivedVo vo = new()
       {
-        message = messageArgs.Message.GetString()
+        message = messageArgs.Message.GetBytes()
       };
-      Debug.Log(vo.message);
       crossDispatcher.Dispatch((ServerToClientId)messageArgs.MessageId, vo);
     }
 
@@ -92,5 +103,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
     {
       DebugX.Log(DebugKey.Server, "Disconnected");
     }
+
+
   }
 }

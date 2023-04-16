@@ -33,8 +33,7 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      string message = vo.message;
-      PlayerReadyResponseVo playerReadyResponseVo = networkManager.GetData<PlayerReadyResponseVo>(message);
+      PlayerReadyResponseVo playerReadyResponseVo = networkManager.GetData<PlayerReadyResponseVo>(vo.message);
 
       if (lobbyModel.lobbyVo.lobbyId != playerReadyResponseVo.lobbyId)
         return;

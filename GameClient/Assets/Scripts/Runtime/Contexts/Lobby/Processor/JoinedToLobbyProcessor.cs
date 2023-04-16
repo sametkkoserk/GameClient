@@ -25,9 +25,8 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      string message = vo.message;
       Debug.Log("joined to lobby");
-      JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(message);
+      JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(vo.message);
       // lobbyVo.lobbyId = message.GetUShort();
       // lobbyVo.lobbyName = message.GetString();
       // lobbyVo.isPrivate = message.GetBool();
