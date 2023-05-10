@@ -13,7 +13,9 @@ namespace Editor.Tools.PrefabCreator.Editor
     {
       Object gameObject = Resources.Load("Prefab/" + objName);
 
-      PrefabUtility.InstantiatePrefab(gameObject, Selection.activeTransform);
+      Object activeObject = PrefabUtility.InstantiatePrefab(gameObject, Selection.activeTransform);
+      Selection.activeObject = activeObject;
+      
       gameObject.name = specialName ?? objName;
 
       // AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(objName, Selection.activeTransform);
