@@ -107,26 +107,16 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     {
       // Panel will have an closing animations. Destroy will change.
       for (int i = 0; i < transform.childCount; i++)
-      for (int j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
       {
-        string key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
+        for (int j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
+        {
+          string key = screenManagerModel.instantiatedPanels.ElementAt(j).Key.addressableKey;
 
-        if (transform.GetChild(i).name != key) continue;
-        Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(j).Value);
-        screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(j).Key);
+          if (transform.GetChild(i).name != key) continue;
+          Addressables.ReleaseInstance(screenManagerModel.instantiatedPanels.ElementAt(j).Value);
+          screenManagerModel.instantiatedPanels.Remove(screenManagerModel.instantiatedPanels.ElementAt(j).Key);
+        }
       }
-    }
-
-    public override void OnRemove()
-    {
-      view.dispatcher.RemoveListener(PanelContainerEvent.SetInitialData, SetInitialData);
-
-      dispatcher.RemoveListener(PanelEvent.OpenPanel, OpenPanel);
-      dispatcher.RemoveListener(PanelEvent.CloseAllPanels, OnCloseAllPanels);
-      dispatcher.RemoveListener(PanelEvent.CloseScenePanels, OnCloseScenePanels);
-      dispatcher.RemoveListener(PanelEvent.CloseLayerPanels, OnCloseLayerPanels);
-      dispatcher.RemoveListener(PanelEvent.CloseSpecificLayerPanels, OnCloseSpecificLayer);
-      dispatcher.RemoveListener(PanelEvent.CloseSpecificPanel, OnCloseSpecificPanel);
     }
 
     #region Close Panel
@@ -153,7 +143,7 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     {
       DestroyAllChild();
 
-      screenManagerModel.instantiatedPanels.Clear();
+      // screenManagerModel.instantiatedPanels.Clear();
     }
 
     private void OnCloseSpecificLayer(IEvent payload)
@@ -178,5 +168,17 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     }
 
     #endregion
+    
+    public override void OnRemove()
+    {
+      view.dispatcher.RemoveListener(PanelContainerEvent.SetInitialData, SetInitialData);
+
+      dispatcher.RemoveListener(PanelEvent.OpenPanel, OpenPanel);
+      dispatcher.RemoveListener(PanelEvent.CloseAllPanels, OnCloseAllPanels);
+      dispatcher.RemoveListener(PanelEvent.CloseScenePanels, OnCloseScenePanels);
+      dispatcher.RemoveListener(PanelEvent.CloseLayerPanels, OnCloseLayerPanels);
+      dispatcher.RemoveListener(PanelEvent.CloseSpecificLayerPanels, OnCloseSpecificLayer);
+      dispatcher.RemoveListener(PanelEvent.CloseSpecificPanel, OnCloseSpecificPanel);
+    }
   }
 }

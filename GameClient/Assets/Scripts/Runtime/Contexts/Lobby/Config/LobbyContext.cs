@@ -48,8 +48,7 @@ namespace Runtime.Contexts.Lobby.Config
       //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
       // commandBinder.Bind(ContextEvent.START).To<StartLobbyCommand>();
 
-      commandBinder.Bind(PanelEvent.PanelContainersCreated).To<StartLobbyCommand>();
-
+      commandBinder.Bind(LobbyEvent.LoginOrRegisterCompletedSuccessfully).To<StartLobbyCommand>();
       commandBinder.Bind(LobbyEvent.SendCreateLobby).To<SendCreateLobbyCommand>();
       commandBinder.Bind(LobbyEvent.GetLobbies).To<GetLobbiesCommand>();
       commandBinder.Bind(LobbyEvent.JoinLobby).To<JoinLobbyCommand>();
