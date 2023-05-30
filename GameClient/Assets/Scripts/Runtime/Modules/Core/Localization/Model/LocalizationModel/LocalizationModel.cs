@@ -2,6 +2,7 @@ using System.Collections;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.View;
+using StrangeIoC.scripts.strange.extensions.injector;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine.Localization.Settings;
@@ -12,6 +13,14 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
   public class LocalizationModel : ILocalizationModel
   {
     private string languageKey { get; set; }
+
+    public static ILocalizationModel instance;
+
+    [PostConstruct]
+    public void OnPostConstruct()
+    {
+      instance = this;
+    }
     
     public string GetLanguageCode()
     {
@@ -35,7 +44,7 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
           DebugX.Log(DebugKey.Localization, "Language changed as an Turkish.");
           break;
         default:
-          DebugX.Log(DebugKey.Localization, "Language could not changed!", LogKey.Error);
+          DebugX.Log(DebugKey.Localization, "Language could not change!", LogKey.Error);
           break; 
       }
 
