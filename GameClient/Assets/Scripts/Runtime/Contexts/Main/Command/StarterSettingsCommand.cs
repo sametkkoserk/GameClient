@@ -4,6 +4,8 @@ using Runtime.Modules.Core.ColorPalette.Enum;
 using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Enum;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
+using Runtime.Modules.Core.Discord.Model;
+using Runtime.Modules.Core.Discord.Vo;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
@@ -24,12 +26,17 @@ namespace Runtime.Contexts.Main.Command
     
     [Inject]
     public IAudioModel audioModel { get; set; }
+    
+    [Inject]
+    public IDiscordModel discordModel { get; set; }
+    
     public override void Execute()
     {
       LanguageSettings();
       ColorPaletteSettings();
       CursorSettings();
       StartMusic();
+      InitDiscord();
     }
 
     private void CursorSettings()
@@ -51,6 +58,13 @@ namespace Runtime.Contexts.Main.Command
     private void StartMusic()
     {
       audioModel.PlayMusic(MusicSoundsKey.StreetLove);
+    }
+
+    private void InitDiscord()
+    {
+      discordModel.Init();
+      
+      discordModel.StarterSettings();
     }
   }
 }

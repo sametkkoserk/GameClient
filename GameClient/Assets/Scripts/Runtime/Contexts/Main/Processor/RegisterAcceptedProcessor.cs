@@ -3,6 +3,7 @@ using Runtime.Contexts.Main.Model.PlayerModel;
 using Runtime.Contexts.Main.Vo;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
+using Runtime.Modules.Core.Discord.Model;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.context.api;
@@ -24,6 +25,9 @@ namespace Runtime.Contexts.Main.Processor
     
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
+    
+    [Inject]
+    public IDiscordModel discordModel { get; set; }
 
     public override void Execute()
     {
@@ -34,6 +38,8 @@ namespace Runtime.Contexts.Main.Processor
       
       screenManagerModel.CloseAllPanels();
       crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
+
+      discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
     }
   }
 }

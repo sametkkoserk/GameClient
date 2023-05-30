@@ -2,8 +2,10 @@ using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
+using Runtime.Contexts.Main.Model.PlayerModel;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
+using Runtime.Modules.Core.Discord.Model;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
@@ -22,6 +24,12 @@ namespace Runtime.Contexts.Lobby.Processor
 
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
+    
+    [Inject]
+    public IDiscordModel discordModel { get; set; }
+    
+    [Inject]
+    public IPlayerModel playerModel { get; set; }
 
     public override void Execute()
     {
@@ -52,6 +60,7 @@ namespace Runtime.Contexts.Lobby.Processor
       
       DebugX.Log(DebugKey.Response,"Joined To Lobby message Received");
 
+      discordModel.InLobby(playerModel.playerRegisterInfoVo.username, joinedToLobbyVo.lobby.playerCount, joinedToLobbyVo.lobby.maxPlayerCount);
     }
   }
 }
