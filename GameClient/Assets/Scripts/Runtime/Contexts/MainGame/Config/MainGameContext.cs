@@ -49,7 +49,7 @@ namespace Runtime.Contexts.MainGame.Config
       //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
       commandBinder.Bind(MainGameEvent.StartGame).To<CreateMapCommand>();
 
-      commandBinder.Bind(ServerToClientId.SendMap).To<HandleMapGeneratorProcessor>();
+      commandBinder.Bind(ServerToClientId.GameStartPreparations).To<HandleMapGeneratorProcessor>();
       commandBinder.Bind(ServerToClientId.SendUserLobbyID).To<SendUserLobbyIDProcessor>();
     }
   }
