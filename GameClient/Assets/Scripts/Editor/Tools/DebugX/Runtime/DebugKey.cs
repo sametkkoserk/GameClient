@@ -14,6 +14,6 @@ namespace Editor.Tools.DebugX.Runtime
     Localization,
     ColorPalette,
     Audio,
-    
+    Discord
   }
 }
