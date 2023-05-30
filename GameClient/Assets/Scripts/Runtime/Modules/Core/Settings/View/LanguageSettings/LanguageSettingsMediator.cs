@@ -1,8 +1,13 @@
+using System.Collections;
+using Runtime.Contexts.Main.Enum;
+using Runtime.Modules.Core.Discord.Model;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.Model.LocalizationModel;
+using Runtime.Modules.Core.PromiseTool;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using UnityEngine;
 
 namespace Runtime.Modules.Core.Settings.View.LanguageSettings
 {
@@ -51,7 +56,17 @@ namespace Runtime.Modules.Core.Settings.View.LanguageSettings
         case "Türkçe":
           StartCoroutine(localizationModel.ChangeLanguage(LanguageKey.tr));
           break;
+        default:
+          return;
       }
+
+      StartCoroutine(WaitChangingLanguage());
+    }
+
+    private IEnumerator WaitChangingLanguage()
+    {
+      yield return new WaitForSecondsRealtime(5f);
+      dispatcher.Dispatch(MainEvent.LanguageChanged);
     }
 
     public override void OnRemove()
