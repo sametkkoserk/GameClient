@@ -19,6 +19,30 @@ MonoBehaviour:
     m_Key: InputFieldPlaceHolder
     m_Metadata:
       m_Items: []
+  - m_Id: 15584415906938880
+    m_Key: DiscordOnLoginScreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15584606412226560
+    m_Key: DiscordOnMenu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15585137348198400
+    m_Key: DiscordUsername
+    m_Metadata:
+      m_Items: []
+  - m_Id: 19497839225356288
+    m_Key: DiscordInLobby
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21560187058536448
+    m_Key: DiscordInGame
+    m_Metadata:
+      m_Items: []
+  - m_Id: 21560817563090944
+    m_Key: DiscordNormalGame
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
