@@ -338,7 +338,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
       propertyPath: layerVos.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
       propertyPath: layerVos.Array.data[1].key
@@ -347,6 +347,10 @@ PrefabInstance:
     - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
       propertyPath: layerVos.Array.data[2].key
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
+      propertyPath: layerVos.Array.data[3].key
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
       propertyPath: layerVos.Array.data[0].active
@@ -358,6 +362,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
       propertyPath: layerVos.Array.data[2].active
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7587052703941372524, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}
+      propertyPath: layerVos.Array.data[3].active
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3237021250978594509, guid: 063f3ca111d561c4cb4f454fe245ba37, type: 3}

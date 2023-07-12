@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Editor.Tools.DebugX.Runtime;
+using Runtime.Contexts.Main.Enum;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.Vo;
@@ -106,6 +107,9 @@ namespace Runtime.Modules.Core.ScreenManager.View.PanelContainer
     private void DestroyAllChild()
     {
       // Panel will have an closing animations. Destroy will change.
+      if (view.key == LayerKey.TooltipLayer)
+        return;
+      
       for (int i = 0; i < transform.childCount; i++)
       {
         for (int j = 0; j < screenManagerModel.instantiatedPanels.Count; j++)
