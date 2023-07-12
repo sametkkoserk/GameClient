@@ -19,6 +19,8 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
     /// <param name="translateKey">Each translate has different key.</param>
     /// <returns>String returns. Use like that label.text = localizationModel.GetText(...).</returns>
     string GetText(TableKey tableKey, string translateKey);
+
+    string GetText(TableKey tableKey, TranslateKeys translateKey);
     
     /// <summary>
     /// If word with arguments use this method. Do not forget to remove <see cref="LocalizeStringEvent"/> and add <see cref="LocalizationTextBehaviour"/>.

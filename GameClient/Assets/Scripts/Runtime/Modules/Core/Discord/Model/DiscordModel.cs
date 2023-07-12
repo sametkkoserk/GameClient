@@ -157,7 +157,7 @@ namespace Runtime.Modules.Core.Discord.Model
     
     public void StarterSettings()
     {
-      SetStatusInfo(null, "My Game", LocalizationModel.instance.GetText(TableKey.General, "DiscordOnLoginScreen"), false);
+      SetStatusInfo(null, "My Game", LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordOnLoginScreen), false);
 
       lastState = 0;
     }
@@ -167,9 +167,9 @@ namespace Runtime.Modules.Core.Discord.Model
       _username = username;
       
       SetStatusInfo(
-        LocalizationModel.instance.GetText(TableKey.General, "DiscordUsername") + " " + username,
+        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordUsername) + " " + username,
         "My Game",
-        LocalizationModel.instance.GetText(TableKey.General, "DiscordOnMenu"),
+        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordOnMenu),
         false);
       
       lastState = 1;
@@ -181,9 +181,9 @@ namespace Runtime.Modules.Core.Discord.Model
       string lobbyInfo = $" ({playerCount.ToString()} / {maxPlayerCount.ToString()})";
       
       SetStatusInfo(
-        LocalizationModel.instance.GetText(TableKey.General, "DiscordUsername") + " " + username,
+        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordUsername) + " " + username,
         "My Game",
-        LocalizationModel.instance.GetText(TableKey.General, "DiscordInLobby") + lobbyInfo,
+        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordInLobby) + lobbyInfo,
         false);
       
       lastState = 2;
@@ -192,11 +192,11 @@ namespace Runtime.Modules.Core.Discord.Model
     public void InGame(string username)
     {
       _username = username;
-      string gameInfo = $"{LocalizationModel.instance.GetText(TableKey.General, "DiscordInGame")} " +
-                        $"({LocalizationModel.instance.GetText(TableKey.General, "DiscordNormalGame")})";
+      string gameInfo = $"{LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordInGame)} " +
+                        $"({LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordNormalGame)})";
       
       SetStatusInfo(
-        LocalizationModel.instance.GetText(TableKey.General, "DiscordUsername") + " " + username,
+        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordUsername) + " " + username,
         "My Game",
         gameInfo,
         true);

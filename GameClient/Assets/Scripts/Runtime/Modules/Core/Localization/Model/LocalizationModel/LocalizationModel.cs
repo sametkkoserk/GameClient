@@ -94,6 +94,11 @@ namespace Runtime.Modules.Core.Localization.Model.LocalizationModel
       return entry.Value;
     }
 
+    public string GetText(TableKey tableKey, TranslateKeys translateKey)
+    {
+      return GetText(tableKey, translateKey.ToString());
+    }
+
     public void GetTextArguments(TextMeshProUGUI tmp, TableKey tableKey, string translateKey, params string[] arguments)
     {
       StringTable stringTable = CheckKeys(tableKey, translateKey);

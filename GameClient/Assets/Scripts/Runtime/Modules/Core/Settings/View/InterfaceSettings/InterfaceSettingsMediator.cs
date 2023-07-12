@@ -57,7 +57,7 @@ namespace Runtime.Modules.Core.Settings.View.InterfaceSettings
       {
         TMP_Dropdown.OptionData option = new()
         {
-          text = localizationModel.GetText(TableKey.Settings, "SettingsPanelCPD" + paletteKeys[i])
+          text = localizationModel.GetText(TableKey.Settings, TranslateKeys.SettingsPanelColorPaletteDropdown + paletteKeys[i])
         };
         
         view.colorPaletteDropdown.options.Add(option);
