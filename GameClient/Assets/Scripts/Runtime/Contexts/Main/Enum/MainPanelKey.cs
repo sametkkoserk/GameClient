@@ -4,5 +4,6 @@ namespace Runtime.Contexts.Main.Enum
   {
     public const string SettingsPanel = "SettingsPanel";
     public const string RegisterPanel = "RegisterPanel";
+    public const string TooltipPanel = "TooltipPanel";
   }
 }

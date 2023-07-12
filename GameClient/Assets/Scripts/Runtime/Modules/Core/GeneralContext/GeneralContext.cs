@@ -1,4 +1,5 @@
 using Runtime.Contexts.Main.View.SettingsButton;
+using Runtime.Contexts.Main.View.TooltipManager;
 using Runtime.Modules.Core.Audio.View.AudioSourceItem;
 using Runtime.Modules.Core.Audio.View.SourceCreator;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
@@ -41,6 +42,8 @@ namespace Runtime.Modules.Core.GeneralContext
       
       mediationBinder.Bind<AudioSourceCreatorView>().To<AudioSourceCreatorMediator>();
       mediationBinder.Bind<AudioSourceItemView>().To<AudioSourceItemMediator>();
+      
+      mediationBinder.Bind<TooltipTriggerView>().To<TooltipTriggerMediator>();
     }
   }
 }

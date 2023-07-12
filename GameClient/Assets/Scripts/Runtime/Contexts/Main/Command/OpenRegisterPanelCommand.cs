@@ -14,6 +14,7 @@ namespace Runtime.Contexts.Main.Command
     public override void Execute()
     {
       screenManagerModel.OpenPanel(MainPanelKey.RegisterPanel, SceneKey.Main, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+      screenManagerModel.OpenPanel(MainPanelKey.TooltipPanel, SceneKey.Main, LayerKey.TooltipLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
   }
 }

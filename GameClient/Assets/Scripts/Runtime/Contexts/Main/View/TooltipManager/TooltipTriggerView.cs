@@ -4,21 +4,21 @@ using UnityEngine.EventSystems;
 
 namespace Runtime.Contexts.Main.View.TooltipManager
 {
-  public class TooltipManagerView : EventView, IPointerEnterHandler, IPointerExitHandler
+  public class TooltipTriggerView : EventView, IPointerEnterHandler, IPointerExitHandler
   {
-    public TranslateKey headerTranslateKey;
+    public TranslateKeys headerTranslateKey;
 
-    public TranslateKey contentTranslateKey;
+    public TranslateKeys contentTranslateKey;
 
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-      dispatcher.Dispatch(TooltipManagerEvent.OnPointerEnter);
+      dispatcher.Dispatch(TooltipTriggerEvent.OnPointerEnter);
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
-      dispatcher.Dispatch(TooltipManagerEvent.OnPointerExit);
+      dispatcher.Dispatch(TooltipTriggerEvent.OnPointerExit);
     }
   }
 }

@@ -5,6 +5,7 @@ using Runtime.Contexts.Main.Processor;
 using Runtime.Contexts.Main.View.Application;
 using Runtime.Contexts.Main.View.MainSceneCamera;
 using Runtime.Contexts.Main.View.RegisterPanel;
+using Runtime.Contexts.Main.View.Tooltip;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
 using Runtime.Modules.Core.Bundle.Model.BundleModel;
@@ -55,6 +56,7 @@ namespace Runtime.Contexts.Main.Config
             mediationBinder.Bind<RegisterPanelView>().To<RegisterPanelMediator>();
             mediationBinder.Bind<DiscordBehaviourView>().To<DiscordBehaviourMediator>();
             mediationBinder.Bind<ApplicationView>().To<ApplicationMediator>();
+            mediationBinder.Bind<TooltipView>().To<TooltipMediator>();
             
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
