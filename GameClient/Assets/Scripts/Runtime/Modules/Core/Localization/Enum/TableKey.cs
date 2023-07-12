@@ -4,6 +4,7 @@ namespace Runtime.Modules.Core.Localization.Enum
   {
     Lobby,
     Settings,
-    General
+    General,
+    Tooltip
   }
 }

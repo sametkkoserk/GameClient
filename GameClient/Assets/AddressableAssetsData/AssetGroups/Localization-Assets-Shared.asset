@@ -37,6 +37,11 @@ MonoBehaviour:
       Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: a5147a36244f4e84e89d7408d36fe39f
+    m_Address: Assets/Scripts/Runtime/Modules/Core/Localization/LocalizationSettings/Tables/Tooltip/Tooltip
+      Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:
