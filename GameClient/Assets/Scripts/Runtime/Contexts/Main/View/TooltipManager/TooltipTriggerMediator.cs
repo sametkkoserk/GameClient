@@ -29,6 +29,7 @@ namespace Runtime.Contexts.Main.View.TooltipManager
     {
       TooltipInfoVo vo = new()
       {
+        position = transform.position,
         headerKey = view.headerTranslateKey,
         contentKey = view.contentTranslateKey
       };
@@ -38,13 +39,15 @@ namespace Runtime.Contexts.Main.View.TooltipManager
     
     private void OnPointerExit()
     {
-      crossDispatcher.Dispatch(TooltipEvent.Hide);
+      crossDispatcher.Dispatch(TooltipEvent.Hide, 1f);
     }
 
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(TooltipTriggerEvent.OnPointerEnter, OnPointerEnter);
       view.dispatcher.RemoveListener(TooltipTriggerEvent.OnPointerEnter, OnPointerExit);
+      
+      crossDispatcher.Dispatch(TooltipEvent.Hide, 0f);
     }
   }
 }

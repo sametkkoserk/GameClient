@@ -15,9 +15,6 @@ namespace Runtime.Contexts.Main.View.Tooltip
 
     public RectTransform rectTransform;
 
-    public float v1 = -0.15f;
-    public float v2 = -0.1f;
-    public float v3 = 1.1f;
-    public float v4 = 1.3f;
+    public Image background;
   }
 }

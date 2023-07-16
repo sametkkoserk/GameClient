@@ -8,6 +8,7 @@ namespace Runtime.Modules.Core.Localization.Enum
     // Tooltip
     TooltipHeader,
     TooltipContent,
+    TooltipContent2,
 
     // General
     DiscordOnLoginScreen,

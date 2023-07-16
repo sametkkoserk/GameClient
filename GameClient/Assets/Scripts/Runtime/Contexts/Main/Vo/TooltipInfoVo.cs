@@ -1,4 +1,5 @@
 using Runtime.Modules.Core.Localization.Enum;
+using UnityEngine;
 
 namespace Runtime.Contexts.Main.Vo
 {
@@ -7,5 +8,7 @@ namespace Runtime.Contexts.Main.Vo
     public TranslateKeys headerKey;
 
     public TranslateKeys contentKey;
+
+    public Vector3 position;
   }
 }

@@ -96,9 +96,9 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
-  m_ChildAlignment: 0
+    m_Top: 20
+    m_Bottom: 10
+  m_ChildAlignment: 1
   m_Spacing: 0
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0
@@ -204,6 +204,7 @@ MonoBehaviour:
   contentField: {fileID: 4212137583177835822}
   layoutElement: {fileID: 7498858845456153088}
   rectTransform: {fileID: 4745668128158705808}
+  background: {fileID: 8444936240439199898}
 --- !u!1001 &1748683207425628670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -495,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8779817195871764058, guid: ad7934c8824c4a94db2fa409d2c16358, type: 3}
       propertyPath: m_HorizontalAlignment
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad7934c8824c4a94db2fa409d2c16358, type: 3}
