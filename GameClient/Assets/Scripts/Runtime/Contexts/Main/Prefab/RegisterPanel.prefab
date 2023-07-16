@@ -308,6 +308,7 @@ GameObject:
   - component: {fileID: 931640117569223195}
   - component: {fileID: 2225870964069234983}
   - component: {fileID: 2554116139098852047}
+  - component: {fileID: 8374424982785661400}
   m_Layer: 0
   m_Name: Placeholder
   m_TagString: Untagged
@@ -363,7 +364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Enter text...
+  m_text: Metin Girin
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -452,6 +453,46 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &8374424982785661400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6964897272066477576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:c537a3a6941493c4593219fe40a370ac
+    m_TableEntryReference:
+      m_KeyId: 15513305088
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2225870964069234983}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &7624989858741213398
 GameObject:
   m_ObjectHideFlags: 0
@@ -808,7 +849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8779817195871764058, guid: ad7934c8824c4a94db2fa409d2c16358, type: 3}
       propertyPath: m_text
-      value: 'Username:'
+      value: "Kullan\u0131c\u0131 Ad\u0131:"
       objectReference: {fileID: 0}
     - target: {fileID: 8779817195871764058, guid: ad7934c8824c4a94db2fa409d2c16358, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -858,7 +899,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5167216048665032035, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
       propertyPath: m_text
-      value: Register
+      value: "Kay\u0131t Ol"
       objectReference: {fileID: 0}
     - target: {fileID: 6219223970102407773, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
       propertyPath: m_Name
