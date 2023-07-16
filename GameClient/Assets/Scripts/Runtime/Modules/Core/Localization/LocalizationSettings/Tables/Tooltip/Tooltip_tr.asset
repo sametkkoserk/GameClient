@@ -26,6 +26,13 @@ MonoBehaviour:
     m_Localized: Tooltip Icerik
     m_Metadata:
       m_Items: []
+  - m_Id: 1459264634372096
+    m_Localized: Tooltip IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip
+      IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip
+      IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip IcerikTooltip
+      Icerik
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

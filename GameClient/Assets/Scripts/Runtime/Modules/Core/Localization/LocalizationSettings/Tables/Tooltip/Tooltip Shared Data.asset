@@ -23,6 +23,10 @@ MonoBehaviour:
     m_Key: TooltipContent
     m_Metadata:
       m_Items: []
+  - m_Id: 1459264634372096
+    m_Key: TooltipContent2
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
