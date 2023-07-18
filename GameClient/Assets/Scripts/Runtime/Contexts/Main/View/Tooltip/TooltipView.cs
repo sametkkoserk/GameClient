@@ -1,3 +1,4 @@
+using DG.Tweening;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
@@ -16,5 +17,13 @@ namespace Runtime.Contexts.Main.View.Tooltip
     public RectTransform rectTransform;
 
     public Image background;
+    
+    
+    public void FadeAnimation(float time, float fadeValue)
+    {
+      headerField.DOColor(new Color(headerField.color.r, headerField.color.g, headerField.color.b, fadeValue), time);
+      contentField.DOColor(new Color(contentField.color.r, contentField.color.g, contentField.color.b, fadeValue), time);
+      background.DOFade(fadeValue, time);
+    }
   }
 }

@@ -1,5 +1,4 @@
 using System;
-using DG.Tweening;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Main.Vo;
 using Runtime.Modules.Core.Localization.Enum;
@@ -24,7 +23,7 @@ namespace Runtime.Contexts.Main.View.Tooltip
       dispatcher.AddListener(TooltipEvent.Show, OnShow);
       dispatcher.AddListener(TooltipEvent.Hide, OnHide);
 
-      FadeAnimation(0, 0);
+      view.FadeAnimation(0, 0);
     }
 
     private void Update()
@@ -49,7 +48,7 @@ namespace Runtime.Contexts.Main.View.Tooltip
 
       SetPosition(tooltipInfoVo.position);
       
-      FadeAnimation(0.5f, 1);
+      view.FadeAnimation(0.5f, 1);
     }
 
     private void SetPosition(Vector2 position)
@@ -94,16 +93,9 @@ namespace Runtime.Contexts.Main.View.Tooltip
 
     private void Hide(float time)
     {
-      FadeAnimation(time, 0);
+      view.FadeAnimation(time, 0);
     }
     
-    private void FadeAnimation(float time, float fadeValue)
-    {
-      view.headerField.DOColor(new Color(view.headerField.color.r, view.headerField.color.g, view.headerField.color.b, fadeValue), time);
-      view.contentField.DOColor(new Color(view.contentField.color.r, view.contentField.color.g, view.contentField.color.b, fadeValue), time);
-      view.background.DOFade(fadeValue, time);
-    }
-
     public override void OnRemove()
     {
       dispatcher.RemoveListener(TooltipEvent.Show, OnShow);

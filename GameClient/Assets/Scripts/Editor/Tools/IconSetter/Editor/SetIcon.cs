@@ -5,16 +5,16 @@ using UnityEngine;
 
 namespace Editor.Tools.IconSetter.Editor
 {
-  [CustomEditor(typeof(IconBehaviour))]
+  [CustomEditor(typeof(IconView))]
   public class SetIcon : UnityEditor.Editor
   {
     public override void OnInspectorGUI()
     {
       DrawDefaultInspector();
 
-      IconBehaviour iconBehaviour = (IconBehaviour)target;
+      IconView iconView = (IconView)target;
 
-      if (GUILayout.Button(new GUIContent("Save", "Change Icon On Inspector!"), EditorStyles.miniButton)) iconBehaviour.SetFromInspector();
+      if (GUILayout.Button(new GUIContent("Save", "Change Icon On Inspector!"), EditorStyles.miniButton)) iconView.SetFromInspector();
     }
   }
 }
