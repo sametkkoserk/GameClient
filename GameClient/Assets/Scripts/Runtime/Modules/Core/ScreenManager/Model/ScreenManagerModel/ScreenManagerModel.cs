@@ -19,7 +19,15 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
     public Dictionary<string, int> layerMap { get; set; }
     public List<string> sceneKeys { get; set; }
     public Dictionary<PanelVo, AsyncOperationHandle<GameObject>> instantiatedPanels { get; set; }
-
+    
+    [PostConstruct]
+    public void OnPostConstruct()
+    {
+      layerMap = new Dictionary<string, int>();
+      sceneKeys = new List<string>();
+      instantiatedPanels = new Dictionary<PanelVo, AsyncOperationHandle<GameObject>>();
+    }
+    
     public void AddLayerContainer(string sceneKey)
     {
       if (sceneKeys.Contains(sceneKey))
@@ -93,14 +101,6 @@ namespace Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel
     public void CloseSpecificPanel(string panelAddressableKey)
     {
       dispatcher.Dispatch(PanelEvent.CloseSpecificPanel, panelAddressableKey);
-    }
-
-    [PostConstruct]
-    public void OnPostConstruct()
-    {
-      layerMap = new Dictionary<string, int>();
-      sceneKeys = new List<string>();
-      instantiatedPanels = new Dictionary<PanelVo, AsyncOperationHandle<GameObject>>();
     }
   }
 }

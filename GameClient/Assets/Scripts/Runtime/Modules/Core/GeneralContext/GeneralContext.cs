@@ -1,7 +1,10 @@
+using Runtime.Contexts.Main.Model.PopupPanelModel;
 using Runtime.Contexts.Main.View.SettingsButton;
 using Runtime.Contexts.Main.View.TooltipManager;
 using Runtime.Modules.Core.Audio.View.AudioSourceItem;
 using Runtime.Modules.Core.Audio.View.SourceCreator;
+using Runtime.Modules.Core.Icon.Model;
+using Runtime.Modules.Core.Icon.View;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.ScreenManager.View.LayerContainer;
 using Runtime.Modules.Core.ScreenManager.View.PanelContainer;
@@ -29,6 +32,8 @@ namespace Runtime.Modules.Core.GeneralContext
     {
       base.mapBindings();
       injectionBinder.Bind<IScreenManagerModel>().To<ScreenManagerModel>().ToSingleton();
+      injectionBinder.Bind<IPopupPanelModel>().To<PopupPanelModel>().ToSingleton();
+      injectionBinder.Bind<IIconModel>().To<IconModel>().ToSingleton();
 
       mediationBinder.Bind<LayerContainerView>().To<LayerContainerMediator>();
       mediationBinder.Bind<PanelContainerView>().To<PanelContainerMediator>();
@@ -44,6 +49,8 @@ namespace Runtime.Modules.Core.GeneralContext
       mediationBinder.Bind<AudioSourceItemView>().To<AudioSourceItemMediator>();
       
       mediationBinder.Bind<TooltipTriggerView>().To<TooltipTriggerMediator>();
+
+      mediationBinder.Bind<IconView>().To<IconMediator>();
     }
   }
 }

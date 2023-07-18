@@ -9,7 +9,6 @@ namespace Runtime.Contexts.Main.View.TooltipManager
     public TranslateKeys headerTranslateKey;
 
     public TranslateKeys contentTranslateKey;
-
     
     public void OnPointerEnter(PointerEventData eventData)
     {

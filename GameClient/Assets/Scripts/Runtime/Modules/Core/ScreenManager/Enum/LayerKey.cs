@@ -4,6 +4,7 @@ namespace Runtime.Modules.Core.ScreenManager.Enum
   {
     // Bigger sort index to smaller sort index.
     TooltipLayer,
+    PopupLayer,
     SettingsLayer, // For only MainScene
     FirstLayer,
     SecondLayer,

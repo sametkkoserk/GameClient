@@ -4,6 +4,7 @@ using Runtime.Contexts.Main.Model.PlayerModel;
 using Runtime.Contexts.Main.Processor;
 using Runtime.Contexts.Main.View.Application;
 using Runtime.Contexts.Main.View.MainSceneCamera;
+using Runtime.Contexts.Main.View.Popup;
 using Runtime.Contexts.Main.View.RegisterPanel;
 using Runtime.Contexts.Main.View.Tooltip;
 using Runtime.Contexts.Network.Enum;
@@ -57,6 +58,7 @@ namespace Runtime.Contexts.Main.Config
             mediationBinder.Bind<DiscordBehaviourView>().To<DiscordBehaviourMediator>();
             mediationBinder.Bind<ApplicationView>().To<ApplicationMediator>();
             mediationBinder.Bind<TooltipView>().To<TooltipMediator>();
+            mediationBinder.Bind<PopupPanelView>().To<PopupPanelMediator>();
             
             //Event/Command binding
             //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
@@ -72,6 +74,7 @@ namespace Runtime.Contexts.Main.Config
             commandBinder.Bind(MainEvent.OpenSettingsPanel).To<OpenSettingsPanelCommand>();
             commandBinder.Bind(MainEvent.RegisterInfoSend).To<RegisterInfoSendCommand>();
             commandBinder.Bind(MainEvent.LanguageChanged).To<LanguageChangedCommand>();
+            commandBinder.Bind(MainEvent.OpenPopupPanel).To<OpenPopupPanelCommand>();
 
             commandBinder.Bind(ServerToClientId.RegisterAccepted).To<RegisterAcceptedProcessor>();
         }
