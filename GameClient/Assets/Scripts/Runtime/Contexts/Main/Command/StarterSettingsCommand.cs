@@ -1,3 +1,4 @@
+using Runtime.Contexts.Main.Enum;
 using Runtime.Modules.Core.Audio.Enum;
 using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
 using Runtime.Modules.Core.ColorPalette.Enum;
@@ -8,6 +9,8 @@ using Runtime.Modules.Core.Discord.Model;
 using Runtime.Modules.Core.Discord.Vo;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.Model.LocalizationModel;
+using Runtime.Modules.Core.ScreenManager.Enum;
+using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
 
@@ -30,6 +33,9 @@ namespace Runtime.Contexts.Main.Command
     [Inject]
     public IDiscordModel discordModel { get; set; }
     
+    [Inject]
+    public IScreenManagerModel screenManagerModel { get; set; }
+    
     public override void Execute()
     {
       LanguageSettings();
@@ -37,6 +43,7 @@ namespace Runtime.Contexts.Main.Command
       CursorSettings();
       StartMusic();
       InitDiscord();
+      OpenTooltipPanel();
     }
 
     private void CursorSettings()
@@ -65,6 +72,11 @@ namespace Runtime.Contexts.Main.Command
       discordModel.Init();
       
       discordModel.StarterSettings();
+    }
+
+    private void OpenTooltipPanel()
+    {
+      screenManagerModel.OpenPanel(MainPanelKey.TooltipPanel, SceneKey.Main, LayerKey.TooltipLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
   }
 }
