@@ -37,7 +37,8 @@ namespace Editor.Tools.DebugX.Runtime
     /// <param name="tag">The tag of message.</param>
     /// <param name="message">The message to log.</param>
     /// <param name="logKey">The log type of message. <seealso cref="LogKey" /></param>
-    public static void Log(DebugKey tag, string message, LogKey logKey = LogKey.Log)
+    /// <param name="gameObject">GameObject displaying the message.</param>
+    public static void Log(DebugKey tag, string message, LogKey logKey = LogKey.Log, GameObject gameObject = null)
     {
 #if UNITY_EDITOR
       if (!_inited) Init();
@@ -53,13 +54,13 @@ namespace Editor.Tools.DebugX.Runtime
       switch (logKey)
       {
         case LogKey.Log:
-          Debug.Log($"[{Thread.CurrentThread.ManagedThreadId}] {text}");
+          Debug.Log($"[{Thread.CurrentThread.ManagedThreadId}] {text}", gameObject);
           return;
         case LogKey.Warning:
-          Debug.LogWarning($"[{Thread.CurrentThread.ManagedThreadId}] {text}");
+          Debug.LogWarning($"[{Thread.CurrentThread.ManagedThreadId}] {text}", gameObject);
           return;
         case LogKey.Error:
-          Debug.LogError($"[{Thread.CurrentThread.ManagedThreadId}] {text}");
+          Debug.LogError($"[{Thread.CurrentThread.ManagedThreadId}] {text}", gameObject);
           return;
       }
 #endif
