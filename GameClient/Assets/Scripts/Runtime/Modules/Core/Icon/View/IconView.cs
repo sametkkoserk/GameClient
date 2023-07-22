@@ -14,8 +14,10 @@ namespace Runtime.Modules.Core.Icon.View
     [Space]
     public IconKey iconKey;
 
+    [HideInInspector]
     public Image image;
 
+    
 #if UNITY_EDITOR
     public void SetFromInspector()
     {

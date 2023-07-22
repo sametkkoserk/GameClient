@@ -3,6 +3,7 @@ using Runtime.Modules.Core.Icon.Model;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Runtime.Modules.Core.Icon.View
 {
@@ -16,6 +17,8 @@ namespace Runtime.Modules.Core.Icon.View
 
     public override void OnRegister()
     {
+      view.image = gameObject.GetComponent<Image>();
+
       Init(view.iconKey, view.color);
     }
 
