@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6167154320128206913}
   - component: {fileID: 7055955174118662828}
   - component: {fileID: 5560450183070381806}
+  - component: {fileID: 4420839742928036366}
   m_Layer: 0
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -92,7 +93,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4577b50264424dbbb49bab7152291299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IconKey: 0
+  color: {r: 1, g: 1, b: 1, a: 1}
+  iconKey: 0
+  image: {fileID: 0}
 --- !u!114 &6167154320128206913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -176,3 +179,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onPointerEnter: 1
   onPointerExit: 0
+--- !u!114 &4420839742928036366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6595609191340185804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c0fa203b69742f0923cfbe3dca673df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headerTranslateKey: 1
+  contentTranslateKey: 0

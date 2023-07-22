@@ -1,4 +1,5 @@
 using System;
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Main.Vo;
 using Runtime.Modules.Core.Localization.Enum;
@@ -22,8 +23,6 @@ namespace Runtime.Contexts.Main.View.Tooltip
     {
       dispatcher.AddListener(TooltipEvent.Show, OnShow);
       dispatcher.AddListener(TooltipEvent.Hide, OnHide);
-
-      view.FadeAnimation(0, 0);
     }
 
     private void Update()
@@ -33,7 +32,9 @@ namespace Runtime.Contexts.Main.View.Tooltip
     
     private void OnShow(IEvent payload)
     {
-      if (string.IsNullOrEmpty(view.headerField.text) || string.IsNullOrEmpty(view.contentField.text))
+      DebugX.Log(DebugKey.Tooltip, "Tooltip Mediator OnShow 1");
+
+      if (view.headerField == null || view.contentField == null)
         return;
 
       TooltipInfoVo tooltipInfoVo = (TooltipInfoVo)payload.data;
@@ -49,6 +50,8 @@ namespace Runtime.Contexts.Main.View.Tooltip
       SetPosition(tooltipInfoVo.position);
       
       view.FadeAnimation(0.5f, 1);
+      
+      DebugX.Log(DebugKey.Tooltip, "Tooltip Mediator OnShow 2");
     }
 
     private void SetPosition(Vector2 position)
@@ -94,6 +97,7 @@ namespace Runtime.Contexts.Main.View.Tooltip
     private void Hide(float time)
     {
       view.FadeAnimation(time, 0);
+      DebugX.Log(DebugKey.Tooltip, "Tooltip Mediator Hide");
     }
     
     public override void OnRemove()

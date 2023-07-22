@@ -6,9 +6,8 @@ namespace Runtime.Modules.Core.Localization.Enum
   public enum TranslateKeys
   {
     // Tooltip
-    TooltipHeader,
-    TooltipContent,
-    TooltipContent2,
+    TooltipEmpty,
+    TooltipSettings,
 
     // General
     DiscordOnLoginScreen,

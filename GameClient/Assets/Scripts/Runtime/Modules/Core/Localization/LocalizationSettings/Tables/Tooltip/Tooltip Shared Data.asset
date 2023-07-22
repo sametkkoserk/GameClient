@@ -16,11 +16,11 @@ MonoBehaviour:
   m_TableCollectionNameGuidString: a5147a36244f4e84e89d7408d36fe39f
   m_Entries:
   - m_Id: 8299102208
-    m_Key: TooltipHeader
+    m_Key: TooltipEmpty
     m_Metadata:
       m_Items: []
   - m_Id: 164159438848
-    m_Key: TooltipContent
+    m_Key: TooltipSettings
     m_Metadata:
       m_Items: []
   - m_Id: 1459264634372096

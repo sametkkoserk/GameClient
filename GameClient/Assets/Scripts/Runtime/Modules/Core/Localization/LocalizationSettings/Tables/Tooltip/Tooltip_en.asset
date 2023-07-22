@@ -19,11 +19,11 @@ MonoBehaviour:
     m_Items: []
   m_TableData:
   - m_Id: 8299102208
-    m_Localized: Tooltip Header
+    m_Localized: 
     m_Metadata:
       m_Items: []
   - m_Id: 164159438848
-    m_Localized: Tooltip Content
+    m_Localized: Settings
     m_Metadata:
       m_Items: []
   - m_Id: 1459264634372096

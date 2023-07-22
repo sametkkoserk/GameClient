@@ -19,5 +19,10 @@ namespace Runtime.Contexts.Main.View.TooltipManager
     {
       dispatcher.Dispatch(TooltipTriggerEvent.OnPointerExit);
     }
+
+    private void OnDisable()
+    {
+      dispatcher.Dispatch(TooltipTriggerEvent.OnDisable);
+    }
   }
 }
