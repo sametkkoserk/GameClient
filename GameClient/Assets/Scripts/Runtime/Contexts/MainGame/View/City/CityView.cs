@@ -1,4 +1,5 @@
 using Runtime.Contexts.MainGame.Vo;
+using Runtime.Contexts.Network.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Runtime.Contexts.MainGame.View.City
     public Material material;
 
     public MeshRenderer meshRenderer;
+    
     public CityVo cityVo;
 
     public void OnClick()
@@ -21,7 +23,7 @@ namespace Runtime.Contexts.MainGame.View.City
     {
       cityVo = _cityVo;
 
-      transform.position = _cityVo.position;
+      transform.position =  _cityVo.position.ToVector3();
     }
   }
 }

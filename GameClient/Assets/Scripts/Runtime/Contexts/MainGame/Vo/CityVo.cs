@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using ProtoBuf;
-using UnityEngine;
+using Runtime.Contexts.Network.Vo;
 
 namespace Runtime.Contexts.MainGame.Vo
 {
@@ -16,7 +16,7 @@ namespace Runtime.Contexts.MainGame.Vo
     [ProtoMember(4)]
     public int ownerID;
     [ProtoMember(5)]
-    public Vector3 position;
+    public Vector3Vo position;
     [ProtoMember(6)]
     public int soldierCount;
   }
