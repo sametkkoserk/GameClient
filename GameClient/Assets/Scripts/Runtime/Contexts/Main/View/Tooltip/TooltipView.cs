@@ -18,7 +18,6 @@ namespace Runtime.Contexts.Main.View.Tooltip
 
     public Image background;
     
-    
     public void FadeAnimation(float time, float fadeValue)
     {
       headerField.DOColor(new Color(headerField.color.r, headerField.color.g, headerField.color.b, fadeValue), time);

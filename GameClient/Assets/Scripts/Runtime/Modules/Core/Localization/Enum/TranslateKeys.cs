@@ -19,6 +19,6 @@ namespace Runtime.Modules.Core.Localization.Enum
     DiscordNormalGame,
 
     // Settings
-    SettingsPanelColorPaletteDropdown
+    SettingsPanelCPD
   }
 }

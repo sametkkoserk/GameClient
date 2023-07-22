@@ -76,7 +76,7 @@ namespace Runtime.Contexts.Main.View.Tooltip
           break;
         default:
         {
-          //Upper                                                      //Lower
+          //Upper                                                          //Lower
           view.rectTransform.pivot = y > 0.5f ? new Vector2(0.5f, 1) : new Vector2(0.5f, 0);
           break;
         }

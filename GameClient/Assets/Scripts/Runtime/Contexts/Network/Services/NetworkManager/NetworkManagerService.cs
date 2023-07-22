@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Linq;
 using Editor.Tools.DebugX.Runtime;
 using ProtoBuf;
 using Riptide;
@@ -47,12 +46,12 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
     public void Ticker()
     {
-      if (Client != null) Client.Update();
+      Client?.Update();
     }
 
     public T GetData<T>(byte[] message) where T : new()
     {
-      using MemoryStream stream = new MemoryStream(message);
+      using MemoryStream stream = new(message);
       return message == null ? default : Serializer.Deserialize<T>(stream);
     }
 
@@ -68,7 +67,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
     private byte[] ProtoSerialize<T>(T message) where T : new()
     {
-      using var stream = new MemoryStream();
+      using MemoryStream stream = new MemoryStream();
       Serializer.Serialize(stream, message);
       return stream.ToArray();
     }
