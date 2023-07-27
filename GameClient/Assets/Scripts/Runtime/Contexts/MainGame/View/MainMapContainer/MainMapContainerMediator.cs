@@ -25,8 +25,8 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
       Addressables.InstantiateAsync(LobbyKey.MainMap, gameObject.transform);
 
       if (mainGameModel.materials.Count == 0)
-        // Player Vo olusturulacak.
         mainGameModel.materials = view.playerMaterials;
+      // Player Vo olusturulacak.
     }
 
     public override void OnRemove()

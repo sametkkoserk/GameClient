@@ -1,5 +1,4 @@
 using Runtime.Contexts.MainGame.Vo;
-using Runtime.Contexts.Network.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 

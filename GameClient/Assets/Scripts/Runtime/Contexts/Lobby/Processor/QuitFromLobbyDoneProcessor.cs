@@ -39,6 +39,8 @@ namespace Runtime.Contexts.Lobby.Processor
         lobbyModel.LobbyReset();
         screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
         discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
+        
+        DebugX.Log(DebugKey.Response,"Host exit from lobby message received");
       }
       else
       {
@@ -47,8 +49,7 @@ namespace Runtime.Contexts.Lobby.Processor
         
         discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
         
-        DebugX.Log(DebugKey.Response,"Quit From Lobby message Received");
-
+        DebugX.Log(DebugKey.Response,"Quit from lobby message received");
       }
     }
   }

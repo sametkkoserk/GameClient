@@ -18,22 +18,8 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      Dictionary<ushort, LobbyVo> lobbies = networkManager.GetData<Dictionary<ushort, LobbyVo>>(vo.message);
+      Dictionary<string, LobbyVo> lobbies = networkManager.GetData<Dictionary<string, LobbyVo>>(vo.message);
 
-      // int lobbyCount = message.GetInt();
-      // lobbiesVo.lobbies = new List<LobbyVo>();
-      // for (int i = 0; i < lobbyCount; i++)
-      // {
-      //   LobbyVo lobbyVo = new LobbyVo();
-      //   lobbyVo.lobbyId = message.GetUShort();
-      //   lobbyVo.lobbyName = message.GetString();
-      //   lobbyVo.isPrivate = message.GetBool();
-      //   lobbyVo.playerCount = message.GetUShort();
-      //   lobbyVo.maxPlayerCount = message.GetUShort();
-      //   lobbyVo.leaderId = message.GetUShort();
-      //   lobbiesVo.lobbies.Add(lobbyVo);
-      // }
-      
       dispatcher.Dispatch(LobbyEvent.listLobbies, lobbies);
       
       DebugX.Log(DebugKey.Response,"Get Lobbies message Received");

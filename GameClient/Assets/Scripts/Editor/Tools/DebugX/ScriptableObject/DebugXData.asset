@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loggerList:
   - key: 0
-    active: 0
+    active: 1
     color: {r: 1, g: 0, b: 0, a: 1}
   - key: 1
-    active: 0
+    active: 1
     color: {r: 0, g: 0.8371129, b: 1, a: 1}
   - key: 2
-    active: 0
+    active: 1
     color: {r: 0, g: 1, b: 0.08719444, a: 1}
   - key: 3
     active: 0
@@ -32,5 +32,5 @@ MonoBehaviour:
     active: 0
     color: {r: 1, g: 0.5307527, b: 0, a: 1}
   - key: 10
-    active: 1
+    active: 0
     color: {r: 1, g: 0.94259137, b: 0, a: 1}

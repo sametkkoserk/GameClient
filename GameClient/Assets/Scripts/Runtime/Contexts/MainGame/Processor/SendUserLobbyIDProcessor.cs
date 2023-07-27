@@ -21,7 +21,7 @@ namespace Runtime.Contexts.MainGame.Processor
 
       ushort lobbyID = networkManager.GetData<ushort>(vo.message);
 
-      mainGameModel.lobbyID = lobbyID;
+      mainGameModel.lobbyId = lobbyID;
       
       DebugX.Log(DebugKey.Response,"Lobby ID message Received");
 

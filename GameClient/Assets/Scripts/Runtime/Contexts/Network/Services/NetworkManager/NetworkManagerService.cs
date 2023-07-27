@@ -67,11 +67,10 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
     private byte[] ProtoSerialize<T>(T message) where T : new()
     {
-      using MemoryStream stream = new MemoryStream();
+      using MemoryStream stream = new();
       Serializer.Serialize(stream, message);
       return stream.ToArray();
     }
-
 
     public void OnQuit()
     {
