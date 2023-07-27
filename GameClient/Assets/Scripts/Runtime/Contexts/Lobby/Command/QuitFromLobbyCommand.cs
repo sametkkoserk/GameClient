@@ -22,7 +22,7 @@ namespace Runtime.Contexts.Lobby.Command
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
       OutFromLobbyVo outFromLobbyVo = new()
       {
-        lobbyId = lobbyModel.lobbyVo.lobbyId,
+        lobbyCode = lobbyModel.lobbyVo.lobbyCode,
         inLobbyId = lobbyModel.clientVo.inLobbyId
       };
       message = networkManager.SetData(message, outFromLobbyVo);

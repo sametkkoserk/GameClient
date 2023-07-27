@@ -53,7 +53,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
       GameStartVo vo = new()
       {
         gameStart = true,
-        lobbyId = lobbyModel.lobbyVo.lobbyId
+        lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GameStart);
       message = networkManager.SetData(message, vo);
@@ -80,7 +80,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
       NextTurnVo vo = new()
       {
         currentTurnPlayerLobbyId = lobbyModel.clientVo.inLobbyId,
-        lobbyId = lobbyModel.lobbyVo.lobbyId
+        lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.NextTurn);
       message = networkManager.SetData(message, vo);

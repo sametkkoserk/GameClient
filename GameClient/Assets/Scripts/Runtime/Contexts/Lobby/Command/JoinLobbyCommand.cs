@@ -15,9 +15,9 @@ namespace Runtime.Contexts.Lobby.Command
 
     public override void Execute()
     {
-      ushort lobbyId = (ushort)evt.data;
+      string lobbyCode = (string)evt.data;
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.JoinLobby);
-      message = networkManager.SetData(message, lobbyId);
+      message = networkManager.SetData(message, lobbyCode);
       networkManager.Client.Send(message);
       
       DebugX.Log(DebugKey.Request,"Join Lobby message Sent");

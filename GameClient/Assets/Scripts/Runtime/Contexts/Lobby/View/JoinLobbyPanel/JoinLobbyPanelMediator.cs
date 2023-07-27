@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Modules.Core.ScreenManager.Enum;
@@ -38,13 +39,16 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 
     private void OnLobbies(IEvent payload)
     {
-      Dictionary<ushort, LobbyVo> lobbies = (Dictionary<ushort, LobbyVo>)payload.data;
+      Dictionary<string, LobbyVo> lobbies = (Dictionary<string, LobbyVo>)payload.data;
       for (ushort i = 0; i < lobbies.Count; i++)
       {
         ushort count = i;
         GameObject joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
         JoinLobbyPanelItemBehaviour behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
-        behaviour.Init(lobbies[count], () => { dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies[count].lobbyId); });
+        behaviour.Init(lobbies.ElementAt(count).Value, () =>
+        {
+          dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies.ElementAt(count).Value.lobbyCode);
+        });
       }
     }
 

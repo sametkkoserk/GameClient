@@ -48,7 +48,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       }
 
       DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}, Player's Lobby ID: {lobbyModel.clientVo.inLobbyId}," +
-                                      $" Lobby ID: {lobbyVo.lobbyId}");
+                                      $" Lobby Code: {lobbyVo.lobbyCode}");
 
       InitLobbySettings();
     }
@@ -167,7 +167,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
       LobbySettingsVo newLobbySettingsVo = new()
       {
-        lobbyId = lobbyModel.lobbyVo.lobbyId,
+        lobbyCode = lobbyModel.lobbyVo.lobbyCode,
         turnTime = float.Parse(view.timerDropdown.options[view.timerDropdown.value].text)
       };
 
