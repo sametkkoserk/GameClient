@@ -15,7 +15,7 @@ namespace Editor.Tools.PrefabCreator.Editor
 
       Object activeObject = PrefabUtility.InstantiatePrefab(gameObject, Selection.activeTransform);
       Selection.activeObject = activeObject;
-      
+
       gameObject.name = specialName ?? objName;
 
       // AsyncOperationHandle<GameObject> instantiateAsync = Addressables.InstantiateAsync(objName, Selection.activeTransform);
@@ -66,6 +66,18 @@ namespace Editor.Tools.PrefabCreator.Editor
     public static void Icon()
     {
       InstantiateObject(PrefabKey.Icon);
+    }
+    
+    [MenuItem("GameObject/PrefabList/LoadingIcon", false, 6001)]
+    public static void LoadingIcon()
+    {
+      InstantiateObject(PrefabKey.LoadingIcon);
+    }
+    
+    [MenuItem("GameObject/PrefabList/IconButton", false, 6002)]
+    public static void IconButton()
+    {
+      InstantiateObject(PrefabKey.IconButton);
     }
 #endif
   }

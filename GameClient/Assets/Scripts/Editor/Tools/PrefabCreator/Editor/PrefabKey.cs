@@ -11,5 +11,7 @@ namespace Editor.Tools.PrefabCreator.Editor
     public const string ParameterTextButton = "ParameterTextButton";
 
     public const string Icon = "Icon";
+    public const string LoadingIcon = "LoadingIcon";
+    public const string IconButton = "IconButton";
   }
 }
