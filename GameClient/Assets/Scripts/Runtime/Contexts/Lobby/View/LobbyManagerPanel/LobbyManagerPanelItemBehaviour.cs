@@ -16,10 +16,13 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     [HideInInspector]
     public ushort inLobbyId;
 
-    public void Init(ClientVo clientVo, Color color)
+    public void Init(ClientVo clientVo, Color color, bool isMe)
     {
       userNameText.text = clientVo.userName;
       colorImage.color = color;
+
+      if (!isMe) return;
+      userNameText.color = Color.green;
     }
 
     public void PlayerReady()

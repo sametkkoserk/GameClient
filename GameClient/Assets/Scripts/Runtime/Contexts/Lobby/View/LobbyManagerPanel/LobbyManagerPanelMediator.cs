@@ -53,7 +53,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
         GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
         ClientVo clientVo = lobbyVo.clients.ElementAt(count).Value;
         LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
-        behaviour.Init(clientVo, clientVo.playerColor.ToColor());
+        behaviour.Init(clientVo, clientVo.playerColor.ToColor(), lobbyModel.clientVo.id == clientVo.id);
 
         view.behaviours[clientVo.id] = behaviour;
       }
@@ -75,7 +75,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
       view.behaviours[clientVo.id] = behaviour;
 
-      behaviour.Init(clientVo, clientVo.playerColor.ToColor());
+      behaviour.Init(clientVo, clientVo.playerColor.ToColor(), false);
     }
 
     private void OnReady()
