@@ -55,10 +55,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
         LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
         behaviour.Init(clientVo, clientVo.playerColor.ToColor());
 
-        lobbyModel.lobbyVo.clients[clientVo.inLobbyId].lobbyItemBehaviour = behaviour;
+        view.behaviours[clientVo.id] = behaviour;
       }
 
-      DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}, Player's Lobby ID: {lobbyModel.clientVo.inLobbyId}," +
+      DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}," +
                                       $" Lobby Code: {lobbyVo.lobbyCode}");
 
       InitLobbySettings();
@@ -73,7 +73,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
       GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
       LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
-      lobbyModel.lobbyVo.clients[clientVo.inLobbyId].lobbyItemBehaviour = behaviour;
+      view.behaviours[clientVo.id] = behaviour;
 
       behaviour.Init(clientVo, clientVo.playerColor.ToColor());
     }
@@ -87,7 +87,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void OnPlayerReadyResponse(IEvent payload)
     {
       ushort inLobbyId = (ushort)payload.data;
-      lobbyModel.lobbyVo.clients[inLobbyId].lobbyItemBehaviour.PlayerReady();
+      view.behaviours[inLobbyId].PlayerReady();
       Debug.Log("Player is ready: " + inLobbyId);
     }
 
@@ -98,14 +98,13 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerIsOut(IEvent payload)
     {
-      ushort inLobbyId = (ushort)payload.data;
-      LobbyVo lobbyVo = lobbyModel.lobbyVo;
+      OutFromLobbyVo outFromLobbyVo = (OutFromLobbyVo)payload.data;
+      lobbyModel.lobbyVo.playerCount=(ushort)outFromLobbyVo.clients.Count;
+      view.playerCountText.text = lobbyModel.lobbyVo.playerCount + " / " + lobbyModel.lobbyVo.maxPlayerCount;
+      view.behaviours[outFromLobbyVo.id].PlayerIsOut();
+      view.behaviours.Remove(outFromLobbyVo.id);
+      lobbyModel.lobbyVo.clients=outFromLobbyVo.clients;
 
-      view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
-
-      lobbyModel.lobbyVo.clients[inLobbyId].lobbyItemBehaviour.PlayerIsOut();
-      // for (ushort i = 0; i < lobbyVo.clients.Count; i++)
-      //   lobbyModel.userItemBehaviours[i].Init(lobbyVo.clients.ElementAt(i).Value, lobbyModel.colors[i]);
     }
 
     #region Game Settings

@@ -11,6 +11,8 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
   {
     public GameObject lobbyManagerPanelItem;
 
+    public Dictionary<ushort, LobbyManagerPanelItemBehaviour> behaviours = new();
+
     public Transform playerContainer;
 
     public TMP_Text lobbyNameText;

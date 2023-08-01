@@ -79,7 +79,8 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
       NextTurnVo vo = new()
       {
-        currentTurnPlayerLobbyId = lobbyModel.clientVo.inLobbyId,
+        //TODO ŞAFAK
+        //currentTurnPlayerLobbyId = lobbyModel.clientVo.inLobbyId,
         lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.NextTurn);

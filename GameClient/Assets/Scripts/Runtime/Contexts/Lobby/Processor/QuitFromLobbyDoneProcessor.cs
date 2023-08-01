@@ -1,6 +1,7 @@
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
+using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Main.Model.PlayerModel;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
@@ -33,10 +34,11 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      ushort inLobbyId = networkManager.GetData<ushort>(vo.message);
-      if (inLobbyId == lobbyModel.clientVo.inLobbyId)
+      OutFromLobbyVo outFromLobbyVo = networkManager.GetData<OutFromLobbyVo>(vo.message);
+      if (outFromLobbyVo.id == lobbyModel.clientVo.id)
       {
-        // lobbyModel.LobbyReset();
+        
+        //lobbyModel.LobbyReset();
         screenManagerModel.OpenPanel(LobbyKey.JoinLobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
         discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
         
@@ -44,8 +46,7 @@ namespace Runtime.Contexts.Lobby.Processor
       }
       else
       {
-        // lobbyModel.OutFromLobby(inLobbyId);
-        dispatcher.Dispatch(LobbyEvent.PlayerIsOut, inLobbyId);
+        dispatcher.Dispatch(LobbyEvent.PlayerIsOut, outFromLobbyVo);
         
         discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
         
