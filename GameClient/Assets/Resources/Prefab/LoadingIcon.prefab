@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6587075821641236524}
   - component: {fileID: 3201726218556514849}
   - component: {fileID: 7898023801497868857}
+  - component: {fileID: 140731961743684102}
   m_Layer: 0
-  m_Name: Icon
+  m_Name: LoadingIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,5 +91,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   color: {r: 1, g: 1, b: 1, a: 1}
-  iconKey: 0
-  image: {fileID: 0}
+  iconKey: 2
+  image: {fileID: 3201726218556514849}
+--- !u!114 &140731961743684102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8393892726025162650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2119ce4fd76c34286ca762b6e479cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  loadingIcon: {fileID: 0}

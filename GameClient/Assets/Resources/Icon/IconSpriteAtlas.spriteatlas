@@ -51,8 +51,12 @@ SpriteAtlas:
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
   - {fileID: 21300000, guid: bfec368a30bd8e04ab1ec0030d786321, type: 3}
+  - {fileID: 21300000, guid: 955a408be7030614ba7fe7d0829e625b, type: 3}
+  - {fileID: 21300000, guid: 76d7e94e061a5cd40aba199a536643f3, type: 3}
   m_PackedSpriteNamesToIndex:
   - SettingsIcon
+  - RefreshIcon
+  - LoadingIcon
   m_RenderDataMap: {}
   m_Tag: IconSpriteAtlas
   m_IsVariant: 0
