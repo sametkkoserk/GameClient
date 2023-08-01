@@ -35,32 +35,15 @@ namespace Runtime.Contexts.Lobby.Processor
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(vo.message);
-      // lobbyVo.lobbyId = message.GetUShort();
-      // lobbyVo.lobbyName = message.GetString();
-      // lobbyVo.isPrivate = message.GetBool();
-      // lobbyVo.leaderId = message.GetUShort();
-      // lobbyVo.playerCount = message.GetUShort();
-      // lobbyVo.maxPlayerCount = message.GetUShort();
-      // lobbyModel.inLobbyId = message.GetUShort();
-      // lobbyVo.clients = new Dictionary<ushort, ClientVo>();
-      // for (int i = 0; i < lobbyVo.playerCount; i++)
-      // {
-      //   ClientVo clientVo = new ClientVo();
-      //   clientVo.id = message.GetUShort();
-      //   clientVo.inLobbyId = message.GetUShort();
-      //   //clientVo.userName = message.GetString();
-      //   clientVo.colorId = message.GetUShort();
-      //   lobbyVo.clients[clientVo.inLobbyId]=clientVo;
-      // }
 
-      lobbyModel.lobbyVo = joinedToLobbyVo.lobby;
+      lobbyModel.lobbyVo = joinedToLobbyVo.lobbyVo;
       lobbyModel.clientVo = joinedToLobbyVo.clientVo;
 
       screenManagerModel.OpenPanel(LobbyKey.LobbyManagerPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
       
       DebugX.Log(DebugKey.Response,"Joined To Lobby message Received");
 
-      discordModel.InLobby(playerModel.playerRegisterInfoVo.username, joinedToLobbyVo.lobby.playerCount, joinedToLobbyVo.lobby.maxPlayerCount);
+      discordModel.InLobby(playerModel.playerRegisterInfoVo.username, joinedToLobbyVo.lobbyVo.playerCount, joinedToLobbyVo.lobbyVo.maxPlayerCount);
     }
   }
 }

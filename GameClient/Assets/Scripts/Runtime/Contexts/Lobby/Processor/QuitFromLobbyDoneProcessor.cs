@@ -36,15 +36,15 @@ namespace Runtime.Contexts.Lobby.Processor
       ushort inLobbyId = networkManager.GetData<ushort>(vo.message);
       if (inLobbyId == lobbyModel.clientVo.inLobbyId)
       {
-        lobbyModel.LobbyReset();
-        screenManagerModel.OpenPanel(LobbyKey.LobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+        // lobbyModel.LobbyReset();
+        screenManagerModel.OpenPanel(LobbyKey.JoinLobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
         discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
         
         DebugX.Log(DebugKey.Response,"Host exit from lobby message received");
       }
       else
       {
-        lobbyModel.OutFromLobby(inLobbyId);
+        // lobbyModel.OutFromLobby(inLobbyId);
         dispatcher.Dispatch(LobbyEvent.PlayerIsOut, inLobbyId);
         
         discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);

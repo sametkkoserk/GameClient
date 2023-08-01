@@ -14,7 +14,6 @@ namespace Runtime.Contexts.Lobby.Enum
     QuitLobby,
     PlayerIsOut,
     PlayerReadyResponse,
-    OnChangeUserLobbyID,
     LoginOrRegisterCompletedSuccessfully
   }
 }

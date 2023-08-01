@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using Runtime.Contexts.Lobby.View.LobbyManagerPanel;
 using Runtime.Contexts.Lobby.Vo;
-using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Model.LobbyModel
 {
@@ -9,16 +6,10 @@ namespace Runtime.Contexts.Lobby.Model.LobbyModel
   {
     LobbyVo lobbyVo { get; set; }
 
-    ushort inLobbyId { get; set; }
-
     ClientVo clientVo { get; set; }
 
-    List<Color> colors { get; set; }
+    void UpdateLobbyVo(LobbyVo newLobbyVo);
 
-    Dictionary<ushort, LobbyManagerPanelItemBehaviour> userItemBehaviours { get; set; }
-
-    void OutFromLobby(ushort _inLobbyId);
-
-    void LobbyReset();
+    void UpdateClientVo(ClientVo newClientVo);
   }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Modules.Core.ScreenManager.Enum;
@@ -13,7 +14,8 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 {
   public enum JoinLobbyPanelEvent
   {
-    Back
+    Back,
+    RefreshList
   }
 
   public class JoinLobbyPanelMediator : EventMediator
@@ -24,17 +26,31 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     [Inject]
     public IScreenManagerModel screenManagerModel { get; set; }
 
-    private void Start()
-    {
-      dispatcher.Dispatch(LobbyEvent.GetLobbies);
-      Debug.Log("GetLobbies Waiting");
-    }
-
     public override void OnRegister()
     {
       view.dispatcher.AddListener(JoinLobbyPanelEvent.Back, OnBack);
+      view.dispatcher.AddListener(JoinLobbyPanelEvent.RefreshList, OnRefreshList);
 
       dispatcher.AddListener(LobbyEvent.listLobbies, OnLobbies);
+    }
+    
+    private void Start()
+    {
+      OnRefreshList();
+    }
+
+    private void OnRefreshList()
+    {
+      view.lobbyListLoadingIcon.SetActive(true);
+
+      for (int i = 1; i < view.lobbyContainer.childCount; i++)
+      {
+        Destroy(view.lobbyContainer.GetChild(i).gameObject);
+      }
+      
+      dispatcher.Dispatch(LobbyEvent.GetLobbies);
+      
+      DebugX.Log(DebugKey.Request, "Getting lobbies list.");
     }
 
     private void OnLobbies(IEvent payload)
@@ -50,6 +66,8 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
           dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies.ElementAt(count).Value.lobbyCode);
         });
       }
+      
+      view.lobbyListLoadingIcon.SetActive(false);
     }
 
     private void OnBack()

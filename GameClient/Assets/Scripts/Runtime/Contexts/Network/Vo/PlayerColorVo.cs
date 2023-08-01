@@ -5,7 +5,7 @@ namespace Runtime.Contexts.Network.Vo
 {
   [ProtoContract]
 
-  public class ColorVo
+  public class PlayerColorVo
   {
     [ProtoMember(1)]
     public float r;
@@ -16,9 +16,9 @@ namespace Runtime.Contexts.Network.Vo
     [ProtoMember(3)]
     public float b;
     
-    public ColorVo(){}
+    public PlayerColorVo(){}
     
-    public ColorVo(Color color)
+    public PlayerColorVo(Color color)
     {
       r = color.r;
       g = color.g;

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
@@ -29,30 +28,6 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
 
-    private void Start()
-    {
-      lobbyModel.userItemBehaviours = new Dictionary<ushort, LobbyManagerPanelItemBehaviour>();
-      LobbyVo lobbyVo = lobbyModel.lobbyVo;
-      view.lobbyNameText.text = lobbyVo.lobbyName;
-      view.playerCountText.text = $"{lobbyVo.playerCount}/{lobbyVo.maxPlayerCount}";
-      for (ushort i = 0; i < lobbyVo.playerCount; i++)
-      {
-        ushort count = i;
-
-        GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
-        ClientVo clientVo = lobbyVo.clients.ElementAt(count).Value;
-        LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
-        behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
-
-        lobbyModel.userItemBehaviours[clientVo.inLobbyId] = behaviour;
-      }
-
-      DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}, Player's Lobby ID: {lobbyModel.clientVo.inLobbyId}," +
-                                      $" Lobby Code: {lobbyVo.lobbyCode}");
-
-      InitLobbySettings();
-    }
-
     public override void OnRegister()
     {
       view.dispatcher.AddListener(LobbyManagerPanelEvent.Ready, OnReady);
@@ -64,7 +39,29 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       dispatcher.AddListener(LobbyEvent.PlayerReadyResponse, OnPlayerReadyResponse);
       dispatcher.AddListener(LobbyEvent.PlayerIsOut, OnPlayerIsOut);
       dispatcher.AddListener(LobbyEvent.GetGameSettings, OnGetSettings);
-      dispatcher.AddListener(LobbyEvent.OnChangeUserLobbyID, OnChangeUserLobbyID);
+    }
+    
+    private void Start()
+    {
+      LobbyVo lobbyVo = lobbyModel.lobbyVo;
+      view.lobbyNameText.text = lobbyVo.lobbyName;
+      view.playerCountText.text = $"{lobbyVo.playerCount} / {lobbyVo.maxPlayerCount}";
+      for (ushort i = 0; i < lobbyVo.playerCount; i++)
+      {
+        ushort count = i;
+
+        GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
+        ClientVo clientVo = lobbyVo.clients.ElementAt(count).Value;
+        LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
+        behaviour.Init(clientVo, clientVo.playerColor.ToColor());
+
+        lobbyModel.lobbyVo.clients[clientVo.inLobbyId].lobbyItemBehaviour = behaviour;
+      }
+
+      DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}, Player's Lobby ID: {lobbyModel.clientVo.inLobbyId}," +
+                                      $" Lobby Code: {lobbyVo.lobbyCode}");
+
+      InitLobbySettings();
     }
 
     private void OnNewPlayer(IEvent payload)
@@ -72,21 +69,14 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       ClientVo clientVo = (ClientVo)payload.data;
 
       LobbyVo lobbyVo = lobbyModel.lobbyVo;
-      view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
+      view.playerCountText.text = $"{lobbyVo.playerCount} / {lobbyVo.maxPlayerCount}";
 
       GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
       LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
-      behaviour.Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
-      lobbyModel.userItemBehaviours[clientVo.inLobbyId] = behaviour;
+      lobbyModel.lobbyVo.clients[clientVo.inLobbyId].lobbyItemBehaviour = behaviour;
+
+      behaviour.Init(clientVo, clientVo.playerColor.ToColor());
     }
-
-    private void OnChangeUserLobbyID(IEvent payload)
-    {
-      ClientVo clientVo = (ClientVo)payload.data;
-
-      lobbyModel.userItemBehaviours[clientVo.inLobbyId].Init(clientVo, lobbyModel.colors[clientVo.inLobbyId]);
-    }
-
 
     private void OnReady()
     {
@@ -97,7 +87,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void OnPlayerReadyResponse(IEvent payload)
     {
       ushort inLobbyId = (ushort)payload.data;
-      lobbyModel.userItemBehaviours[inLobbyId].PlayerReady();
+      lobbyModel.lobbyVo.clients[inLobbyId].lobbyItemBehaviour.PlayerReady();
       Debug.Log("Player is ready: " + inLobbyId);
     }
 
@@ -113,22 +103,9 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
       view.playerCountText.text = lobbyVo.playerCount + "/" + lobbyVo.maxPlayerCount;
 
-      lobbyModel.userItemBehaviours[inLobbyId].PlayerIsOut();
-      for (ushort i = 0; i < lobbyVo.clients.Count; i++) lobbyModel.userItemBehaviours[i].Init(lobbyVo.clients.ElementAt(i).Value, lobbyModel.colors[i]);
-    }
-
-    public override void OnRemove()
-    {
-      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Ready, OnReady);
-      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Back, OnBack);
-      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Save, OnSave);
-      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.ChangedSettings, OnChangedSettings);
-
-      dispatcher.RemoveListener(LobbyEvent.NewPlayerToLobby, OnNewPlayer);
-      dispatcher.RemoveListener(LobbyEvent.PlayerReadyResponse, OnPlayerReadyResponse);
-      dispatcher.RemoveListener(LobbyEvent.PlayerIsOut, OnPlayerIsOut);
-      dispatcher.RemoveListener(LobbyEvent.GetGameSettings, OnGetSettings);
-      dispatcher.RemoveListener(LobbyEvent.OnChangeUserLobbyID, OnChangeUserLobbyID);
+      lobbyModel.lobbyVo.clients[inLobbyId].lobbyItemBehaviour.PlayerIsOut();
+      // for (ushort i = 0; i < lobbyVo.clients.Count; i++)
+      //   lobbyModel.userItemBehaviours[i].Init(lobbyVo.clients.ElementAt(i).Value, lobbyModel.colors[i]);
     }
 
     #region Game Settings
@@ -184,5 +161,18 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     }
 
     #endregion
+    
+    public override void OnRemove()
+    {
+      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Ready, OnReady);
+      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Back, OnBack);
+      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.Save, OnSave);
+      view.dispatcher.RemoveListener(LobbyManagerPanelEvent.ChangedSettings, OnChangedSettings);
+
+      dispatcher.RemoveListener(LobbyEvent.NewPlayerToLobby, OnNewPlayer);
+      dispatcher.RemoveListener(LobbyEvent.PlayerReadyResponse, OnPlayerReadyResponse);
+      dispatcher.RemoveListener(LobbyEvent.PlayerIsOut, OnPlayerIsOut);
+      dispatcher.RemoveListener(LobbyEvent.GetGameSettings, OnGetSettings);
+    }
   }
 }

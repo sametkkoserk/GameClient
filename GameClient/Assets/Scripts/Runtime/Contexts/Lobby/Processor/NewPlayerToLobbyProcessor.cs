@@ -11,7 +11,7 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.Lobby.Processor
 {
-  public class NewPlayerToLobbyProccessor : EventCommand
+  public class NewPlayerToLobbyProcessor : EventCommand
   {
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
@@ -28,16 +28,10 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      ClientVo clientVo = networkManager.GetData<ClientVo>(vo.message);
-      // {
-      //   id = message.GetUShort(),
-      //   inLobbyId = message.GetUShort(),
-      //   //userName = message.GetString(),
-      //   colorId = message.GetUShort()
-      // };
-      lobbyModel.lobbyVo.clients[clientVo.inLobbyId] = clientVo;
-      lobbyModel.lobbyVo.playerCount += 1;
-      dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby, clientVo);
+      JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(vo.message);
+      
+      lobbyModel.UpdateLobbyVo(joinedToLobbyVo.lobbyVo);
+      dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby, joinedToLobbyVo.clientVo);
       
       discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
 

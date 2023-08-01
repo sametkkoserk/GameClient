@@ -1,4 +1,6 @@
 using ProtoBuf;
+using Runtime.Contexts.Lobby.View.LobbyManagerPanel;
+using Runtime.Contexts.Network.Vo;
 
 namespace Runtime.Contexts.Lobby.Vo
 {
@@ -7,13 +9,20 @@ namespace Runtime.Contexts.Lobby.Vo
   {
     [ProtoMember(1)]
     public ushort id;
+    
     [ProtoMember(2)]
     public ushort inLobbyId;
+    
     [ProtoMember(3)]
     public string userName;
+
     [ProtoMember(4)]
-    public ushort colorId;
+    public PlayerColorVo playerColor;
+    
     [ProtoMember(5)]
     public bool ready;
+
+    [ProtoIgnore]
+    public LobbyManagerPanelItemBehaviour lobbyItemBehaviour;
   }
 }

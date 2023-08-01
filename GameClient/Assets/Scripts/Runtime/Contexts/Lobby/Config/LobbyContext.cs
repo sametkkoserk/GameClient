@@ -8,7 +8,6 @@ using Runtime.Contexts.Lobby.View.LobbyManagerPanel;
 using Runtime.Contexts.Lobby.View.LobbyPanel;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.GeneralContext;
-using Runtime.Modules.Core.ScreenManager.Enum;
 using StrangeIoC.scripts.strange.extensions.context.api;
 using UnityEngine;
 
@@ -59,7 +58,7 @@ namespace Runtime.Contexts.Lobby.Config
       commandBinder.Bind(ServerToClientId.JoinedToLobby).To<JoinedToLobbyProcessor>();
       commandBinder.Bind(ServerToClientId.SendLobbies).To<GetLobbiesProcessor>();
       commandBinder.Bind(ServerToClientId.QuitFromLobbyDone).To<QuitFromLobbyDoneProcessor>();
-      commandBinder.Bind(ServerToClientId.NewPlayerToLobby).To<NewPlayerToLobbyProccessor>();
+      commandBinder.Bind(ServerToClientId.NewPlayerToLobby).To<NewPlayerToLobbyProcessor>();
       commandBinder.Bind(ServerToClientId.PlayerReadyResponse).To<PlayerReadyResponseProcessor>();
       commandBinder.Bind(ServerToClientId.GameSettingsChanged).To<GetGameSettingsProcessor>();
     }

@@ -18,7 +18,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     public void Init(ClientVo clientVo, Color color)
     {
-      userNameText.text = "ID: " + clientVo.id + " - Lobby ID: " + clientVo.inLobbyId;
+      userNameText.text = clientVo.userName;
       colorImage.color = color;
     }
 

@@ -31,6 +31,7 @@ namespace Runtime.Modules.Core.GeneralContext
     protected override void mapBindings()
     {
       base.mapBindings();
+      
       injectionBinder.Bind<IScreenManagerModel>().To<ScreenManagerModel>().ToSingleton();
       injectionBinder.Bind<IPopupPanelModel>().To<PopupPanelModel>().ToSingleton();
       injectionBinder.Bind<IIconModel>().To<IconModel>().ToSingleton();

@@ -12,6 +12,6 @@ namespace Runtime.Modules.Core.ColorPalette.Enum
     public ColorKey colorKey;
 
     [SerializeField]
-    public Color color = new Color(1,1,1,1);
+    public Color color = new (1,1,1,1);
   }
 }
