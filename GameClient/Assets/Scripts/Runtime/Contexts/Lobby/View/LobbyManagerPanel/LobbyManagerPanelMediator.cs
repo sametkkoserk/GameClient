@@ -80,7 +80,8 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnReady()
     {
-      view.ready = !view.ready;
+      view.ready = true;
+      view.readyButton.interactable = false;
       dispatcher.Dispatch(view.ready ? LobbyEvent.PlayerReady : LobbyEvent.PlayerUnready);
     }
 
