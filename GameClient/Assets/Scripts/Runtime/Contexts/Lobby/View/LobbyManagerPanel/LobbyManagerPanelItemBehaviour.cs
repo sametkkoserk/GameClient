@@ -13,9 +13,6 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     public GameObject readyObj;
 
-    [HideInInspector]
-    public ushort inLobbyId;
-
     public void Init(ClientVo clientVo, Color color, bool isMe)
     {
       userNameText.text = clientVo.userName;
@@ -23,6 +20,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
       if (!isMe) return;
       userNameText.color = Color.green;
+      userNameText.fontStyle = FontStyles.Bold;
     }
 
     public void PlayerReady()

@@ -86,9 +86,9 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerReadyResponse(IEvent payload)
     {
-      ushort inLobbyId = (ushort)payload.data;
-      view.behaviours[inLobbyId].PlayerReady();
-      Debug.Log("Player is ready: " + inLobbyId);
+      ushort id = (ushort)payload.data;
+      view.behaviours[id].PlayerReady();
+      DebugX.Log(DebugKey.Response, "Player is ready: " + id);
     }
 
     private void OnBack()
@@ -99,12 +99,15 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void OnPlayerIsOut(IEvent payload)
     {
       OutFromLobbyVo outFromLobbyVo = (OutFromLobbyVo)payload.data;
-      lobbyModel.lobbyVo.playerCount=(ushort)outFromLobbyVo.clients.Count;
+      
+      lobbyModel.lobbyVo.playerCount = (ushort)outFromLobbyVo.clients.Count;
+      
       view.playerCountText.text = lobbyModel.lobbyVo.playerCount + " / " + lobbyModel.lobbyVo.maxPlayerCount;
+      
       view.behaviours[outFromLobbyVo.id].PlayerIsOut();
       view.behaviours.Remove(outFromLobbyVo.id);
-      lobbyModel.lobbyVo.clients=outFromLobbyVo.clients;
-
+      
+      lobbyModel.lobbyVo.clients = outFromLobbyVo.clients;
     }
 
     #region Game Settings

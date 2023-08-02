@@ -32,6 +32,7 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
       view.dispatcher.AddListener(JoinLobbyPanelEvent.RefreshList, OnRefreshList);
 
       dispatcher.AddListener(LobbyEvent.listLobbies, OnLobbies);
+      dispatcher.AddListener(LobbyEvent.RefreshLobbyList, OnRefreshList);
     }
     
     private void Start()

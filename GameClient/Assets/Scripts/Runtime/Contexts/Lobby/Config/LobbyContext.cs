@@ -61,6 +61,7 @@ namespace Runtime.Contexts.Lobby.Config
       commandBinder.Bind(ServerToClientId.NewPlayerToLobby).To<NewPlayerToLobbyProcessor>();
       commandBinder.Bind(ServerToClientId.PlayerReadyResponse).To<PlayerReadyResponseProcessor>();
       commandBinder.Bind(ServerToClientId.GameSettingsChanged).To<GetGameSettingsProcessor>();
+      commandBinder.Bind(ServerToClientId.LobbyIsClosed).To<LobbyIsClosedProcessor>();
     }
   }
 }

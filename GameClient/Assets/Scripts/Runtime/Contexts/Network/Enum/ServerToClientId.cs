@@ -13,6 +13,7 @@ namespace Runtime.Contexts.Network.Enum
     GameSettingsChanged,
     GameStartPreparations,
     SendUserLobbyID,
-    SendTurn
+    SendTurn,
+    LobbyIsClosed
   }
 }
