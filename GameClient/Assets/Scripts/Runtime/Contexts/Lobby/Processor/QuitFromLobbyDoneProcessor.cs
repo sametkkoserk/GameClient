@@ -10,7 +10,6 @@ using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
-using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Processor
 {
@@ -34,23 +33,26 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      OutFromLobbyVo outFromLobbyVo = networkManager.GetData<OutFromLobbyVo>(vo.message);
-      if (outFromLobbyVo.id == lobbyModel.clientVo.id)
+      
+      QuitFromLobbyVo quitFromLobbyVo = networkManager.GetData<QuitFromLobbyVo>(vo.message);
+      
+      if (quitFromLobbyVo.id == lobbyModel.clientVo.id)
       {
+        lobbyModel.LobbyReset();
         
-        //lobbyModel.LobbyReset();
         screenManagerModel.OpenPanel(LobbyKey.JoinLobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+        
         discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
         
-        DebugX.Log(DebugKey.Response,"Host exit from lobby message received");
+        DebugX.Log(DebugKey.Response,"This client left the lobby.");
       }
       else
       {
-        dispatcher.Dispatch(LobbyEvent.PlayerIsOut, outFromLobbyVo);
+        dispatcher.Dispatch(LobbyEvent.PlayerIsOut, quitFromLobbyVo);
         
         discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
         
-        DebugX.Log(DebugKey.Response,"Quit from lobby message received");
+        DebugX.Log(DebugKey.Response,"A person left the lobby.");
       }
     }
   }

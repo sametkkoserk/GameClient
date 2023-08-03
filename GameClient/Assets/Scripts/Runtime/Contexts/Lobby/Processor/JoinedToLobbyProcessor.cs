@@ -1,3 +1,4 @@
+using System.Linq;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
@@ -10,7 +11,6 @@ using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
-using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.Processor
 {

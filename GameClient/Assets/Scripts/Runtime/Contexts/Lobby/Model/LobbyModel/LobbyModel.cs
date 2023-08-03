@@ -8,14 +8,19 @@ namespace Runtime.Contexts.Lobby.Model.LobbyModel
 
     public ClientVo clientVo { get; set; }
 
-    public void UpdateLobbyVo(LobbyVo newLobbyVo)
+    public void SetLobbyVo(LobbyVo newLobbyVo)
     {
       lobbyVo = newLobbyVo;
     }
 
-    public void UpdateClientVo(ClientVo newClientVo)
+    public void SetClientVo(ClientVo newClientVo)
     {
       clientVo = newClientVo;
+    }
+
+    public void LobbyReset()
+    {
+      lobbyVo = new LobbyVo();
     }
   }
 }

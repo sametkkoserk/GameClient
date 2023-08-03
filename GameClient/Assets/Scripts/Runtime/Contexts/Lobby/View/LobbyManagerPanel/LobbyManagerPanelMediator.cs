@@ -44,8 +44,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void Start()
     {
       LobbyVo lobbyVo = lobbyModel.lobbyVo;
+      
       view.lobbyNameText.text = lobbyVo.lobbyName;
       view.playerCountText.text = $"{lobbyVo.playerCount} / {lobbyVo.maxPlayerCount}";
+      
       for (ushort i = 0; i < lobbyVo.playerCount; i++)
       {
         ushort count = i;
@@ -99,16 +101,23 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerIsOut(IEvent payload)
     {
-      OutFromLobbyVo outFromLobbyVo = (OutFromLobbyVo)payload.data;
+      QuitFromLobbyVo quitFromLobbyVo = (QuitFromLobbyVo)payload.data;
       
-      lobbyModel.lobbyVo.playerCount = (ushort)outFromLobbyVo.clients.Count;
+      lobbyModel.lobbyVo.playerCount = (ushort)quitFromLobbyVo.clients.Count;
       
       view.playerCountText.text = lobbyModel.lobbyVo.playerCount + " / " + lobbyModel.lobbyVo.maxPlayerCount;
       
-      view.behaviours[outFromLobbyVo.id].PlayerIsOut();
-      view.behaviours.Remove(outFromLobbyVo.id);
+      view.behaviours[quitFromLobbyVo.id].PlayerIsOut();
+      view.behaviours.Remove(quitFromLobbyVo.id);
       
-      lobbyModel.lobbyVo.clients = outFromLobbyVo.clients;
+      lobbyModel.lobbyVo.clients = quitFromLobbyVo.clients;
+
+      if (lobbyModel.lobbyVo.hostId == quitFromLobbyVo.id)
+      {
+        lobbyModel.lobbyVo.hostId = quitFromLobbyVo.hostId;
+      }
+      
+      InitLobbySettings();
     }
 
     #region Game Settings
@@ -116,10 +125,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
     private void InitLobbySettings()
     {
       for (int i = 0; i < view.adminGameObjects.Count; i++)
-        view.adminGameObjects[i].gameObject.SetActive(lobbyModel.clientVo.id == lobbyModel.lobbyVo.leaderId);
+        view.adminGameObjects[i].gameObject.SetActive(lobbyModel.clientVo.id == lobbyModel.lobbyVo.hostId);
 
       for (int i = 0; i < view.playerGameObjects.Count; i++)
-        view.playerGameObjects[i].gameObject.SetActive(lobbyModel.clientVo.id != lobbyModel.lobbyVo.leaderId);
+        view.playerGameObjects[i].gameObject.SetActive(lobbyModel.clientVo.id != lobbyModel.lobbyVo.hostId);
 
       view.saveButton.interactable = false;
 
@@ -139,7 +148,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnSave()
     {
-      if (lobbyModel.clientVo.id != lobbyModel.lobbyVo.leaderId || !view.changedSettings)
+      if (lobbyModel.clientVo.id != lobbyModel.lobbyVo.hostId || !view.changedSettings)
         return;
 
       view.changedSettings = false;

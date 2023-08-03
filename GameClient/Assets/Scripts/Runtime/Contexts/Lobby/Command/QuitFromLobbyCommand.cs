@@ -20,13 +20,14 @@ namespace Runtime.Contexts.Lobby.Command
     public override void Execute()
     {
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.QuitFromLobby);
-      OutFromLobbyVo outFromLobbyVo = new()
+      
+      QuitFromLobbyVo quitFromLobbyVo = new()
       {
         lobbyCode = lobbyModel.lobbyVo.lobbyCode,
         id = lobbyModel.clientVo.id
       };
-      message = networkManager.SetData(message, outFromLobbyVo);
-
+      
+      message = networkManager.SetData(message, quitFromLobbyVo);
       networkManager.Client.Send(message);
       
       DebugX.Log(DebugKey.Request,"Quit From Lobby message Sent");
