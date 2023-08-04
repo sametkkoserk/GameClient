@@ -9,21 +9,21 @@ using UnityEngine.EventSystems;
 
 namespace Runtime.Modules.Core.Cursor.View
 {
-  public class DropdownCursorBehaviour : MonoBehaviour, ICursorBehaviour
+  public class InputFieldCursorBehaviour : MonoBehaviour, ICursorBehaviour
   {
     public CursorKey onPointerEnter;
     
     public CursorKey onPointerExit;
 
-    private TMP_Dropdown dropdown;
+    private TMP_InputField dropdown;
 
     private Vector3 originalScale;
 
-    private const float scaleFactor = 1.15f;
-
+    private const float scaleFactor = 1.1f;
+    
     private void Start()
     {
-      dropdown = gameObject.GetComponent<TMP_Dropdown>();
+      dropdown = gameObject.GetComponent<TMP_InputField>();
       
       originalScale = transform.localScale;
     }
@@ -50,11 +50,6 @@ namespace Runtime.Modules.Core.Cursor.View
     
     public void OnPointerClick(PointerEventData eventData)
     {
-      if (!Check())
-        return;
-      
-      CursorModel.instance.OnChangeCursor(dropdown.interactable ? onPointerEnter : onPointerExit);
-
       AudioModel.instance.PlayUISound(UISoundsKey.Click);
     }
     

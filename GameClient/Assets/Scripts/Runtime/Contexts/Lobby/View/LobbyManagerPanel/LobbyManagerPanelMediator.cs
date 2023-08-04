@@ -153,7 +153,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
       view.changedSettings = false;
       view.saveButton.interactable = view.changedSettings;
-
+      
       LobbySettingsVo newLobbySettingsVo = new()
       {
         lobbyCode = lobbyModel.lobbyVo.lobbyCode,
