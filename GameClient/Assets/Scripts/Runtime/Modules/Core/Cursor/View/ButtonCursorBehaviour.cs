@@ -36,19 +36,13 @@ namespace Runtime.Modules.Core.Cursor.View
       CursorModel.instance.OnChangeCursor(onPointerEnter);
       
       button.transform.DOScale(originalScale * scaleFactor, 0.2f);
-    //   TMP_Dropdown dropdown = gameObject.GetComponent<TMP_Dropdown>();
-
-    //
-    //   if (dropdown != null && dropdown.interactable)
-    //     CursorModel.instance.OnChangeCursor(onPointerEnter);
-    //   
-    //
     }
     
     public void OnPointerExit(PointerEventData eventData)
     {
       if (!Check())
         return;
+      
       CursorModel.instance.OnChangeCursor(onPointerExit);
     
       button.transform.DOScale(originalScale, 0.2f);
@@ -56,6 +50,8 @@ namespace Runtime.Modules.Core.Cursor.View
     
     public void OnPointerClick(PointerEventData eventData)
     {
+      CursorModel.instance.OnChangeCursor(button.interactable ? onPointerEnter : onPointerExit);
+
       AudioModel.instance.PlayUISound(UISoundsKey.Click);
     }
     
