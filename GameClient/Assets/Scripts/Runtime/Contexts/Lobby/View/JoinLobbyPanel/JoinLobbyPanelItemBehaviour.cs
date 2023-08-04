@@ -1,3 +1,4 @@
+using System;
 using Runtime.Contexts.Lobby.Vo;
 using TMPro;
 using UnityEngine;
@@ -17,7 +18,8 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     public void Init(LobbyVo vo, UnityAction buttonAction)
     {
       lobbyVo = vo;
-      lobbyName.text = vo.lobbyName;
+      string lobbyText = $"{lobbyVo.lobbyName} ({lobbyVo.playerCount} / {lobbyVo.maxPlayerCount})";
+      lobbyName.text = lobbyText;
       joinButton.onClick.AddListener(buttonAction);
     }
   }
