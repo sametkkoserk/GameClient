@@ -22,26 +22,31 @@ MonoBehaviour:
       Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: bcd6b9afb5452cc4d8ca26679803a2a5
     m_Address: Assets/Scripts/Runtime/Modules/Core/Localization/LocalizationSettings/Tables/Settings
       Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: c537a3a6941493c4593219fe40a370ac
     m_Address: Assets/Scripts/Runtime/Modules/Core/Localization/LocalizationSettings/Tables/General/General
       Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: e48af9805afabfe47ae6a471dcce53de
     m_Address: Assets/Scripts/Runtime/Modules/Core/Localization/LocalizationSettings/Tables/Register
       Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a5147a36244f4e84e89d7408d36fe39f
     m_Address: Assets/Scripts/Runtime/Modules/Core/Localization/LocalizationSettings/Tables/Tooltip/Tooltip
       Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:

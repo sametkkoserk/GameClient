@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Lobby.Enum;
@@ -48,17 +49,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       view.lobbyNameText.text = lobbyVo.lobbyName;
       view.playerCountText.text = $"{lobbyVo.playerCount} / {lobbyVo.maxPlayerCount}";
       
-      for (ushort i = 0; i < lobbyVo.playerCount; i++)
-      {
-        ushort count = i;
-
-        GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
-        ClientVo clientVo = lobbyVo.clients.ElementAt(count).Value;
-        LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
-        behaviour.Init(clientVo, clientVo.playerColor.ToColor(), lobbyModel.clientVo.id == clientVo.id);
-
-        view.behaviours[clientVo.id] = behaviour;
-      }
+      view.currentActorId = lobbyModel.clientVo.id;
+      view.players = lobbyVo.clients.Values.ToList();
+      view.scroller.ReloadData();
+      
 
       DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}," +
                                       $" Lobby Code: {lobbyVo.lobbyCode}");
@@ -68,16 +62,11 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnNewPlayer(IEvent payload)
     {
-      ClientVo clientVo = (ClientVo)payload.data;
-
       LobbyVo lobbyVo = lobbyModel.lobbyVo;
       view.playerCountText.text = $"{lobbyVo.playerCount} / {lobbyVo.maxPlayerCount}";
 
-      GameObject instantiatedGameObject = Instantiate(view.lobbyManagerPanelItem, view.playerContainer);
-      LobbyManagerPanelItemBehaviour behaviour = instantiatedGameObject.transform.GetComponent<LobbyManagerPanelItemBehaviour>();
-      view.behaviours[clientVo.id] = behaviour;
-
-      behaviour.Init(clientVo, clientVo.playerColor.ToColor(), false);
+      view.players = lobbyVo.clients.Values.ToList();
+      view.scroller.ReloadData();
     }
 
     private void OnReady()
@@ -89,9 +78,8 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerReadyResponse(IEvent payload)
     {
-      ushort id = (ushort)payload.data;
-      view.behaviours[id].PlayerReady();
-      DebugX.Log(DebugKey.Response, "Player is ready: " + id);
+      view.players=lobbyModel.lobbyVo.clients.Values.ToList();
+      view.scroller.ReloadData();
     }
 
     private void OnBack()
@@ -106,9 +94,9 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       lobbyModel.lobbyVo.playerCount = (ushort)quitFromLobbyVo.clients.Count;
       
       view.playerCountText.text = lobbyModel.lobbyVo.playerCount + " / " + lobbyModel.lobbyVo.maxPlayerCount;
-      
-      view.behaviours[quitFromLobbyVo.id].PlayerIsOut();
-      view.behaviours.Remove(quitFromLobbyVo.id);
+
+      view.players = quitFromLobbyVo.clients.Values.ToList();
+      view.scroller.ReloadData();
       
       lobbyModel.lobbyVo.clients = quitFromLobbyVo.clients;
 

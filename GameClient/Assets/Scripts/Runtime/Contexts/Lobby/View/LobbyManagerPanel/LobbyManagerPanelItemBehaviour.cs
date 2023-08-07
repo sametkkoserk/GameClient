@@ -1,3 +1,4 @@
+using EnhancedUI.EnhancedScroller;
 using Runtime.Contexts.Lobby.Vo;
 using TMPro;
 using UnityEngine;
@@ -5,32 +6,26 @@ using UnityEngine.UI;
 
 namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 {
-  public class LobbyManagerPanelItemBehaviour : MonoBehaviour
+  public class LobbyManagerPanelItemBehaviour : EnhancedScrollerCellView
   {
     public TMP_Text userNameText;
 
     public Image colorImage;
 
     public GameObject readyObj;
-
-    public void Init(ClientVo clientVo, Color color, bool isMe)
+    
+    public void SetData(ClientVo clientVo, bool isMe)
     {
       userNameText.text = clientVo.userName;
-      colorImage.color = color;
+      colorImage.color = clientVo.playerColor.ToColor();
 
+      if (clientVo.ready)
+        readyObj.SetActive(true);
+      
       if (!isMe) return;
+      
       userNameText.color = Color.green;
-      userNameText.fontStyle = FontStyles.Bold;
-    }
-
-    public void PlayerReady()
-    {
-      readyObj.SetActive(true);
-    }
-
-    public void PlayerIsOut()
-    {
-      Destroy(gameObject);
+      userNameText.fontStyle = FontStyles.Bold;    
     }
   }
 }
