@@ -6,13 +6,14 @@ using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Enum;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
 using Runtime.Modules.Core.Discord.Model;
-using Runtime.Modules.Core.Discord.Vo;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
+using Runtime.Modules.Core.Settings.Enum;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
+using UnityEngine;
 
 namespace Runtime.Contexts.Main.Command
 {
@@ -38,6 +39,7 @@ namespace Runtime.Contexts.Main.Command
     
     public override void Execute()
     {
+      CursorSettings();
       LanguageSettings();
       ColorPaletteSettings();
       CursorSettings();
@@ -53,17 +55,21 @@ namespace Runtime.Contexts.Main.Command
 
     private void LanguageSettings()
     {
-      // In the future it will be from database or player pref.
-      localizationModel.ChangeLanguage(LanguageKey.en);
+      localizationModel.ChangeLanguage(PlayerPrefs.GetString(SettingsSaveKey.Language.ToString(), LanguageKey.tr));
     }
 
     private void ColorPaletteSettings()
     {
-      colorPaletteModel.ChangeColorPalette(ColorPaletteKey.Standard);
+      int value = PlayerPrefs.GetInt(SettingsSaveKey.ColorPalette.ToString(), 0);
+      colorPaletteModel.ChangeColorPalette((ColorPaletteKey)value);
     }
 
     private void StartMusic()
     {
+      audioModel.ChangeMasterVolume(PlayerPrefs.GetFloat(SettingsSaveKey.MasterVolume.ToString(), 1f));
+      audioModel.ChangeMusicVolume(PlayerPrefs.GetFloat(SettingsSaveKey.MusicVolume.ToString(), 1f));
+      audioModel.ChangeUISoundVolume(PlayerPrefs.GetFloat(SettingsSaveKey.UIVolume.ToString(), 1f));
+      
       audioModel.PlayMusic(MusicSoundsKey.StreetLove);
     }
 

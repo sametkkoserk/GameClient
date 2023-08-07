@@ -13,9 +13,7 @@ MonoBehaviour:
   m_Name: Localization Settings
   m_EditorClassIdentifier: 
   m_StartupSelectors:
-  - rid: 3133085166479605760
-  - rid: 3133085166479605761
-  - rid: 3133085166479605762
+  - rid: 3965712048295772171
   m_AvailableLocales:
     rid: 3133085166479605763
   m_AssetDatabase:
@@ -30,17 +28,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3133085166479605760
-      type: {class: CommandLineLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_CommandLineArgument: -language=
-    - rid: 3133085166479605761
-      type: {class: SystemLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-    - rid: 3133085166479605762
-      type: {class: SpecificLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
-      data:
-        m_LocaleId:
-          m_Code: en
     - rid: 3133085166479605763
       type: {class: LocalesProvider, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
     - rid: 3133085166479605764
@@ -185,3 +172,7 @@ MonoBehaviour:
         - default
         - d
         - 
+    - rid: 3965712048295772171
+      type: {class: PlayerPrefLocaleSelector, ns: UnityEngine.Localization.Settings, asm: Unity.Localization}
+      data:
+        m_PlayerPreferenceKey: Language

@@ -46,6 +46,5 @@ namespace Runtime.Modules.Core.ColorPalette.View
         DebugX.Log(DebugKey.ColorPalette, "There are no Image and Raw Image Components! Object: " + gameObject.name, LogKey.Warning);
       }
     }
-
   }
 }

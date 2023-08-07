@@ -1,6 +1,8 @@
 using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
+using Runtime.Modules.Core.Settings.Enum;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using UnityEngine;
 using UnityEngine.PlayerLoop;
 
 namespace Runtime.Modules.Core.Settings.View.AudioSettings
@@ -50,11 +52,20 @@ namespace Runtime.Modules.Core.Settings.View.AudioSettings
       audioModel.ChangeMasterVolume(view.masterVolumeSlider.value);
     }
 
+    private void SetPlayerPrefs()
+    {
+      PlayerPrefs.SetFloat(SettingsSaveKey.MasterVolume.ToString(), audioModel.masterVolume);
+      PlayerPrefs.SetFloat(SettingsSaveKey.MusicVolume.ToString(), audioModel.musicVolume);
+      PlayerPrefs.SetFloat(SettingsSaveKey.UIVolume.ToString(), audioModel.uiVolume);
+    }
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(AudioSettingsEvent.MasterSliderValueChanged, OnMasterVolumeChanged);
       view.dispatcher.RemoveListener(AudioSettingsEvent.MusicSliderValueChanged, OnMusicVolumeChanged);
       view.dispatcher.RemoveListener(AudioSettingsEvent.UISliderValueChanged, OnUIVolumeChanged);
+
+      SetPlayerPrefs();
     }
   }
 }

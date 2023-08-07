@@ -1,13 +1,14 @@
-using System;
 using System.Collections.Generic;
 using Runtime.Modules.Core.ColorPalette.Enum;
 using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.Model.LocalizationModel;
+using Runtime.Modules.Core.Settings.Enum;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
+using UnityEngine;
 
 namespace Runtime.Modules.Core.Settings.View.InterfaceSettings
 {
@@ -51,7 +52,7 @@ namespace Runtime.Modules.Core.Settings.View.InterfaceSettings
     {
       view.colorPaletteDropdown.ClearOptions();
 
-      string[] paletteKeys = Enum.GetNames (typeof(ColorPaletteKey));
+      string[] paletteKeys = System.Enum.GetNames(typeof(ColorPaletteKey));
 
       for (int i = 0; i < paletteKeys.Length; i++)
       {
@@ -87,10 +88,16 @@ namespace Runtime.Modules.Core.Settings.View.InterfaceSettings
       colorPaletteModel.ChangeColorPalette(newKey);
     }
 
+    private void SetPlayerPrefs()
+    {
+      PlayerPrefs.SetInt(SettingsSaveKey.ColorPalette.ToString(), (int)colorPaletteModel.GetColorPalette());
+    }
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(InterfaceSettingsEvent.ColorPaletteChanged, OnColorPaletteChanged);
       view.dispatcher.RemoveListener(InterfaceSettingsEvent.OnTabOpened, OnTabOpened);
+      
+      SetPlayerPrefs();
     }
   }
 }

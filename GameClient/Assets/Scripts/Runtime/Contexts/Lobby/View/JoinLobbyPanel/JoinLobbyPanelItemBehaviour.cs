@@ -18,8 +18,9 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     public void Init(LobbyVo vo, UnityAction buttonAction)
     {
       lobbyVo = vo;
-      string lobbyText = $"{lobbyVo.lobbyName} ({lobbyVo.playerCount} / {lobbyVo.maxPlayerCount})";
-      lobbyName.text = lobbyText;
+      
+      lobbyName.text = $"{lobbyVo.lobbyName} ({lobbyVo.playerCount} / {lobbyVo.maxPlayerCount})";
+      
       joinButton.onClick.AddListener(buttonAction);
     }
   }
