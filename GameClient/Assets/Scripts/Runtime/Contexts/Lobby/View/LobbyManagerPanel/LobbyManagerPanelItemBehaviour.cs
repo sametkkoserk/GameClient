@@ -23,7 +23,6 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
         readyObj.SetActive(true);
       
       if (!isMe) return;
-      
       userNameText.color = Color.green;
       userNameText.fontStyle = FontStyles.Bold;    
     }

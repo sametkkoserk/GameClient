@@ -52,7 +52,6 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       view.currentActorId = lobbyModel.clientVo.id;
       view.players = lobbyVo.clients.Values.ToList();
       view.scroller.ReloadData();
-      
 
       DebugX.Log(DebugKey.JoinServer, $"Player ID: {lobbyModel.clientVo.id}," +
                                       $" Lobby Code: {lobbyVo.lobbyCode}");
@@ -78,7 +77,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     private void OnPlayerReadyResponse(IEvent payload)
     {
-      view.players=lobbyModel.lobbyVo.clients.Values.ToList();
+      view.players = lobbyModel.lobbyVo.clients.Values.ToList();
       view.scroller.ReloadData();
     }
 
