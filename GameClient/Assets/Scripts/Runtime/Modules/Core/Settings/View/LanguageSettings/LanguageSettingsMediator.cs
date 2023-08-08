@@ -1,9 +1,7 @@
 using System.Collections;
 using Runtime.Contexts.Main.Enum;
-using Runtime.Modules.Core.Discord.Model;
 using Runtime.Modules.Core.Localization.Enum;
 using Runtime.Modules.Core.Localization.Model.LocalizationModel;
-using Runtime.Modules.Core.PromiseTool;
 using Runtime.Modules.Core.Settings.Enum;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
@@ -74,6 +72,7 @@ namespace Runtime.Modules.Core.Settings.View.LanguageSettings
     {
       PlayerPrefs.SetString(SettingsSaveKey.Language.ToString(), localizationModel.GetLanguageCode());
     }
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(LanguageSettingsEvent.ChangeLanguage, OnChangeLanguage);

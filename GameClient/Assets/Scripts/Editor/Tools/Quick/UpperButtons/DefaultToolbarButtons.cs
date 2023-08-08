@@ -13,57 +13,54 @@ namespace Editor.Tools.Quick.UpperButtons
   {
     private const string scenesFolder = "Scenes";
     private static AdvancedDropdownState scenesState = new();
-
+    
     public static T[] GetAtPath<T>(string path)
     {
-      ArrayList al = new ArrayList();
+      ArrayList al = new();
       string[] fileEntries = Directory.GetFiles(Application.dataPath + "/" + path);
-
+    
       foreach (string fileName in fileEntries)
       {
         string temp = fileName.Replace("\\", "/");
         int index = temp.LastIndexOf("/");
         string localPath = "Assets/" + path;
-
+    
         if (index > 0)
           localPath += temp.Substring(index);
-
-        object t = AssetDatabase.LoadAssetAtPath(localPath, typeof(T));
-
+    
+        System.Object t = AssetDatabase.LoadAssetAtPath(localPath, typeof(T));
+    
         if (t != null)
           al.Add(t);
       }
-
+    
       T[] result = new T[al.Count];
-
+    
       for (int i = 0; i < al.Count; i++)
         result[i] = (T)al[i];
-
+    
       return result;
     }
 
-    [ToolbarButton("d_winbtn_win_max", "Open Terminal")]
-    public static void OpenTerminal()
+    [ToolbarButton("BuildSettings.Web", "ShowOnMap Scenes")]
+    public static void StartLauncherScene()
     {
-      string projectPath = Directory.GetParent(Application.dataPath).FullName;
-
-      Process cmd = new Process();
-#if UNITY_EDITOR_WIN
-      cmd.StartInfo.FileName = "cmd.exe";
-#endif
-#if UNITY_EDITOR_OSX
-            cmd.StartInfo.FileName = "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal";
-#endif
-      cmd.StartInfo.WorkingDirectory = projectPath;
-      cmd.Start();
+      EditorApplication.isPlaying = false;
+    
+      if (EditorApplication.isPlaying)
+        return;
+    
+      EditorSceneManager.OpenScene("Assets/Scripts/Runtime/Contexts/Main/Main.unity");
+      EditorApplication.isPlaying = true;
     }
-
+    
+    
     [ToolbarButton("Folder Icon", "Open Folder")]
     public static void OpenFolder()
     {
       string projectPath = Directory.GetParent(Application.dataPath).FullName;
 
-      Process cmd = new Process();
+      Process cmd = new();
 #if UNITY_EDITOR_WIN
       cmd.StartInfo.FileName = "explorer.exe";
 #endif
@@ -89,11 +86,11 @@ namespace Editor.Tools.Quick.UpperButtons
 //         }
 // #endif
 
-    // [ToolbarButton(iconName = "Package Manager", tooltip = "Package Manager")]
-    // public static void ShowPackageManager()
-    // {
-    //     UnityEditor.PackageManager.UI.Window.Open("");
-    // }
+    [ToolbarButton(iconName = "Package Manager", tooltip = "Package Manager")]
+    public static void ShowPackageManager()
+    {
+        UnityEditor.PackageManager.UI.Window.Open("");
+    }
     //
     //
     // [ToolbarButton("Settings", "ShowOnMap Settings")]
@@ -181,18 +178,23 @@ namespace Editor.Tools.Quick.UpperButtons
     //   EditorApplication.ExecuteMenuItem("Help/Quick Search");
     // }
 
-    [ToolbarButton("BuildSettings.Web", "ShowOnMap Scenes")]
-    public static void StartLauncherScene()
-    {
-      EditorApplication.isPlaying = false;
 
-      if (EditorApplication.isPlaying)
-        return;
-
-      EditorSceneManager.OpenScene("Assets/Scripts/Runtime/Contexts/Main/Main.unity");
-      EditorApplication.isPlaying = true;
-    }
-
+//     [ToolbarButton("d_winbtn_win_max", "Open Terminal")]
+//     public static void OpenTerminal()
+//     {
+//       string projectPath = Directory.GetParent(Application.dataPath).FullName;
+//
+//       Process cmd = new Process();
+// #if UNITY_EDITOR_WIN
+//       cmd.StartInfo.FileName = "cmd.exe";
+// #endif
+// #if UNITY_EDITOR_OSX
+//             cmd.StartInfo.FileName = "/Applications/Utilities/Terminal.app/Contents/MacOS/Terminal";
+// #endif
+//       cmd.StartInfo.WorkingDirectory = projectPath;
+//       cmd.Start();
+//     }
+    
     // [ToolbarButton("VisualEffect Icon", "ShowOnMap Scenes")]
     // public static void StartToolsScene()
     // {
