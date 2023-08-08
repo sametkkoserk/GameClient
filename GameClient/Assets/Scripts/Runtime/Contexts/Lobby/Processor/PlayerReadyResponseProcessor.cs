@@ -39,10 +39,10 @@ namespace Runtime.Contexts.Lobby.Processor
       if (lobbyModel.lobbyVo.lobbyCode != playerReadyResponseVo.lobbyCode)
         return;
 
-      lobbyModel.lobbyVo.clients[playerReadyResponseVo.id].ready = true;
-      lobbyModel.lobbyVo.readyCount += 1;
+      lobbyModel.lobbyVo.clients = playerReadyResponseVo.clients;
+      lobbyModel.lobbyVo.readyCount =playerReadyResponseVo.readyCount;
 
-      dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse, playerReadyResponseVo.id);
+      dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse);
 
       Debug.Log("player ready responded");
 

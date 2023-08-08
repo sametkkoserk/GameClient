@@ -24,7 +24,6 @@ namespace Runtime.Contexts.Lobby.Command
       PlayerReadyVo playerReadyVo = new()
       {
         lobbyCode = lobbyModel.lobbyVo.lobbyCode,
-        id = lobbyModel.clientVo.id
       };
       message = networkManager.SetData(message, playerReadyVo);
 

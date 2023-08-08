@@ -31,7 +31,7 @@ namespace Runtime.Contexts.Lobby.Processor
       JoinedToLobbyVo joinedToLobbyVo = networkManager.GetData<JoinedToLobbyVo>(vo.message);
       
       lobbyModel.SetLobbyVo(joinedToLobbyVo.lobbyVo);
-      dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby, joinedToLobbyVo.clientVo);
+      dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby);
       
       discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
 
