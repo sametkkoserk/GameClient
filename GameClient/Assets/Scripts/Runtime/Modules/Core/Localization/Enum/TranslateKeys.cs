@@ -8,7 +8,11 @@ namespace Runtime.Modules.Core.Localization.Enum
     // Tooltip
     TooltipEmpty,
     TooltipSettings,
-
+    
+    // Notification
+    NotificationError,
+    NotificationLobbyIsInactive,
+    
     // General
     DiscordOnLoginScreen,
     DiscordUsername,

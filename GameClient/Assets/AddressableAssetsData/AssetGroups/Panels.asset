@@ -21,38 +21,52 @@ MonoBehaviour:
     m_Address: LobbyPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 9d681d942328ed44382a4a6fd2778513
     m_Address: JoinLobbyPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: a58616a7fda22f149ab836405f1e2726
     m_Address: CreateLobbyPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 47003818b5946d54081cd2d4919c3ff6
     m_Address: LobbyManagerPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 15c1cca14fb4c574fa102f4f5ff642de
     m_Address: YourTurnPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 723f8dea685943b4383a595f19b2793b
     m_Address: SettingsPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: dd1fdc8f26348a14f9c7a2b52acaa9e0
     m_Address: RegisterPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 2954f75dcdadbde4685f18dc897f9cfa
     m_Address: TooltipPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: f7ae23dc9f79fba4e8e88b7867fc13ff
     m_Address: PopupPanel
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41a4ce11684133446a902ed1517e5a25
+    m_Address: NotificationPanel
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:

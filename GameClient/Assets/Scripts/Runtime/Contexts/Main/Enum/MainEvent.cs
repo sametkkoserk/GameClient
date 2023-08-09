@@ -7,8 +7,10 @@ namespace Runtime.Contexts.Main.Enum
     OpenMainSceneCamera,
     CloseMainSceneCamera,
     OpenSettingsPanel,
-    LanguageChanged,
     OpenPopupPanel,
+    OpenNotificationPanel,
+    LanguageChanged,
+
     
     // Music
     PlayMusic,

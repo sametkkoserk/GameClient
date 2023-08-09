@@ -5,6 +5,7 @@ namespace Runtime.Modules.Core.Localization.Enum
     Lobby,
     Settings,
     General,
-    Tooltip
+    Tooltip,
+    Notification
   }
 }

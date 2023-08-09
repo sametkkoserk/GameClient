@@ -3,6 +3,7 @@ using EnhancedUI.EnhancedScroller;
 using Runtime.Contexts.Lobby.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,7 +51,8 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     public TextMeshProUGUI turnTimerText;
 
-    public void Start()
+
+    protected override void Start()
     {
       scroller.Delegate = this;
       

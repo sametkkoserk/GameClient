@@ -15,6 +15,7 @@ namespace Editor.Tools.DebugX.Runtime
     ColorPalette,
     Audio,
     Discord,
-    Tooltip
+    Tooltip,
+    Notification
   }
 }

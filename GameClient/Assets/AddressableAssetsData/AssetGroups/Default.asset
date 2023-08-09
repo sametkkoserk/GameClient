@@ -21,10 +21,12 @@ MonoBehaviour:
     m_Address: MainMap
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 3cac8e2837936954f9c4520294e4c702
     m_Address: City
     m_ReadOnly: 0
     m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: afe61b744669ab84ab9af1acd138f233, type: 2}
   m_SchemaSet:
