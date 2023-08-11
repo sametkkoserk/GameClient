@@ -22,11 +22,13 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
 
     public void OnCreateMap()
     {
-      Addressables.InstantiateAsync(LobbyKey.MainMap, gameObject.transform);
-
-      if (mainGameModel.materials.Count == 0)
-        mainGameModel.materials = view.playerMaterials;
+      Addressables.InstantiateAsync(MainGameKeys.MainMap, gameObject.transform);
+      
+      // if (mainGameModel.materials.Count == 0)
+      //   mainGameModel.materials = view.playerMaterials;
       // Player Vo olusturulacak.
+      
+      
     }
 
     public override void OnRemove()

@@ -144,7 +144,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       LobbySettingsVo newLobbySettingsVo = new()
       {
         lobbyCode = lobbyModel.lobbyVo.lobbyCode,
-        turnTime = float.Parse(view.timerDropdown.options[view.timerDropdown.value].text)
+        turnTime = int.Parse(view.timerDropdown.options[view.timerDropdown.value].text)
       };
 
       dispatcher.Dispatch(LobbyEvent.GameSettingsChanged, newLobbySettingsVo);

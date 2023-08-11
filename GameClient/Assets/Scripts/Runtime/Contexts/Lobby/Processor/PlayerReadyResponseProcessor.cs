@@ -34,17 +34,18 @@ namespace Runtime.Contexts.Lobby.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
+      
       PlayerReadyResponseVo playerReadyResponseVo = networkManager.GetData<PlayerReadyResponseVo>(vo.message);
 
       if (lobbyModel.lobbyVo.lobbyCode != playerReadyResponseVo.lobbyCode)
         return;
 
       lobbyModel.lobbyVo.clients = playerReadyResponseVo.clients;
-      lobbyModel.lobbyVo.readyCount =playerReadyResponseVo.readyCount;
+      lobbyModel.lobbyVo.readyCount = playerReadyResponseVo.readyCount;
 
       dispatcher.Dispatch(LobbyEvent.PlayerReadyResponse);
 
-      Debug.Log("player ready responded");
+      DebugX.Log(DebugKey.Response, "Player Ready message Received.");
 
       if (!playerReadyResponseVo.startGame) return;
 
@@ -53,8 +54,7 @@ namespace Runtime.Contexts.Lobby.Processor
       Addressables.LoadSceneAsync(SceneKeys.MainGameScene, LoadSceneMode.Additive);
       screenManagerModel.CloseScenePanels(SceneKey.Lobby);
       
-      DebugX.Log(DebugKey.Response,"Player Ready message Received");
-
+      DebugX.Log(DebugKey.Response,"Game started.");
     }
   }
 }

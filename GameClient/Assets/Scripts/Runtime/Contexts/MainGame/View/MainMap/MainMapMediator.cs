@@ -22,16 +22,16 @@ namespace Runtime.Contexts.MainGame.View.MainMap
     [Inject]
     public IMainGameModel mainGameModel { get; set; }
 
-    private void Start()
-    {
-      OnMapGenerator();
-    }
-
     public override void OnRegister()
     {
       dispatcher.AddListener(MainGameEvent.MapGenerator, OnMapGenerator);
     }
-
+    
+    private void Start()
+    {
+      OnMapGenerator();
+    }
+    
     private void OnMapGenerator()
     {
       for (int i = 0; i < mainGameModel.cities.Count; i++)
@@ -49,6 +49,8 @@ namespace Runtime.Contexts.MainGame.View.MainMap
           cityView.Init(mainGameModel.cities.ElementAt(count).Value);
         };
       }
+      
+      dispatcher.Dispatch(MainGameEvent.ReadyToGameStart);
     }
 
     public override void OnRemove()

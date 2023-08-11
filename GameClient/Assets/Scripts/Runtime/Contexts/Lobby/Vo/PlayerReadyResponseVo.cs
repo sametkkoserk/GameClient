@@ -7,7 +7,7 @@ namespace Runtime.Contexts.Lobby.Vo
   public class PlayerReadyResponseVo
   {
     [ProtoMember(1)]
-    public Dictionary<ushort,ClientVo> clients;
+    public Dictionary<ushort, ClientVo> clients;
     [ProtoMember(2)]
     public string lobbyCode;
     [ProtoMember(3)]

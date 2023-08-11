@@ -29,28 +29,19 @@ namespace Runtime.Contexts.MainGame.Config
       base.mapBindings();
 
       injectionBinder.Bind<IMainGameModel>().To<MainGameModel>().ToSingleton();
-      //Injection binding.
-      //Map a mock model and a mock service, both as Singletons
-      //injectionBinder.Bind<INetworkManagerService>().To<NetworkManagerService>().ToSingleton();
-      //View/Mediator binding
-      //This Binding instantiates a new ExampleMediator whenever as ExampleView
-      //Fires its Awake method. The Mediator communicates to/from the View
-      //and to/from the App. This keeps dependencies between the view and the app
-      //separated.
+      
       mediationBinder.Bind<CityView>().To<CityMediator>();
       mediationBinder.Bind<MainMapView>().To<MainMapMediator>();
       mediationBinder.Bind<MainMapContainerView>().To<MainMapContainerMediator>();
       mediationBinder.Bind<MainGameManagerView>().To<MainGameManagerMediator>();
       mediationBinder.Bind<YourTurnPanelView>().To<YourTurnPanelMediator>();
 
-      //Event/Command binding
-      //commandBinder.Bind(ExampleEvent.REQUEST_WEB_SERVICE).To<CallWebServiceCommand>();
-      //The START event is fired as soon as mappings are complete.
-      //Note how we've bound it "Once". This means that the mapping goes away as soon as the command fires.
       commandBinder.Bind(MainGameEvent.StartGame).To<CreateMapCommand>();
+      commandBinder.Bind(MainGameEvent.ReadyToGameStart).To<ReadyToGameStartCommand>();
 
       commandBinder.Bind(ServerToClientId.GameStartPreparations).To<HandleMapGeneratorProcessor>();
-      commandBinder.Bind(ServerToClientId.SendUserLobbyID).To<SendUserLobbyIDProcessor>();
+      commandBinder.Bind(ServerToClientId.NextTurn).To<NextTurnProcessor>();
+      commandBinder.Bind(ServerToClientId.RemainingTime).To<RemainingTimeProcessor>();
     }
   }
 }

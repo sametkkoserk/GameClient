@@ -18,6 +18,5 @@ namespace Runtime.Contexts.Lobby.Vo
     
     [ProtoMember(4)]
     public bool ready;
-    
   }
 }

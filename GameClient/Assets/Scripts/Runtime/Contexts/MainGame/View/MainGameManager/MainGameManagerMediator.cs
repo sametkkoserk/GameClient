@@ -43,34 +43,25 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
     public override void OnRegister()
     {
-      dispatcher.AddListener(ServerToClientId.SendTurn, OnTurn);
-
+      dispatcher.AddListener(MainGameEvent.NextTurn, OnNextTurn);
+      dispatcher.AddListener(MainGameEvent.RemainingTime, OnRemainingTime);
       dispatcher.AddListener(MainGameEvent.TurnTimeOver, TurnTimeOver);
     }
     
-    private void Start()
+    private void OnNextTurn(IEvent payload)
     {
-      GameStartVo vo = new()
-      {
-        gameStart = true,
-        lobbyCode = lobbyModel.lobbyVo.lobbyCode
-      };
-      Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.GameStart);
-      message = networkManager.SetData(message, vo);
+      TurnVo turnVo = (TurnVo)payload.data;
       
-      networkManager.Client.Send(message);
-      
-      discordModel.InGame(playerModel.playerRegisterInfoVo.username);
-    }
-    
-    private void OnTurn(IEvent payload)
-    {
-      MessageReceivedVo messageReceivedVo = (MessageReceivedVo)payload.data;
-      ushort inLobbyId = Convert.ToUInt16(messageReceivedVo.message[1]);
-      
-      mainGameModel.queue = inLobbyId;
-
-      screenManagerModel.OpenPanel(MainGameKeys.YourTurnPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+      print("NextTurn "+ turnVo.id + "  -  " + turnVo.remainingTime);
+      // if (turnVo.id == )
+      // {
+      //   
+      // }
+      // ushort inLobbyId = Convert.ToUInt16(messageReceivedVo.message[1]);
+      //
+      // mainGameModel.queue = inLobbyId;
+      //
+      // screenManagerModel.OpenPanel(MainGameKeys.YourTurnPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
     private void TurnTimeOver()
@@ -79,20 +70,27 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
       NextTurnVo vo = new()
       {
-        //TODO ŞAFAK
-        //currentTurnPlayerLobbyId = lobbyModel.clientVo.inLobbyId,
+        currentTurnPlayerLobbyId = lobbyModel.clientVo.id,
         lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
+      
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.NextTurn);
       message = networkManager.SetData(message, vo);
 
       networkManager.Client.Send(message);
     }
 
+    private void OnRemainingTime(IEvent payload)
+    {
+      TurnVo turnVo = (TurnVo)payload.data;
+      
+      print("RemainingTime "+ turnVo.id + "  -  " + turnVo.remainingTime);
+    }
+    
     public override void OnRemove()
     {
-      dispatcher.RemoveListener(ServerToClientId.SendTurn, OnTurn);
-
+      dispatcher.RemoveListener(MainGameEvent.NextTurn, OnNextTurn);
+      dispatcher.RemoveListener(MainGameEvent.RemainingTime, OnRemainingTime);
       dispatcher.RemoveListener(MainGameEvent.TurnTimeOver, TurnTimeOver);
     }
   }

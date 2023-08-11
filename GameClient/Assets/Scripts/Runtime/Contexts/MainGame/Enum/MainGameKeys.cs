@@ -4,5 +4,6 @@ namespace Runtime.Contexts.MainGame.Enum
   {
     public const string City = "City";
     public const string YourTurnPanel = "YourTurnPanel";
+    public const string MainMap = "MainMap";
   }
 }
