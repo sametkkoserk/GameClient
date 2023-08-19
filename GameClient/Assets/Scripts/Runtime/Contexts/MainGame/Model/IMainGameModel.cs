@@ -10,8 +10,6 @@ namespace Runtime.Contexts.MainGame.Model
 
     List<Material> materials { get; set; }
 
-    ushort lobbyId { get; set; }
-
     ushort queue { get; set; }
   }
 }

@@ -1,8 +1,10 @@
 using Riptide;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
+using Runtime.Contexts.Main.Model.PlayerModel;
 using Runtime.Contexts.MainGame.Vo;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Contexts.Network.Services.NetworkManager;
+using Runtime.Modules.Core.Discord.Model;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
 
@@ -16,8 +18,11 @@ namespace Runtime.Contexts.MainGame.Command
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
     
-    // [Inject]
-    // public IDiscordModel discordModel { get; set; }
+    [Inject]
+    public IDiscordModel discordModel { get; set; }
+    
+    [Inject]
+    public IPlayerModel playerModel { get; set; }
 
     public override void Execute()
     {
@@ -32,7 +37,7 @@ namespace Runtime.Contexts.MainGame.Command
       
       networkManager.Client.Send(message);
       
-      // discordModel.InGame(playerModel.playerRegisterInfoVo.username);
+      discordModel.InGame(playerModel.playerRegisterInfoVo.username);
     }
   }
 }

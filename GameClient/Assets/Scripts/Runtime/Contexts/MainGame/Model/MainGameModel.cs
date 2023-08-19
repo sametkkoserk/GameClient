@@ -10,8 +10,6 @@ namespace Runtime.Contexts.MainGame.Model
     public Dictionary<int, CityVo> cities { get; set; }
     public List<Material> materials { get; set; }
 
-    public ushort lobbyId { get; set; }
-
     public ushort queue { get; set; }
 
     [PostConstruct]

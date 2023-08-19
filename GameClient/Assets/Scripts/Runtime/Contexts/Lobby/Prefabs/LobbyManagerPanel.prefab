@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 3880994837992109282}
   - component: {fileID: 2349840055535387081}
   - component: {fileID: 5234150003481674144}
-  - component: {fileID: 3520877899208928072}
+  - component: {fileID: 8124601075478511429}
   m_Layer: 0
   m_Name: TurnTimeDropdown
   m_TagString: Untagged
@@ -350,6 +350,8 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
+    - m_Text: 5
+      m_Image: {fileID: 0}
     - m_Text: 15
       m_Image: {fileID: 0}
     - m_Text: 30
@@ -375,7 +377,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
---- !u!114 &3520877899208928072
+--- !u!114 &8124601075478511429
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -384,7 +386,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 890706080097624813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ba6c06a2864827a6fb5352c661d797, type: 3}
+  m_Script: {fileID: 11500000, guid: e0a586290e7c4125b5e7e04f7db93809, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onPointerEnter: 1
@@ -3711,6 +3713,7 @@ MonoBehaviour:
   scroller: {fileID: 871001692162670451}
   cellViewPrefab: {fileID: 6734335618039586042, guid: 6a673d035d7d90f4aa8a22d4fa847d4a, type: 3}
   currentActorId: 0
+  cellSize: 75
   changedSettings: 0
   timerDropdown: {fileID: 5234150003481674144}
   adminGameObjects:

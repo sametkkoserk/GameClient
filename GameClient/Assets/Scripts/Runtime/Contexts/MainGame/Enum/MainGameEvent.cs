@@ -6,8 +6,13 @@ namespace Runtime.Contexts.MainGame.Enum
     CreateMap,
     MapGenerator,
     ReadyToGameStart,
+    
     NextTurn,
+    NextTurnMainHud,
+    
     RemainingTime,
-    TurnTimeOver
+    RemainingTimeMainHud,
+    
+    ChangeSizeOfPlayerList,
   }
 }
