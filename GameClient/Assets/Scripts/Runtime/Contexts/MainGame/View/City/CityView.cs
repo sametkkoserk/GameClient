@@ -1,5 +1,7 @@
 using DG.Tweening;
 using Runtime.Contexts.MainGame.Vo;
+using Runtime.Modules.Core.Cursor.Enum;
+using Runtime.Modules.Core.Cursor.Model.CursorModel;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,19 +27,25 @@ namespace Runtime.Contexts.MainGame.View.City
     public void OnPointerClick(PointerEventData eventData)
     {
       dispatcher.Dispatch(CityEvent.OnClick);
+      
+      transform.DOScale(1f, 0.5f);
+      
+      CursorModel.instance.OnChangeCursor(CursorKey.Default);
+
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-      Sequence scaleSequence = DOTween.Sequence();
-      scaleSequence.Append(transform.DOScale(1.5f, 0.5f));
-
+      transform.DOScale(1.25f, 0.5f);
+      
+      CursorModel.instance.OnChangeCursor(CursorKey.Click);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-      Sequence scaleSequence = DOTween.Sequence();
-      scaleSequence.Append(transform.DOScale(1f, 0.5f));
+      transform.DOScale(1f, 0.5f);
+      
+      CursorModel.instance.OnChangeCursor(CursorKey.Default);
     }
   }
 }
