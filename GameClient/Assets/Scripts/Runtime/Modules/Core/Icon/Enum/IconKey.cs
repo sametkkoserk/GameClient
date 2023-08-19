@@ -4,6 +4,8 @@ namespace Runtime.Modules.Core.Icon.Enum
   {
     SettingsIcon,
     RefreshIcon,
-    LoadingIcon
+    LoadingIcon,
+    HideEyeIcon,
+    ShowEyeIcon,
   }
 }

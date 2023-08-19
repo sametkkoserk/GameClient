@@ -1,4 +1,5 @@
 using Runtime.Modules.Core.Icon.Enum;
+using Runtime.Modules.Core.Icon.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
 using UnityEngine.U2D;
@@ -17,6 +18,10 @@ namespace Runtime.Modules.Core.Icon.View
     [HideInInspector]
     public Image image;
 
+    public void Init(IconVo iconVo)
+    {
+      dispatcher.Dispatch(IconEvent.ChangeIcon, iconVo);
+    }
     
 #if UNITY_EDITOR
     public void SetFromInspector()
