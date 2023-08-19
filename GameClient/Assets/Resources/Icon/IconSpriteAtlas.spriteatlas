@@ -50,15 +50,21 @@ SpriteAtlas:
     isAtlasV2: 0
     cachedData: {fileID: 0}
     packedSpriteRenderDataKeys:
+    - 841cb6d6fca2a724da67fde6d0b58c20: 21300000
+    - ea4cc5a9a322de34294226ab45bb8b15: 21300000
     - bfec368a30bd8e04ab1ec0030d786321: 21300000
     - 955a408be7030614ba7fe7d0829e625b: 21300000
     - 76d7e94e061a5cd40aba199a536643f3: 21300000
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: 841cb6d6fca2a724da67fde6d0b58c20, type: 3}
+  - {fileID: 21300000, guid: ea4cc5a9a322de34294226ab45bb8b15, type: 3}
   - {fileID: 21300000, guid: bfec368a30bd8e04ab1ec0030d786321, type: 3}
   - {fileID: 21300000, guid: 955a408be7030614ba7fe7d0829e625b, type: 3}
   - {fileID: 21300000, guid: 76d7e94e061a5cd40aba199a536643f3, type: 3}
   m_PackedSpriteNamesToIndex:
+  - HideEyeIcon
+  - ShowEyeIcon
   - SettingsIcon
   - RefreshIcon
   - LoadingIcon
