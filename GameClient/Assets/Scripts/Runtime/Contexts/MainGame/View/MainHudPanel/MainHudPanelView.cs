@@ -1,25 +1,34 @@
+using Runtime.Modules.Core.Icon.View;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Runtime.Contexts.MainGame.View.YourTurnPanel
+namespace Runtime.Contexts.MainGame.View.MainHudPanel
 {
-  public class YourTurnPanelView : EventView
+  public class MainHudPanelView : EventView
   {
-    public TextMeshProUGUI title;
-
+    [Header("Time")]
     public Image sliderImage;
 
     public TextMeshProUGUI timer;
+
+    [Header("Player List")]
+    public GameObject playerListItem;
+
+    public Transform playerListContainer;
+
+    public IconView showHidePlayerListButtonIcon;
 
     [HideInInspector]
     public float totalTime;
 
     [HideInInspector]
-    public float remainingTime;
+    public bool showPlayerList = true;
 
-    [HideInInspector]
-    public bool turnEnded;
+    public void OnChangePlayerListSize()
+    {
+      dispatcher.Dispatch(MainHudPanelEvent.ChangeSizeOfPlayerList, showPlayerList);
+    }
   }
 }

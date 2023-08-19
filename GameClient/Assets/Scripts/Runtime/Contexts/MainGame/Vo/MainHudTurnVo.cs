@@ -1,13 +1,13 @@
-using ProtoBuf;
+using Runtime.Contexts.Network.Vo;
 
 namespace Runtime.Contexts.MainGame.Vo
 {
-  [ProtoContract]
-  public class NextTurnVo
+  public class MainHudTurnVo
   {
-    [ProtoMember(1)]
-    public ushort currentTurnPlayerLobbyId;
-    [ProtoMember(2)]
-    public string lobbyCode;
+    public string playerUsername;
+    
+    public PlayerColorVo playerColor;
+
+    public ushort id;
   }
 }
