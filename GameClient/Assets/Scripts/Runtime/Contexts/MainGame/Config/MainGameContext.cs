@@ -1,9 +1,10 @@
+using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Command;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Processor;
 using Runtime.Contexts.MainGame.View.City;
-using Runtime.Contexts.MainGame.View.CityMiniInfoPanel;
+//using Runtime.Contexts.MainGame.View.CityMiniInfoPanel;
 using Runtime.Contexts.MainGame.View.MainGameManager;
 using Runtime.Contexts.MainGame.View.MainHudPanel;
 using Runtime.Contexts.MainGame.View.MainHudPanel.Item;
@@ -31,6 +32,7 @@ namespace Runtime.Contexts.MainGame.Config
       base.mapBindings();
 
       injectionBinder.Bind<IMainGameModel>().To<MainGameModel>().ToSingleton();
+
       
       mediationBinder.Bind<CityView>().To<CityMediator>();
       mediationBinder.Bind<MainMapView>().To<MainMapMediator>();
@@ -38,9 +40,10 @@ namespace Runtime.Contexts.MainGame.Config
       mediationBinder.Bind<MainGameManagerView>().To<MainGameManagerMediator>();
       mediationBinder.Bind<MainHudPanelView>().To<MainHudPanelMediator>();
       mediationBinder.Bind<MainHudPanelPlayerItemView>().To<MainHudPanelPlayerItemMediator>();
-      mediationBinder.Bind<CityMiniInfoPanelView>().To<CityMiniInfoPanelMediator>();
+      //mediationBinder.Bind<CityMiniInfoPanelView>().To<CityMiniInfoPanelMediator>();
 
-      commandBinder.Bind(MainGameEvent.StartGame).To<CreateMapCommand>();
+      commandBinder.Bind(ContextEvent.START).To<CreateMapCommand>();
+      commandBinder.Bind(MainGameEvent.SceneReady).To<SceneReadyCommand>();
       commandBinder.Bind(MainGameEvent.ReadyToGameStart).To<ReadyToGameStartCommand>();
 
       commandBinder.Bind(ServerToClientId.GameStartPreparations).To<HandleMapGeneratorProcessor>();

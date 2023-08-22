@@ -24,7 +24,7 @@ namespace Runtime.Contexts.MainGame.Processor
 
       mainGameModel.cities = mapGeneratorVo.cityVos;
 
-      dispatcher.Dispatch(MainGameEvent.StartGame);
+      dispatcher.Dispatch(MainGameEvent.MapGenerator);
       
       DebugX.Log(DebugKey.Response,"Map Generator message Received");
 

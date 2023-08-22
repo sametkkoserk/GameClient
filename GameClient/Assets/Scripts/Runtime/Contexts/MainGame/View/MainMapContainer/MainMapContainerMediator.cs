@@ -24,6 +24,7 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
     {
       Addressables.InstantiateAsync(MainGameKeys.MainMap, gameObject.transform);
       
+      
       // if (mainGameModel.materials.Count == 0)
       //   mainGameModel.materials = view.playerMaterials;
       // Player Vo olusturulacak.

@@ -29,7 +29,7 @@ namespace Runtime.Contexts.MainGame.View.MainMap
     
     private void Start()
     {
-      OnMapGenerator();
+      dispatcher.Dispatch(MainGameEvent.SceneReady);
     }
     
     private void OnMapGenerator()
