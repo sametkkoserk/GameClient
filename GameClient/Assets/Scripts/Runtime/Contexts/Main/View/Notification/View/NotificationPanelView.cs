@@ -19,7 +19,7 @@ namespace Runtime.Contexts.Main.View.Notification.View
 
     public Image line;
 
-    private void Start()
+    protected override void Start()
     {
       float screenHeight = Screen.height; 
       float stopPositionY = screenHeight * 0.8f;
