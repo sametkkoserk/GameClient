@@ -6,6 +6,7 @@ namespace Runtime.Modules.Core.Localization.Enum
     Settings,
     General,
     Tooltip,
-    Notification
+    Notification,
+    MainGame
   }
 }

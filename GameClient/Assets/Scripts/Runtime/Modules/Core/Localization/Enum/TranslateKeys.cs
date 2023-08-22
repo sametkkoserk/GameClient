@@ -22,6 +22,9 @@ namespace Runtime.Modules.Core.Localization.Enum
     DiscordNormalGame,
 
     // Settings
-    SettingsPanelCPD
+    SettingsPanelCPD,
+    
+    // Main Game
+    MiniCityInfoPanelNeutral
   }
 }
