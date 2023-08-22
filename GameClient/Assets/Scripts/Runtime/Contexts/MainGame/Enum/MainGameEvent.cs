@@ -14,5 +14,8 @@ namespace Runtime.Contexts.MainGame.Enum
     RemainingTimeMainHud,
     
     ChangeSizeOfPlayerList,
+    
+    ShowCityMiniInfoPanel,
+    HideCityMiniInfoPanel
   }
 }

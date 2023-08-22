@@ -465,6 +465,10 @@ MonoBehaviour:
   playerListItem: {fileID: 8818402190558868776, guid: fd13aa797df347c46a207bd26bf90b58, type: 3}
   playerListContainer: {fileID: 8264820381328432632}
   showHidePlayerListButtonIcon: {fileID: 8663834723870182441}
+  miniCityInfoPanel: {fileID: 0}
+  ownerColorImage: {fileID: 0}
+  ownerNameText: {fileID: 0}
+  soldierCountText: {fileID: 0}
   totalTime: 10
   showPlayerList: 1
 --- !u!1 &8818402192425285092

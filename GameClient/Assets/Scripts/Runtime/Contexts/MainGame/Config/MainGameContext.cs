@@ -3,6 +3,7 @@ using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Processor;
 using Runtime.Contexts.MainGame.View.City;
+using Runtime.Contexts.MainGame.View.CityMiniInfoPanel;
 using Runtime.Contexts.MainGame.View.MainGameManager;
 using Runtime.Contexts.MainGame.View.MainHudPanel;
 using Runtime.Contexts.MainGame.View.MainHudPanel.Item;
@@ -37,6 +38,7 @@ namespace Runtime.Contexts.MainGame.Config
       mediationBinder.Bind<MainGameManagerView>().To<MainGameManagerMediator>();
       mediationBinder.Bind<MainHudPanelView>().To<MainHudPanelMediator>();
       mediationBinder.Bind<MainHudPanelPlayerItemView>().To<MainHudPanelPlayerItemMediator>();
+      mediationBinder.Bind<CityMiniInfoPanelView>().To<CityMiniInfoPanelMediator>();
 
       commandBinder.Bind(MainGameEvent.StartGame).To<CreateMapCommand>();
       commandBinder.Bind(MainGameEvent.ReadyToGameStart).To<ReadyToGameStartCommand>();

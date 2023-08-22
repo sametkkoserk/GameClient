@@ -1,4 +1,4 @@
-using Runtime.Contexts.MainGame.Model;
+using Runtime.Contexts.MainGame.Enum;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
@@ -7,7 +7,9 @@ namespace Runtime.Contexts.MainGame.View.City
 {
   public enum CityEvent
   {
-    OnClick
+    OnClick,
+    OnPointerEnter,
+    OnPointerExit
   }
 
   public class CityMediator : EventMediator
@@ -15,12 +17,11 @@ namespace Runtime.Contexts.MainGame.View.City
     [Inject]
     public CityView view { get; set; }
 
-    [Inject]
-    public IMainGameModel mainGameModel { get; set; }
-
     public override void OnRegister()
     {
       view.dispatcher.AddListener(CityEvent.OnClick, OnClick);
+      view.dispatcher.AddListener(CityEvent.OnPointerEnter, OnPointerEnter);
+      view.dispatcher.AddListener(CityEvent.OnPointerExit, OnPointerExit);
     }
 
     public void OnClick()
@@ -28,28 +29,21 @@ namespace Runtime.Contexts.MainGame.View.City
       Debug.Log("Clicked");
     }
 
-    public void Conquer(int newOwnerPlayerID)
+    private void OnPointerEnter()
     {
-      view.cityVo.ownerID = newOwnerPlayerID;
-
-      FillColor();
+      dispatcher.Dispatch(MainGameEvent.ShowCityMiniInfoPanel, view.cityVo);
     }
-
-    public void FillColor()
+    
+    private void OnPointerExit()
     {
-      for (int i = 0; i < mainGameModel.materials.Count; i++)
-      {
-        if (i != view.cityVo.ownerID) continue;
-        view.material = mainGameModel.materials[i];
-        return;
-      }
-
-      view.meshRenderer.material = view.material;
+      dispatcher.Dispatch(MainGameEvent.HideCityMiniInfoPanel);
     }
-
+    
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(CityEvent.OnClick, OnClick);
+      view.dispatcher.RemoveListener(CityEvent.OnPointerEnter, OnPointerEnter);
+      view.dispatcher.RemoveListener(CityEvent.OnPointerExit, OnPointerExit);
     }
   }
 }
