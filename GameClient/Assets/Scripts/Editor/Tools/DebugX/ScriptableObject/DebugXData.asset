@@ -34,3 +34,6 @@ MonoBehaviour:
   - key: 10
     active: 0
     color: {r: 1, g: 0.94259137, b: 0, a: 1}
+  - key: 12
+    active: 1
+    color: {r: 0.7238396, g: 1, b: 0.25, a: 1}

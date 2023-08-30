@@ -16,6 +16,7 @@ namespace Editor.Tools.DebugX.Runtime
     Audio,
     Discord,
     Tooltip,
-    Notification
+    Notification,
+    MainGame
   }
 }
