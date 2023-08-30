@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: 64c79a100b9471040bbd9f4a5cfe01c2, type: 2}
   meshRenderer: {fileID: 7247119689902897089}
+  necessaryPlayerActionKeysForOpenDetailsPanel: 00000000
 --- !u!1 &7296822997510885217
 GameObject:
   m_ObjectHideFlags: 0

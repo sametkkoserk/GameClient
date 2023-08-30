@@ -17,7 +17,7 @@ namespace Runtime.Contexts.MainGame.Vo
     public List<ushort> neighbors;
     
     [ProtoMember(4)]
-    public int ownerID;
+    public ushort ownerID;
     
     [ProtoMember(5)]
     public Vector3Vo position;

@@ -7,5 +7,6 @@ namespace Runtime.Contexts.MainGame.Enum
 
     public const string MainHudPanel = "MainHudPanel";
     public const string CityMiniInfoPanel = "CityMiniInfoPanel";
+    public const string CityDetailsPanel = "CityDetailsPanel";
   }
 }

@@ -7,7 +7,7 @@ namespace Runtime.Contexts.MainGame.Vo
 {
   [ProtoContract]
   [Serializable]
-  public class PlayerActionPermissionVo
+  public class PlayerActionPermissionReferenceVo
   {
     [ProtoMember(1)]
     public List<GameStateKey> gameStateKeys = new();

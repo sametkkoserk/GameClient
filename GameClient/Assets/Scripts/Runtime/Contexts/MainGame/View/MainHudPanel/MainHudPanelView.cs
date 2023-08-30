@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Runtime.Modules.Core.Icon.View;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
@@ -12,6 +13,8 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
     public Image sliderImage;
 
     public TextMeshProUGUI timer;
+
+    public Tweener timerSlideTween;
 
     [Header("Player List")]
     public GameObject playerListItem;

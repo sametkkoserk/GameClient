@@ -1,5 +1,7 @@
 using System.Linq;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.MainGame.Enum;
@@ -28,7 +30,7 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
 
     public override void OnRegister()
     {
-      view.dispatcher.AddListener(MainHudPanelEvent.ChangeSizeOfPlayerList, OnChangeSizeOfPlayerList);
+      view.dispatcher.AddListener(MainHudPanelEvent.ChangeSizeOfPlayerList, OnHideOrShowOfPlayerList);
       
       dispatcher.AddListener(MainGameEvent.RemainingTimeMainHud, OnRemainingTime);
       dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNexTurn);
@@ -73,12 +75,13 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
 
       view.sliderImage.color = mainHudTurnVo.playerColor.ToColor();
 
+      view.timerSlideTween?.Kill();
       view.sliderImage.fillAmount = 100;
-      view.sliderImage.DOFillAmount(0, view.totalTime).SetEase(Ease.Linear);
+      view.timerSlideTween  = view.sliderImage.DOFillAmount(0, view.totalTime).SetEase(Ease.Linear);
       view.timer.text = view.totalTime.ToString("f0");
     }
 
-    private void OnChangeSizeOfPlayerList(IEvent payload)
+    private void OnHideOrShowOfPlayerList(IEvent payload)
     {
       bool data = (bool)payload.data;
       dispatcher.Dispatch(MainGameEvent.ChangeSizeOfPlayerList, data);
@@ -94,7 +97,7 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
 
     public override void OnRemove()
     {
-      view.dispatcher.RemoveListener(MainHudPanelEvent.ChangeSizeOfPlayerList, OnChangeSizeOfPlayerList);
+      view.dispatcher.RemoveListener(MainHudPanelEvent.ChangeSizeOfPlayerList, OnHideOrShowOfPlayerList);
       
       dispatcher.RemoveListener(MainGameEvent.RemainingTimeMainHud, OnRemainingTime);
       dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNexTurn);

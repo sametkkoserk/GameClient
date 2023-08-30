@@ -39,18 +39,19 @@ namespace Runtime.Contexts.MainGame.View.CityMiniInfoPanel
     {
       CityVo cityVo = (CityVo)payload.data;
 
-      if (cityVo.ownerID == -1)
+      if (cityVo.ownerID == 0)
       {
         view.ownerNameText.text = localizationModel.GetText(TableKey.MainGame, TranslateKeys.MiniCityInfoPanelNeutral);
         view.ownerColorImage.color = Color.black;
-        view.itemOneText.text = cityVo.soldierCount.ToString(); // Change!
+        view.itemOneText.text = cityVo.soldierCount.ToString();
       }
       else
       {
-        ClientVo clientVo = lobbyModel.lobbyVo.clients[(ushort)cityVo.ownerID];
+        ClientVo clientVo = lobbyModel.lobbyVo.clients[cityVo.ownerID];
 
         view.ownerNameText.text = clientVo.userName;
         view.ownerColorImage.color = clientVo.playerColor.ToColor();
+        view.itemOneText.text = cityVo.soldierCount.ToString();
       }
 
       gameObject.SetActive(true);

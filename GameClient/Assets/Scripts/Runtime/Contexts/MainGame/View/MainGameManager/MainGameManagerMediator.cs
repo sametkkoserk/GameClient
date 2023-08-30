@@ -29,7 +29,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
     private void Start()
     {
-      screenManagerModel.OpenPanel(MainGameKeys.CityMiniInfoPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.CityMiniInfoPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.BottomPanel);
       screenManagerModel.OpenPanel(MainGameKeys.MainHudPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 

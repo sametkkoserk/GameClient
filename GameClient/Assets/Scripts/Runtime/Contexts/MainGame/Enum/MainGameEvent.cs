@@ -17,6 +17,15 @@ namespace Runtime.Contexts.MainGame.Enum
     ChangeSizeOfPlayerList,
     
     ShowCityMiniInfoPanel,
-    HideCityMiniInfoPanel
+    HideCityMiniInfoPanel,
+    
+    GameStateChanged,
+    PlayerActionsChanged,
+    PlayerActionsReferenceListExecuted,
+    
+    ClaimCity,
+    ClaimedCity,
+    
+    UpdateDetailsPanel
   }
 }
