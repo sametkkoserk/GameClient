@@ -19,6 +19,10 @@ MonoBehaviour:
     m_Key: MiniCityInfoPanelNeutral
     m_Metadata:
       m_Items: []
+  - m_Id: 2624341269954560
+    m_Key: CityDetailsPanelClaimButton
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
