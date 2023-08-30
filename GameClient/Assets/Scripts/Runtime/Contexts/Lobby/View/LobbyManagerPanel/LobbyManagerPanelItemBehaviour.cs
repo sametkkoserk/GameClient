@@ -19,12 +19,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       userNameText.text = clientVo.userName;
       colorImage.color = clientVo.playerColor.ToColor();
 
-      if (clientVo.ready)
-        readyObj.SetActive(true);
+      readyObj.SetActive(clientVo.ready);
       
-      if (!isMe) return;
-      userNameText.color = Color.green;
-      userNameText.fontStyle = FontStyles.Bold;    
+      userNameText.color = isMe ? Color.green : Color.white;
+      userNameText.fontStyle = isMe ? FontStyles.Bold : FontStyles.Normal;
     }
   }
 }
