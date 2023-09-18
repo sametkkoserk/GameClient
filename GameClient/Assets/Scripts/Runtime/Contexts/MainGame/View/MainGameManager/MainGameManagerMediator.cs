@@ -29,8 +29,9 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
     private void Start()
     {
-      screenManagerModel.OpenPanel(MainGameKeys.CityMiniInfoPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.BottomPanel);
-      screenManagerModel.OpenPanel(MainGameKeys.MainHudPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.NextTurnNotificationPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.CityMiniInfoPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Destroy, PanelType.BottomPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.MainHudPanel, SceneKey.MainGame, LayerKey.ThirdLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
     private void OnNextTurn(IEvent payload)
@@ -46,7 +47,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
         id = client.id
       };
       
-      dispatcher.Dispatch(MainGameEvent.NextTurnMainHud, mainHudTurnVo);
+      dispatcher.Dispatch(MainGameEvent.NextTurnNotificationPanel, mainHudTurnVo);
     }
 
     private void OnRemainingTime(IEvent payload)

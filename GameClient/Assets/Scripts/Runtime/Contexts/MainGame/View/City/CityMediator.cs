@@ -63,7 +63,7 @@ namespace Runtime.Contexts.MainGame.View.City
       CursorModel.instance.OnChangeCursor(CursorKey.Default);
 
       mainGameModel.selectedCityId = view.cityVo.ID;
-      screenManagerModel.OpenPanel(MainGameKeys.CityDetailsPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Additive, PanelType.LeftPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.CityDetailsPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Additive, PanelType.LeftPanel);
     }
 
     private void OnPointerEnter()

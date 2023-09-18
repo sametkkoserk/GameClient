@@ -11,6 +11,7 @@ using Runtime.Contexts.MainGame.View.MainHudPanel;
 using Runtime.Contexts.MainGame.View.MainHudPanel.Item;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
+using Runtime.Contexts.MainGame.View.NextTurnNotificationPanel;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.GeneralContext;
 using StrangeIoC.scripts.strange.extensions.context.api;
@@ -43,6 +44,7 @@ namespace Runtime.Contexts.MainGame.Config
       mediationBinder.Bind<CityMiniInfoPanelView>().To<CityMiniInfoPanelMediator>();
       mediationBinder.Bind<CityDetailsPanelView>().To<CityDetailsPanelMediator>();
       mediationBinder.Bind<PlayerActionsView>().To<PlayerActionsMediator>();
+      mediationBinder.Bind<NextTurnNotificationPanelView>().To<NextTurnNotificationPanelMediator>();
 
       commandBinder.Bind(ContextEvent.START).To<CreateMapCommand>();
       

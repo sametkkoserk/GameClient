@@ -10,7 +10,8 @@ namespace Runtime.Contexts.MainGame.Enum
     
     NextTurn,
     NextTurnMainHud,
-    
+    NextTurnNotificationPanel,
+
     RemainingTime,
     RemainingTimeMainHud,
     
@@ -26,6 +27,6 @@ namespace Runtime.Contexts.MainGame.Enum
     ClaimCity,
     ClaimedCity,
     
-    UpdateDetailsPanel
+    UpdateDetailsPanel,
   }
 }
