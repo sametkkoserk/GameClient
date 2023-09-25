@@ -1,4 +1,5 @@
 using System;
+using EnhancedUI.EnhancedScroller;
 using Runtime.Contexts.Lobby.Vo;
 using TMPro;
 using UnityEngine;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 
 namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 {
-  public class JoinLobbyPanelItemBehaviour : MonoBehaviour
+  public class JoinLobbyPanelItemBehaviour : EnhancedScrollerCellView
   {
     public TMP_Text lobbyName;
 
@@ -15,7 +16,7 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 
     public LobbyVo lobbyVo;
 
-    public void Init(LobbyVo vo, UnityAction buttonAction)
+    public void SetData(LobbyVo vo, UnityAction buttonAction)
     {
       lobbyVo = vo;
       

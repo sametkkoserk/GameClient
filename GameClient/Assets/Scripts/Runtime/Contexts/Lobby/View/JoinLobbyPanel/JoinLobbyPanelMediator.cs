@@ -15,7 +15,8 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
   public enum JoinLobbyPanelEvent
   {
     Back,
-    RefreshList
+    RefreshList,
+    Join
   }
 
   public class JoinLobbyPanelMediator : EventMediator
@@ -30,25 +31,27 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     {
       view.dispatcher.AddListener(JoinLobbyPanelEvent.Back, OnBack);
       view.dispatcher.AddListener(JoinLobbyPanelEvent.RefreshList, OnRefreshList);
-
+      view.dispatcher.AddListener(JoinLobbyPanelEvent.Join, OnJoinLobby);
+      
       dispatcher.AddListener(LobbyEvent.listLobbies, OnLobbies);
       dispatcher.AddListener(LobbyEvent.RefreshLobbyList, OnRefreshList);
     }
-    
+
     private void Start()
     {
       OnRefreshList();
+    }
+    
+    private void OnJoinLobby(IEvent payload)
+    {
+      string lobbyCode = (string)payload.data;
+      dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbyCode);
     }
 
     private void OnRefreshList()
     {
       view.lobbyListLoadingIcon.SetActive(true);
 
-      for (int i = 1; i < view.lobbyContainer.childCount; i++)
-      {
-        Destroy(view.lobbyContainer.GetChild(i).gameObject);
-      }
-      
       dispatcher.Dispatch(LobbyEvent.GetLobbies);
       
       DebugX.Log(DebugKey.Request, "Getting lobbies list.");
@@ -57,17 +60,8 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     private void OnLobbies(IEvent payload)
     {
       Dictionary<string, LobbyVo> lobbies = (Dictionary<string, LobbyVo>)payload.data;
-      for (ushort i = 0; i < lobbies.Count; i++)
-      {
-        ushort count = i;
-        GameObject joinLobbyPanelItem = Instantiate(view.joinLobbyPanelItem, view.lobbyContainer);
-        JoinLobbyPanelItemBehaviour behaviour = joinLobbyPanelItem.GetComponent<JoinLobbyPanelItemBehaviour>();
-        behaviour.Init(lobbies.ElementAt(count).Value, () =>
-        {
-          dispatcher.Dispatch(LobbyEvent.JoinLobby, lobbies.ElementAt(count).Value.lobbyCode);
-        });
-      }
-      
+      view.lobbies = lobbies.Values.ToList();
+      view.scroller.ReloadData();
       view.lobbyListLoadingIcon.SetActive(false);
     }
 
@@ -79,8 +73,12 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(JoinLobbyPanelEvent.Back, OnBack);
-
+      view.dispatcher.RemoveListener(JoinLobbyPanelEvent.RefreshList, OnRefreshList);
+      view.dispatcher.RemoveListener(JoinLobbyPanelEvent.Join, OnJoinLobby);
+      
       dispatcher.RemoveListener(LobbyEvent.listLobbies, OnLobbies);
+      dispatcher.RemoveListener(LobbyEvent.RefreshLobbyList, OnRefreshList);
+
     }
   }
 }
