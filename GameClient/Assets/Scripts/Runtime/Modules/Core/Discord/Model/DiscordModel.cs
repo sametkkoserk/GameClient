@@ -1,9 +1,9 @@
 using System;
+using Assets.SimpleLocalization;
+using Assets.SimpleLocalization.Scripts;
 using Discord;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Modules.Core.Discord.Vo;
-using Runtime.Modules.Core.Localization.Enum;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Modules.Core.Discord.Model
@@ -157,7 +157,7 @@ namespace Runtime.Modules.Core.Discord.Model
     
     public void StarterSettings()
     {
-      SetStatusInfo(null, "My Game", LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordOnLoginScreen), false);
+      SetStatusInfo(null, "My Game", LocalizationManager.Localize("DiscordOnLoginScreen"), false);
 
       lastState = 0;
     }
@@ -167,9 +167,9 @@ namespace Runtime.Modules.Core.Discord.Model
       _username = username;
       
       SetStatusInfo(
-        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordUsername) + " " + username,
+        LocalizationManager.Localize("DiscordUsername") + " " + username,
         "My Game",
-        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordOnMenu),
+        LocalizationManager.Localize("DiscordOnMenu"),
         false);
       
       lastState = 1;
@@ -181,9 +181,9 @@ namespace Runtime.Modules.Core.Discord.Model
       string lobbyInfo = $" ({playerCount.ToString()} / {maxPlayerCount.ToString()})";
       
       SetStatusInfo(
-        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordUsername) + " " + username,
+        LocalizationManager.Localize("DiscordUsername") + " " + username,
         "My Game",
-        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordInLobby) + lobbyInfo,
+        LocalizationManager.Localize("DiscordInLobby") + lobbyInfo,
         false);
       
       lastState = 2;
@@ -192,11 +192,11 @@ namespace Runtime.Modules.Core.Discord.Model
     public void InGame(string username)
     {
       _username = username;
-      string gameInfo = $"{LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordInGame)} " +
-                        $"({LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordNormalGame)})";
+      string gameInfo = $"{LocalizationManager.Localize("DiscordInGame")} " +
+                        $"({LocalizationManager.Localize("DiscordNormalGame")})";
       
       SetStatusInfo(
-        LocalizationModel.instance.GetText(TableKey.General, TranslateKeys.DiscordUsername) + " " + username,
+        LocalizationManager.Localize("DiscordUsername") + " " + username,
         "My Game",
         gameInfo,
         true);

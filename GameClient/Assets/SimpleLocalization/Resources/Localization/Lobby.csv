@@ -1,0 +1,13 @@
+Key,tr,en
+LobbyPanelsBack,Geri,Back
+LobbyPanelJoin,Oyuna Katıl,Join
+LobbyPanelHost,Oyun Oluştur,Host
+LobbyManagerPanelExit,Lobiden Ayrıl,Exit Lobby
+JoinLobbyPanelJoinButton,Katıl,Join
+CreateLobbyPanelisPrivate,Özel Oda,Private
+CreateLobbyPanelCreate,Oluştur,Create
+LobbyManagerPanelPlayerList,Oyuncu Listesi,Player List
+LobbyManagerPanelGameSettings,Lobi Ayarları,Lobby Settings
+LobbyManagerPanelTurnTime,Tur Süresi:,Turn Time:
+LobbyManagerPanelSaveButton,Kaydet,Save
+LobbyManagerPanelReadyButton,Hazır,Ready

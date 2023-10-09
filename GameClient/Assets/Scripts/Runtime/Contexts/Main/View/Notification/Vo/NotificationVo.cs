@@ -1,12 +1,12 @@
-using Runtime.Modules.Core.Localization.Enum;
+
 
 namespace Runtime.Contexts.Main.View.Notification.Vo
 {
   public class NotificationVo
   {
-    public TranslateKeys headerKey;
+    public string headerKey;
 
-    public TranslateKeys contentKey;
+    public string contentKey;
 
     public float delayTime;
   }

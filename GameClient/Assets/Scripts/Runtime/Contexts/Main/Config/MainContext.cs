@@ -19,7 +19,6 @@ using Runtime.Modules.Core.Discord.Model;
 using Runtime.Modules.Core.Discord.View;
 using Runtime.Modules.Core.GeneralContext;
 using Runtime.Modules.Core.Icon.Model;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using Runtime.Modules.Core.ScreenManager.Enum;
 using StrangeIoC.scripts.strange.extensions.context.api;
 using UnityEngine;
@@ -46,7 +45,6 @@ namespace Runtime.Contexts.Main.Config
             injectionBinder.Bind<IAudioModel>().To<AudioModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<IPlayerModel>().To<PlayerModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<IDiscordModel>().To<DiscordModel>().ToSingleton().CrossContext();
-            injectionBinder.Bind<ILocalizationModel>().To<LocalizationModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<IPopupPanelModel>().To<PopupPanelModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<IIconModel>().To<IconModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<INotificationModel>().To<NotificationModel>().ToSingleton().CrossContext();

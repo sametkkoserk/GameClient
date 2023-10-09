@@ -1,9 +1,8 @@
 using System;
+using Assets.SimpleLocalization.Scripts;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Main.View.Notification.Model;
 using Runtime.Contexts.Main.View.Notification.Vo;
-using Runtime.Modules.Core.Localization.Enum;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 
@@ -20,9 +19,6 @@ namespace Runtime.Contexts.Main.View.Notification.View
     
     [Inject]
     public INotificationModel notificationModel { get; set; }
-    
-    [Inject]
-    public ILocalizationModel localizationModel { get; set; }
 
     public override void OnRegister()
     {
@@ -51,8 +47,8 @@ namespace Runtime.Contexts.Main.View.Notification.View
       if (string.IsNullOrEmpty(vo.contentKey.ToString()))
         view.contentText.gameObject.SetActive(false);
 
-      view.headerText.text = localizationModel.GetText(TableKey.Notification, vo.headerKey);
-      view.contentText.text = localizationModel.GetText(TableKey.Notification, vo.contentKey);
+      view.headerText.text = LocalizationManager.Localize(vo.headerKey.ToString());
+      view.contentText.text = LocalizationManager.Localize(vo.contentKey.ToString());
 
       DebugX.Log(DebugKey.Notification, "Notification Mediator OnShow 2");
       

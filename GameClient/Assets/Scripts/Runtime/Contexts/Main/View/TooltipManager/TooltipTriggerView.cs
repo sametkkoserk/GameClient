@@ -1,4 +1,3 @@
-using Runtime.Modules.Core.Localization.Enum;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine.EventSystems;
 
@@ -6,9 +5,9 @@ namespace Runtime.Contexts.Main.View.TooltipManager
 {
   public class TooltipTriggerView : EventView, IPointerEnterHandler, IPointerExitHandler
   {
-    public TranslateKeys headerTranslateKey;
+    public string headerTranslateKey;
 
-    public TranslateKeys contentTranslateKey;
+    public string contentTranslateKey;
     
     public void OnPointerEnter(PointerEventData eventData)
     {

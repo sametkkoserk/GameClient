@@ -1,8 +1,8 @@
 using System.Collections.Generic;
+using Assets.SimpleLocalization;
+using Assets.SimpleLocalization.Scripts;
 using Runtime.Modules.Core.ColorPalette.Enum;
 using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
-using Runtime.Modules.Core.Localization.Enum;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using Runtime.Modules.Core.Settings.Enum;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
@@ -24,9 +24,6 @@ namespace Runtime.Modules.Core.Settings.View.InterfaceSettings
     
     [Inject]
     public IColorPaletteModel colorPaletteModel { get; set; }
-    
-    [Inject]
-    public ILocalizationModel localizationModel { get; set; }
 
     public override void OnRegister()
     {
@@ -58,7 +55,7 @@ namespace Runtime.Modules.Core.Settings.View.InterfaceSettings
       {
         TMP_Dropdown.OptionData option = new()
         {
-          text = localizationModel.GetText(TableKey.Settings, TranslateKeys.SettingsPanelCPD + paletteKeys[i])
+          text = LocalizationManager.Localize("SettingsPanelCPD" + paletteKeys[i])
         };
         
         view.colorPaletteDropdown.options.Add(option);

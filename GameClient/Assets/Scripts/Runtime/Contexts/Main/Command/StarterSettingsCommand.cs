@@ -1,3 +1,4 @@
+using Assets.SimpleLocalization.Scripts;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Modules.Core.Audio.Enum;
 using Runtime.Modules.Core.Audio.Model.AudioModel.AudioModel;
@@ -6,8 +7,7 @@ using Runtime.Modules.Core.ColorPalette.Model.ColorPaletteModel;
 using Runtime.Modules.Core.Cursor.Enum;
 using Runtime.Modules.Core.Cursor.Model.CursorModel;
 using Runtime.Modules.Core.Discord.Model;
-using Runtime.Modules.Core.Localization.Enum;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
+
 using Runtime.Modules.Core.ScreenManager.Enum;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using Runtime.Modules.Core.Settings.Enum;
@@ -19,9 +19,7 @@ namespace Runtime.Contexts.Main.Command
 {
   public class StarterSettingsCommand : EventCommand
   {
-    [Inject]
-    public ILocalizationModel localizationModel { get; set; }
-    
+
     [Inject]
     public ICursorModel cursorModel { get; set; }
     
@@ -40,7 +38,6 @@ namespace Runtime.Contexts.Main.Command
     public override void Execute()
     {
       CursorSettings();
-      LanguageSettings();
       ColorPaletteSettings();
       CursorSettings();
       StartMusic();
@@ -51,11 +48,6 @@ namespace Runtime.Contexts.Main.Command
     private void CursorSettings()
     {
       cursorModel.OnChangeCursor(CursorKey.Default);
-    }
-
-    private void LanguageSettings()
-    {
-      localizationModel.ChangeLanguage(PlayerPrefs.GetString(SettingsSaveKey.Language.ToString(), LanguageKey.tr));
     }
 
     private void ColorPaletteSettings()

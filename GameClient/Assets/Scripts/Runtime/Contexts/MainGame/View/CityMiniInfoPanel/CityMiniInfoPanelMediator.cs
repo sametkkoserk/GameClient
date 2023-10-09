@@ -1,9 +1,9 @@
+using Assets.SimpleLocalization;
+using Assets.SimpleLocalization.Scripts;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Vo;
-using Runtime.Modules.Core.Localization.Enum;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
@@ -19,8 +19,6 @@ namespace Runtime.Contexts.MainGame.View.CityMiniInfoPanel
     [Inject]
     public ILobbyModel lobbyModel { get; set; }
 
-    [Inject]
-    public ILocalizationModel localizationModel { get; set; }
 
     public override void OnRegister()
     {
@@ -41,7 +39,7 @@ namespace Runtime.Contexts.MainGame.View.CityMiniInfoPanel
 
       if (cityVo.ownerID == 0)
       {
-        view.ownerNameText.text = localizationModel.GetText(TableKey.MainGame, TranslateKeys.MiniCityInfoPanelNeutral);
+        view.ownerNameText.text = LocalizationManager.Localize("MiniCityInfoPanelNeutral");
         view.ownerColorImage.color = Color.black;
         view.itemOneText.text = cityVo.soldierCount.ToString();
       }

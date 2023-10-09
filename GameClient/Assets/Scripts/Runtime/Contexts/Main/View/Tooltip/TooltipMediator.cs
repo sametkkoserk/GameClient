@@ -1,9 +1,8 @@
 using System;
+using Assets.SimpleLocalization.Scripts;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Main.Vo;
-using Runtime.Modules.Core.Localization.Enum;
-using Runtime.Modules.Core.Localization.Model.LocalizationModel;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
@@ -15,9 +14,7 @@ namespace Runtime.Contexts.Main.View.Tooltip
   {
     [Inject]
     public TooltipView view { get; set; }
-
-    [Inject]
-    public ILocalizationModel localizationModel { get; set; }
+    
 
     public override void OnRegister()
     {
@@ -39,13 +36,13 @@ namespace Runtime.Contexts.Main.View.Tooltip
 
       TooltipInfoVo tooltipInfoVo = (TooltipInfoVo)payload.data;
 
-      if (string.IsNullOrEmpty(tooltipInfoVo.headerKey.ToString()))
+      if (string.IsNullOrEmpty(tooltipInfoVo.headerKey))
         view.headerField.gameObject.SetActive(false);
-      if (string.IsNullOrEmpty(tooltipInfoVo.contentKey.ToString()))
+      if (string.IsNullOrEmpty(tooltipInfoVo.contentKey))
         view.contentField.gameObject.SetActive(false);
 
-      view.headerField.text = localizationModel.GetText(TableKey.Tooltip, tooltipInfoVo.headerKey);
-      view.contentField.text = localizationModel.GetText(TableKey.Tooltip, tooltipInfoVo.contentKey);
+      view.headerField.text = LocalizationManager.Localize(tooltipInfoVo.headerKey);
+      view.contentField.text = LocalizationManager.Localize(tooltipInfoVo.contentKey);
 
       SetPosition(tooltipInfoVo.position);
       

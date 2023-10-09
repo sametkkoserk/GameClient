@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 3391044864311090300}
   - component: {fileID: 7082429588716372332}
   - component: {fileID: 1348341172769469489}
-  - component: {fileID: 3661742470448121079}
+  - component: {fileID: 7074456674656915802}
   m_Layer: 0
   m_Name: ButtonText
   m_TagString: Untagged
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3661742470448121079
+--- !u!114 &7074456674656915802
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -420,37 +420,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8921195878932309829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_StringReference:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  m_FormatArguments: []
-  m_UpdateString:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1348341172769469489}
-        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
-        m_MethodName: set_text
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  references:
-    version: 2
-    RefIds: []
+  LocalizationKey: MiniCityInfoPanelNeutral
 --- !u!1001 &3396859562791400191
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -580,13 +553,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7932287831986337133, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6737541456444828970, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4473226075859115052}
+    - targetCorrespondingSourceObject: {fileID: 6219223970102407773, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3428833292712448104}
   m_SourcePrefab: {fileID: 100100000, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
 --- !u!114 &662282198034029902 stripped
 MonoBehaviour:
@@ -623,3 +600,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   button: {fileID: 662282198034029902}
   playerActionKey: 1
+--- !u!1 &8749103166200316066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6219223970102407773, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
+  m_PrefabInstance: {fileID: 3396859562791400191}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3428833292712448104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8749103166200316066}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LocalizationKey: CityDetailsPanelClaimButton

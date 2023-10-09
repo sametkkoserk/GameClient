@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63817d93022759543b57e795c78efe11, type: 3}
+  m_Name: LocalizationSettings
+  m_EditorClassIdentifier: 
+  TableId: 14jrF4zgHHAjL8Z6b88h0EPyE2m5F8pB0M2zSfj6aqGI
+  Sheets:
+  - Name: General
+    Id: 0
+    TextAsset: {fileID: 4900000, guid: de5bf76352698994f92f9565160a0351, type: 3}
+  - Name: Lobby
+    Id: 982215815
+    TextAsset: {fileID: 4900000, guid: 7dc0758db629694428810d2f325dd3b9, type: 3}
+  - Name: MainGame
+    Id: 678850689
+    TextAsset: {fileID: 4900000, guid: 5d9efa6d93e251846a9c34fd8f0cd42e, type: 3}
+  - Name: Notification
+    Id: 359126550
+    TextAsset: {fileID: 4900000, guid: dc912fd87a79a4349aebe394caaee2a3, type: 3}
+  - Name: Register
+    Id: 1757530763
+    TextAsset: {fileID: 4900000, guid: 527cfe7b6de00c0429337d2c8860ef0f, type: 3}
+  - Name: Settings
+    Id: 1189353027
+    TextAsset: {fileID: 4900000, guid: 9e915f09744b99e4eb2d3ded7f443ddc, type: 3}
+  - Name: Tooltip
+    Id: 832011650
+    TextAsset: {fileID: 4900000, guid: cedb62ad678f23242bb3e792c44f4a80, type: 3}
+  SaveFolder: {fileID: 102900000, guid: c392831e85f928548b8494fefd912562, type: 3}
