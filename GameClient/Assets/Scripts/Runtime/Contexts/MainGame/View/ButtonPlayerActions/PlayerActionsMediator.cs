@@ -25,6 +25,7 @@ namespace Runtime.Contexts.MainGame.View.ButtonPlayerActions
 
     private void OnCheckButton()
     {
+      if (view == null || view.button == null) return;
       view.button.interactable = SetActiveButton();
     }
 

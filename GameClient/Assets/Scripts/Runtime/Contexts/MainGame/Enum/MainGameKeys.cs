@@ -8,6 +8,7 @@ namespace Runtime.Contexts.MainGame.Enum
     public const string MainHudPanel = "MainHudPanel";
     public const string CityMiniInfoPanel = "CityMiniInfoPanel";
     public const string CityDetailsPanel = "CityDetailsPanel";
+    public const string MiniGameResultPanel = "MiniGameResultPanel";
     public const string NextTurnNotificationPanel = "NextTurnNotificationPanel";
   }
 }

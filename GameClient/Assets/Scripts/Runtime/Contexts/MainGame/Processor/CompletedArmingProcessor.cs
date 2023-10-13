@@ -1,16 +1,15 @@
-using Editor.Tools.DebugX.Runtime;
+using Discord;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Vo;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
-using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.command.impl;
 using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.MainGame.Processor
 {
-  public class ClaimedCityProcessor : EventCommand
+  public class CompletedArmingProcessor : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
@@ -21,14 +20,12 @@ namespace Runtime.Contexts.MainGame.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      CityVo cityVo = networkManager.GetData<CityVo>(vo.message);
 
-      mainGameModel.cities[cityVo.ID] = cityVo;
+      PlayerFeaturesVo playerFeaturesVo = networkManager.GetData<PlayerFeaturesVo>(vo.message);
 
-      dispatcher.Dispatch(MainGameEvent.ClaimedCity, cityVo);
-      dispatcher.Dispatch(MainGameEvent.UpdateDetailsPanel);
+      mainGameModel.playerFeaturesVo = playerFeaturesVo;
       
-      DebugX.Log(DebugKey.MainGame,"City Claimed: " + cityVo.ID);
+      dispatcher.Dispatch(MainGameEvent.UpdateDetailsPanel);
     }
   }
 }

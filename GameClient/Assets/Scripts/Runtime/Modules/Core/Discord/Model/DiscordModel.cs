@@ -1,5 +1,4 @@
 using System;
-using Assets.SimpleLocalization;
 using Assets.SimpleLocalization.Scripts;
 using Discord;
 using Editor.Tools.DebugX.Runtime;
@@ -10,9 +9,9 @@ namespace Runtime.Modules.Core.Discord.Model
 {
   public class DiscordModel : IDiscordModel
   {
-    public const long applicationID = 1105914769069842582;
+    public const long applicationID = 1157215237460738118;
 
-    public const string gameLogo = "first";
+    public const string gameLogo = "kiesmagame";
 
     public ActivityManager activityManager;
 
@@ -142,12 +141,12 @@ namespace Runtime.Modules.Core.Discord.Model
       lobbyManager = null;
     }
 
-    public void SetStatusInfo(string _details, string _largeText, string _state, bool _timer)
+    public void SetStatusInfo(string _details, string _state, bool _timer)
     {
       DiscordInfoVo vo = new()
       {
         details = _details,
-        largeText = _largeText,
+        largeText = "Kiesma's Game",
         state = _state,
         timer = _timer
       };
@@ -157,7 +156,7 @@ namespace Runtime.Modules.Core.Discord.Model
     
     public void StarterSettings()
     {
-      SetStatusInfo(null, "My Game", LocalizationManager.Localize("DiscordOnLoginScreen"), false);
+      SetStatusInfo(null, LocalizationManager.Localize("DiscordOnLoginScreen"), false);
 
       lastState = 0;
     }
@@ -168,7 +167,6 @@ namespace Runtime.Modules.Core.Discord.Model
       
       SetStatusInfo(
         LocalizationManager.Localize("DiscordUsername") + " " + username,
-        "My Game",
         LocalizationManager.Localize("DiscordOnMenu"),
         false);
       
@@ -182,7 +180,6 @@ namespace Runtime.Modules.Core.Discord.Model
       
       SetStatusInfo(
         LocalizationManager.Localize("DiscordUsername") + " " + username,
-        "My Game",
         LocalizationManager.Localize("DiscordInLobby") + lobbyInfo,
         false);
       
@@ -197,7 +194,6 @@ namespace Runtime.Modules.Core.Discord.Model
       
       SetStatusInfo(
         LocalizationManager.Localize("DiscordUsername") + " " + username,
-        "My Game",
         gameInfo,
         true);
       

@@ -42,18 +42,6 @@ namespace Editor.Tools.Quick.UpperButtons
       return result;
     }
 
-    [ToolbarButton("BuildSettings.Web", "ShowOnMap Scenes")]
-    public static void StartLauncherScene()
-    {
-      EditorApplication.isPlaying = false;
-    
-      if (EditorApplication.isPlaying)
-        return;
-    
-      EditorSceneManager.OpenScene("Assets/Scripts/Runtime/Contexts/Main/Main.unity");
-      EditorApplication.isPlaying = true;
-    }
-    
     
     [ToolbarButton("Folder Icon", "Open Folder")]
     public static void OpenFolder()
@@ -90,6 +78,18 @@ namespace Editor.Tools.Quick.UpperButtons
     public static void ShowPackageManager()
     {
         UnityEditor.PackageManager.UI.Window.Open("");
+    }
+    
+    [ToolbarButton("BuildSettings.Web", "ShowOnMap Scenes")]
+    public static void StartLauncherScene()
+    {
+      EditorApplication.isPlaying = false;
+    
+      if (EditorApplication.isPlaying)
+        return;
+    
+      EditorSceneManager.OpenScene("Assets/Scripts/Runtime/Contexts/Main/Main.unity");
+      EditorApplication.isPlaying = true;
     }
     //
     //

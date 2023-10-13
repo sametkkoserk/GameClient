@@ -1,7 +1,7 @@
-using System.Collections.Generic;
 using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
+using Runtime.Contexts.MainGame.Vo;
 using Runtime.Contexts.Network.Services.NetworkManager;
 using Runtime.Contexts.Network.Vo;
 using StrangeIoC.scripts.strange.extensions.command.impl;
@@ -9,7 +9,7 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.MainGame.Processor
 {
-  public class PlayerActionsChangedProcessor : EventCommand
+  public class UpdateCityProcessor : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
@@ -20,13 +20,14 @@ namespace Runtime.Contexts.MainGame.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      List<PlayerActionKey> playerActionKey = networkManager.GetData<List<PlayerActionKey>>(vo.message);
+      CityVo cityVo = networkManager.GetData<CityVo>(vo.message);
 
-      mainGameModel.playerActionKey = playerActionKey;
+      mainGameModel.cities[cityVo.ID] = cityVo;
 
-      dispatcher.Dispatch(MainGameEvent.PlayerActionsChanged);
-
-      DebugX.Log(DebugKey.MainGame,"Player Actions Changed!");
+      dispatcher.Dispatch(MainGameEvent.ClaimedCity, cityVo);
+      dispatcher.Dispatch(MainGameEvent.UpdateDetailsPanel);
+      
+      DebugX.Log(DebugKey.MainGame,"City Updated: " + cityVo.ID);
     }
   }
 }

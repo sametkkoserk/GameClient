@@ -1,8 +1,8 @@
-﻿using TMPro;
+﻿using Assets.SimpleLocalization.Scripts;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Assets.SimpleLocalization.Scripts
+namespace SimpleLocalization.Scripts
 {
 	/// <summary>
 	/// Localize text component.

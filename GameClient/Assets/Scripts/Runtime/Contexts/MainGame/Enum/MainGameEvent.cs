@@ -10,15 +10,17 @@ namespace Runtime.Contexts.MainGame.Enum
     
     NextTurn,
     NextTurnMainHud,
-    NextTurnNotificationPanel,
+    NotificationPanel,
 
     RemainingTime,
     RemainingTimeMainHud,
+    StopTimer,
     
     ChangeSizeOfPlayerList,
     
     ShowCityMiniInfoPanel,
     HideCityMiniInfoPanel,
+    CityDetailsPanelClosed,
     
     GameStateChanged,
     PlayerActionsChanged,
@@ -27,6 +29,11 @@ namespace Runtime.Contexts.MainGame.Enum
     ClaimCity,
     ClaimedCity,
     
+    ArmingToCity,
+    
     UpdateDetailsPanel,
+    
+    OpenMiniGameResultPanel,
+    
   }
 }

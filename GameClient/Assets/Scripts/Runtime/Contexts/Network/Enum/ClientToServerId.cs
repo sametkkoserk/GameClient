@@ -16,5 +16,6 @@ namespace Runtime.Contexts.Network.Enum
     SceneReady,
     
     ClaimCity,
+    ArmingToCity,
   }
 }

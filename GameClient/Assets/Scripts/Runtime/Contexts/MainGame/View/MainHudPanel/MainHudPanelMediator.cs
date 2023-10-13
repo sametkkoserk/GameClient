@@ -31,13 +31,17 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
       view.dispatcher.AddListener(MainHudPanelEvent.ChangeSizeOfPlayerList, OnHideOrShowOfPlayerList);
       
       dispatcher.AddListener(MainGameEvent.RemainingTimeMainHud, OnRemainingTime);
-      dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNexTurn);
+      dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
+      dispatcher.AddListener(MainGameEvent.StopTimer, OnStopTimer);
       
       Init();
     }
 
     private void Init()
     {
+      view.sliderImage.gameObject.SetActive(false);
+      view.timer.gameObject.SetActive(false);
+      
       view.totalTime = lobbyModel.lobbyVo.lobbySettingsVo.turnTime;
 
       for (int i = 0; i < lobbyModel.lobbyVo.clients.Count; i++)
@@ -67,16 +71,27 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
       view.timer.text = remainingTime.ToString("f0");
     }
     
-    private void OnNexTurn(IEvent payload)
+    private void OnNextTurn(IEvent payload)
     {
       MainHudTurnVo mainHudTurnVo = (MainHudTurnVo)payload.data;
+      
+      view.sliderImage.gameObject.SetActive(true);
+      view.timer.gameObject.SetActive(true);
 
-      view.sliderImage.color = mainHudTurnVo.playerColor.ToColor();
+      view.sliderImage.color = mainHudTurnVo.color.ToColor();
 
       view.timerSlideTween?.Kill();
       view.sliderImage.fillAmount = 100;
       view.timerSlideTween  = view.sliderImage.DOFillAmount(0, view.totalTime).SetEase(Ease.Linear);
       view.timer.text = view.totalTime.ToString("f0");
+    }
+
+    public void OnStopTimer()
+    {
+      view.timerSlideTween?.Kill();
+      
+      view.sliderImage.gameObject.SetActive(false);
+      view.timer.gameObject.SetActive(false);
     }
 
     private void OnHideOrShowOfPlayerList(IEvent payload)
@@ -98,7 +113,8 @@ namespace Runtime.Contexts.MainGame.View.MainHudPanel
       view.dispatcher.RemoveListener(MainHudPanelEvent.ChangeSizeOfPlayerList, OnHideOrShowOfPlayerList);
       
       dispatcher.RemoveListener(MainGameEvent.RemainingTimeMainHud, OnRemainingTime);
-      dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNexTurn);
+      dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
+      dispatcher.RemoveListener(MainGameEvent.StopTimer, OnStopTimer);
     }
   }
 }

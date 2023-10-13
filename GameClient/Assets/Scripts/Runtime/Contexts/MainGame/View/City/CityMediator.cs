@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using DG.Tweening;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
@@ -11,6 +12,7 @@ using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
+using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.View.City
 {
@@ -43,6 +45,7 @@ namespace Runtime.Contexts.MainGame.View.City
       
       dispatcher.AddListener(MainGameEvent.PlayerActionsReferenceListExecuted, OnPlayerActionsReferenceListExecuted);
       dispatcher.AddListener(MainGameEvent.ClaimedCity, OnClaimedCity);
+      dispatcher.AddListener(MainGameEvent.CityDetailsPanelClosed, CityDetailsClosed);
     }
 
     private void OnPlayerActionsReferenceListExecuted()
@@ -57,13 +60,27 @@ namespace Runtime.Contexts.MainGame.View.City
     {
       if (!CheckingRequirementForClaim())
         return;
-      
-      transform.DOMoveY(0f, 0.5f); // Tikladiginda secili oldugunu gosteren
-                                   // shader vs. bir sey yapilacak ve boyutu kuculmeyecek. Panel kapandiginda kuculur.
-      CursorModel.instance.OnChangeCursor(CursorKey.Default);
 
+      if (mainGameModel.selectedCityId == view.cityVo.ID)
+      {
+        mainGameModel.selectedCityId = -1;
+        screenManagerModel.CloseSpecificPanel(MainGameKeys.CityDetailsPanel);
+        
+        StopAllCoroutines();
+        StartCoroutine(WaitClosingPanel());
+        return;
+      }
+
+      SetSize(0.25f, CursorKey.Click);
       mainGameModel.selectedCityId = view.cityVo.ID;
-      screenManagerModel.OpenPanel(MainGameKeys.CityDetailsPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Additive, PanelType.LeftPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.CityDetailsPanel, SceneKey.MainGame, LayerKey.ThirdLayer, PanelMode.Destroy, PanelType.LeftPanel);
+    }
+
+    private IEnumerator WaitClosingPanel()
+    {
+      yield return new WaitForSeconds(0.2f);
+      
+      SetSize(0.25f, CursorKey.Click);
     }
 
     private void OnPointerEnter()
@@ -71,8 +88,7 @@ namespace Runtime.Contexts.MainGame.View.City
       if (!CheckingRequirementForClaim())
         return;
       
-      transform.DOMoveY(0.25f, 0.5f);
-      CursorModel.instance.OnChangeCursor(CursorKey.Click);
+      SetSize(0.25f, CursorKey.Click);
 
       dispatcher.Dispatch(MainGameEvent.ShowCityMiniInfoPanel, view.cityVo);
     }
@@ -82,10 +98,26 @@ namespace Runtime.Contexts.MainGame.View.City
       if (!CheckingRequirementForClaim())
         return;
       
-      transform.DOMoveY(0f, 0.5f);
+      dispatcher.Dispatch(MainGameEvent.HideCityMiniInfoPanel);
       CursorModel.instance.OnChangeCursor(CursorKey.Default);
 
-      dispatcher.Dispatch(MainGameEvent.HideCityMiniInfoPanel);
+      if (mainGameModel.selectedCityId == view.cityVo.ID)
+        return;
+      SetSize(0f);
+    }
+
+    private void SetSize(float endValue, CursorKey cursorKey = CursorKey.Default)
+    {
+      transform.DOMoveY(endValue, 0.5f);
+      CursorModel.instance.OnChangeCursor(cursorKey);
+    }
+
+    private void CityDetailsClosed()
+    {
+      if (mainGameModel.selectedCityId == view.cityVo.ID)
+        return;
+      
+      SetSize(0);
     }
 
     private bool CheckingRequirementForClaim()
@@ -123,6 +155,7 @@ namespace Runtime.Contexts.MainGame.View.City
       
       dispatcher.RemoveListener(MainGameEvent.PlayerActionsReferenceListExecuted, OnPlayerActionsReferenceListExecuted);
       dispatcher.RemoveListener(MainGameEvent.ClaimedCity, OnClaimedCity);
+      dispatcher.RemoveListener(MainGameEvent.CityDetailsPanelClosed, CityDetailsClosed);
     }
   }
 }

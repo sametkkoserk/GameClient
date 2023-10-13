@@ -7,11 +7,13 @@ using Runtime.Contexts.MainGame.View.City;
 using Runtime.Contexts.MainGame.View.CityDetailsPanel;
 using Runtime.Contexts.MainGame.View.CityMiniInfoPanel;
 using Runtime.Contexts.MainGame.View.MainGameManager;
+using Runtime.Contexts.MainGame.View.MainGameNotificationPanel;
 using Runtime.Contexts.MainGame.View.MainHudPanel;
 using Runtime.Contexts.MainGame.View.MainHudPanel.Item;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
-using Runtime.Contexts.MainGame.View.NextTurnNotificationPanel;
+using Runtime.Contexts.MainGame.View.MiniGameStatsPanel;
+using Runtime.Contexts.MainGame.View.MiniGameStatsPanel.Item;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Modules.Core.GeneralContext;
 using StrangeIoC.scripts.strange.extensions.context.api;
@@ -44,13 +46,16 @@ namespace Runtime.Contexts.MainGame.Config
       mediationBinder.Bind<CityMiniInfoPanelView>().To<CityMiniInfoPanelMediator>();
       mediationBinder.Bind<CityDetailsPanelView>().To<CityDetailsPanelMediator>();
       mediationBinder.Bind<PlayerActionsView>().To<PlayerActionsMediator>();
-      mediationBinder.Bind<NextTurnNotificationPanelView>().To<NextTurnNotificationPanelMediator>();
+      mediationBinder.Bind<MainGameNotificationPanelView>().To<MainGameNotificationPanelMediator>();
+      mediationBinder.Bind<MiniGameResultPanelView>().To<MiniGameResultPanelMediator>();
+      mediationBinder.Bind<MiniGameResultPanelItemView>().To<MiniGameResultPanelItemMediator>();
 
       commandBinder.Bind(ContextEvent.START).To<CreateMapCommand>();
       
       commandBinder.Bind(MainGameEvent.SceneReady).To<SceneReadyCommand>();
       commandBinder.Bind(MainGameEvent.ReadyToGameStart).To<ReadyToGameStartCommand>();
       commandBinder.Bind(MainGameEvent.ClaimCity).To<ClaimCityCommand>();
+      commandBinder.Bind(MainGameEvent.ArmingToCity).To<ArmingToCityCommand>();
 
       commandBinder.Bind(ServerToClientId.GameStartPreparations).To<HandleMapGeneratorProcessor>();
       commandBinder.Bind(ServerToClientId.NextTurn).To<NextTurnProcessor>();
@@ -58,7 +63,9 @@ namespace Runtime.Contexts.MainGame.Config
       commandBinder.Bind(ServerToClientId.GameStateChanged).To<GameStateChangedProcessor>();
       commandBinder.Bind(ServerToClientId.PlayerActionChanged).To<PlayerActionsChangedProcessor>();
       commandBinder.Bind(ServerToClientId.SendPlayerActionReference).To<SetAllPlayerActionReferenceProcessor>();
-      commandBinder.Bind(ServerToClientId.SendClaimedCity).To<ClaimedCityProcessor>();
+      commandBinder.Bind(ServerToClientId.UpdateCity).To<UpdateCityProcessor>();
+      commandBinder.Bind(ServerToClientId.MiniGameRewards).To<MiniGameRewardsProcessor>();
+      commandBinder.Bind(ServerToClientId.SendArmingCity).To<CompletedArmingProcessor>();
     }
   }
 }

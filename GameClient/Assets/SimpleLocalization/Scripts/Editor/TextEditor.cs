@@ -1,3 +1,4 @@
+using SimpleLocalization.Scripts;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
