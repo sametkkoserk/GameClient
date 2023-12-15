@@ -7,11 +7,17 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 {
   public class CityDetailsPanelView : EventView
   {
-    public GameObject buttons;
-    
-    public Button claimButton;
+    [Header("Banner")]
+    [Space]
+    public TextMeshProUGUI ownerNameText;
 
-    public Button armingButton;
+    public Image ownerColorImage;
+    
+    [Header("Button")]
+    [Space]
+    public Button operationButton;
+
+    public TextMeshProUGUI operationButtonText;
 
     [Header("Arming")]
     [Space]
@@ -22,23 +28,20 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     public Button increaseButton;
 
     public Button decreaseButton;
+
+    [Header("Details")]
+    [Space]
+    public TextMeshProUGUI soldierCountText;
     
     [HideInInspector]
     public int armingCount;
-      
-    public void OnClosePanel()
-    {
-      dispatcher.Dispatch(CityDetailsPanelEvent.ClosePanel);
-    }
 
-    public void OnClaimCity()
-    {
-      dispatcher.Dispatch(CityDetailsPanelEvent.ClaimCity);
-    }
+    [HideInInspector]
+    public bool closing;
 
-    public void OnOpenArmingPanel()
+    public void OnDoOperation()
     {
-      dispatcher.Dispatch(CityDetailsPanelEvent.Arming);
+      dispatcher.Dispatch(CityDetailsPanelEvent.OnDoOperation);
     }
 
     public void OnArmingCountChange(bool value)

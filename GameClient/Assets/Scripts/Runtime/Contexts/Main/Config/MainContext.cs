@@ -39,6 +39,10 @@ namespace Runtime.Contexts.Main.Config
         {
             base.mapBindings();
             
+            commandBinder.Bind(ContextEvent.START).InSequence()
+                .To<LoadAssetsCommand>()
+                .To<StartCommand>();
+            
             injectionBinder.Bind<IBundleModel>().To<BundleModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<ICursorModel>().To<CursorModel>().ToSingleton().CrossContext();
             injectionBinder.Bind<IColorPaletteModel>().To<ColorPaletteModel>().ToSingleton().CrossContext();
@@ -56,10 +60,6 @@ namespace Runtime.Contexts.Main.Config
             mediationBinder.Bind<TooltipView>().To<TooltipMediator>();
             mediationBinder.Bind<PopupPanelView>().To<PopupPanelMediator>();
             mediationBinder.Bind<NotificationPanelView>().To<NotificationPanelMediator>();
-            
-            commandBinder.Bind(ContextEvent.START).InSequence()
-                .To<LoadAssetsCommand>()
-                .To<StartCommand>();
             
             commandBinder.Bind(PanelEvent.PanelContainersCreated).To<OpenRegisterPanelCommand>();
             

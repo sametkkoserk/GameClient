@@ -21,6 +21,7 @@ namespace Runtime.Contexts.MainGame.Enum
     ShowCityMiniInfoPanel,
     HideCityMiniInfoPanel,
     CityDetailsPanelClosed,
+    UpdateDetailsPanel,
     
     GameStateChanged,
     PlayerActionsChanged,
@@ -30,10 +31,13 @@ namespace Runtime.Contexts.MainGame.Enum
     ClaimedCity,
     
     ArmingToCity,
-    
-    UpdateDetailsPanel,
+    SelectCityToAttack,
+    ConfirmAttack,
+    AttackResult,
+    Fortify,
+    ConfirmFortify,
+    ResetCityMode,
     
     OpenMiniGameResultPanel,
-    
   }
 }

@@ -8,7 +8,7 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.MainGame.Processor
 {
-  public class CompletedArmingProcessor : EventCommand
+  public class AttackResultProcessor : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
@@ -20,10 +20,12 @@ namespace Runtime.Contexts.MainGame.Processor
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
 
-      PlayerFeaturesVo playerFeaturesVo = networkManager.GetData<PlayerFeaturesVo>(vo.message);
+      AttackResultVo attackResultVo = networkManager.GetData<AttackResultVo>(vo.message);
 
-      mainGameModel.playerFeaturesVo = playerFeaturesVo;
+      mainGameModel.cities[attackResultVo.winnerCity.ID] = attackResultVo.winnerCity;
+      mainGameModel.cities[attackResultVo.loserCity.ID] = attackResultVo.loserCity;
       
+      dispatcher.Dispatch(MainGameEvent.AttackResult, attackResultVo);
       dispatcher.Dispatch(MainGameEvent.UpdateDetailsPanel);
     }
   }

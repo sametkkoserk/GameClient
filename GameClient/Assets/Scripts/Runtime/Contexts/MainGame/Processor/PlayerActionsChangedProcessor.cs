@@ -26,7 +26,15 @@ namespace Runtime.Contexts.MainGame.Processor
 
       dispatcher.Dispatch(MainGameEvent.PlayerActionsChanged);
 
-      DebugX.Log(DebugKey.MainGame,"Player Actions Changed!");
+      string keys = "";
+      for (int i = 0; i < playerActionKey.Count; i++)
+      {
+        if (i == playerActionKey.Count - 1)
+          keys += playerActionKey[i];
+        else
+          keys += playerActionKey[i] + ", ";
+      }
+      DebugX.Log(DebugKey.MainGame,$"Player Actions Changed: {keys}");
     }
   }
 }

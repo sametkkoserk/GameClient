@@ -11,7 +11,6 @@ using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using UnityEngine;
 
-
 namespace Runtime.Contexts.Network.Services.NetworkManager
 {
   public class NetworkManagerService : INetworkManagerService

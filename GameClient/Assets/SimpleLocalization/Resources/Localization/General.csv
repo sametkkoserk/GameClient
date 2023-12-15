@@ -5,5 +5,6 @@ InputFieldPlaceHolder,Metin Girin,Enter Text
 DiscordOnLoginScreen,Giriş Ekranında,On Login Screen
 DiscordOnMenu,Menüde,On Menu
 DiscordUsername,Kullanıcı Adı:,Username:
-DiscordInLobby,Oyunda,In Game
+DiscordInLobby,Lobide,In Lobby
 DiscordNormalGame,Normal Oyun,Normal Game
+DiscordInGame,Oyunda,In Game
