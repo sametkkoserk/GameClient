@@ -253,30 +253,26 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     private void OnFortify()
     {
-      // CityVo cityVo = mainGameModel.cities[mainGameModel.selectedCityId];
-      // List<int> neighbors = cityVo.neighbors.Where(t => cityVo.ownerID == t).ToList();
-      //
-      // for (int i = 0; i < neighbors.Count; i++)
-      // {
-      //   for (int j = 0; j < mainGameModel.cities[neighbors[i]].neighbors.Count; j++)
-      //   {
-      //     CityVo secondCityVo = mainGameModel.cities[mainGameModel.cities[neighbors[i]].neighbors[j]];
-      //     if (secondCityVo.ownerID != cityVo.ownerID) continue;
-      //     if (neighbors.Contains(secondCityVo.ID)) continue;
-      //     if (secondCityVo.ID == cityVo.ID) continue;
-      //     
-      //     neighbors.Add(mainGameModel.cities[mainGameModel.cities[neighbors[i]].neighbors[j]].ID);
-      //   }
-      // }
-      //
-      // foreach (var VARIABLE in neighbors)
-      // {
-      //   print(VARIABLE);
-      // }
-      //
-      // dispatcher.Dispatch(MainGameEvent.Fortify, neighbors);
-      //
-      // OnClose();
+      CityVo city = mainGameModel.cities[mainGameModel.selectedCityId];
+      List<int> neighbors = city.neighbors.Where(t => mainGameModel.cities[t].ownerID == city.ownerID).ToList();
+
+      for (int i = 0; i < neighbors.Count; i++)
+      {
+        CityVo vo = mainGameModel.cities[neighbors[i]];
+        for (int j = 0; j < vo.neighbors.Count; j++)
+        {
+          if (!neighbors.Contains(vo.neighbors[j]) && vo.neighbors[j] != city.ID && mainGameModel.cities[vo.neighbors[j]].ownerID == city.ownerID)
+          {
+            neighbors.Add(vo.neighbors[j]);
+          }
+        }
+      }
+
+      KeyValuePair<int, List<int>> cityAndNeighbors = new(city.ID, neighbors);
+
+      dispatcher.Dispatch(MainGameEvent.Fortify, cityAndNeighbors);
+      
+      OnClose();
     }
 
     private bool SetActiveButton(PlayerActionKey playerActionKey)

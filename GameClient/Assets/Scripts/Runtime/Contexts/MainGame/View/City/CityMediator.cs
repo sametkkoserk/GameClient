@@ -56,6 +56,7 @@ namespace Runtime.Contexts.MainGame.View.City
       dispatcher.AddListener(MainGameEvent.ResetCityMode, OnResetCityMode);
       dispatcher.AddListener(MainGameEvent.AttackResult, OnAttackResult);
       dispatcher.AddListener(MainGameEvent.Fortify, OnFortify);
+      dispatcher.AddListener(MainGameEvent.FortifyResult, OnFortifyResult);
     }
 
     private void OnPlayerActionsReferenceListExecuted()
@@ -279,12 +280,12 @@ namespace Runtime.Contexts.MainGame.View.City
 
     private void OnFortify(IEvent payload)
     {
-      List<int> neighbors = (List<int>)payload.data;
+      KeyValuePair<int, List<int>> neighbors = (KeyValuePair<int, List<int>>)payload.data;
 
       view.SetClickable(false);
       view.SetCityModeKey(CityModeKey.None);
 
-      if (mainGameModel.selectedCityId == view.cityVo.ID)
+      if (neighbors.Key == view.cityVo.ID)
       {
         Highlight(0.175f);
         view.SetClickable(true);
@@ -292,7 +293,7 @@ namespace Runtime.Contexts.MainGame.View.City
         return;
       }
 
-      if (!neighbors.Contains(view.cityVo.ID))
+      if (!neighbors.Value.Contains(view.cityVo.ID))
       {
         view.SetClickable(false);
         return;
@@ -301,6 +302,33 @@ namespace Runtime.Contexts.MainGame.View.City
       view.SetClickable(true);
       view.SetCityModeKey(CityModeKey.FortifyTarget);
       Highlight(0.125f);
+    }
+
+    private void OnFortifyResult(IEvent payload)
+    {
+      FortifyResultVo fortifyResultVo = (FortifyResultVo)payload.data;
+
+      if (view.cityVo.ID != fortifyResultVo.sourceCity.ID && view.cityVo.ID != fortifyResultVo.targetCity.ID)
+        return;
+
+      if (fortifyResultVo.sourceCity.ID == view.cityVo.ID)
+      {
+        CityVo sourceCity = fortifyResultVo.sourceCity;
+
+        if (sourceCity.ID != view.cityVo.ID)
+          return;
+        
+        view.cityVo = mainGameModel.cities[sourceCity.ID];
+      }
+      else if (fortifyResultVo.targetCity.ID == view.cityVo.ID)
+      {
+        CityVo targetCity = fortifyResultVo.targetCity;
+
+        if (targetCity.ID != view.cityVo.ID)
+          return;
+        
+        view.cityVo = mainGameModel.cities[targetCity.ID];
+      }
     }
     
     private void OnResetCityMode()
@@ -327,6 +355,7 @@ namespace Runtime.Contexts.MainGame.View.City
       dispatcher.RemoveListener(MainGameEvent.ResetCityMode, OnResetCityMode);
       dispatcher.RemoveListener(MainGameEvent.AttackResult, OnAttackResult);
       dispatcher.RemoveListener(MainGameEvent.Fortify, OnFortify);
+      dispatcher.RemoveListener(MainGameEvent.FortifyResult, OnFortifyResult);
     }
   }
 }

@@ -57,6 +57,7 @@ namespace Runtime.Contexts.MainGame.Config
       commandBinder.Bind(MainGameEvent.ClaimCity).To<ClaimCityCommand>();
       commandBinder.Bind(MainGameEvent.ArmingToCity).To<ArmingToCityCommand>();
       commandBinder.Bind(MainGameEvent.ConfirmAttack).To<ConfirmAttackCommand>();
+      commandBinder.Bind(MainGameEvent.ConfirmFortify).To<ConfirmFortifyCommand>();
 
       commandBinder.Bind(ServerToClientId.GameStartPreparations).To<HandleMapGeneratorProcessor>();
       commandBinder.Bind(ServerToClientId.NextTurn).To<NextTurnProcessor>();
@@ -68,6 +69,7 @@ namespace Runtime.Contexts.MainGame.Config
       commandBinder.Bind(ServerToClientId.MiniGameRewards).To<MiniGameRewardsProcessor>();
       commandBinder.Bind(ServerToClientId.SendArmingCity).To<CompletedArmingProcessor>();
       commandBinder.Bind(ServerToClientId.Attack).To<AttackResultProcessor>();
+      commandBinder.Bind(ServerToClientId.Fortify).To<FortifyResultProcessor>();
     }
   }
 }
