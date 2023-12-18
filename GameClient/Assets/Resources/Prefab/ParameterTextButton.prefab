@@ -34,7 +34,6 @@ RectTransform:
   m_Children:
   - {fileID: 4590218611207266999}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -148,7 +147,7 @@ GameObject:
   - component: {fileID: 4590218611207266999}
   - component: {fileID: 6582307015878878689}
   - component: {fileID: 2218161713429202919}
-  - component: {fileID: 7237618317816144961}
+  - component: {fileID: 2667880169279291533}
   m_Layer: 0
   m_Name: ButtonTextWithArguments
   m_TagString: Untagged
@@ -169,7 +168,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2872591610604344073}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -273,7 +271,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7237618317816144961
+--- !u!114 &2667880169279291533
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -282,19 +280,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1095152004205756633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f70b398adddf479fa5471725989b81be, type: 3}
+  m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  localizedString:
-    m_TableReference:
-      m_TableCollectionName: 
-    m_TableEntryReference:
-      m_KeyId: 0
-      m_Key: 
-    m_FallbackState: 0
-    m_WaitForCompletion: 0
-    m_LocalVariables: []
-  label: {fileID: 2218161713429202919}
-  references:
-    version: 2
-    RefIds: []
+  LocalizationKey: 

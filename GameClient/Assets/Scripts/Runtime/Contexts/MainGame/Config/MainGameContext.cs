@@ -12,6 +12,7 @@ using Runtime.Contexts.MainGame.View.MainHudPanel;
 using Runtime.Contexts.MainGame.View.MainHudPanel.Item;
 using Runtime.Contexts.MainGame.View.MainMap;
 using Runtime.Contexts.MainGame.View.MainMapContainer;
+using Runtime.Contexts.MainGame.View.MiniBottomPanel;
 using Runtime.Contexts.MainGame.View.MiniGameStatsPanel;
 using Runtime.Contexts.MainGame.View.MiniGameStatsPanel.Item;
 using Runtime.Contexts.Network.Enum;
@@ -49,6 +50,7 @@ namespace Runtime.Contexts.MainGame.Config
       mediationBinder.Bind<MainGameNotificationPanelView>().To<MainGameNotificationPanelMediator>();
       mediationBinder.Bind<MiniGameResultPanelView>().To<MiniGameResultPanelMediator>();
       mediationBinder.Bind<MiniGameResultPanelItemView>().To<MiniGameResultPanelItemMediator>();
+      mediationBinder.Bind<MiniBottomPanelView>().To<MiniBottomPanelMediator>();
 
       commandBinder.Bind(ContextEvent.START).To<CreateMapCommand>();
       
@@ -58,6 +60,7 @@ namespace Runtime.Contexts.MainGame.Config
       commandBinder.Bind(MainGameEvent.ArmingToCity).To<ArmingToCityCommand>();
       commandBinder.Bind(MainGameEvent.ConfirmAttack).To<ConfirmAttackCommand>();
       commandBinder.Bind(MainGameEvent.ConfirmFortify).To<ConfirmFortifyCommand>();
+      commandBinder.Bind(MainGameEvent.Pass).To<PassCommand>();
 
       commandBinder.Bind(ServerToClientId.GameStartPreparations).To<HandleMapGeneratorProcessor>();
       commandBinder.Bind(ServerToClientId.NextTurn).To<NextTurnProcessor>();

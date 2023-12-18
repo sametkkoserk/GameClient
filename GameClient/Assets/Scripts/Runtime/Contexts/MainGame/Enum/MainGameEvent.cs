@@ -8,6 +8,7 @@ namespace Runtime.Contexts.MainGame.Enum
     MapGenerator,
     ReadyToGameStart,
     
+    Pass,
     NextTurn,
     NextTurnMainHud,
     NotificationPanel,
@@ -22,6 +23,7 @@ namespace Runtime.Contexts.MainGame.Enum
     HideCityMiniInfoPanel,
     CityDetailsPanelClosed,
     UpdateDetailsPanel,
+    ShowHideMiniBottomPanel,
     
     GameStateChanged,
     PlayerActionsChanged,
@@ -29,7 +31,6 @@ namespace Runtime.Contexts.MainGame.Enum
     
     ClaimCity,
     ClaimedCity,
-    
     ArmingToCity,
     SelectCityToAttack,
     ConfirmAttack,

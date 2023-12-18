@@ -38,7 +38,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
       mainGameModel.playerFeaturesVo = new PlayerFeaturesVo();
       
       screenManagerModel.OpenPanel(MainGameKeys.NextTurnNotificationPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
-      screenManagerModel.OpenPanel(MainGameKeys.CityMiniInfoPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Destroy, PanelType.BottomPanel);
+      screenManagerModel.OpenPanel(MainGameKeys.MiniBottomPanel, SceneKey.MainGame, LayerKey.SecondLayer, PanelMode.Destroy, PanelType.BottomPanel);
       screenManagerModel.OpenPanel(MainGameKeys.MainHudPanel, SceneKey.MainGame, LayerKey.FourthLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
     }
 
@@ -69,6 +69,8 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
     public void OnOpenMiniGameResultPanel()
     {
+      dispatcher.Dispatch(MainGameEvent.ShowHideMiniBottomPanel, false);
+
       screenManagerModel.OpenPanel(MainGameKeys.MiniGameResultPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Additive, PanelType.FullScreenPanel);
     }
     
