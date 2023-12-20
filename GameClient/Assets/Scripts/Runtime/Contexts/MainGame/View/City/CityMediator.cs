@@ -112,8 +112,8 @@ namespace Runtime.Contexts.MainGame.View.City
       {
         FortifyVo fortifyVo = new()
         {
-          sourceCityVo = mainGameModel.cities[mainGameModel.selectedCityId],
-          targetCityVo = view.cityVo
+          sourceCityId = mainGameModel.selectedCityId,
+          targetCityId = view.cityVo.ID
         };
         
         dispatcher.Dispatch(MainGameEvent.ConfirmFortify, fortifyVo);
@@ -276,6 +276,9 @@ namespace Runtime.Contexts.MainGame.View.City
 
         view.ChangeOwner(loserCity, lobbyModel.lobbyVo.clients[loserCity.ownerID].playerColor.ToColor());
       }
+
+      if (attackResultVo.isConquered)
+        dispatcher.Dispatch(MainGameEvent.SetTransferSoldierAfterAttack, attackResultVo);
     }
 
     private void OnFortify(IEvent payload)

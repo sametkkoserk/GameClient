@@ -22,5 +22,7 @@ namespace Runtime.Contexts.MainGame.Model
     List<MiniGameResultVo> miniGameResultVos { get; set; }
     
     ClientVo clientVo { get; set; }
+    
+    int queueID { get; set; }
   }
 }

@@ -168,11 +168,10 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     private void ArmingPanelStartSettings()
     {
-      view.decreaseButton.interactable = false;
+      view.decreaseButton.interactable = true;
+      view.increaseButton.interactable = true;
       view.armingCount = 1;
       view.armingCountText.text = view.armingCount.ToString();
-
-      view.increaseButton.interactable = view.armingCount < mainGameModel.playerFeaturesVo.freeSoldierCount;
     }
 
     private void OnChangeArmingCount(IEvent payload)
@@ -181,17 +180,13 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
       bool value = (bool)payload.data;
 
-      view.decreaseButton.interactable = true;
-      view.increaseButton.interactable = true;
-
       if (value)
       {
         view.armingCount++;
 
-        if (view.armingCount >= playerFeaturesVo.freeSoldierCount)
+        if (view.armingCount > playerFeaturesVo.freeSoldierCount)
         {
-          view.increaseButton.interactable = false;
-          view.armingCount = playerFeaturesVo.freeSoldierCount;
+          view.armingCount = 1;
         }
 
         view.armingCountText.text = view.armingCount.ToString();
@@ -200,10 +195,9 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
       {
         view.armingCount--;
 
-        if (view.armingCount <= 1)
+        if (view.armingCount < 1)
         {
-          view.decreaseButton.interactable = false;
-          view.armingCount = 1;
+          view.armingCount = playerFeaturesVo.freeSoldierCount;
         }
 
         view.armingCountText.text = view.armingCount.ToString();

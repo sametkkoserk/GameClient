@@ -23,6 +23,8 @@ namespace Runtime.Contexts.MainGame.Model
     public List<MiniGameResultVo> miniGameResultVos { get; set; }
     
     public ClientVo clientVo { get; set; }
+    
+    public int queueID { get; set; }
 
     [PostConstruct]
     public void OnPostConstruct()

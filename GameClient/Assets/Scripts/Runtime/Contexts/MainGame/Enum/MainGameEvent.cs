@@ -35,6 +35,7 @@ namespace Runtime.Contexts.MainGame.Enum
     SelectCityToAttack,
     ConfirmAttack,
     AttackResult,
+    SetTransferSoldierAfterAttack,
     Fortify,
     ConfirmFortify,
     FortifyResult,
