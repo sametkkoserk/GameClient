@@ -115,8 +115,7 @@ namespace Runtime.Contexts.MainGame.View.City
           sourceCityId = mainGameModel.selectedCityId,
           targetCityId = view.cityVo.ID
         };
-        
-        dispatcher.Dispatch(MainGameEvent.ConfirmFortify, fortifyVo);
+        dispatcher.Dispatch(MainGameEvent.SetTransferSoldierForFortify, fortifyVo);
         dispatcher.Dispatch(MainGameEvent.ResetCityMode);
       }
       else if (view.GetCityModeKey() == CityModeKey.None)

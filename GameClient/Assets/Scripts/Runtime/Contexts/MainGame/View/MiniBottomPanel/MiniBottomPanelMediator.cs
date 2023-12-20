@@ -37,7 +37,8 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       
       dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
       dispatcher.AddListener(MainGameEvent.ShowHideMiniBottomPanel, OnShowHidePanel);
-      dispatcher.AddListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCount);
+      dispatcher.AddListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCountForAttackResult);
+      dispatcher.AddListener(MainGameEvent.SetTransferSoldierForFortify, OnSelectSoldierTransferCountForFortify);
       
       Init();
     }
@@ -58,6 +59,8 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
       view.playerName.text = lobbyModel.lobbyVo.clients[mainHudTurnVo.id].userName;
       view.stateText.text = mainGameModel.gameStateKey.ToString();
+
+      OnShowHidePanelContent(false);
     }
 
     private void OnPass()
@@ -97,7 +100,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.confirmButton.gameObject.SetActive(tf);
     }
 
-    private void OnSelectSoldierTransferCount(IEvent payload)
+    private void OnSelectSoldierTransferCountForAttackResult(IEvent payload)
     {
       AttackResultVo attackResultVo = (AttackResultVo)payload.data;
       view.maxSoldierCount = attackResultVo.winnerCity.soldierCount - 1;
@@ -109,7 +112,23 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       
       OnShowHidePanelContent(true);
 
-      view.soldierCountInPanel = 1;
+      view.soldierCountInPanel = 0;
+      view.soldierCountText.text = view.soldierCountInPanel.ToString();
+    }
+    
+    private void OnSelectSoldierTransferCountForFortify(IEvent payload)
+    {
+      FortifyVo fortifyVo = (FortifyVo)payload.data;
+      view.maxSoldierCount = mainGameModel.cities[fortifyVo.sourceCityId].soldierCount - 1;
+      
+      view.cityIDs = new KeyValuePair<int, int>(fortifyVo.sourceCityId, fortifyVo.targetCityId);
+      
+      if(view.maxSoldierCount <= 0)
+        return;
+      
+      OnShowHidePanelContent(true);
+
+      view.soldierCountInPanel = 0;
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
 
@@ -119,7 +138,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
       if (view.soldierCountInPanel > view.maxSoldierCount)
       {
-        view.soldierCountInPanel = 1;
+        view.soldierCountInPanel = 0;
       }
 
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
@@ -129,7 +148,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     {
       view.soldierCountInPanel--;
 
-      if (view.soldierCountInPanel < 1)
+      if (view.soldierCountInPanel < 0)
       {
         view.soldierCountInPanel = view.maxSoldierCount;
       }
@@ -161,7 +180,8 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
       dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
       dispatcher.RemoveListener(MainGameEvent.ShowHideMiniBottomPanel, OnShowHidePanel);
-      dispatcher.RemoveListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCount);
+      dispatcher.RemoveListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCountForAttackResult);
+      dispatcher.RemoveListener(MainGameEvent.SetTransferSoldierForFortify, OnSelectSoldierTransferCountForFortify);
     }
   }
 }
