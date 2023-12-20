@@ -97,8 +97,8 @@ namespace Runtime.Contexts.MainGame.View.City
       {
         AttackVo attackVo = new()
         {
-          attackerCityVo = mainGameModel.cities[mainGameModel.selectedCityId],
-          defenderCityVo = view.cityVo
+          attackerCityID = mainGameModel.selectedCityId,
+          defenderCityID = view.cityVo.ID
         };
         
         dispatcher.Dispatch(MainGameEvent.ConfirmAttack, attackVo);

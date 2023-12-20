@@ -6,9 +6,9 @@ namespace Runtime.Contexts.MainGame.Vo
   public class AttackVo
   {
     [ProtoMember(1)]
-    public CityVo attackerCityVo;
+    public int attackerCityID;
     
     [ProtoMember(2)]
-    public CityVo defenderCityVo;
+    public int defenderCityID;
   }
 }

@@ -223,7 +223,7 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
       ArmingVo armingVo = new()
       {
-        cityVo = cityVo,
+        cityID = cityVo.ID,
         soldierCount = view.armingCount
       };
 

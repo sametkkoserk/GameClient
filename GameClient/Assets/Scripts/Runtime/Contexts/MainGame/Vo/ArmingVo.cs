@@ -6,7 +6,7 @@ namespace Runtime.Contexts.MainGame.Vo
   public class ArmingVo
   {
     [ProtoMember(1)]
-    public CityVo cityVo;
+    public int cityID;
 
     [ProtoMember(2)]
     public int soldierCount;
