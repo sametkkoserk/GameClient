@@ -71,8 +71,12 @@ namespace Runtime.Contexts.MainGame.Config
       commandBinder.Bind(ServerToClientId.UpdateCity).To<UpdateCityProcessor>();
       commandBinder.Bind(ServerToClientId.MiniGameRewards).To<MiniGameRewardsProcessor>();
       commandBinder.Bind(ServerToClientId.SendArmingCity).To<CompletedArmingProcessor>();
+
       commandBinder.Bind(ServerToClientId.Attack).To<AttackResultProcessor>();
       commandBinder.Bind(ServerToClientId.Fortify).To<FortifyResultProcessor>();
+
+      commandBinder.Bind(ServerToClientId.CreateMiniGameScene).To<CreateMiniGameSceneProcessor>();
+
     }
   }
 }

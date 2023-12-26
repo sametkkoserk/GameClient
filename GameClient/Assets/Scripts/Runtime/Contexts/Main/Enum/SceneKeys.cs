@@ -6,5 +6,6 @@ namespace Runtime.Contexts.Main.Enum
     public const string NetworkScene = "NetworkScene";
     public const string LobbyScene = "LobbyScene";
     public const string MainGameScene = "MainGameScene";
+    public const string MiniGamesScene = "MiniGamesScene";
   }
 }
