@@ -3,7 +3,6 @@ using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MiniGames.Vo;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEditor.Localization.Plugins.XLIFF.V12;
 using UnityEngine;
 
 namespace Runtime.Contexts.MiniGames.View.MiniGame
