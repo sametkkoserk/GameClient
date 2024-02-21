@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using Editor.Tools.DebugX.Runtime;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Vo;
@@ -10,7 +8,7 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.MainGame.Processor
 {
-  public class SetAllPlayerActionReferenceProcessor : EventCommand
+  public class ChangePlayerFeatureProcessor : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }
@@ -21,14 +19,12 @@ namespace Runtime.Contexts.MainGame.Processor
     public override void Execute()
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
-      Dictionary<PlayerActionKey, PlayerActionPermissionReferenceVo>  playerActionPermissionReferenceVos =
-        networkManager.GetData<Dictionary<PlayerActionKey, PlayerActionPermissionReferenceVo>>(vo.message);
 
-      mainGameModel.actionsReferenceList = playerActionPermissionReferenceVos;
+      PlayerFeaturesVo playerFeaturesVo = networkManager.GetData<PlayerFeaturesVo>(vo.message);
+
+      mainGameModel.playerFeaturesVo = playerFeaturesVo;
       
-      dispatcher.Dispatch(MainGameEvent.PlayerActionsReferenceListExecuted);
-      
-      DebugX.Log(DebugKey.MainGame,$"{playerActionPermissionReferenceVos.Count} Player Action added.");
+      dispatcher.Dispatch(MainGameEvent.UpdateDetailsPanel);
     }
   }
 }
