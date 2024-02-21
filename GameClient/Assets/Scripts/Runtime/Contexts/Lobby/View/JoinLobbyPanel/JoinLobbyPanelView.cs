@@ -3,7 +3,6 @@ using EnhancedUI.EnhancedScroller;
 using Runtime.Contexts.Lobby.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 {
@@ -30,7 +29,8 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
     {
       dispatcher.Dispatch(JoinLobbyPanelEvent.RefreshList);
     }
-        #region EnhancedScroller Handlers
+    
+    #region EnhancedScroller Handlers
 
     /// <summary>
     /// This tells the scroller the number of cells that should have room allocated. This should be the length of your data array.

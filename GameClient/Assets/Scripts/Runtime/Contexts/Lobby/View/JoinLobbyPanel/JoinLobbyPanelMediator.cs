@@ -8,7 +8,6 @@ using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 
 namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
 {

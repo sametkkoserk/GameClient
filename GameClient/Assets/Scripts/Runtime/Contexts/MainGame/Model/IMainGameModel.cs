@@ -11,13 +11,9 @@ namespace Runtime.Contexts.MainGame.Model
     
     GameStateKey gameStateKey { get; set; }
     
-    List<PlayerActionKey> playerActionKey { get; set; }
-    
     PlayerFeaturesVo playerFeaturesVo { get; set; }
     
     int selectedCityId { get; set; }
-    
-    Dictionary<PlayerActionKey, PlayerActionPermissionReferenceVo> actionsReferenceList { get; set; }
     
     List<MiniGameResultVo> miniGameResultVos { get; set; }
     
