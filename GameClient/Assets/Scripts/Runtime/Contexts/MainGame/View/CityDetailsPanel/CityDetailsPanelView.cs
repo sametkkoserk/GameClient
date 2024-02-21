@@ -19,16 +19,6 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     public TextMeshProUGUI operationButtonText;
 
-    [Header("Arming")]
-    [Space]
-    public GameObject armingPanel;
-
-    public TextMeshProUGUI armingCountText;
-
-    public Button increaseButton;
-
-    public Button decreaseButton;
-
     [Header("Details")]
     [Space]
     public TextMeshProUGUI soldierCountText;
@@ -42,21 +32,6 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     public void OnDoOperation()
     {
       dispatcher.Dispatch(CityDetailsPanelEvent.OnDoOperation);
-    }
-
-    public void OnArmingCountChange(bool value)
-    {
-      dispatcher.Dispatch(CityDetailsPanelEvent.ChangeArmingCount, value);
-    }
-
-    public void OnCloseArmingPanel()
-    {
-      dispatcher.Dispatch(CityDetailsPanelEvent.CloseArmingPanel);
-    }
-
-    public void OnConfirmArming()
-    {
-      dispatcher.Dispatch(CityDetailsPanelEvent.OnConfirmArming);
     }
   }
 }

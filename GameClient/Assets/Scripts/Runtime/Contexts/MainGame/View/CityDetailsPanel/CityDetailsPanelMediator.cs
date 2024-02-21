@@ -8,7 +8,6 @@ using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Vo;
 using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
-using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
@@ -18,9 +17,6 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 {
   public enum CityDetailsPanelEvent
   {
-    ChangeArmingCount,
-    CloseArmingPanel,
-    OnConfirmArming,
     OnDoOperation,
     ClosePanel
   }
@@ -41,15 +37,11 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     public override void OnRegister()
     {
-      view.dispatcher.AddListener(CityDetailsPanelEvent.ChangeArmingCount, OnChangeArmingCount);
-      view.dispatcher.AddListener(CityDetailsPanelEvent.CloseArmingPanel, OnCloseArmingPanel);
-      view.dispatcher.AddListener(CityDetailsPanelEvent.OnConfirmArming, OnConfirmArming);
       view.dispatcher.AddListener(CityDetailsPanelEvent.OnDoOperation, OnDoOperation);
       view.dispatcher.AddListener(CityDetailsPanelEvent.ClosePanel, OnClose);
 
       dispatcher.AddListener(MainGameEvent.UpdateDetailsPanel, UpdatePanel);
       dispatcher.AddListener(MainGameEvent.GameStateChanged, UpdatePanel);
-      dispatcher.AddListener(MainGameEvent.PlayerActionsChanged, UpdatePanel);
 
       Init();
     }
@@ -57,8 +49,6 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     private void Init()
     {
       view.operationButton.gameObject.SetActive(true);
-      view.armingPanel.SetActive(false);
-      ArmingPanelStartSettings();
 
       UpdatePanel();
     }
@@ -109,27 +99,26 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
       {
         view.operationButtonText.text = "Claim City";
 
-        view.operationButton.interactable = cityVo.ownerID == 0 && SetActiveButton(PlayerActionKey.ClaimCity);
+        view.operationButton.interactable = cityVo.ownerID == 0 && SetActiveButton();
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Arming)
       {
         view.operationButtonText.text = "Arming";
 
-        view.armingPanel.gameObject.SetActive(false);
         view.operationButton.interactable =
-          cityVo.ownerID == mainGameModel.clientVo.id && mainGameModel.playerFeaturesVo.freeSoldierCount > 0 && SetActiveButton(PlayerActionKey.Arming);
+          cityVo.ownerID == mainGameModel.clientVo.id && mainGameModel.playerFeaturesVo.freeSoldierCount > 0 && SetActiveButton();
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Attack)
       {
         view.operationButtonText.text = "Attack";
 
-        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && SetActiveButton(PlayerActionKey.Attack);
+        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && SetActiveButton();
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Fortify)
       {
         view.operationButtonText.text = "Fortify";
 
-        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && SetActiveButton(PlayerActionKey.Fortify);
+        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && SetActiveButton();
       }
       
       if (cityVo.ownerID == 0)
@@ -150,90 +139,12 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     private void OnClaimCity()
     {
-      CityVo cityVo = mainGameModel.cities[mainGameModel.selectedCityId];
-
-      dispatcher.Dispatch(MainGameEvent.ClaimCity, cityVo);
+      dispatcher.Dispatch(MainGameEvent.ShowSelectorPartInBottomPanel);
     }
 
     private void OnArmingCity()
     {
-      PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
-
-      if (playerFeaturesVo.freeSoldierCount <= 0 && mainGameModel.cities[mainGameModel.selectedCityId].ownerID != mainGameModel.clientVo.id)
-        return;
-
-      view.armingPanel.SetActive(true);
-      ArmingPanelStartSettings();
-    }
-
-    private void ArmingPanelStartSettings()
-    {
-      view.decreaseButton.interactable = true;
-      view.increaseButton.interactable = true;
-      view.armingCount = 1;
-      view.armingCountText.text = view.armingCount.ToString();
-    }
-
-    private void OnChangeArmingCount(IEvent payload)
-    {
-      PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
-
-      bool value = (bool)payload.data;
-
-      if (value)
-      {
-        view.armingCount++;
-
-        if (view.armingCount > playerFeaturesVo.freeSoldierCount)
-        {
-          view.armingCount = 1;
-        }
-
-        view.armingCountText.text = view.armingCount.ToString();
-      }
-      else
-      {
-        view.armingCount--;
-
-        if (view.armingCount < 1)
-        {
-          view.armingCount = playerFeaturesVo.freeSoldierCount;
-        }
-
-        view.armingCountText.text = view.armingCount.ToString();
-      }
-    }
-
-    private void OnConfirmArming()
-    {
-      view.armingPanel.SetActive(false);
-      
-      PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
-
-      if (playerFeaturesVo.freeSoldierCount <= 0)
-        return;
-
-      if (view.armingCount > playerFeaturesVo.freeSoldierCount)
-        view.armingCount = playerFeaturesVo.freeSoldierCount;
-
-      if (view.armingCount < 1)
-        view.armingCount = 1;
-
-      CityVo cityVo = mainGameModel.cities[mainGameModel.selectedCityId];
-
-      ArmingVo armingVo = new()
-      {
-        cityID = cityVo.ID,
-        soldierCount = view.armingCount
-      };
-
-      dispatcher.Dispatch(MainGameEvent.ArmingToCity, armingVo);
-    }
-
-    private void OnCloseArmingPanel()
-    {
-      view.armingPanel.SetActive(false);
-      view.operationButton.gameObject.SetActive(true);
+      dispatcher.Dispatch(MainGameEvent.ShowSelectorPartInBottomPanel);
     }
 
     private void OnAttack()
@@ -269,23 +180,9 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
       OnClose();
     }
 
-    private bool SetActiveButton(PlayerActionKey playerActionKey)
+    private bool SetActiveButton()
     {
-      if (mainGameModel.actionsReferenceList.Count == 0)
-        return false;
-
-      PlayerActionPermissionReferenceVo vo = mainGameModel.actionsReferenceList[playerActionKey];
-
-      if (!vo.gameStateKeys.Contains(mainGameModel.gameStateKey))
-        return false;
-
-      for (int i = 0; i < vo.playerActionNecessaryKeys.Count; i++)
-      {
-        if (mainGameModel.playerActionKey.Contains(vo.playerActionNecessaryKeys.ElementAt(i))) continue;
-        return false;
-      }
-
-      return true;
+      return mainGameModel.queueID == lobbyModel.clientVo.id;
     }
 
     private void OnClose()
@@ -297,15 +194,11 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     {
       dispatcher.Dispatch(MainGameEvent.CityDetailsPanelClosed);
 
-      view.dispatcher.RemoveListener(CityDetailsPanelEvent.ChangeArmingCount, OnChangeArmingCount);
-      view.dispatcher.RemoveListener(CityDetailsPanelEvent.CloseArmingPanel, OnCloseArmingPanel);
-      view.dispatcher.RemoveListener(CityDetailsPanelEvent.OnConfirmArming, OnConfirmArming);
       view.dispatcher.RemoveListener(CityDetailsPanelEvent.OnDoOperation, OnDoOperation);
       view.dispatcher.RemoveListener(CityDetailsPanelEvent.ClosePanel, OnClose);
 
       dispatcher.RemoveListener(MainGameEvent.UpdateDetailsPanel, UpdatePanel);
       dispatcher.RemoveListener(MainGameEvent.GameStateChanged, UpdatePanel);
-      dispatcher.RemoveListener(MainGameEvent.PlayerActionsChanged, UpdatePanel);
     }
   }
 }

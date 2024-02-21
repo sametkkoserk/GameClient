@@ -38,7 +38,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameNotificationPanel
 
     public async Task SetNotificationPanel(MainHudTurnVo mainHudTurnVo)
     {
-      dispatcher.Dispatch(MainGameEvent.ShowHideMiniBottomPanel, false);
+      dispatcher.Dispatch(MainGameEvent.DisappearBottomPanel);
 
       if (mainHudTurnVo.panelTypeKey == NotificationPanelTypeKey.NextTurn)
       {
@@ -50,7 +50,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameNotificationPanel
         await WaitAsyncOperations(mainHudTurnVo.time);
 
         dispatcher.Dispatch(MainGameEvent.NextTurnMainHud, view.notificationPanelVo);
-        dispatcher.Dispatch(MainGameEvent.ShowHideMiniBottomPanel, true);
+        dispatcher.Dispatch(MainGameEvent.ShowPassPartInBottomPanel);
 
         return;
       }
@@ -59,7 +59,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameNotificationPanel
       view.notificationPanelVo = mainHudTurnVo;
       OnFillPanelContents();
       await WaitAsyncOperations(mainHudTurnVo.time);
-      dispatcher.Dispatch(MainGameEvent.ShowHideMiniBottomPanel, true);
+      dispatcher.Dispatch(MainGameEvent.ShowPassPartInBottomPanel);
     }
 
     public void OnFillPanelContents()

@@ -69,7 +69,7 @@ namespace Runtime.Contexts.MainGame.View.MainGameManager
 
     public void OnOpenMiniGameResultPanel()
     {
-      dispatcher.Dispatch(MainGameEvent.ShowHideMiniBottomPanel, false);
+      dispatcher.Dispatch(MainGameEvent.DisappearBottomPanel);
 
       screenManagerModel.OpenPanel(MainGameKeys.MiniGameResultPanel, SceneKey.MainGame, LayerKey.FirstLayer, PanelMode.Additive, PanelType.FullScreenPanel);
     }

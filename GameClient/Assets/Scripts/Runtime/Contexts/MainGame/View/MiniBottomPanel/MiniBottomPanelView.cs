@@ -11,20 +11,16 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     [Header("Mini Info Part")]
     public GameObject passButtonPart;
 
-    public Image[] images;
+    public Image[] banners;
 
     public TextMeshProUGUI playerName;
 
     public TextMeshProUGUI stateText;
 
-    public Button operationButton;
+    public Button passButton;
     
-    [Header("Fortify Part")]
-    public List<GameObject> fortifyPart;
-    
-    public List<Button> changeCountButtons;
-
-    public Button confirmButton;
+    [Header("Soldier Selector Part")]
+    public GameObject soldierSelector;
     
     public TextMeshProUGUI soldierCountText;
 
@@ -33,6 +29,9 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
     [HideInInspector]
     public int maxSoldierCount;
+
+    [HideInInspector]
+    public int minSoldierCount;
 
     public KeyValuePair<int, int> cityIDs;
 

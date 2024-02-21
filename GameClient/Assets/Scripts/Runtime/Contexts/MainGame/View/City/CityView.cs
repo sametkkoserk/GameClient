@@ -20,14 +20,6 @@ namespace Runtime.Contexts.MainGame.View.City
 
     public CityVo cityVo;
 
-    public PlayerActionKey playerActionKey;
-
-    [HideInInspector]
-    public List<GameStateKey> necessaryGameStateKeyForOpenDetailsPanel;
-    
-    [HideInInspector]
-    public List<PlayerActionKey> necessaryPlayerActionKeysForOpenDetailsPanel;
-    
     private bool isClickable = true;
 
     private CityModeKey _cityModeKey = CityModeKey.None;
@@ -44,6 +36,8 @@ namespace Runtime.Contexts.MainGame.View.City
       };
 
       meshRenderer.material = material;
+      
+      dispatcher.Dispatch(CityEvent.OnUpdateCity);
     }
 
     public void ChangeOwner(CityVo _cityVo, Color color)

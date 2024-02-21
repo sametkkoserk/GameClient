@@ -19,11 +19,11 @@ namespace Runtime.Contexts.MainGame.Command
 
     public override void Execute()
     {
-      CityVo cityVo = (CityVo)evt.data;
+      ClaimCityVo claimCityVo = (ClaimCityVo)evt.data;
 
-      SendPacketWithLobbyCode<CityVo> vo = new()
+      SendPacketWithLobbyCode<ClaimCityVo> vo = new()
       {
-        mainClass = cityVo,
+        mainClass = claimCityVo,
         lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
       

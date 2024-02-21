@@ -23,11 +23,11 @@ namespace Runtime.Contexts.MainGame.Enum
     HideCityMiniInfoPanel,
     CityDetailsPanelClosed,
     UpdateDetailsPanel,
-    ShowHideMiniBottomPanel,
+    ShowPassPartInBottomPanel,
+    ShowSelectorPartInBottomPanel,
+    DisappearBottomPanel,
     
     GameStateChanged,
-    PlayerActionsChanged,
-    PlayerActionsReferenceListExecuted,
     
     ClaimCity,
     ClaimedCity,

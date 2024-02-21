@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using DG.Tweening;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
@@ -46,25 +45,15 @@ namespace Runtime.Contexts.MainGame.View.City
       view.dispatcher.AddListener(CityEvent.OnPointerExit, OnPointerExit);
       view.dispatcher.AddListener(CityEvent.OnUpdateCity, OnUpdateCity);
 
-      dispatcher.AddListener(MainGameEvent.PlayerActionsReferenceListExecuted, OnPlayerActionsReferenceListExecuted);
       dispatcher.AddListener(MainGameEvent.ClaimedCity, OnClaimedCity);
       dispatcher.AddListener(MainGameEvent.SelectCityToAttack, OnSelectCityToAttack);
       dispatcher.AddListener(MainGameEvent.CityDetailsPanelClosed, CityDetailsClosed);
       dispatcher.AddListener(MainGameEvent.UpdateDetailsPanel, OnUpdateCity);
       dispatcher.AddListener(MainGameEvent.GameStateChanged, OnUpdateCity);
-      dispatcher.AddListener(MainGameEvent.PlayerActionsChanged, OnUpdateCity);
       dispatcher.AddListener(MainGameEvent.ResetCityMode, OnResetCityMode);
       dispatcher.AddListener(MainGameEvent.AttackResult, OnAttackResult);
       dispatcher.AddListener(MainGameEvent.Fortify, OnFortify);
       dispatcher.AddListener(MainGameEvent.FortifyResult, OnFortifyResult);
-    }
-
-    private void OnPlayerActionsReferenceListExecuted()
-    {
-      PlayerActionPermissionReferenceVo vo = mainGameModel.actionsReferenceList[view.playerActionKey];
-
-      view.necessaryPlayerActionKeysForOpenDetailsPanel = vo.playerActionNecessaryKeys;
-      view.necessaryGameStateKeyForOpenDetailsPanel = vo.gameStateKeys;
     }
 
     private void OnUpdateCity()
@@ -72,7 +61,11 @@ namespace Runtime.Contexts.MainGame.View.City
       if (!view.cityVo.isPlayable)
       {
         view.playableCityObjects.SetActive(false);
+        
         dispatcher.RemoveListener(CityEvent.OnUpdateCity, OnUpdateCity);
+        dispatcher.RemoveListener(MainGameEvent.UpdateDetailsPanel, OnUpdateCity);
+        dispatcher.RemoveListener(MainGameEvent.GameStateChanged, OnUpdateCity);
+        
         return;
       }
       view.soldierCountText.text = view.cityVo.soldierCount.ToString();
@@ -193,22 +186,7 @@ namespace Runtime.Contexts.MainGame.View.City
 
     private bool CheckingRequirementToClick()
     {
-      if (!view.GetClickable())
-        return false;
-      
-      if (mainGameModel.actionsReferenceList.Count == 0)
-        return false;
-      
-      if (!view.necessaryGameStateKeyForOpenDetailsPanel.Contains(mainGameModel.gameStateKey))
-        return false;
-
-      for (int i = 0; i < view.necessaryPlayerActionKeysForOpenDetailsPanel.Count; i++)
-      {
-        if (mainGameModel.playerActionKey.Contains(view.necessaryPlayerActionKeysForOpenDetailsPanel.ElementAt(i))) continue;
-        return false;
-      }
-
-      return true;
+      return view.GetClickable();
     }
 
     public void OnClaimedCity(IEvent payload)
@@ -347,13 +325,11 @@ namespace Runtime.Contexts.MainGame.View.City
       view.dispatcher.RemoveListener(CityEvent.OnPointerExit, OnPointerExit);
       view.dispatcher.RemoveListener(CityEvent.OnUpdateCity, OnUpdateCity);
       
-      dispatcher.RemoveListener(MainGameEvent.PlayerActionsReferenceListExecuted, OnPlayerActionsReferenceListExecuted);
       dispatcher.RemoveListener(MainGameEvent.ClaimedCity, OnClaimedCity);
       dispatcher.RemoveListener(MainGameEvent.SelectCityToAttack, OnSelectCityToAttack);
       dispatcher.RemoveListener(MainGameEvent.CityDetailsPanelClosed, CityDetailsClosed);
       dispatcher.RemoveListener(MainGameEvent.UpdateDetailsPanel, OnUpdateCity);
       dispatcher.RemoveListener(MainGameEvent.GameStateChanged, OnUpdateCity);
-      dispatcher.RemoveListener(MainGameEvent.PlayerActionsChanged, OnUpdateCity);
       dispatcher.RemoveListener(MainGameEvent.ResetCityMode, OnResetCityMode);
       dispatcher.RemoveListener(MainGameEvent.AttackResult, OnAttackResult);
       dispatcher.RemoveListener(MainGameEvent.Fortify, OnFortify);

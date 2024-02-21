@@ -416,7 +416,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4756331578772169930}
-  - {fileID: 3660875541963219829}
   m_Father: {fileID: 8818402192425285093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -439,7 +438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3660875541963219829
 RectTransform:
   m_ObjectHideFlags: 0
@@ -447,18 +446,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3888107569203719100}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4551582438921951734}
-  m_Father: {fileID: 7944748919733473027}
+  m_Father: {fileID: 1721390006648868122}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -420}
+  m_SizeDelta: {x: -1500, y: -930}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4195638435895338266
 GameObject:
@@ -1322,7 +1321,7 @@ GameObject:
   - component: {fileID: 348806235394137442}
   - component: {fileID: 5164446614143358823}
   m_Layer: 5
-  m_Name: PreventClickToScreenBg
+  m_Name: SelectSoldierCountPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1339,7 +1338,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3660875541963219829}
   m_Father: {fileID: 8818402192425285093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1584,22 +1584,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   passButtonPart: {fileID: 100694055079240870}
-  images:
+  banners:
   - {fileID: 8443400651447509860}
   - {fileID: 3193539841332405779}
   playerName: {fileID: 1184026994092848135}
   stateText: {fileID: 4617905253003229450}
-  operationButton: {fileID: 8782858150955394084}
-  fortifyPart:
-  - {fileID: 3888107569203719100}
-  - {fileID: 8455896225959885928}
-  changeCountButtons:
-  - {fileID: 6344799391890751861}
-  - {fileID: 7017351127340696465}
-  confirmButton: {fileID: 8045477746379063859}
+  passButton: {fileID: 8782858150955394084}
+  soldierSelector: {fileID: 8455896225959885928}
   soldierCountText: {fileID: 14792348085355293}
   soldierCountInPanel: 0
   maxSoldierCount: 0
+  minSoldierCount: 0
 --- !u!1 &8818402192425285092
 GameObject:
   m_ObjectHideFlags: 0

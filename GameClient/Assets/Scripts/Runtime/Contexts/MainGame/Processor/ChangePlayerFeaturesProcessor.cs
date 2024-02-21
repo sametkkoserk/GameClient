@@ -8,7 +8,7 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.MainGame.Processor
 {
-  public class ChangePlayerFeatureProcessor : EventCommand
+  public class ChangePlayerFeaturesProcessor : EventCommand
   {
     [Inject]
     public INetworkManagerService networkManager { get; set; }

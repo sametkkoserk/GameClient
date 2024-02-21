@@ -2,7 +2,6 @@ using Runtime.Contexts.MainGame.Command;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
 using Runtime.Contexts.MainGame.Processor;
-using Runtime.Contexts.MainGame.View.ButtonPlayerActions;
 using Runtime.Contexts.MainGame.View.City;
 using Runtime.Contexts.MainGame.View.CityDetailsPanel;
 using Runtime.Contexts.MainGame.View.CityMiniInfoPanel;
@@ -46,7 +45,6 @@ namespace Runtime.Contexts.MainGame.Config
       mediationBinder.Bind<MainHudPanelPlayerItemView>().To<MainHudPanelPlayerItemMediator>();
       mediationBinder.Bind<CityMiniInfoPanelView>().To<CityMiniInfoPanelMediator>();
       mediationBinder.Bind<CityDetailsPanelView>().To<CityDetailsPanelMediator>();
-      mediationBinder.Bind<PlayerActionsView>().To<PlayerActionsMediator>();
       mediationBinder.Bind<MainGameNotificationPanelView>().To<MainGameNotificationPanelMediator>();
       mediationBinder.Bind<MiniGameResultPanelView>().To<MiniGameResultPanelMediator>();
       mediationBinder.Bind<MiniGameResultPanelItemView>().To<MiniGameResultPanelItemMediator>();
@@ -66,11 +64,9 @@ namespace Runtime.Contexts.MainGame.Config
       commandBinder.Bind(ServerToClientId.NextTurn).To<NextTurnProcessor>();
       commandBinder.Bind(ServerToClientId.RemainingTime).To<RemainingTimeProcessor>();
       commandBinder.Bind(ServerToClientId.GameStateChanged).To<GameStateChangedProcessor>();
-      commandBinder.Bind(ServerToClientId.PlayerActionChanged).To<PlayerActionsChangedProcessor>();
-      commandBinder.Bind(ServerToClientId.SendPlayerActionReference).To<SetAllPlayerActionReferenceProcessor>();
       commandBinder.Bind(ServerToClientId.UpdateCity).To<UpdateCityProcessor>();
       commandBinder.Bind(ServerToClientId.MiniGameRewards).To<MiniGameRewardsProcessor>();
-      commandBinder.Bind(ServerToClientId.SendArmingCity).To<CompletedArmingProcessor>();
+      commandBinder.Bind(ServerToClientId.ChangePlayerFeature).To<ChangePlayerFeaturesProcessor>();
 
       commandBinder.Bind(ServerToClientId.Attack).To<AttackResultProcessor>();
       commandBinder.Bind(ServerToClientId.Fortify).To<FortifyResultProcessor>();

@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Model;
@@ -36,7 +36,10 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.dispatcher.AddListener(MiniBottomPanelEvent.Confirm, OnConfirm);
       
       dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
-      dispatcher.AddListener(MainGameEvent.ShowHideMiniBottomPanel, OnShowHidePanel);
+      dispatcher.AddListener(MainGameEvent.GameStateChanged, OnGameStateChanged);
+      dispatcher.AddListener(MainGameEvent.ShowPassPartInBottomPanel, OnOpenPassPart);
+      dispatcher.AddListener(MainGameEvent.ShowSelectorPartInBottomPanel, OnOpenSoldierCountSelector);
+      dispatcher.AddListener(MainGameEvent.DisappearBottomPanel, OnDisappearBottomPanel);
       dispatcher.AddListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCountForAttackResult);
       dispatcher.AddListener(MainGameEvent.SetTransferSoldierForFortify, OnSelectSoldierTransferCountForFortify);
       
@@ -45,59 +48,73 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
     private void Init()
     {
-      gameObject.SetActive(false);
+      OnDisappearBottomPanel();
     }
 
     private void OnNextTurn(IEvent payload)
     {
       MainHudTurnVo mainHudTurnVo = (MainHudTurnVo)payload.data;
 
-      view.operationButton.interactable = mainHudTurnVo.id == lobbyModel.clientVo.id;
+      view.passButton.interactable = mainHudTurnVo.id == lobbyModel.clientVo.id;
 
-      for (int i = 0; i < view.images.Length; i++)
-        view.images[i].color = mainHudTurnVo.color.ToColor();
+      for (int i = 0; i < view.banners.Length; i++)
+        view.banners[i].color = mainHudTurnVo.color.ToColor();
 
       view.playerName.text = lobbyModel.lobbyVo.clients[mainHudTurnVo.id].userName;
       view.stateText.text = mainGameModel.gameStateKey.ToString();
 
-      OnShowHidePanelContent(false);
+      OnOpenPassPart();
+    }
+
+    private void OnGameStateChanged()
+    {
+      view.passButton.interactable = true;
+      view.stateText.text = mainGameModel.gameStateKey.ToString();
+
+      OnOpenPassPart();
     }
 
     private void OnPass()
     {
-      view.operationButton.interactable = false;
+      view.passButton.interactable = false;
       
       dispatcher.Dispatch(MainGameEvent.Pass);
     }
 
-    private void OnShowHidePanel(IEvent payload)
+    private void OnOpenPassPart()
     {
-      bool open = (bool)payload.data;
+      view.soldierSelector.SetActive(false);
+      view.passButtonPart.SetActive(true);
 
-      gameObject.SetActive(open);
-      OnShowHidePanelContent(!open);
+      view.passButton.interactable = mainGameModel.queueID == lobbyModel.clientVo.id;
     }
 
-    private void OnShowHidePanelContent(bool tf)
+    private void OnOpenSoldierCountSelector()
     {
-      view.passButtonPart.gameObject.SetActive(!tf);
-
-      if (mainGameModel.queueID != lobbyModel.clientVo.id)
-        tf = false;
-
-      for (int i = 0; i < view.fortifyPart.Count; i++)
+      switch (mainGameModel.gameStateKey)
       {
-        view.fortifyPart.ElementAt(i).gameObject.SetActive(tf);
+        case GameStateKey.ClaimCity:
+        case GameStateKey.Arming:
+          PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
+        
+          if (playerFeaturesVo.freeSoldierCount <= 0 && mainGameModel.cities[mainGameModel.selectedCityId].ownerID != mainGameModel.clientVo.id)
+            return;
+          
+          view.maxSoldierCount = mainGameModel.playerFeaturesVo.freeSoldierCount;
+          break;
       }
+      
+      view.passButtonPart.SetActive(false);
+      view.soldierSelector.SetActive(true);
 
-      for (int i = 0; i < view.changeCountButtons.Count; i++)
-      {
-        view.changeCountButtons.ElementAt(i).gameObject.SetActive(tf);
-        view.changeCountButtons.ElementAt(i).interactable = tf;
-      }
+      view.soldierCountInPanel = 0;
+      view.soldierCountText.text = view.soldierCountInPanel.ToString();
+    }
 
-      view.confirmButton.interactable = tf;
-      view.confirmButton.gameObject.SetActive(tf);
+    private void OnDisappearBottomPanel()
+    {
+      view.passButtonPart.SetActive(false);
+      view.soldierSelector.SetActive(false);
     }
 
     private void OnSelectSoldierTransferCountForAttackResult(IEvent payload)
@@ -110,7 +127,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       if(view.maxSoldierCount <= 0)
         return;
       
-      OnShowHidePanelContent(true);
+      OnOpenSoldierCountSelector();
 
       view.soldierCountInPanel = 0;
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
@@ -126,20 +143,72 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       if(view.maxSoldierCount <= 0)
         return;
       
-      OnShowHidePanelContent(true);
+      OnOpenSoldierCountSelector();
 
       view.soldierCountInPanel = 0;
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
 
+    private void OnConfirm()
+    {
+      if (mainGameModel.gameStateKey == GameStateKey.ClaimCity)
+      {
+        ClaimCityVo claimCityVo = new()
+        {
+          cityId = mainGameModel.selectedCityId,
+          soldierCount = view.soldierCountInPanel
+        };
+        
+        dispatcher.Dispatch(MainGameEvent.ClaimCity, claimCityVo);
+      }
+      else if (mainGameModel.gameStateKey == GameStateKey.Arming)
+      {
+        OnConfirmArming();
+      }
+      else
+      {
+        FortifyVo fortifyVo = new()
+        {
+          sourceCityId = view.cityIDs.Key,
+          targetCityId = view.cityIDs.Value,
+          soldierCount = view.soldierCountInPanel
+        };
+      
+        dispatcher.Dispatch(MainGameEvent.ConfirmFortify, fortifyVo);
+      }
+      OnOpenPassPart();
+    }
+    
+    private void OnConfirmArming()
+    {
+      PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
+
+      if (playerFeaturesVo.freeSoldierCount <= 0)
+        return;
+
+      if (view.soldierCountInPanel > playerFeaturesVo.freeSoldierCount)
+        view.soldierCountInPanel = playerFeaturesVo.freeSoldierCount;
+
+      if (view.soldierCountInPanel < 1)
+        view.soldierCountInPanel = 1;
+
+      CityVo cityVo = mainGameModel.cities[mainGameModel.selectedCityId];
+
+      ArmingVo armingVo = new()
+      {
+        cityID = cityVo.ID,
+        soldierCount = view.soldierCountInPanel
+      };
+
+      dispatcher.Dispatch(MainGameEvent.ArmingToCity, armingVo);
+    }
+    
     private void OnIncrement()
     {
       view.soldierCountInPanel++;
 
       if (view.soldierCountInPanel > view.maxSoldierCount)
-      {
         view.soldierCountInPanel = 0;
-      }
 
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
@@ -149,26 +218,9 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.soldierCountInPanel--;
 
       if (view.soldierCountInPanel < 0)
-      {
         view.soldierCountInPanel = view.maxSoldierCount;
-      }
 
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
-    }
-
-    private void OnConfirm()
-    {
-      OnShowHidePanelContent(false);
-      gameObject.SetActive(true);
-      
-      FortifyVo fortifyVo = new()
-      {
-        sourceCityId = view.cityIDs.Key,
-        targetCityId = view.cityIDs.Value,
-        soldierCount = view.soldierCountInPanel
-      };
-      
-      dispatcher.Dispatch(MainGameEvent.ConfirmFortify, fortifyVo);
     }
     
     public override void OnRemove()
@@ -179,7 +231,9 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.dispatcher.RemoveListener(MiniBottomPanelEvent.Confirm, OnConfirm);
 
       dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
-      dispatcher.RemoveListener(MainGameEvent.ShowHideMiniBottomPanel, OnShowHidePanel);
+      dispatcher.RemoveListener(MainGameEvent.ShowPassPartInBottomPanel, OnOpenPassPart);
+      dispatcher.RemoveListener(MainGameEvent.ShowSelectorPartInBottomPanel, OnOpenSoldierCountSelector);
+      dispatcher.RemoveListener(MainGameEvent.DisappearBottomPanel, OnDisappearBottomPanel);
       dispatcher.RemoveListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCountForAttackResult);
       dispatcher.RemoveListener(MainGameEvent.SetTransferSoldierForFortify, OnSelectSoldierTransferCountForFortify);
     }
