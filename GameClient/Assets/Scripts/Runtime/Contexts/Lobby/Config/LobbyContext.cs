@@ -40,6 +40,7 @@ namespace Runtime.Contexts.Lobby.Config
       commandBinder.Bind(LobbyEvent.JoinLobby).To<JoinLobbyCommand>();
       commandBinder.Bind(LobbyEvent.QuitLobby).To<QuitFromLobbyCommand>();
       commandBinder.Bind(LobbyEvent.PlayerReady).To<PlayerReadyCommand>();
+      commandBinder.Bind(LobbyEvent.AddBot).To<AddBotCommand>();
       commandBinder.Bind(LobbyEvent.GameSettingsChanged).To<GameSettingsChangedCommand>();
 
       commandBinder.Bind(ServerToClientId.JoinedToLobby).To<JoinedToLobbyProcessor>();

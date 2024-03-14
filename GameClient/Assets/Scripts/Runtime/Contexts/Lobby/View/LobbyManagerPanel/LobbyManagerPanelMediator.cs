@@ -18,7 +18,8 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
 
     // Game Settings
     Save,
-    ChangedSettings
+    ChangedSettings,
+    AddBot
   }
 
   public class LobbyManagerPanelMediator : EventMediator
@@ -34,6 +35,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       view.dispatcher.AddListener(LobbyManagerPanelEvent.Ready, OnReady);
       view.dispatcher.AddListener(LobbyManagerPanelEvent.Back, OnBack);
       view.dispatcher.AddListener(LobbyManagerPanelEvent.Save, OnSave);
+      view.dispatcher.AddListener(LobbyManagerPanelEvent.AddBot, OnAddBot);
       view.dispatcher.AddListener(LobbyManagerPanelEvent.ChangedSettings, OnChangedSettings);
 
       dispatcher.AddListener(LobbyEvent.NewPlayerToLobby, OnNewPlayer);
@@ -42,6 +44,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       dispatcher.AddListener(LobbyEvent.GetGameSettings, OnGetSettings);
     }
     
+
     private void Start()
     {
       LobbyVo lobbyVo = lobbyModel.lobbyVo;
@@ -158,7 +161,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       view.changedSettings = true;
       view.saveButton.interactable = view.changedSettings;
     }
-
+    private void OnAddBot()
+    {
+      dispatcher.Dispatch(LobbyEvent.AddBot,lobbyModel.lobbyVo.lobbyCode);
+    }
     #endregion
     
     public override void OnRemove()

@@ -61,6 +61,10 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
         layoutGroup.childAlignment = TextAnchor.UpperCenter;
     }
 
+    public void OnAddBot()
+    {
+      dispatcher.Dispatch(LobbyManagerPanelEvent.AddBot);
+    }
     public void OnReady()
     {
       dispatcher.Dispatch(LobbyManagerPanelEvent.Ready);

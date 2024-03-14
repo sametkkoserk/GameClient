@@ -16,5 +16,6 @@ namespace Runtime.Contexts.Lobby.Enum
     PlayerReadyResponse,
     LoginOrRegisterCompletedSuccessfully,
     RefreshLobbyList,
+    AddBot
   }
 }

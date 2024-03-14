@@ -12,6 +12,7 @@ namespace Runtime.Contexts.Network.Enum
     JoinLobby,
     QuitFromLobby,
     
+    AddBot,
     PlayerReady,
     GameSettingsChanged,
     GameStart,
@@ -22,6 +23,6 @@ namespace Runtime.Contexts.Network.Enum
     ArmingToCity,
     Attack,
     Fortify,
-    ButtonClicked
+    ButtonClicked,
   }
 }
