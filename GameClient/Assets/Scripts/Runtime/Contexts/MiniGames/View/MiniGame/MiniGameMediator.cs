@@ -57,10 +57,14 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
         {
             stateVo = (MiniGameStateVo)payload.data;
             SetNewObjs();
-            SetObjs();
+            SetChangedObjs();
+            SetRemovedObjs();
+            SetNewTargets();
             SetPlayers();
 
         }
+
+
 
         private void SetPlayers()
         {
@@ -100,16 +104,21 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
 
         
 
-        private void SetObjs()
+        private void SetChangedObjs()
         {
-            //throw new NotImplementedException();
         }
 
         private void SetNewObjs()
         {
-            //throw new NotImplementedException();
+        }
+        
+        private void SetRemovedObjs()
+        {
         }
 
+        private void SetNewTargets()
+        {
+        }
 
 
 

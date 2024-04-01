@@ -42,6 +42,7 @@ namespace Runtime.Contexts.MainGame.Enum
     FortifyResult,
     ResetCityMode,
     
+    ToTheMiniGame,
     OpenMiniGameResultPanel,
   }
 }

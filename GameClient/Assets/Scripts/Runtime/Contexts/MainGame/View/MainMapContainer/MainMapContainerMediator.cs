@@ -20,6 +20,8 @@ namespace Runtime.Contexts.MainGame.View.MainMapContainer
       dispatcher.AddListener(MainGameEvent.CreateMap, OnCreateMap);
     }
 
+
+
     public void OnCreateMap()
     {
       Addressables.InstantiateAsync(MainGameKeys.MainMap, gameObject.transform);

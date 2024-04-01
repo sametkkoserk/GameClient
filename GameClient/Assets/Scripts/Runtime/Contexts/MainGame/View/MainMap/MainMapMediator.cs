@@ -25,13 +25,14 @@ namespace Runtime.Contexts.MainGame.View.MainMap
     public override void OnRegister()
     {
       dispatcher.AddListener(MainGameEvent.MapGenerator, OnMapGenerator);
+      
     }
     
     private void Start()
     {
       dispatcher.Dispatch(MainGameEvent.SceneReady);
     }
-    
+
     private void OnMapGenerator()
     {
       for (int i = 0; i < mainGameModel.cities.Count; i++)
