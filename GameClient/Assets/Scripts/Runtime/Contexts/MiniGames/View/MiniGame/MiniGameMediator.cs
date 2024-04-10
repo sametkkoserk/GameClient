@@ -32,11 +32,6 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
         public Dictionary<ushort, GameObject> players=new Dictionary<ushort, GameObject>();
         private MiniGameStateVo stateVo;
 
-        private void Start()
-        {
-            //throw new NotImplementedException();
-        }
-
 
         public override void OnRegister()
         {
@@ -44,6 +39,14 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
             view.dispatcher.AddListener(MiniGameEvent.ButtonClicked,OnButtonClick);
 
             dispatcher.AddListener(MiniGamesEvent.StateReceived,OnStateReceived);
+            dispatcher.AddListener(MiniGamesEvent.MapReceived,OnMapReceived);
+
+        }
+
+        private void OnMapReceived(IEvent payload)
+        {
+            MiniGameMapGenerationVo vo = (MiniGameMapGenerationVo)payload.data;
+            view.mapGenerator.SetMap(vo);
         }
 
         private void OnButtonClick(IEvent payload)
@@ -63,8 +66,6 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
             SetPlayers();
 
         }
-
-
 
         private void SetPlayers()
         {
@@ -128,6 +129,7 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
             view.dispatcher.RemoveListener(MiniGameEvent.ButtonClicked,OnButtonClick);
 
             dispatcher.RemoveListener(MiniGamesEvent.StateReceived,OnStateReceived);
+            dispatcher.RemoveListener(MiniGamesEvent.MapReceived,OnMapReceived);
 
         }
     }

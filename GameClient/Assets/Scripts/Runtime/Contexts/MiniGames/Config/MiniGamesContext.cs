@@ -39,6 +39,8 @@ namespace Runtime.Contexts.MiniGames.Config
       commandBinder.Bind(ServerToClientId.MiniGameCreated).To<OnMiniGameCreateProcessor>();
       commandBinder.Bind(ServerToClientId.SendMiniGameState).To<OnMiniGameStateProcessor>();
       commandBinder.Bind(ServerToClientId.MiniGameEnded).To<OnMiniGameEndedProcessor>();
+      commandBinder.Bind(ServerToClientId.SendMiniGameMap).To<OnMiniGameMapProcessor>();
+
 
     }
   }

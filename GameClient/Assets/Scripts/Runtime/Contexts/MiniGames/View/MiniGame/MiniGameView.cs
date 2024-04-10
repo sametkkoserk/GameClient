@@ -17,6 +17,8 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
 
         public ClickedButtonsVo clickedButtonsVo = new ClickedButtonsVo();
 
+        public MapGenerator mapGenerator;
+
         protected override void Start()
         {
             base.Start();
