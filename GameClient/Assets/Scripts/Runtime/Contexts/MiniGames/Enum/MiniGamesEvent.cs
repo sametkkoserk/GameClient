@@ -5,6 +5,7 @@ namespace Runtime.Contexts.MiniGames.Enum
         OnCreateMiniGame,
         ButtonClicked,
         StateReceived,
-        MapReceived
+        MapReceived,
+        SceneReady
     }
 }

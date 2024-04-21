@@ -1,3 +1,4 @@
+using System;
 using Runtime.Contexts.MiniGames.Enum;
 using Runtime.Contexts.MiniGames.View.MiniGame;
 using Runtime.Contexts.MiniGames.Vo;
@@ -20,6 +21,11 @@ namespace Runtime.Contexts.MiniGames.View.MiniGameContainer
             base.OnRegister();
             
             dispatcher.AddListener(MiniGamesEvent.OnCreateMiniGame,OnCreateMiniGame);
+        }
+
+        private void Start()
+        {
+            dispatcher.Dispatch(MiniGamesEvent.SceneReady);
         }
 
         private void OnCreateMiniGame(IEvent payload)

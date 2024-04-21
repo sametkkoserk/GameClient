@@ -24,5 +24,6 @@ namespace Runtime.Contexts.Network.Enum
     Attack,
     Fortify,
     ButtonClicked,
+    MiniGameSceneReady
   }
 }

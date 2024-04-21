@@ -35,6 +35,7 @@ namespace Runtime.Contexts.MiniGames.Config
       mediationBinder.Bind<GameSelectionPanelView>().To<GameSelectionPanelMediator>();
       
       commandBinder.Bind(MiniGamesEvent.ButtonClicked).To<ButtonClickedCommand>();
+      commandBinder.Bind(MiniGamesEvent.SceneReady).To<SceneReadyCommand>();
 
       commandBinder.Bind(ServerToClientId.MiniGameCreated).To<OnMiniGameCreateProcessor>();
       commandBinder.Bind(ServerToClientId.SendMiniGameState).To<OnMiniGameStateProcessor>();
