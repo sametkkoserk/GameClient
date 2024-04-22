@@ -1,8 +1,6 @@
-using System;
 using EnhancedUI.EnhancedScroller;
 using Runtime.Contexts.Lobby.Vo;
 using TMPro;
-using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 

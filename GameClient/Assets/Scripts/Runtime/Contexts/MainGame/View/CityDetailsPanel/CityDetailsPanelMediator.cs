@@ -97,28 +97,43 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
       if (mainGameModel.gameStateKey == GameStateKey.ClaimCity)
       {
-        view.operationButtonText.text = "Claim City";
+        if (IsCityNeutral(cityVo.ownerID) && IsTurnMine())
+        {
+          view.operationButtonText.text = "Claim City";
 
-        view.operationButton.interactable = cityVo.ownerID == 0 && SetActiveButton();
+          view.operationButton.interactable = true;
+        }
+        else if (IsCityMine(cityVo.ownerID) && IsTurnMine())
+        {
+          view.operationButtonText.text = "Support";
+          
+          view.operationButton.interactable = true;
+        }
+        else
+        {
+          view.operationButtonText.text = "Claim City";
+          
+          view.operationButton.interactable = false;
+        }
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Arming)
       {
         view.operationButtonText.text = "Arming";
 
         view.operationButton.interactable =
-          cityVo.ownerID == mainGameModel.clientVo.id && mainGameModel.playerFeaturesVo.freeSoldierCount > 0 && SetActiveButton();
+          cityVo.ownerID == mainGameModel.clientVo.id && mainGameModel.playerFeaturesVo.freeSoldierCount > 0 && IsTurnMine();
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Attack)
       {
         view.operationButtonText.text = "Attack";
 
-        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && SetActiveButton();
+        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && IsTurnMine();
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Fortify)
       {
         view.operationButtonText.text = "Fortify";
 
-        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && SetActiveButton();
+        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && IsTurnMine();
       }
       
       if (cityVo.ownerID == 0)
@@ -139,7 +154,18 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     private void OnClaimCity()
     {
-      dispatcher.Dispatch(MainGameEvent.ShowSelectorPartInBottomPanel);
+      if (!IsTurnMine()) return;
+      
+      PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
+      if (playerFeaturesVo.freeSoldierCount <= 0) return;
+      
+      ClaimCityVo claimCityVo = new()
+      {
+        cityId = mainGameModel.selectedCityId,
+        soldierCount = 1
+      };
+        
+      dispatcher.Dispatch(MainGameEvent.ClaimCity, claimCityVo);
     }
 
     private void OnArmingCity()
@@ -180,9 +206,19 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
       OnClose();
     }
 
-    private bool SetActiveButton()
+    private bool IsTurnMine()
     {
       return mainGameModel.queueID == lobbyModel.clientVo.id;
+    }
+
+    private bool IsCityMine(int ownerId)
+    {
+      return ownerId == lobbyModel.clientVo.id;
+    }
+
+    private bool IsCityNeutral(int ownerId)
+    {
+      return ownerId == 0;
     }
 
     private void OnClose()

@@ -93,10 +93,9 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     {
       switch (mainGameModel.gameStateKey)
       {
-        case GameStateKey.ClaimCity:
         case GameStateKey.Arming:
           PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
-        
+
           if (playerFeaturesVo.freeSoldierCount <= 0 && mainGameModel.cities[mainGameModel.selectedCityId].ownerID != mainGameModel.clientVo.id)
             return;
           
@@ -107,7 +106,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.passButtonPart.SetActive(false);
       view.soldierSelector.SetActive(true);
 
-      view.soldierCountInPanel = 0;
+      view.soldierCountInPanel = 1;
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
 
@@ -151,17 +150,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
     private void OnConfirm()
     {
-      if (mainGameModel.gameStateKey == GameStateKey.ClaimCity)
-      {
-        ClaimCityVo claimCityVo = new()
-        {
-          cityId = mainGameModel.selectedCityId,
-          soldierCount = view.soldierCountInPanel
-        };
-        
-        dispatcher.Dispatch(MainGameEvent.ClaimCity, claimCityVo);
-      }
-      else if (mainGameModel.gameStateKey == GameStateKey.Arming)
+      if (mainGameModel.gameStateKey == GameStateKey.Arming)
       {
         OnConfirmArming();
       }
@@ -208,7 +197,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.soldierCountInPanel++;
 
       if (view.soldierCountInPanel > view.maxSoldierCount)
-        view.soldierCountInPanel = 0;
+        view.soldierCountInPanel = 1;
 
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
@@ -217,7 +206,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     {
       view.soldierCountInPanel--;
 
-      if (view.soldierCountInPanel < 0)
+      if (view.soldierCountInPanel < 1)
         view.soldierCountInPanel = view.maxSoldierCount;
 
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
