@@ -1,5 +1,6 @@
 using Riptide;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
+using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.Main.Model.PlayerModel;
 using Runtime.Contexts.MainGame.Vo;
 using Runtime.Contexts.Network.Enum;
@@ -26,9 +27,8 @@ namespace Runtime.Contexts.MainGame.Command
 
     public override void Execute()
     {
-      GameStartVo vo = new()
+      ReadyVo vo = new()
       {
-        gameStart = true,
         lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
       

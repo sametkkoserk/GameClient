@@ -1,5 +1,6 @@
 using Riptide;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
+using Runtime.Contexts.Lobby.Vo;
 using Runtime.Contexts.MainGame.Vo;
 using Runtime.Contexts.Network.Enum;
 using Runtime.Contexts.Network.Services.NetworkManager;
@@ -16,7 +17,7 @@ namespace Runtime.Contexts.MainGame.Command
     public ILobbyModel lobbyModel { get; set; }
     public override void Execute()
     {
-      SceneReadyVo vo = new()
+      ReadyVo vo = new()
       {
         lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };

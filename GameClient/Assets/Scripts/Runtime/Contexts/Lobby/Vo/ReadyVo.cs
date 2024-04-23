@@ -1,9 +1,10 @@
 using ProtoBuf;
+using Runtime.Contexts.Network.Vo;
 
-namespace Runtime.Contexts.MainGame.Vo
+namespace Runtime.Contexts.Lobby.Vo
 {
   [ProtoContract]
-  public class SceneReadyVo
+  public class ReadyVo
   {
     [ProtoMember(1)]
     public string lobbyCode;

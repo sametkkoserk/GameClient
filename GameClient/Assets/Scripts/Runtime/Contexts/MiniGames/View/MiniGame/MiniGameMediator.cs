@@ -43,6 +43,11 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
 
         }
 
+        private void Start()
+        {
+            dispatcher.Dispatch(MiniGamesEvent.MiniGameCreated);
+        }
+
         private void OnMapReceived(IEvent payload)
         {
             MiniGameMapGenerationVo vo = (MiniGameMapGenerationVo)payload.data;

@@ -11,7 +11,7 @@ using StrangeIoC.scripts.strange.extensions.injector;
 
 namespace Runtime.Contexts.MiniGames.Command
 {
-    public class SceneReadyCommand : EventCommand
+    public class MiniGameCreatedCommand : EventCommand
     {
         [Inject] public INetworkManagerService networkManager { get; set; }
         [Inject] public ILobbyModel lobbyModel { get; set; }
@@ -24,7 +24,7 @@ namespace Runtime.Contexts.MiniGames.Command
                 lobbyCode = lobbyModel.lobbyVo.lobbyCode
             };
             
-            Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.MiniGameSceneReady);
+            Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.MiniGameCreated);
             message = networkManager.SetData(message, vo);
             networkManager.Client.Send(message);
 

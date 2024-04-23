@@ -19,7 +19,7 @@ namespace Runtime.Contexts.Lobby.View.LobbyManagerPanel
       userNameText.text = clientVo.userName;
       colorImage.color = clientVo.playerColor.ToColor();
 
-      readyObj.SetActive(clientVo.ready);
+      readyObj.SetActive(clientVo.state==(ushort)ClientState.LobbyReady);
       
       userNameText.color = isMe ? Color.green : Color.white;
       userNameText.fontStyle = isMe ? FontStyles.Bold : FontStyles.Normal;
