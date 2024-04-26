@@ -17,6 +17,10 @@ namespace Runtime.Contexts.MiniGames.Vo
         [ProtoMember(3)]
         public List<QuaternionVo> rotations;
         
-
+        [ProtoMember(4)]
+        public List<Vector3Vo> checkPointsPos;
+        
+        [ProtoMember(5)]
+        public List<QuaternionVo> checkPointsRot;
     }
 }

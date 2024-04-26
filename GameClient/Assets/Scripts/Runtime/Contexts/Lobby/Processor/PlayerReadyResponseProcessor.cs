@@ -35,7 +35,7 @@ namespace Runtime.Contexts.Lobby.Processor
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       
-      PlayerReadyResponseVo playerReadyResponseVo = networkManager.GetData<PlayerReadyResponseVo>(vo.message);
+      PlayerReadyVo playerReadyResponseVo = networkManager.GetData<PlayerReadyVo>(vo.message);
 
       if (lobbyModel.lobbyVo.lobbyCode != playerReadyResponseVo.lobbyCode)
         return;

@@ -35,8 +35,6 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
             clickedButtonsVo.lobbyCode = lobbyModel.lobbyVo.lobbyCode;
 
             SetInputActionListeners();
-
-
         }
 
         private void SetInputActionListeners()
@@ -57,6 +55,7 @@ namespace Runtime.Contexts.MiniGames.View.MiniGame
 
         private void OnAnyButtonClicked(InputAction.CallbackContext obj)
         {
+            
             Debug.Log("PlayerActionGot: "+obj.action.name+obj.ReadValue<float>());
             if (obj.action.name=="horizontal")
             {
