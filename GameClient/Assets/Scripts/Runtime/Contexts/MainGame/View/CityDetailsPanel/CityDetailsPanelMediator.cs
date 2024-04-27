@@ -99,7 +99,7 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
       {
         if (IsCityNeutral(cityVo.ownerID) && IsTurnMine())
         {
-          view.operationButtonText.text = "Claim City";
+          view.operationButtonText.text = "Claim";
 
           view.operationButton.interactable = true;
         }
@@ -111,7 +111,7 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
         }
         else
         {
-          view.operationButtonText.text = "Claim City";
+          view.operationButtonText.text = "Claim";
           
           view.operationButton.interactable = false;
         }
@@ -127,13 +127,13 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
       {
         view.operationButtonText.text = "Attack";
 
-        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && IsTurnMine();
+        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && IsTurnMine() && cityVo.soldierCount > 1;
       }
       else if (mainGameModel.gameStateKey == GameStateKey.Fortify)
       {
         view.operationButtonText.text = "Fortify";
 
-        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && IsTurnMine();
+        view.operationButton.interactable = cityVo.ownerID == mainGameModel.clientVo.id && IsTurnMine() && cityVo.soldierCount > 1;
       }
       
       if (cityVo.ownerID == 0)
@@ -170,6 +170,8 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     private void OnArmingCity()
     {
+      if (!IsTurnMine()) return;
+      
       dispatcher.Dispatch(MainGameEvent.ShowSelectorPartInBottomPanel);
     }
 
