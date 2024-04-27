@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
 using Runtime.Contexts.MainGame.Enum;
@@ -15,7 +14,8 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     Pass,
     Increment,
     Decrement,
-    Confirm
+    Confirm,
+    CloseSoldierSelectorPanel
   }
   public class MiniBottomPanelMediator : EventMediator
   {
@@ -34,6 +34,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.dispatcher.AddListener(MiniBottomPanelEvent.Increment, OnIncrement);
       view.dispatcher.AddListener(MiniBottomPanelEvent.Decrement, OnDecrement);
       view.dispatcher.AddListener(MiniBottomPanelEvent.Confirm, OnConfirm);
+      view.dispatcher.AddListener(MiniBottomPanelEvent.CloseSoldierSelectorPanel, OnCloseSoldierSelectorPanel);
       
       dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
       dispatcher.AddListener(MainGameEvent.GameStateChanged, OnGameStateChanged);
@@ -57,8 +58,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
       view.passButton.interactable = mainHudTurnVo.id == lobbyModel.clientVo.id;
 
-      for (int i = 0; i < view.banners.Length; i++)
-        view.banners[i].color = mainHudTurnVo.color.ToColor();
+      view.backgroundColor.color = mainHudTurnVo.color.ToColor();
 
       view.playerName.text = lobbyModel.lobbyVo.clients[mainHudTurnVo.id].userName;
       view.stateText.text = mainGameModel.gameStateKey.ToString();
@@ -128,7 +128,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       
       OnOpenSoldierCountSelector();
 
-      view.soldierCountInPanel = 0;
+      view.soldierCountInPanel = 1;
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
     
@@ -211,6 +211,11 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
+
+    private void OnCloseSoldierSelectorPanel()
+    {
+      OnOpenPassPart();
+    }
     
     public override void OnRemove()
     {
@@ -218,6 +223,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.dispatcher.RemoveListener(MiniBottomPanelEvent.Increment, OnIncrement);
       view.dispatcher.RemoveListener(MiniBottomPanelEvent.Decrement, OnDecrement);
       view.dispatcher.RemoveListener(MiniBottomPanelEvent.Confirm, OnConfirm);
+      view.dispatcher.RemoveListener(MiniBottomPanelEvent.CloseSoldierSelectorPanel, OnCloseSoldierSelectorPanel);
 
       dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
       dispatcher.RemoveListener(MainGameEvent.ShowPassPartInBottomPanel, OnOpenPassPart);

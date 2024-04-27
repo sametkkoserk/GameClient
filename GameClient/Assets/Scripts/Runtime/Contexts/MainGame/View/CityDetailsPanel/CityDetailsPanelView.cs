@@ -24,9 +24,6 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     public TextMeshProUGUI soldierCountText;
     
     [HideInInspector]
-    public int armingCount;
-
-    [HideInInspector]
     public bool closing;
 
     public void OnDoOperation()

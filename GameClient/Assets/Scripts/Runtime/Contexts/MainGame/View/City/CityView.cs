@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Runtime.Contexts.MainGame.Enum;
 using Runtime.Contexts.MainGame.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
@@ -20,9 +19,20 @@ namespace Runtime.Contexts.MainGame.View.City
 
     public CityVo cityVo;
 
-    private bool isClickable = true;
+    public Outline outline;
 
-    private CityModeKey _cityModeKey = CityModeKey.None;
+    private bool isClickable = true;
+    
+    public enum CityMode
+    {
+      None,
+      Highlighted,
+      Selected,
+      Source,
+      Target,
+    }
+
+    private CityMode cityMode = CityMode.None;
 
     public void Init(CityVo _cityVo)
     {
@@ -46,6 +56,23 @@ namespace Runtime.Contexts.MainGame.View.City
 
       material.color = color;
       meshRenderer.material = material;
+    }
+
+    public void SetOutlineColor()
+    {
+      if (cityMode == CityMode.None)
+      {
+        outline.enabled = false;
+        outline.OutlineColor = Color.white;
+      }
+      else if (cityMode == CityMode.Source)
+      {
+        outline.OutlineColor = Color.green;
+      }
+      else if (cityMode == CityMode.Target)
+      {
+        outline.OutlineColor = Color.red;
+      }
     }
     
     public void OnPointerClick(PointerEventData eventData)
@@ -82,14 +109,14 @@ namespace Runtime.Contexts.MainGame.View.City
       isClickable = value;
     }
     
-    public CityModeKey GetCityModeKey()
+    public CityMode GetCityMode()
     {
-      return _cityModeKey;
+      return cityMode;
     }
 
-    public void SetCityModeKey(CityModeKey value)
+    public void SetCityMode(CityMode value)
     {
-      _cityModeKey = value;
+      cityMode = value;
     }
   }
 }

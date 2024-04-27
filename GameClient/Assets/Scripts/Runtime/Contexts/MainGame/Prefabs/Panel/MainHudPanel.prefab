@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 0
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
+  m_sharedMaterial: {fileID: 2164040, guid: 5302535af1044152a457ed104f1f4b91, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 4096
   m_textAlignment: 65535
@@ -465,10 +465,6 @@ MonoBehaviour:
   playerListItem: {fileID: 8818402190558868776, guid: fd13aa797df347c46a207bd26bf90b58, type: 3}
   playerListContainer: {fileID: 8264820381328432632}
   showHidePlayerListButtonIcon: {fileID: 8663834723870182441}
-  miniCityInfoPanel: {fileID: 0}
-  ownerColorImage: {fileID: 0}
-  ownerNameText: {fileID: 0}
-  soldierCountText: {fileID: 0}
   totalTime: 10
   showPlayerList: 1
 --- !u!1 &8818402192425285092

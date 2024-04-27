@@ -11,7 +11,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     [Header("Mini Info Part")]
     public GameObject passButtonPart;
 
-    public Image[] banners;
+    public Image backgroundColor;
 
     public TextMeshProUGUI playerName;
 
@@ -53,6 +53,11 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
     public void OnConfirm()
     {
       dispatcher.Dispatch(MiniBottomPanelEvent.Confirm);
+    }
+
+    public void OnCloseSoldierSelectorPanel()
+    {
+      dispatcher.Dispatch(MiniBottomPanelEvent.CloseSoldierSelectorPanel);
     }
   }
 }

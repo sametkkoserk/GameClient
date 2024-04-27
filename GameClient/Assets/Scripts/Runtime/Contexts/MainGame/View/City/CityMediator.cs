@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Runtime.Contexts.Lobby.Model.LobbyModel;
@@ -12,7 +11,6 @@ using Runtime.Modules.Core.ScreenManager.Model.ScreenManagerModel;
 using StrangeIoC.scripts.strange.extensions.dispatcher.eventdispatcher.api;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEngine;
 
 namespace Runtime.Contexts.MainGame.View.City
 {
@@ -54,6 +52,12 @@ namespace Runtime.Contexts.MainGame.View.City
       dispatcher.AddListener(MainGameEvent.AttackResult, OnAttackResult);
       dispatcher.AddListener(MainGameEvent.Fortify, OnFortify);
       dispatcher.AddListener(MainGameEvent.FortifyResult, OnFortifyResult);
+      dispatcher.AddListener(MainGameEvent.OutlineSettings, OnSetOutlines);
+    }
+
+    private void Start()
+    {
+      view.outline.enabled = false;
     }
 
     private void OnUpdateCity()
@@ -68,6 +72,7 @@ namespace Runtime.Contexts.MainGame.View.City
         
         return;
       }
+      
       view.soldierCountText.text = view.cityVo.soldierCount.ToString();
 
       if (mainGameModel.selectedCityId == view.cityVo.ID)
@@ -79,114 +84,81 @@ namespace Runtime.Contexts.MainGame.View.City
 
     public void OnClick()
     {
-      if (!CheckingRequirementToClick())
+      if (!view.GetClickable())
         return;
 
-      if (view.GetCityModeKey() == CityModeKey.Attacker)
+      if (view.GetCityMode() == CityView.CityMode.None)
       {
-        dispatcher.Dispatch(MainGameEvent.ResetCityMode);
-      }
-      else if (view.GetCityModeKey() == CityModeKey.AttackTarget)
-      {
-        AttackVo attackVo = new()
-        {
-          attackerCityID = mainGameModel.selectedCityId,
-          defenderCityID = view.cityVo.ID
-        };
-        
-        dispatcher.Dispatch(MainGameEvent.ConfirmAttack, attackVo);
-        dispatcher.Dispatch(MainGameEvent.ResetCityMode);
-      }
-      else if (view.GetCityModeKey() == CityModeKey.FortifySource)
-      {
-        dispatcher.Dispatch(MainGameEvent.ResetCityMode);
-      }
-      else if (view.GetCityModeKey() == CityModeKey.FortifyTarget)
-      {
-        FortifyVo fortifyVo = new()
-        {
-          sourceCityId = mainGameModel.selectedCityId,
-          targetCityId = view.cityVo.ID
-        };
-        dispatcher.Dispatch(MainGameEvent.SetTransferSoldierForFortify, fortifyVo);
-        dispatcher.Dispatch(MainGameEvent.ResetCityMode);
-      }
-      else if (view.GetCityModeKey() == CityModeKey.None)
-      {
-        if (view.cityVo.ID == mainGameModel.selectedCityId)
-        {
-          Highlight(0);
-          mainGameModel.selectedCityId = -1;
-          return;
-        }
-        
-        Highlight(0.125f, CursorKey.Click);
+        view.SetCityMode(CityView.CityMode.Selected);
         mainGameModel.selectedCityId = view.cityVo.ID;
+        
         screenManagerModel.OpenPanel(MainGameKeys.CityDetailsPanel, SceneKey.MainGame, LayerKey.ThirdLayer, PanelMode.Destroy, PanelType.LeftPanel);
       }
-    }
-
-    private IEnumerator WaitClosingPanel()
-    {
-      yield return new WaitForSeconds(0.2f);
-      
-      Highlight(0.125f, CursorKey.Click);
+      else if (view.GetCityMode() == CityView.CityMode.Selected && view.cityVo.ID == mainGameModel.selectedCityId)
+      {
+        view.SetCityMode(CityView.CityMode.None);
+        mainGameModel.selectedCityId = -1;
+      }
+      else if (view.GetCityMode() == CityView.CityMode.Source)
+      {
+        dispatcher.Dispatch(MainGameEvent.ResetCityMode);
+      }
+      else if (view.GetCityMode() == CityView.CityMode.Target)
+      {
+        if (mainGameModel.gameStateKey == GameStateKey.Attack)
+        {
+          AttackVo attackVo = new()
+          {
+            attackerCityID = mainGameModel.selectedCityId,
+            defenderCityID = view.cityVo.ID
+          };
+        
+          dispatcher.Dispatch(MainGameEvent.ConfirmAttack, attackVo);
+          dispatcher.Dispatch(MainGameEvent.ResetCityMode);
+        }
+        else if (mainGameModel.gameStateKey == GameStateKey.Fortify)
+        {
+          FortifyVo fortifyVo = new()
+          {
+            sourceCityId = mainGameModel.selectedCityId,
+            targetCityId = view.cityVo.ID
+          };
+          dispatcher.Dispatch(MainGameEvent.SetTransferSoldierForFortify, fortifyVo);
+          dispatcher.Dispatch(MainGameEvent.ResetCityMode);
+        }
+      }
     }
 
     private void OnPointerEnter()
     {
-      if (!CheckingRequirementToClick())
+      if (!view.GetClickable())
         return;
 
-      if (view.GetCityModeKey() == CityModeKey.Attacker || view.GetCityModeKey() == CityModeKey.AttackTarget ||
-          view.GetCityModeKey() == CityModeKey.FortifySource || view.GetCityModeKey() == CityModeKey.FortifyTarget)
-      {
-        CursorModel.instance.OnChangeCursor(CursorKey.Click);
-
-        return;
-      }
-      
-      Highlight(0.125f, CursorKey.Click);
-
-      // dispatcher.Dispatch(MainGameEvent.ShowCityMiniInfoPanel, view.cityVo);
+      dispatcher.Dispatch(MainGameEvent.OutlineSettings, view.cityVo.ID);
+      CursorModel.instance.OnChangeCursor(CursorKey.Click);
     }
 
     private void OnPointerExit()
     {
-      if (!CheckingRequirementToClick())
+      if (!view.GetClickable())
         return;
       
-      // dispatcher.Dispatch(MainGameEvent.HideCityMiniInfoPanel);
       CursorModel.instance.OnChangeCursor(CursorKey.Default);
-
-      if (mainGameModel.selectedCityId == view.cityVo.ID)
-        return;
-
-      if (view.GetCityModeKey() == CityModeKey.Attacker || view.GetCityModeKey() == CityModeKey.AttackTarget ||
-          view.GetCityModeKey() == CityModeKey.FortifySource || view.GetCityModeKey() == CityModeKey.FortifyTarget)
-        return;
-      
-      Highlight(0f);
+      view.outline.enabled = false;
     }
 
-    private void Highlight(float endValue, CursorKey cursorKey = CursorKey.Default)
+    private const float highlightHeightValue = 0.15f;
+    private void Highlight(float value = highlightHeightValue)
     {
-      transform.DOMoveY(endValue, 0.5f);
-      CursorModel.instance.OnChangeCursor(cursorKey);
+      transform.DOMoveY(value, 0.5f);
     }
 
     private void CityDetailsClosed()
     {
-      if (mainGameModel.selectedCityId == view.cityVo.ID)
-        return;
-
-      if (view.GetCityModeKey() == CityModeKey.None) 
-        Highlight(0);
-    }
-
-    private bool CheckingRequirementToClick()
-    {
-      return view.GetClickable();
+      if (mainGameModel.selectedCityId == view.cityVo.ID && view.GetCityMode() == CityView.CityMode.Selected)
+      {
+        view.SetCityMode(CityView.CityMode.None);
+      }
     }
 
     public void OnClaimedCity(IEvent payload)
@@ -202,86 +174,78 @@ namespace Runtime.Contexts.MainGame.View.City
     private void OnSelectCityToAttack(IEvent payload)
     {
       CityVo cityVo = (CityVo) payload.data;
-
+    
       view.SetClickable(false);
-      view.SetCityModeKey(CityModeKey.None);
-
+      view.SetCityMode(CityView.CityMode.None);
+    
       if (!view.cityVo.isPlayable)
         return;
-
+    
       if (cityVo.ID == view.cityVo.ID)
       {
-        view.SetCityModeKey(CityModeKey.Attacker);
-        view.SetClickable(true);
-        Highlight(0.175f);
+        SourceTargetShortCut(CityView.CityMode.Source, true);
         return;
       }
       
       if (cityVo.ownerID == view.cityVo.ownerID)
         return;
-
+    
       if (!cityVo.neighbors.Contains(view.cityVo.ID))
         return;
-
-      view.SetCityModeKey(CityModeKey.AttackTarget);
-      view.SetClickable(true);
-      Highlight(0.125f);
+    
+      SourceTargetShortCut(CityView.CityMode.Target, true);
     }
-
+    
     private void OnAttackResult(IEvent payload)
     {
       AttackResultVo attackResultVo = (AttackResultVo)payload.data;
-
+    
       if (view.cityVo.ID != attackResultVo.winnerCity.ID && view.cityVo.ID != attackResultVo.loserCity.ID)
         return;
-
+    
       if (attackResultVo.winnerCity.ID == view.cityVo.ID)
       {
         CityVo winnerCity = attackResultVo.winnerCity;
-
+    
         if (winnerCity.ID != view.cityVo.ID)
           return;
-
+    
         view.cityVo = mainGameModel.cities[winnerCity.ID];
       }
       else if (attackResultVo.loserCity.ID == view.cityVo.ID)
       {
         CityVo loserCity = attackResultVo.loserCity;
-
+    
         if (loserCity.ID != view.cityVo.ID)
           return;
-
+    
         view.ChangeOwner(loserCity, lobbyModel.lobbyVo.clients[loserCity.ownerID].playerColor.ToColor());
       }
-
+    
       if (attackResultVo.isConquered)
         dispatcher.Dispatch(MainGameEvent.SetTransferSoldierAfterAttack, attackResultVo);
     }
-
+    
     private void OnFortify(IEvent payload)
     {
       KeyValuePair<int, List<int>> neighbors = (KeyValuePair<int, List<int>>)payload.data;
-
+    
       view.SetClickable(false);
-      view.SetCityModeKey(CityModeKey.None);
-
+      view.SetCityMode(CityView.CityMode.None);
+    
       if (neighbors.Key == view.cityVo.ID)
       {
-        Highlight(0.175f);
-        view.SetClickable(true);
-        view.SetCityModeKey(CityModeKey.FortifySource);
+        SourceTargetShortCut(CityView.CityMode.Source, true);
         return;
       }
-
+    
       if (!neighbors.Value.Contains(view.cityVo.ID))
       {
         view.SetClickable(false);
         return;
       }
       
-      view.SetClickable(true);
-      view.SetCityModeKey(CityModeKey.FortifyTarget);
-      Highlight(0.125f);
+      SourceTargetShortCut(CityView.CityMode.Target, true);
     }
 
     private void OnFortifyResult(IEvent payload)
@@ -310,12 +274,31 @@ namespace Runtime.Contexts.MainGame.View.City
         view.cityVo = mainGameModel.cities[targetCity.ID];
       }
     }
+
+    private void SourceTargetShortCut(CityView.CityMode cityMode, bool isClickable, float highlightValue = highlightHeightValue)
+    {
+      view.SetCityMode(cityMode);
+      view.SetClickable(isClickable);
+      Highlight(highlightValue);
+      view.SetOutlineColor();
+    }
+      
+    private void OnSetOutlines(IEvent payload)
+    {
+      int id = (int)payload.data;
+
+      if (id == view.cityVo.ID)
+      {
+        view.outline.enabled = true;
+        return;
+      }
+
+      view.outline.enabled = false;
+    }
     
     private void OnResetCityMode()
     {
-      view.SetCityModeKey(CityModeKey.None);
-      view.SetClickable(true);
-      Highlight(0);
+      SourceTargetShortCut(CityView.CityMode.None, true, 0);
     }
 
     public override void OnRemove()
@@ -334,6 +317,7 @@ namespace Runtime.Contexts.MainGame.View.City
       dispatcher.RemoveListener(MainGameEvent.AttackResult, OnAttackResult);
       dispatcher.RemoveListener(MainGameEvent.Fortify, OnFortify);
       dispatcher.RemoveListener(MainGameEvent.FortifyResult, OnFortifyResult);
+      dispatcher.RemoveListener(MainGameEvent.OutlineSettings, OnSetOutlines);
     }
   }
 }
