@@ -80,7 +80,6 @@ MonoBehaviour:
   - {fileID: 789641270075762535, guid: 14b4a0ef1b7c9b14484dd3008563fe41, type: 3}
   - {fileID: 3488098136379970991, guid: 4cd953081e9aef64ba771277e6328d1e, type: 3}
   - {fileID: -1561084764734125659, guid: 1a0817f0182b859409812f21a539fd2c, type: 3}
-  - {fileID: 5847474486884141944, guid: 397a644e6d5c541488df410e4665115a, type: 3}
   - {fileID: 2480668081125443950, guid: 57ee374d1063839498c24879be7cd983, type: 3}
   - {fileID: 7423838464866495502, guid: 7431c5f5f14626c48a5ff6464474da27, type: 3}
   - {fileID: 5487065730232442099, guid: 7cc747f25798c6f4ba98a39238cfe39b, type: 3}
@@ -88,6 +87,7 @@ MonoBehaviour:
   roadItems: []
   startObject: {fileID: 1961043543177054, guid: 49f93580b01cd6d42a49118085a61326, type: 3}
   endObject: {fileID: 1075903804639242, guid: 61f369d291c1c6741b20eb24575fd5f0, type: 3}
+  planeObject: {fileID: 6829664910859032415, guid: 4c6ff3d7e9ddc4e4189eccb250409ec6, type: 3}
 --- !u!1 &5641588020552500749
 GameObject:
   m_ObjectHideFlags: 0

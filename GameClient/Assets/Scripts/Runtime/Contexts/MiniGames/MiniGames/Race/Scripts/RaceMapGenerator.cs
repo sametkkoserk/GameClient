@@ -15,6 +15,8 @@ public class RaceMapGenerator : MapGenerator
     public List<RaceRoadItem> roadItems = new();
     public GameObject startObject;
     public GameObject endObject;
+    public GameObject planeObject;
+
     public override void SetMap(MiniGameMapGenerationVo miniGameMapGenerationVo)
     {
         SeperateRoads();
@@ -49,6 +51,10 @@ public class RaceMapGenerator : MapGenerator
             RaceRoadItem roadItem = newRoad.GetComponent<RaceRoadItem>();
             roadItems.Add(roadItem);
         }
+        
+        GameObject plane = Instantiate(planeObject, new Vector3(0, 2000, 0),
+            Quaternion.identity, transform);
+        plane.GetComponent<Transform>().position = vo.staticMapPos.ToVector3();
     }
     
 }
