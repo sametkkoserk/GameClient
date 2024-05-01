@@ -42,7 +42,7 @@ namespace Runtime.Contexts.Lobby.Processor
         
         screenManagerModel.OpenPanel(LobbyKey.JoinLobbyPanel, SceneKey.Lobby, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
         
-        discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
+        discordModel.OnMenu(playerModel.player.username);
         
         DebugX.Log(DebugKey.Response,"This client left the lobby.");
       }
@@ -50,7 +50,7 @@ namespace Runtime.Contexts.Lobby.Processor
       {
         dispatcher.Dispatch(LobbyEvent.PlayerIsOut, quitFromLobbyVo);
         
-        discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
+        discordModel.InLobby(playerModel.player.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
         
         DebugX.Log(DebugKey.Response,"A person left the lobby.");
       }

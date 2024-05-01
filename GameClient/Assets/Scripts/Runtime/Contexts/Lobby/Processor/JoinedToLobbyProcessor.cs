@@ -43,7 +43,7 @@ namespace Runtime.Contexts.Lobby.Processor
       
       DebugX.Log(DebugKey.Response,"Joined To Lobby message Received");
 
-      discordModel.InLobby(playerModel.playerRegisterInfoVo.username, joinedToLobbyVo.lobbyVo.playerCount, joinedToLobbyVo.lobbyVo.maxPlayerCount);
+      discordModel.InLobby(playerModel.player.username, joinedToLobbyVo.lobbyVo.playerCount, joinedToLobbyVo.lobbyVo.maxPlayerCount);
     }
   }
 }

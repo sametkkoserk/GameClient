@@ -4,6 +4,6 @@ namespace Runtime.Contexts.Main.Model.PlayerModel
 {
     public class PlayerModel : IPlayerModel
     {
-        public PlayerRegisterInfoVo playerRegisterInfoVo { get; set; }
+        public PlayerVo player { get; set; }
     }
 }

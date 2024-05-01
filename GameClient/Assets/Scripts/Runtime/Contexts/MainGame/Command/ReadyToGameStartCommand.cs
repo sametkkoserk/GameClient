@@ -37,7 +37,7 @@ namespace Runtime.Contexts.MainGame.Command
       
       networkManager.Client.Send(message);
       
-      discordModel.InGame(playerModel.playerRegisterInfoVo.username);
+      discordModel.InGame(playerModel.player.username);
     }
   }
 }

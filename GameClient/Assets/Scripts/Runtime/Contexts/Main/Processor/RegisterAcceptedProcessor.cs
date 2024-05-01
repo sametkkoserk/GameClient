@@ -34,12 +34,6 @@ namespace Runtime.Contexts.Main.Processor
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       PlayerRegisterInfoVo playerRegisterInfoVo = networkManager.GetData<PlayerRegisterInfoVo>(vo.message);
 
-      playerModel.playerRegisterInfoVo = playerRegisterInfoVo;
-      
-      screenManagerModel.CloseAllPanels();
-      crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
-
-      discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
     }
   }
 }

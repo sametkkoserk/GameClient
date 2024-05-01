@@ -33,7 +33,7 @@ namespace Runtime.Contexts.Lobby.Processor
       lobbyModel.SetLobbyVo(joinedToLobbyVo.lobbyVo);
       dispatcher.Dispatch(LobbyEvent.NewPlayerToLobby);
       
-      discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
+      discordModel.InLobby(playerModel.player.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
 
       DebugX.Log(DebugKey.Response,"New Player message Received");
     }

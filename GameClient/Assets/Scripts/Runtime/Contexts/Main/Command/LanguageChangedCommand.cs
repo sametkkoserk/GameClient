@@ -25,13 +25,13 @@ namespace Runtime.Contexts.Main.Command
           discordModel.StarterSettings();
           break;
         case 1:
-          discordModel.OnMenu(playerModel.playerRegisterInfoVo.username);
+          discordModel.OnMenu(playerModel.player.username);
           break;
         case 2:
-          discordModel.InLobby(playerModel.playerRegisterInfoVo.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
+          discordModel.InLobby(playerModel.player.username, lobbyModel.lobbyVo.playerCount, lobbyModel.lobbyVo.maxPlayerCount);
           break;
         case 3:
-          discordModel.InGame(playerModel.playerRegisterInfoVo.username);
+          discordModel.InGame(playerModel.player.username);
           break;
       }
     }

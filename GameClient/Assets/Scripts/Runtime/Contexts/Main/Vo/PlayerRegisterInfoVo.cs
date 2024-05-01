@@ -10,5 +10,11 @@ namespace Runtime.Contexts.Main.Vo
     
     [ProtoMember(2)]
     public string username;
+    
+    [ProtoMember(3)]
+    public string email;
+    
+    [ProtoMember(4)]
+    public string password;
   }
 }
