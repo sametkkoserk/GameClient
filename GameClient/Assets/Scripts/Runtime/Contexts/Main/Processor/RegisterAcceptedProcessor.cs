@@ -33,10 +33,11 @@ namespace Runtime.Contexts.Main.Processor
     {
       MessageReceivedVo vo = (MessageReceivedVo)evt.data;
       PlayerRegisterInfoVo playerRegisterInfoVo = networkManager.GetData<PlayerRegisterInfoVo>(vo.message);
-      PlayerVo player=new PlayerVo(){
-      username="şafak",
-      email="şafak@gmail.com"
-      }
+      PlayerVo player = new()
+      {
+        username = "şafak",
+        email = "şafak@gmail.com"
+      };
       playerModel.player = player;
       screenManagerModel.CloseAllPanels();
       crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);

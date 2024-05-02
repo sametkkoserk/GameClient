@@ -1,7 +1,7 @@
-using System;
 using UnityEngine;
+using UnityStandardAssets.Vehicles.Car;
 
-namespace UnityStandardAssets.Vehicles.Car
+namespace Runtime.Contexts.MiniGames.MiniGames.Race.Racing_Starter_Kit.Assets.MainAssets.Vehicles.Car.Scripts
 {
     internal enum CarDriveType
     {

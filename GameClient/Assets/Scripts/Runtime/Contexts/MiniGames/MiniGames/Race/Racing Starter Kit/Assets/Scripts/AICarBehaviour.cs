@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Runtime.Contexts.MiniGames.MiniGames.Race.Racing_Starter_Kit.Assets.MainAssets.Vehicles.Car.Scripts;
 using UnityStandardAssets.Vehicles.Car;
 //This script detects the AI car speed to see if the car it’s stuck so it will start going reverse for 1 second to get back on track
 //Also, it uses a Box collider with IsTrigger option checked to see if an AI Car or the player car are in front of this car and it will brake

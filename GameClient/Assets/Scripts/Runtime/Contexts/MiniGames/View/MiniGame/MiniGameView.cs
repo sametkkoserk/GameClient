@@ -5,9 +5,7 @@ using Runtime.Contexts.MiniGames.Vo;
 using StrangeIoC.scripts.strange.extensions.injector;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using UnityEngine.InputSystem;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 namespace Runtime.Contexts.MiniGames.View.MiniGame
 {

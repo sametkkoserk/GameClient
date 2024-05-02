@@ -20,7 +20,7 @@ namespace Runtime.Contexts.Main.View.RegisterPanel
 
     public void OnRegister()
     {
-      if (!RegisterControl())return;
+      // if (!RegisterControl())return;
 
       PlayerRegisterInfoVo registerVo = new PlayerRegisterInfoVo()
       {
