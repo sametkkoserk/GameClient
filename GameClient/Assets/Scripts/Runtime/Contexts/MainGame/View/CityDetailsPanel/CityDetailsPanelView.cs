@@ -26,6 +26,9 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     [HideInInspector]
     public bool closing;
 
+    [HideInInspector]
+    public int cityId;
+
     public void OnDoOperation()
     {
       dispatcher.Dispatch(CityDetailsPanelEvent.OnDoOperation);

@@ -38,7 +38,6 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       
       dispatcher.AddListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
       dispatcher.AddListener(MainGameEvent.GameStateChanged, OnGameStateChanged);
-      dispatcher.AddListener(MainGameEvent.ShowPassPartInBottomPanel, OnOpenPassPart);
       dispatcher.AddListener(MainGameEvent.ShowSelectorPartInBottomPanel, OnOpenSoldierCountSelector);
       dispatcher.AddListener(MainGameEvent.DisappearBottomPanel, OnDisappearBottomPanel);
       dispatcher.AddListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCountForAttackResult);
@@ -68,14 +67,17 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
 
     private void OnGameStateChanged()
     {
-      view.passButton.interactable = true;
       view.stateText.text = mainGameModel.gameStateKey.ToString();
-
-      OnOpenPassPart();
+      
+      view.passButton.interactable = mainGameModel.queueID == lobbyModel.clientVo.id;
     }
 
     private void OnPass()
     {
+      if (mainGameModel.gameStateKey == GameStateKey.Fortify)
+      {
+        OnDisappearBottomPanel();
+      }
       view.passButton.interactable = false;
       
       dispatcher.Dispatch(MainGameEvent.Pass);
@@ -86,11 +88,14 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.soldierSelector.SetActive(false);
       view.passButtonPart.SetActive(true);
 
+      view.stateText.text = mainGameModel.gameStateKey.ToString();
       view.passButton.interactable = mainGameModel.queueID == lobbyModel.clientVo.id;
     }
 
     private void OnOpenSoldierCountSelector()
     {
+      if (mainGameModel.queueID != lobbyModel.clientVo.id) return;
+      
       switch (mainGameModel.gameStateKey)
       {
         case GameStateKey.Arming:
@@ -144,7 +149,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       
       OnOpenSoldierCountSelector();
 
-      view.soldierCountInPanel = 0;
+      view.soldierCountInPanel = 1;
       view.soldierCountText.text = view.soldierCountInPanel.ToString();
     }
 
@@ -165,6 +170,7 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       
         dispatcher.Dispatch(MainGameEvent.ConfirmFortify, fortifyVo);
       }
+      
       OnOpenPassPart();
     }
     
@@ -226,7 +232,6 @@ namespace Runtime.Contexts.MainGame.View.MiniBottomPanel
       view.dispatcher.RemoveListener(MiniBottomPanelEvent.CloseSoldierSelectorPanel, OnCloseSoldierSelectorPanel);
 
       dispatcher.RemoveListener(MainGameEvent.NextTurnMainHud, OnNextTurn);
-      dispatcher.RemoveListener(MainGameEvent.ShowPassPartInBottomPanel, OnOpenPassPart);
       dispatcher.RemoveListener(MainGameEvent.ShowSelectorPartInBottomPanel, OnOpenSoldierCountSelector);
       dispatcher.RemoveListener(MainGameEvent.DisappearBottomPanel, OnDisappearBottomPanel);
       dispatcher.RemoveListener(MainGameEvent.SetTransferSoldierAfterAttack, OnSelectSoldierTransferCountForAttackResult);

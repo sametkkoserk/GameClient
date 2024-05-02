@@ -50,7 +50,6 @@ namespace Runtime.Contexts.MainGame.View.MainGameNotificationPanel
         await WaitAsyncOperations(mainHudTurnVo.time);
 
         dispatcher.Dispatch(MainGameEvent.NextTurnMainHud, view.notificationPanelVo);
-        dispatcher.Dispatch(MainGameEvent.ShowPassPartInBottomPanel);
 
         return;
       }
@@ -58,8 +57,6 @@ namespace Runtime.Contexts.MainGame.View.MainGameNotificationPanel
       dispatcher.Dispatch(MainGameEvent.StopTimer);
       view.notificationPanelVo = mainHudTurnVo;
       OnFillPanelContents();
-      await WaitAsyncOperations(mainHudTurnVo.time);
-      dispatcher.Dispatch(MainGameEvent.ShowPassPartInBottomPanel);
     }
 
     public void OnFillPanelContents()

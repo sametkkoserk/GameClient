@@ -89,15 +89,9 @@ namespace Runtime.Contexts.MainGame.View.City
 
       if (view.GetCityMode() == CityView.CityMode.None)
       {
-        view.SetCityMode(CityView.CityMode.Selected);
         mainGameModel.selectedCityId = view.cityVo.ID;
         
         screenManagerModel.OpenPanel(MainGameKeys.CityDetailsPanel, SceneKey.MainGame, LayerKey.ThirdLayer, PanelMode.Destroy, PanelType.LeftPanel);
-      }
-      else if (view.GetCityMode() == CityView.CityMode.Selected && view.cityVo.ID == mainGameModel.selectedCityId)
-      {
-        view.SetCityMode(CityView.CityMode.None);
-        mainGameModel.selectedCityId = -1;
       }
       else if (view.GetCityMode() == CityView.CityMode.Source)
       {
@@ -114,7 +108,6 @@ namespace Runtime.Contexts.MainGame.View.City
           };
         
           dispatcher.Dispatch(MainGameEvent.ConfirmAttack, attackVo);
-          dispatcher.Dispatch(MainGameEvent.ResetCityMode);
         }
         else if (mainGameModel.gameStateKey == GameStateKey.Fortify)
         {
@@ -124,7 +117,6 @@ namespace Runtime.Contexts.MainGame.View.City
             targetCityId = view.cityVo.ID
           };
           dispatcher.Dispatch(MainGameEvent.SetTransferSoldierForFortify, fortifyVo);
-          dispatcher.Dispatch(MainGameEvent.ResetCityMode);
         }
       }
     }
@@ -155,10 +147,10 @@ namespace Runtime.Contexts.MainGame.View.City
 
     private void CityDetailsClosed()
     {
-      if (mainGameModel.selectedCityId == view.cityVo.ID && view.GetCityMode() == CityView.CityMode.Selected)
-      {
-        view.SetCityMode(CityView.CityMode.None);
-      }
+      // if (mainGameModel.selectedCityId == view.cityVo.ID)
+      // {
+      //   view.SetCityMode(CityView.CityMode.None);
+      // }
     }
 
     public void OnClaimedCity(IEvent payload)
@@ -183,6 +175,7 @@ namespace Runtime.Contexts.MainGame.View.City
     
       if (cityVo.ID == view.cityVo.ID)
       {
+        mainGameModel.selectedCityId = view.cityVo.ID;
         SourceTargetShortCut(CityView.CityMode.Source, true);
         return;
       }
@@ -235,6 +228,7 @@ namespace Runtime.Contexts.MainGame.View.City
     
       if (neighbors.Key == view.cityVo.ID)
       {
+        mainGameModel.selectedCityId = view.cityVo.ID;
         SourceTargetShortCut(CityView.CityMode.Source, true);
         return;
       }
@@ -273,6 +267,8 @@ namespace Runtime.Contexts.MainGame.View.City
         
         view.cityVo = mainGameModel.cities[targetCity.ID];
       }
+      
+      dispatcher.Dispatch(MainGameEvent.ResetCityMode);
     }
 
     private void SourceTargetShortCut(CityView.CityMode cityMode, bool isClickable, float highlightValue = highlightHeightValue)
@@ -298,6 +294,8 @@ namespace Runtime.Contexts.MainGame.View.City
     
     private void OnResetCityMode()
     {
+      mainGameModel.selectedCityId = -1;
+
       SourceTargetShortCut(CityView.CityMode.None, true, 0);
     }
 

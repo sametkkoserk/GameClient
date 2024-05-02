@@ -27,7 +27,6 @@ namespace Runtime.Contexts.MainGame.Command
         lobbyCode = lobbyModel.lobbyVo.lobbyCode
       };
       
-      // TODO: Safak bunlari tek satirda yapmayi dene.
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.Fortify);
       message = networkManager.SetData(message, vo);
       

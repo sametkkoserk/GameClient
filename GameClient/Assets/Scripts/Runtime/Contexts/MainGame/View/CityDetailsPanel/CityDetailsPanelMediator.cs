@@ -49,6 +49,7 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     private void Init()
     {
       view.operationButton.gameObject.SetActive(true);
+      view.cityId = mainGameModel.selectedCityId;
 
       UpdatePanel();
     }
@@ -88,7 +89,7 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
 
     public void UpdatePanel()
     {
-      CityVo cityVo = mainGameModel.cities[mainGameModel.selectedCityId];
+      CityVo cityVo = mainGameModel.cities[view.cityId];
 
       if (view == null)
         return;

@@ -33,8 +33,6 @@ namespace Runtime.Contexts.MainGame.View.MiniGameStatsPanel
     {
       yield return new WaitForSeconds(PanelClosingTimes.miniGameResults);
       
-      dispatcher.Dispatch(MainGameEvent.ShowPassPartInBottomPanel);
-
       screenManagerModel.CloseSpecificPanel(MainGameKeys.MiniGameResultPanel);
     }
     public void SetItems()

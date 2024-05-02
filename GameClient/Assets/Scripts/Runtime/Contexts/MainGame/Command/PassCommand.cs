@@ -17,14 +17,8 @@ namespace Runtime.Contexts.MainGame.Command
     public ILobbyModel lobbyModel { get; set; }
     public override void Execute()
     {
-      SendPacketWithLobbyCode<int> vo = new()
-      {
-        mainClass = 1,
-        lobbyCode = lobbyModel.lobbyVo.lobbyCode
-      };
-      
       Message message = Message.Create(MessageSendMode.Reliable, (ushort)ClientToServerId.Pass);
-      message = networkManager.SetData(message, vo);
+      message = networkManager.SetData(message, lobbyModel.lobbyVo.lobbyCode);
       
       networkManager.Client.Send(message);
     }

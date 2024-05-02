@@ -27,7 +27,6 @@ namespace Runtime.Contexts.MainGame.View.City
     {
       None,
       Highlighted,
-      Selected,
       Source,
       Target,
     }
