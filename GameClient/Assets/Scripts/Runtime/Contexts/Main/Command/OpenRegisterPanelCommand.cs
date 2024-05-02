@@ -45,11 +45,11 @@ namespace Runtime.Contexts.Main.Command
             };
             dispatcher.Dispatch(MainEvent.RegisterInfoSend, registerVo);
 
-            playerModel.player = res.Result;
-            screenManagerModel.CloseAllPanels();
-            crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
-
-            discordModel.OnMenu(playerModel.player.username);
+            // playerModel.player = res.Result;
+            // screenManagerModel.CloseAllPanels();
+            // crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
+            //
+            // discordModel.OnMenu(playerModel.player.username);
           }
         });
       }

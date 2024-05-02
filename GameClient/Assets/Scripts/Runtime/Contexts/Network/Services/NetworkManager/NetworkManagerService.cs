@@ -78,6 +78,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
     public void MessageHandler(object sender, MessageReceivedEventArgs messageArgs)
     {
+      DebugX.Log(DebugKey.Server,((ServerToClientId)messageArgs.MessageId).ToString());
       MessageReceivedVo vo = new()
       {
         message = messageArgs.Message.GetBytes()
