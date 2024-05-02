@@ -156,6 +156,8 @@ namespace Runtime.Contexts.MainGame.View.CityDetailsPanel
     private void OnClaimCity()
     {
       if (!IsTurnMine()) return;
+
+      view.operationButton.interactable = false;
       
       PlayerFeaturesVo playerFeaturesVo = mainGameModel.playerFeaturesVo;
       if (playerFeaturesVo.freeSoldierCount <= 0) return;
