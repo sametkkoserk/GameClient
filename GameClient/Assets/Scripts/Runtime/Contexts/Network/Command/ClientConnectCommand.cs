@@ -11,7 +11,7 @@ namespace Runtime.Contexts.Network.Command
 
     public override void Execute()
     {
-      networkManager.Connect("127.0.0.1", 8083);
+      networkManager.Connect("178.128.246.17", 8083);
     }
   }
 }
