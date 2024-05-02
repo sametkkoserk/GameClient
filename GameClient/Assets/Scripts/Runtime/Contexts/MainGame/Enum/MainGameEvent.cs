@@ -44,5 +44,7 @@ namespace Runtime.Contexts.MainGame.Enum
     
     ToTheMiniGame,
     OpenMiniGameResultPanel,
+    
+    CloseSceneRoot
   }
 }
