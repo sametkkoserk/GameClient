@@ -19,6 +19,7 @@ namespace Runtime.Contexts.Main.View.RegisterPanel
   public enum RegisterPanelEvent
   {
     Register,
+    Login
   }
   public class RegisterPanelMediator : EventMediator
   {
@@ -39,6 +40,7 @@ namespace Runtime.Contexts.Main.View.RegisterPanel
     public override void OnRegister()
     {
       view.dispatcher.AddListener(RegisterPanelEvent.Register, OnRegisterToGame);
+      view.dispatcher.AddListener(RegisterPanelEvent.Login, OnLogin);
     }
     private void OnRegisterToGame(IEvent payload)
     {
@@ -61,10 +63,34 @@ namespace Runtime.Contexts.Main.View.RegisterPanel
       });
       dispatcher.Dispatch(MainEvent.RegisterInfoSend, registerInfoVo);
     }
+    private void OnLogin()
+    {
+      var map = new Dictionary<string, object>() { { "username",  PlayerPrefs.GetString("username") },{ "password",  PlayerPrefs.GetString("password") } };
 
+      ApiManagerService.instance.Request<PlayerVo>("/auth/login",RequestType.POST,map, res =>
+      {
+        if (res.Error==null)
+        {
+          PlayerRegisterInfoVo registerVo = new PlayerRegisterInfoVo()
+          {
+            username = res.Result.username,
+            email = res.Result.email,
+          };
+          dispatcher.Dispatch(MainEvent.RegisterInfoSend, registerVo);
+
+          playerModel.player = res.Result;
+          screenManagerModel.CloseAllPanels();
+          crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
+            
+          discordModel.OnMenu(playerModel.player.username);
+        }
+      });
+    }
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(RegisterPanelEvent.Register, OnRegisterToGame);
+      view.dispatcher.RemoveListener(RegisterPanelEvent.Login, OnLogin);
+
     }
   }
 }

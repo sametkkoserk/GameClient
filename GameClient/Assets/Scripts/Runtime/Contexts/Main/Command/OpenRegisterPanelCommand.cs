@@ -29,34 +29,7 @@ namespace Runtime.Contexts.Main.Command
 
     public override void Execute()
     {
-      if (PlayerPrefs.HasKey("username")&&PlayerPrefs.HasKey("password"))
-      {
-
-        var map = new Dictionary<string, object>() { { "username",  PlayerPrefs.GetString("username") },{ "password",  PlayerPrefs.GetString("password") } };
-        
-        ApiManagerService.instance.Request<PlayerVo>("/auth/login",RequestType.POST,map, res =>
-        {
-          if (res.Error==null)
-          {
-            PlayerRegisterInfoVo registerVo = new PlayerRegisterInfoVo()
-            {
-              username = res.Result.username,
-              email = res.Result.email,
-            };
-            dispatcher.Dispatch(MainEvent.RegisterInfoSend, registerVo);
-
-            // playerModel.player = res.Result;
-            // screenManagerModel.CloseAllPanels();
-            // crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
-            //
-            // discordModel.OnMenu(playerModel.player.username);
-          }
-        });
-      }
-      else
-      {
         screenManagerModel.OpenPanel(MainPanelKey.RegisterPanel, SceneKey.Main, LayerKey.FirstLayer, PanelMode.Destroy, PanelType.FullScreenPanel);
-      }
     }
   }
 }
