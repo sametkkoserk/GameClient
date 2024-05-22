@@ -25,7 +25,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
 
 
-        private string ROOT ="https://localhost:7037/api";
+        private string ROOT ="http://178.128.246.17/api";
 
         //Gorseller tekrar tekrar indirilmemesi icin cache'de tutuluyor
         public Dictionary<string, SpriteCache> Sprites = new Dictionary<string, SpriteCache>();
@@ -237,7 +237,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
 
             if (www.result is UnityWebRequest.Result.ProtocolError or UnityWebRequest.Result.ConnectionError)
             {
-                Debug.LogError("Failed To Request:" + path + " parameters: " + QueryString(parameters) + " result: " + www.downloadHandler.text + " code: " + www.responseCode);
+                Debug.LogError("Failed To Request:" +ROOT+ path + " parameters: " + QueryString(parameters) + " result: " + www.downloadHandler.text + " code: " + www.responseCode);
                 callback(new HttpResponse<T>
                 {
                     Error = new HttpError() { code = 500 }
