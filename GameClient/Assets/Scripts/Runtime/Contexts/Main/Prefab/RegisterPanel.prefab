@@ -4262,7 +4262,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5167216048665032035, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
       propertyPath: m_text
-      value: "Kay\u0131t Ol"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 6219223970102407773, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
       propertyPath: m_Name
@@ -4366,6 +4366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7932287831986337133, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
+    - {fileID: 4650701622470663614, guid: 5a6aa5d1e71dbac4a860309b1d20dcc4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -4395,7 +4396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2404a37f3bd75444aa4ad05d0f228347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LocalizationKey: RegisterPanelRegisterButton
+  LocalizationKey: RegisterPanelLoginButton
 --- !u!1001 &8632848951875438777
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
 using System.Text.RegularExpressions;
+using Assets.SimpleLocalization.Scripts;
 using Runtime.Contexts.Main.Vo;
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
 using TMPro;
@@ -60,13 +61,13 @@ namespace Runtime.Contexts.Main.View.RegisterPanel
     {
       if (!IsEmail(emailInputField.text))
       {
-        errorText.text = "Email yanlış girilmiştir!";
+        errorText.text = LocalizationManager.Localize("RegisterPanelWrongEmail");
         return false;
       }
 
       if (passwordInputField.text.Length<6)
       {
-        errorText.text = "şifre 6 haneden kısa olamaz";
+        errorText.text = LocalizationManager.Localize("RegisterPanelWrongPassword");
         return false;
       }
 

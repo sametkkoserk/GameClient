@@ -1,3 +1,7 @@
 Key,tr,en
 RegisterPanelUsername,Kullanıcı Adı:,Username:
 RegisterPanelRegisterButton,Kayıt Ol,Register
+RegisterPanelLoginButton,Giriş Yap,Login
+RegisterPanelWrongPassword,Şifre 6 haneden kısa olamaz!,Password cannot be shorter than 6 digits!
+RegisterPanelWrongEmail,Email yanlış girilmiştir!,Email entered incorrectly!
+RegisterPanelWrongLogin,Kullanıcı adı veya parola hatalı!,Username or password is incorrect!

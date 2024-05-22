@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.SimpleLocalization.Scripts;
 using Runtime.Contexts.Lobby.Enum;
 using Runtime.Contexts.Main.Enum;
 using Runtime.Contexts.Main.Model.PlayerModel;
@@ -83,6 +84,10 @@ namespace Runtime.Contexts.Main.View.RegisterPanel
           crossDispatcher.Dispatch(LobbyEvent.LoginOrRegisterCompletedSuccessfully);
             
           discordModel.OnMenu(playerModel.player.username);
+        }
+        else
+        {
+          view.errorLoginText.text=LocalizationManager.Localize("RegisterPanelWrongLogin");
         }
       });
     }
