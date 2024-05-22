@@ -22,9 +22,7 @@ namespace Runtime.Contexts.Network.Services.NetworkManager
     {
         public static ApiManagerService instance;
         private const int SPRITE_CLEAR_TIME = 10;
-
-
-
+        
         private string ROOT ="http://178.128.246.17/api";
 
         //Gorseller tekrar tekrar indirilmemesi icin cache'de tutuluyor

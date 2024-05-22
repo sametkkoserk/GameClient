@@ -10,11 +10,6 @@ namespace Runtime.Contexts.Main.Command
   {
     public override void Execute()
     {
-#if UNITY_EDITOR
-        Debug.logger.logEnabled = true;
-#else
-        Debug.logger.logEnabled = false;
-#endif
       Application.targetFrameRate = 30;
       Addressables.LoadSceneAsync(SceneKeys.NetworkScene, LoadSceneMode.Additive);
     }
