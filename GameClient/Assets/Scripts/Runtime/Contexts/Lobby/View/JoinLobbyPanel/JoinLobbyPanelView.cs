@@ -10,7 +10,7 @@ namespace Runtime.Contexts.Lobby.View.JoinLobbyPanel
   {
     public GameObject lobbyListLoadingIcon;
 
-    public List<LobbyVo> lobbies; 
+    public List<LobbyVo> lobbies=new List<LobbyVo>(); 
     public EnhancedScroller scroller;
     public EnhancedScrollerCellView cellViewPrefab;
     public float cellSize ;
