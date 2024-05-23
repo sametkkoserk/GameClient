@@ -60,7 +60,7 @@ namespace Runtime.Modules.Core.Settings.View.Settings
     public override void OnRemove()
     {
       view.dispatcher.RemoveListener(SettingsPanelEvent.ClosePanel, OnClosePanel);
-      view.dispatcher.AddListener(SettingsPanelEvent.Logout, OnLogout);
+      view.dispatcher.RemoveListener(SettingsPanelEvent.Logout, OnLogout);
 
     }
   }

@@ -1,5 +1,4 @@
 using StrangeIoC.scripts.strange.extensions.mediation.impl;
-using UnityEditor.Search;
 
 namespace Runtime.Modules.Core.Settings.View.Settings
 {
